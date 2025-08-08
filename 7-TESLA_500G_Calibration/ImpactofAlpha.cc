@@ -75,7 +75,7 @@ vector<double> C_THR = {
 double THR_Order(double *x, double *par, const vector<double>& A, const vector<double>& B, const vector<double>& C, int order) {
     
 	double tau = x[0];
-    double alphaS = par[1];
+    double alphaS = par[0];
     double asbar = alphaS / (2 * TMath::Pi());
 
     for (size_t i = 0; i < bins.size(); ++i) {
@@ -94,17 +94,17 @@ double THR_Order(double *x, double *par, const vector<double>& A, const vector<d
 
 // Wrapper LO
 double THR_LOOO(double *x, double *par) {
-    return par[0] * THR_Order(x, par, A_THR, B_THR, C_THR, 1);
+    return THR_Order(x, par, A_THR, B_THR, C_THR, 1);
 }
 
 // Wrapper NLO
 double THR_NLOO(double *x, double *par) {
-    return par[0] * THR_Order(x, par, A_THR, B_THR, C_THR, 2);
+    return THR_Order(x, par, A_THR, B_THR, C_THR, 2);
 }
 
 // Wrapper NNLO
 double THR_NNLO(double *x, double *par) {
-    return par[0] * THR_Order(x, par, A_THR, B_THR, C_THR, 3);
+    return THR_Order(x, par, A_THR, B_THR, C_THR, 3);
 }
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -142,7 +142,7 @@ vector<double> C_CPR = {
 double CPR_Order(double *x, double *par, const vector<double>& A, const vector<double>& B, const vector<double>& C, int order) {
     
 	double tau = x[0]; 
-	double alphaS = par[1]; 
+	double alphaS = par[0]; 
 	double asbar = alphaS / (2 * TMath::Pi());
 
     for (size_t i = 0; i < bins.size(); ++i) {
@@ -161,17 +161,17 @@ double CPR_Order(double *x, double *par, const vector<double>& A, const vector<d
 
 // Wrapper LO
 double CPR_LOOO(double *x, double *par) {
-    return par[0] * CPR_Order(x, par, A_CPR, B_CPR, C_CPR, 1);
+    return CPR_Order(x, par, A_CPR, B_CPR, C_CPR, 1);
 }
 
 // Wrapper NLO
 double CPR_NLOO(double *x, double *par) {
-    return par[0] * CPR_Order(x, par, A_CPR, B_CPR, C_CPR, 2);
+    return CPR_Order(x, par, A_CPR, B_CPR, C_CPR, 2);
 }
 
 // Wrapper NNLO
 double CPR_NNLO(double *x, double *par) {
-    return par[0] * CPR_Order(x, par, A_CPR, B_CPR, C_CPR, 3);
+    return CPR_Order(x, par, A_CPR, B_CPR, C_CPR, 3);
 }
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -336,121 +336,121 @@ void ImpactofAlpha()
 
 	float AlpFit_min = 0.09, AlpFit_max = 0.25, CprFit_min = 0.36, CprFit_max = 0.47;
 
-	TF1 *hist_fitThLO_912 = new TF1("hist_fitThLO_912", THR_LOOO, AlpFit_min, AlpFit_max, 2);
+	TF1 *hist_fitThLO_912 = new TF1("hist_fitThLO_912", THR_LOOO, AlpFit_min, AlpFit_max, 1);
 	hist_fitThLO_912->SetLineColor(kGreen+1); hist_fitThLO_912->SetMarkerColor(kGreen+1); hist_fitThLO_912->SetMarkerStyle(53); hist_fitThLO_912->SetLineWidth(2); hist_fitThLO_912->SetMarkerSize(1);	
-	TF1 *hist_fitThNL_912 = new TF1("hist_fitThNL_912", THR_NLOO, AlpFit_min, AlpFit_max, 2);
+	TF1 *hist_fitThNL_912 = new TF1("hist_fitThNL_912", THR_NLOO, AlpFit_min, AlpFit_max, 1);
 	hist_fitThNL_912->SetLineColor(kRed+1); hist_fitThNL_912->SetMarkerColor(kRed+1); hist_fitThNL_912->SetMarkerStyle(53); hist_fitThNL_912->SetLineWidth(2); hist_fitThNL_912->SetMarkerSize(1);
-	TF1 *hist_fitThNN_912 = new TF1("hist_fitThNN_912", THR_NNLO, AlpFit_min, AlpFit_max, 2);
+	TF1 *hist_fitThNN_912 = new TF1("hist_fitThNN_912", THR_NNLO, AlpFit_min, AlpFit_max, 1);
 	hist_fitThNN_912->SetLineColor(kBlue+1); hist_fitThNN_912->SetMarkerColor(kBlue+1); hist_fitThNN_912->SetMarkerStyle(53); hist_fitThNN_912->SetLineWidth(2); hist_fitThNN_912->SetMarkerSize(1);
-	TF1 *hist_fitThLO_160 = new TF1("hist_fitThLO_160", THR_LOOO, AlpFit_min, AlpFit_max, 2);
+	TF1 *hist_fitThLO_160 = new TF1("hist_fitThLO_160", THR_LOOO, AlpFit_min, AlpFit_max, 1);
 	hist_fitThLO_160->SetLineColor(kGreen+1); hist_fitThLO_160->SetMarkerColor(kGreen+1); hist_fitThLO_160->SetMarkerStyle(53); hist_fitThLO_160->SetLineWidth(2); hist_fitThLO_160->SetMarkerSize(1);
-	TF1 *hist_fitThNL_160 = new TF1("hist_fitThNL_160", THR_NLOO, AlpFit_min, AlpFit_max, 2);
+	TF1 *hist_fitThNL_160 = new TF1("hist_fitThNL_160", THR_NLOO, AlpFit_min, AlpFit_max, 1);
 	hist_fitThNL_160->SetLineColor(kRed+1); hist_fitThNL_160->SetMarkerColor(kRed+1); hist_fitThNL_160->SetMarkerStyle(53); hist_fitThNL_160->SetLineWidth(2); hist_fitThNL_160->SetMarkerSize(1);
-	TF1 *hist_fitThNN_160 = new TF1("hist_fitThNN_160", THR_NNLO, AlpFit_min, AlpFit_max, 2);
+	TF1 *hist_fitThNN_160 = new TF1("hist_fitThNN_160", THR_NNLO, AlpFit_min, AlpFit_max, 1);
 	hist_fitThNN_160->SetLineColor(kBlue+1); hist_fitThNN_160->SetMarkerColor(kBlue+1); hist_fitThNN_160->SetMarkerStyle(53); hist_fitThNN_160->SetLineWidth(2); hist_fitThNN_160->SetMarkerSize(1);
-	TF1 *hist_fitThLO_240 = new TF1("hist_fitThLO_240", THR_LOOO, AlpFit_min, AlpFit_max, 2);
+	TF1 *hist_fitThLO_240 = new TF1("hist_fitThLO_240", THR_LOOO, AlpFit_min, AlpFit_max, 1);
 	hist_fitThLO_240->SetLineColor(kGreen+1); hist_fitThLO_240->SetMarkerColor(kGreen+1); hist_fitThLO_240->SetMarkerStyle(53); hist_fitThLO_240->SetLineWidth(2); hist_fitThLO_240->SetMarkerSize(1);
-	TF1 *hist_fitThNL_240 = new TF1("hist_fitThNL_240", THR_NLOO, AlpFit_min, AlpFit_max, 2);
+	TF1 *hist_fitThNL_240 = new TF1("hist_fitThNL_240", THR_NLOO, AlpFit_min, AlpFit_max, 1);
 	hist_fitThNL_240->SetLineColor(kRed+1); hist_fitThNL_240->SetMarkerColor(kRed+1); hist_fitThNL_240->SetMarkerStyle(53); hist_fitThNL_240->SetLineWidth(2); hist_fitThNL_240->SetMarkerSize(1);
-	TF1 *hist_fitThNN_240 = new TF1("hist_fitThNN_240", THR_NNLO, AlpFit_min, AlpFit_max, 2);
+	TF1 *hist_fitThNN_240 = new TF1("hist_fitThNN_240", THR_NNLO, AlpFit_min, AlpFit_max, 1);
 	hist_fitThNN_240->SetLineColor(kBlue+1); hist_fitThNN_240->SetMarkerColor(kBlue+1); hist_fitThNN_240->SetMarkerStyle(53); hist_fitThNN_240->SetLineWidth(2); hist_fitThNN_240->SetMarkerSize(1);
-	TF1 *hist_fitThLO_365 = new TF1("hist_fitThLO_365", THR_LOOO, AlpFit_min, AlpFit_max, 2);
+	TF1 *hist_fitThLO_365 = new TF1("hist_fitThLO_365", THR_LOOO, AlpFit_min, AlpFit_max, 1);
 	hist_fitThLO_365->SetLineColor(kGreen+1); hist_fitThLO_365->SetMarkerColor(kGreen+1); hist_fitThLO_365->SetMarkerStyle(53); hist_fitThLO_365->SetLineWidth(2); hist_fitThLO_365->SetMarkerSize(1);
-	TF1 *hist_fitThNL_365 = new TF1("hist_fitThNL_365", THR_NLOO, AlpFit_min, AlpFit_max, 2);
+	TF1 *hist_fitThNL_365 = new TF1("hist_fitThNL_365", THR_NLOO, AlpFit_min, AlpFit_max, 1);
 	hist_fitThNL_365->SetLineColor(kRed+1); hist_fitThNL_365->SetMarkerColor(kRed+1); hist_fitThNL_365->SetMarkerStyle(53); hist_fitThNL_365->SetLineWidth(2); hist_fitThNL_365->SetMarkerSize(1);
-	TF1 *hist_fitThNN_365 = new TF1("hist_fitThNN_365", THR_NNLO, AlpFit_min, AlpFit_max, 2);
+	TF1 *hist_fitThNN_365 = new TF1("hist_fitThNN_365", THR_NNLO, AlpFit_min, AlpFit_max, 1);
 	hist_fitThNN_365->SetLineColor(kBlue+1); hist_fitThNN_365->SetMarkerColor(kBlue+1); hist_fitThNN_365->SetMarkerStyle(53); hist_fitThNN_365->SetLineWidth(2); hist_fitThNN_365->SetMarkerSize(1);
 
-	TF1 *hist_fitCpLO_912 = new TF1("hist_fitCpLO_912", CPR_LOOO, CprFit_min, CprFit_max, 2);
+	TF1 *hist_fitCpLO_912 = new TF1("hist_fitCpLO_912", CPR_LOOO, CprFit_min, CprFit_max, 1);
 	hist_fitCpLO_912->SetLineColor(kGreen+1); hist_fitCpLO_912->SetMarkerColor(kGreen+1); hist_fitCpLO_912->SetMarkerStyle(53); hist_fitCpLO_912->SetLineWidth(2); hist_fitCpLO_912->SetMarkerSize(1);	
-	TF1 *hist_fitCpNL_912 = new TF1("hist_fitCpNL_912", CPR_NLOO, CprFit_min, CprFit_max, 2);
+	TF1 *hist_fitCpNL_912 = new TF1("hist_fitCpNL_912", CPR_NLOO, CprFit_min, CprFit_max, 1);
 	hist_fitCpNL_912->SetLineColor(kRed+1); hist_fitCpNL_912->SetMarkerColor(kRed+1); hist_fitCpNL_912->SetMarkerStyle(53); hist_fitCpNL_912->SetLineWidth(2); hist_fitCpNL_912->SetMarkerSize(1);
-	TF1 *hist_fitCpNN_912 = new TF1("hist_fitCpNN_912", CPR_NNLO, CprFit_min, CprFit_max, 2);
+	TF1 *hist_fitCpNN_912 = new TF1("hist_fitCpNN_912", CPR_NNLO, CprFit_min, CprFit_max, 1);
 	hist_fitCpNN_912->SetLineColor(kBlue+1); hist_fitCpNN_912->SetMarkerColor(kBlue+1); hist_fitCpNN_912->SetMarkerStyle(53); hist_fitCpNN_912->SetLineWidth(2); hist_fitCpNN_912->SetMarkerSize(1);
-	TF1 *hist_fitCpLO_160 = new TF1("hist_fitCpLO_160", CPR_LOOO, CprFit_min, CprFit_max, 2);
+	TF1 *hist_fitCpLO_160 = new TF1("hist_fitCpLO_160", CPR_LOOO, CprFit_min, CprFit_max, 1);
 	hist_fitCpLO_160->SetLineColor(kGreen+1); hist_fitCpLO_160->SetMarkerColor(kGreen+1); hist_fitCpLO_160->SetMarkerStyle(53); hist_fitCpLO_160->SetLineWidth(2); hist_fitCpLO_160->SetMarkerSize(1);
-	TF1 *hist_fitCpNL_160 = new TF1("hist_fitCpNL_160", CPR_NLOO, CprFit_min, CprFit_max, 2);
+	TF1 *hist_fitCpNL_160 = new TF1("hist_fitCpNL_160", CPR_NLOO, CprFit_min, CprFit_max, 1);
 	hist_fitCpNL_160->SetLineColor(kRed+1); hist_fitCpNL_160->SetMarkerColor(kRed+1); hist_fitCpNL_160->SetMarkerStyle(53); hist_fitCpNL_160->SetLineWidth(2); hist_fitCpNL_160->SetMarkerSize(1);
-	TF1 *hist_fitCpNN_160 = new TF1("hist_fitCpNN_160", CPR_NNLO, CprFit_min, CprFit_max, 2);
+	TF1 *hist_fitCpNN_160 = new TF1("hist_fitCpNN_160", CPR_NNLO, CprFit_min, CprFit_max, 1);
 	hist_fitCpNN_160->SetLineColor(kBlue+1); hist_fitCpNN_160->SetMarkerColor(kBlue+1); hist_fitCpNN_160->SetMarkerStyle(53); hist_fitCpNN_160->SetLineWidth(2); hist_fitCpNN_160->SetMarkerSize(1);
-	TF1 *hist_fitCpLO_240 = new TF1("hist_fitCpLO_240", CPR_LOOO, CprFit_min, CprFit_max, 2);
+	TF1 *hist_fitCpLO_240 = new TF1("hist_fitCpLO_240", CPR_LOOO, CprFit_min, CprFit_max, 1);
 	hist_fitCpLO_240->SetLineColor(kGreen+1); hist_fitCpLO_240->SetMarkerColor(kGreen+1); hist_fitCpLO_240->SetMarkerStyle(53); hist_fitCpLO_240->SetLineWidth(2); hist_fitCpLO_240->SetMarkerSize(1);
-	TF1 *hist_fitCpNL_240 = new TF1("hist_fitCpNL_240", CPR_NLOO, CprFit_min, CprFit_max, 2);
+	TF1 *hist_fitCpNL_240 = new TF1("hist_fitCpNL_240", CPR_NLOO, CprFit_min, CprFit_max, 1);
 	hist_fitCpNL_240->SetLineColor(kRed+1); hist_fitCpNL_240->SetMarkerColor(kRed+1); hist_fitCpNL_240->SetMarkerStyle(53); hist_fitCpNL_240->SetLineWidth(2); hist_fitCpNL_240->SetMarkerSize(1);
-	TF1 *hist_fitCpNN_240 = new TF1("hist_fitCpNN_240", CPR_NNLO, CprFit_min, CprFit_max, 2);
+	TF1 *hist_fitCpNN_240 = new TF1("hist_fitCpNN_240", CPR_NNLO, CprFit_min, CprFit_max, 1);
 	hist_fitCpNN_240->SetLineColor(kBlue+1); hist_fitCpNN_240->SetMarkerColor(kBlue+1); hist_fitCpNN_240->SetMarkerStyle(53); hist_fitCpNN_240->SetLineWidth(2); hist_fitCpNN_240->SetMarkerSize(1);
-	TF1 *hist_fitCpLO_365 = new TF1("hist_fitCpLO_365", CPR_LOOO, CprFit_min, CprFit_max, 2);
+	TF1 *hist_fitCpLO_365 = new TF1("hist_fitCpLO_365", CPR_LOOO, CprFit_min, CprFit_max, 1);
 	hist_fitCpLO_365->SetLineColor(kGreen+1); hist_fitCpLO_365->SetMarkerColor(kGreen+1); hist_fitCpLO_365->SetMarkerStyle(53); hist_fitCpLO_365->SetLineWidth(2); hist_fitCpLO_365->SetMarkerSize(1);
-	TF1 *hist_fitCpNL_365 = new TF1("hist_fitCpNL_365", CPR_NLOO, CprFit_min, CprFit_max, 2);
+	TF1 *hist_fitCpNL_365 = new TF1("hist_fitCpNL_365", CPR_NLOO, CprFit_min, CprFit_max, 1);
 	hist_fitCpNL_365->SetLineColor(kRed+1); hist_fitCpNL_365->SetMarkerColor(kRed+1); hist_fitCpNL_365->SetMarkerStyle(53); hist_fitCpNL_365->SetLineWidth(2); hist_fitCpNL_365->SetMarkerSize(1);
-	TF1 *hist_fitCpNN_365 = new TF1("hist_fitCpNN_365", CPR_NNLO, CprFit_min, CprFit_max, 2);
+	TF1 *hist_fitCpNN_365 = new TF1("hist_fitCpNN_365", CPR_NNLO, CprFit_min, CprFit_max, 1);
 	hist_fitCpNN_365->SetLineColor(kBlue+1); hist_fitCpNN_365->SetMarkerColor(kBlue+1); hist_fitCpNN_365->SetMarkerStyle(53); hist_fitCpNN_365->SetLineWidth(2); hist_fitCpNN_365->SetMarkerSize(1);
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////	
 
 	float guess = 0.1, guess_min = 0.01, guess_max = 1.0;
 
-	hist_fitThLO_912->SetParameter(1, guess); hist_fitThLO_912->SetParLimits(1, guess_min, guess_max);
-	hist_fitThNL_912->SetParameter(1, guess); hist_fitThNL_912->SetParLimits(1, guess_min, guess_max);
-	hist_fitThNN_912->SetParameter(1, guess); hist_fitThNN_912->SetParLimits(1, guess_min, guess_max);
-	hist_fitThLO_160->SetParameter(1, guess); hist_fitThLO_160->SetParLimits(1, guess_min, guess_max);
-	hist_fitThNL_160->SetParameter(1, guess); hist_fitThNL_160->SetParLimits(1, guess_min, guess_max);
-	hist_fitThNN_160->SetParameter(1, guess); hist_fitThNN_160->SetParLimits(1, guess_min, guess_max);
-	hist_fitThLO_240->SetParameter(1, guess); hist_fitThLO_240->SetParLimits(1, guess_min, guess_max);
-	hist_fitThNL_240->SetParameter(1, guess); hist_fitThNL_240->SetParLimits(1, guess_min, guess_max);
-	hist_fitThNN_240->SetParameter(1, guess); hist_fitThNN_240->SetParLimits(1, guess_min, guess_max);
-	hist_fitThLO_365->SetParameter(1, guess); hist_fitThLO_365->SetParLimits(1, guess_min, guess_max);
-	hist_fitThNL_365->SetParameter(1, guess); hist_fitThNL_365->SetParLimits(1, guess_min, guess_max);
-	hist_fitThNN_365->SetParameter(1, guess); hist_fitThNN_365->SetParLimits(1, guess_min, guess_max);
+	hist_fitThLO_912->SetParameter(0, guess); hist_fitThLO_912->SetParLimits(0, guess_min, guess_max);
+	hist_fitThNL_912->SetParameter(0, guess); hist_fitThNL_912->SetParLimits(0, guess_min, guess_max);
+	hist_fitThNN_912->SetParameter(0, guess); hist_fitThNN_912->SetParLimits(0, guess_min, guess_max);
+	hist_fitThLO_160->SetParameter(0, guess); hist_fitThLO_160->SetParLimits(0, guess_min, guess_max);
+	hist_fitThNL_160->SetParameter(0, guess); hist_fitThNL_160->SetParLimits(0, guess_min, guess_max);
+	hist_fitThNN_160->SetParameter(0, guess); hist_fitThNN_160->SetParLimits(0, guess_min, guess_max);
+	hist_fitThLO_240->SetParameter(0, guess); hist_fitThLO_240->SetParLimits(0, guess_min, guess_max);
+	hist_fitThNL_240->SetParameter(0, guess); hist_fitThNL_240->SetParLimits(0, guess_min, guess_max);
+	hist_fitThNN_240->SetParameter(0, guess); hist_fitThNN_240->SetParLimits(0, guess_min, guess_max);
+	hist_fitThLO_365->SetParameter(0, guess); hist_fitThLO_365->SetParLimits(0, guess_min, guess_max);
+	hist_fitThNL_365->SetParameter(0, guess); hist_fitThNL_365->SetParLimits(0, guess_min, guess_max);
+	hist_fitThNN_365->SetParameter(0, guess); hist_fitThNN_365->SetParLimits(0, guess_min, guess_max);
 	
-	hist_fitCpLO_912->SetParameter(1, guess); hist_fitCpLO_912->SetParLimits(1, guess_min, guess_max);
-	hist_fitCpNL_912->SetParameter(1, guess); hist_fitCpNL_912->SetParLimits(1, guess_min, guess_max);
-	hist_fitCpNN_912->SetParameter(1, guess); hist_fitCpNN_912->SetParLimits(1, guess_min, guess_max);
-	hist_fitCpLO_160->SetParameter(1, guess); hist_fitCpLO_160->SetParLimits(1, guess_min, guess_max);
-	hist_fitCpNL_160->SetParameter(1, guess); hist_fitCpNL_160->SetParLimits(1, guess_min, guess_max);
-	hist_fitCpNN_160->SetParameter(1, guess); hist_fitCpNN_160->SetParLimits(1, guess_min, guess_max);
-	hist_fitCpLO_240->SetParameter(1, guess); hist_fitCpLO_240->SetParLimits(1, guess_min, guess_max);
-	hist_fitCpNL_240->SetParameter(1, guess); hist_fitCpNL_240->SetParLimits(1, guess_min, guess_max);
-	hist_fitCpNN_240->SetParameter(1, guess); hist_fitCpNN_240->SetParLimits(1, guess_min, guess_max);
-	hist_fitCpLO_365->SetParameter(1, guess); hist_fitCpLO_365->SetParLimits(1, guess_min, guess_max);
-	hist_fitCpNL_365->SetParameter(1, guess); hist_fitCpNL_365->SetParLimits(1, guess_min, guess_max);
-	hist_fitCpNN_365->SetParameter(1, guess); hist_fitCpNN_365->SetParLimits(1, guess_min, guess_max);
+	hist_fitCpLO_912->SetParameter(0, guess); hist_fitCpLO_912->SetParLimits(0, guess_min, guess_max);
+	hist_fitCpNL_912->SetParameter(0, guess); hist_fitCpNL_912->SetParLimits(0, guess_min, guess_max);
+	hist_fitCpNN_912->SetParameter(0, guess); hist_fitCpNN_912->SetParLimits(0, guess_min, guess_max);
+	hist_fitCpLO_160->SetParameter(0, guess); hist_fitCpLO_160->SetParLimits(0, guess_min, guess_max);
+	hist_fitCpNL_160->SetParameter(0, guess); hist_fitCpNL_160->SetParLimits(0, guess_min, guess_max);
+	hist_fitCpNN_160->SetParameter(0, guess); hist_fitCpNN_160->SetParLimits(0, guess_min, guess_max);
+	hist_fitCpLO_240->SetParameter(0, guess); hist_fitCpLO_240->SetParLimits(0, guess_min, guess_max);
+	hist_fitCpNL_240->SetParameter(0, guess); hist_fitCpNL_240->SetParLimits(0, guess_min, guess_max);
+	hist_fitCpNN_240->SetParameter(0, guess); hist_fitCpNN_240->SetParLimits(0, guess_min, guess_max);
+	hist_fitCpLO_365->SetParameter(0, guess); hist_fitCpLO_365->SetParLimits(0, guess_min, guess_max);
+	hist_fitCpNL_365->SetParameter(0, guess); hist_fitCpNL_365->SetParLimits(0, guess_min, guess_max);
+	hist_fitCpNN_365->SetParameter(0, guess); hist_fitCpNN_365->SetParLimits(0, guess_min, guess_max);
 	
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-	grph_ThrExL3_912->Fit(hist_fitThLO_912, "RN MINOS");
-	grph_ThrExL3_912->Fit(hist_fitThNL_912, "RN MINOS");
-	grph_ThrExL3_912->Fit(hist_fitThNN_912, "RN MINOS");
-	// hist_ThrPyth_912->Fit(hist_fitThLO_912, "RNQ");
-	// hist_ThrPyth_912->Fit(hist_fitThNL_912, "RNQ");
-	// hist_ThrPyth_912->Fit(hist_fitThNN_912, "RNQ");
+	// grph_ThrExL3_912->Fit(hist_fitThLO_912, "RN MINOS");
+	// grph_ThrExL3_912->Fit(hist_fitThNL_912, "RN MINOS");
+	// grph_ThrExL3_912->Fit(hist_fitThNN_912, "RN MINOS");
+	hist_ThrPyth_912->Fit(hist_fitThLO_912, "RNQ MINOS");
+	hist_ThrPyth_912->Fit(hist_fitThNL_912, "RNQ MINOS");
+	hist_ThrPyth_912->Fit(hist_fitThNN_912, "RNQ MINOS");
 
-	hist_ThrPyth_160->Fit(hist_fitThLO_160, "RNQ");
-	hist_ThrPyth_160->Fit(hist_fitThNL_160, "RNQ");
-	hist_ThrPyth_160->Fit(hist_fitThNN_160, "RNQ");
-	hist_ThrPyth_240->Fit(hist_fitThLO_240, "RNQ");
-	hist_ThrPyth_240->Fit(hist_fitThNL_240, "RNQ");
-	hist_ThrPyth_240->Fit(hist_fitThNN_240, "RNQ");
-	hist_ThrPyth_365->Fit(hist_fitThLO_365, "RNQ");
-	hist_ThrPyth_365->Fit(hist_fitThNL_365, "RNQ");
-	hist_ThrPyth_365->Fit(hist_fitThNN_365, "RNQ");
+	hist_ThrPyth_160->Fit(hist_fitThLO_160, "RNQ MINOS");
+	hist_ThrPyth_160->Fit(hist_fitThNL_160, "RNQ MINOS");
+	hist_ThrPyth_160->Fit(hist_fitThNN_160, "RNQ MINOS");
+	hist_ThrPyth_240->Fit(hist_fitThLO_240, "RNQ MINOS");
+	hist_ThrPyth_240->Fit(hist_fitThNL_240, "RNQ MINOS");
+	hist_ThrPyth_240->Fit(hist_fitThNN_240, "RNQ MINOS");
+	hist_ThrPyth_365->Fit(hist_fitThLO_365, "RNQ MINOS");
+	hist_ThrPyth_365->Fit(hist_fitThNL_365, "RNQ MINOS");
+	hist_ThrPyth_365->Fit(hist_fitThNN_365, "RNQ MINOS");
 	
-	grph_CprExL3_912->Fit(hist_fitCpLO_912, "RN MINOS");
-	grph_CprExL3_912->Fit(hist_fitCpNL_912, "RN MINOS");
-	grph_CprExL3_912->Fit(hist_fitCpNN_912, "RN MINOS");
-	// hist_CprPyth_912->Fit(hist_fitCpLO_912, "RNQ");
-	// hist_CprPyth_912->Fit(hist_fitCpNL_912, "RNQ");
-	// hist_CprPyth_912->Fit(hist_fitCpNN_912, "RNQ");
+	// grph_CprExL3_912->Fit(hist_fitCpLO_912, "RN MINOS");
+	// grph_CprExL3_912->Fit(hist_fitCpNL_912, "RN MINOS");
+	// grph_CprExL3_912->Fit(hist_fitCpNN_912, "RN MINOS");
+	hist_CprPyth_912->Fit(hist_fitCpLO_912, "RNQ MINOS");
+	hist_CprPyth_912->Fit(hist_fitCpNL_912, "RNQ MINOS");
+	hist_CprPyth_912->Fit(hist_fitCpNN_912, "RNQ MINOS");
 
-	hist_CprPyth_160->Fit(hist_fitCpLO_160, "RNQ");
-	hist_CprPyth_160->Fit(hist_fitCpNL_160, "RNQ");
-	hist_CprPyth_160->Fit(hist_fitCpNN_160, "RNQ");
-	hist_CprPyth_240->Fit(hist_fitCpLO_240, "RNQ");
-	hist_CprPyth_240->Fit(hist_fitCpNL_240, "RNQ");
-	hist_CprPyth_240->Fit(hist_fitCpNN_240, "RNQ");
-	hist_CprPyth_365->Fit(hist_fitCpLO_365, "RNQ");
-	hist_CprPyth_365->Fit(hist_fitCpNL_365, "RNQ");
-	hist_CprPyth_365->Fit(hist_fitCpNN_365, "RNQ");
+	hist_CprPyth_160->Fit(hist_fitCpLO_160, "RNQ MINOS");
+	hist_CprPyth_160->Fit(hist_fitCpNL_160, "RNQ MINOS");
+	hist_CprPyth_160->Fit(hist_fitCpNN_160, "RNQ MINOS");
+	hist_CprPyth_240->Fit(hist_fitCpLO_240, "RNQ MINOS");
+	hist_CprPyth_240->Fit(hist_fitCpNL_240, "RNQ MINOS");
+	hist_CprPyth_240->Fit(hist_fitCpNN_240, "RNQ MINOS");
+	hist_CprPyth_365->Fit(hist_fitCpLO_365, "RNQ MINOS");
+	hist_CprPyth_365->Fit(hist_fitCpNL_365, "RNQ MINOS");
+	hist_CprPyth_365->Fit(hist_fitCpNN_365, "RNQ MINOS");
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////
 // Draw plots
@@ -547,7 +547,7 @@ void ImpactofAlpha()
 	}
 
 	cv1->cd(7);
-	grph_ThrExL3_912->Draw();
+	hist_ThrPyth_912->Draw("HIST");
 	hist_fitThLO_912->Draw("HIST SAME");
 	hist_fitThNL_912->Draw("HIST SAME");
 	hist_fitThNN_912->Draw("HIST SAME");
@@ -572,7 +572,7 @@ void ImpactofAlpha()
 	lg->Draw("SAME");
 
 	cv1->cd(8);
-	grph_CprExL3_912->Draw();
+	hist_CprPyth_912->Draw("HIST");
 	hist_fitCpLO_912->Draw("HIST SAME");
 	hist_fitCpNL_912->Draw("HIST SAME");
 	hist_fitCpNN_912->Draw("HIST SAME");
@@ -597,8 +597,8 @@ void ImpactofAlpha()
 	lg->Draw("SAME");
 
 	// Set limits
-	grph_ThrExL3_912->GetYaxis()->SetRangeUser(1E-4,1E2);
-	grph_ThrExL3_912->GetXaxis()->SetRangeUser(0,0.4);
+	hist_ThrPyth_912->GetYaxis()->SetRangeUser(1E-4,1E2);
+	hist_ThrPyth_912->GetXaxis()->SetRangeUser(0,0.4);
 	hist_ThrPyth_160->GetYaxis()->SetRangeUser(1E-4,1E2);
 	hist_ThrPyth_160->GetXaxis()->SetRangeUser(0,0.4);
 	hist_ThrPyth_240->GetYaxis()->SetRangeUser(1E-4,1E2);
@@ -606,14 +606,14 @@ void ImpactofAlpha()
 	hist_ThrPyth_365->GetYaxis()->SetRangeUser(1E-4,1E2);
 	hist_ThrPyth_365->GetXaxis()->SetRangeUser(0,0.4);
 
-	grph_CprExL3_912->GetYaxis()->SetRangeUser(1E-3,1E1);
-	grph_CprExL3_912->GetXaxis()->SetRangeUser(0,0.4);
+	hist_CprPyth_912->GetYaxis()->SetRangeUser(1E-3,1E1);
+	hist_CprPyth_912->GetXaxis()->SetRangeUser(0,1.0);
 	hist_CprPyth_160->GetYaxis()->SetRangeUser(1E-3,1E1);
-	hist_CprPyth_160->GetXaxis()->SetRangeUser(0,0.4);
+	hist_CprPyth_160->GetXaxis()->SetRangeUser(0,1.0);
 	hist_CprPyth_240->GetYaxis()->SetRangeUser(1E-3,1E1);
-	hist_CprPyth_240->GetXaxis()->SetRangeUser(0,0.4);
+	hist_CprPyth_240->GetXaxis()->SetRangeUser(0,1.0);
 	hist_CprPyth_365->GetYaxis()->SetRangeUser(1E-3,1E1);
-	hist_CprPyth_365->GetXaxis()->SetRangeUser(0,0.4);
+	hist_CprPyth_365->GetXaxis()->SetRangeUser(0,1.0);
 
 	// Modify stat-box
 	gStyle->SetOptStat();
@@ -686,42 +686,42 @@ void ImpactofAlpha()
 
 	cout << fixed << setprecision(6);
 
-	cout << "================= FITTING WITH THRUST =======================================================================================================================" << endl;
-	cout << "Order \t LO \t\t\t\t\t\t NLO \t\t\t\t\t\t NNLO" << endl;
-	cout << "-------------------------------------------------------------------------------------------------------------------------------------------------------------" << endl;
-	cout << "√s \t χ²/ndf \t Norm \t\t Alpha \t\t χ²/ndf \t Norm \t\t Alpha \t\t χ²/ndf \t Norm \t\t Alpha " << endl;
-	cout << "-------------------------------------------------------------------------------------------------------------------------------------------------------------" << endl;
-	cout << "91.2 \t " << hist_fitThLO_912->GetChisquare()/hist_fitThLO_912->GetNDF() << "\t" << hist_fitThLO_912->GetParameter(0) << "\t" << hist_fitThLO_912->GetParameter(1) << "\t" <<
-						hist_fitThNL_912->GetChisquare()/hist_fitThLO_912->GetNDF() << "\t" << hist_fitThNL_912->GetParameter(0) << "\t" << hist_fitThNL_912->GetParameter(1) << "\t" <<
-						hist_fitThNN_912->GetChisquare()/hist_fitThLO_912->GetNDF() << "\t" << hist_fitThNN_912->GetParameter(0) << "\t" << hist_fitThNN_912->GetParameter(1) << endl;
-	cout << "160 \t " << hist_fitThLO_160->GetChisquare()/hist_fitThLO_160->GetNDF() << "\t" << hist_fitThLO_160->GetParameter(0) << "\t" << hist_fitThLO_160->GetParameter(1) << "\t" <<
-						hist_fitThNL_160->GetChisquare()/hist_fitThNL_160->GetNDF() << "\t" << hist_fitThNL_160->GetParameter(0) << "\t" << hist_fitThNL_160->GetParameter(1) << "\t" <<
-						hist_fitThNN_160->GetChisquare()/hist_fitThNN_160->GetNDF() << "\t" << hist_fitThNN_160->GetParameter(0) << "\t" << hist_fitThNN_160->GetParameter(1) << endl;
-	cout << "240 \t " << hist_fitThLO_240->GetChisquare()/hist_fitThLO_240->GetNDF() << "\t" << hist_fitThLO_240->GetParameter(0) << "\t" << hist_fitThLO_240->GetParameter(1) << "\t" <<
-						hist_fitThNL_240->GetChisquare()/hist_fitThNL_240->GetNDF() << "\t" << hist_fitThNL_240->GetParameter(0) << "\t" << hist_fitThNL_240->GetParameter(1) << "\t" <<
-						hist_fitThNN_240->GetChisquare()/hist_fitThNN_240->GetNDF() << "\t" << hist_fitThNN_240->GetParameter(0) << "\t" << hist_fitThNN_240->GetParameter(1) << endl;
-	cout << "365 \t " << hist_fitThLO_365->GetChisquare()/hist_fitThLO_365->GetNDF() << "\t" << hist_fitThLO_365->GetParameter(0) << "\t" << hist_fitThLO_365->GetParameter(1) << "\t" <<
-						hist_fitThNL_365->GetChisquare()/hist_fitThNL_365->GetNDF() << "\t" << hist_fitThNL_365->GetParameter(0) << "\t" << hist_fitThNL_365->GetParameter(1) << "\t" <<
-						hist_fitThNN_365->GetChisquare()/hist_fitThNN_365->GetNDF() << "\t" << hist_fitThNN_365->GetParameter(0) << "\t" << hist_fitThNN_365->GetParameter(1) << endl;
-	cout << "=============================================================================================================================================================" << endl;
+	cout << "================= FITTING WITH THRUST ==============================================================" << endl;
+	cout << "Order \t LO \t\t\t\t NLO \t\t\t\t NNLO" << endl;
+	cout << "----------------------------------------------------------------------------------------------------" << endl;
+	cout << "√s \t χ²/ndf \t Alpha \t\t χ²/ndf \t Alpha \t\t χ²/ndf \t Alpha " << endl;
+	cout << "----------------------------------------------------------------------------------------------------" << endl;
+	cout << "91.2 \t " << hist_fitThLO_912->GetChisquare()/hist_fitThLO_912->GetNDF() << "\t" << hist_fitThLO_912->GetParameter(0) << "\t" <<
+						hist_fitThNL_912->GetChisquare()/hist_fitThLO_912->GetNDF() << "\t" << hist_fitThNL_912->GetParameter(0) << "\t" <<
+						hist_fitThNN_912->GetChisquare()/hist_fitThLO_912->GetNDF() << "\t" << hist_fitThNN_912->GetParameter(0) << "\t" << endl;
+	cout << "160 \t " << hist_fitThLO_160->GetChisquare()/hist_fitThLO_160->GetNDF() << "\t" << hist_fitThLO_160->GetParameter(0) << "\t" <<
+						hist_fitThNL_160->GetChisquare()/hist_fitThNL_160->GetNDF() << "\t" << hist_fitThNL_160->GetParameter(0) << "\t" <<
+						hist_fitThNN_160->GetChisquare()/hist_fitThNN_160->GetNDF() << "\t" << hist_fitThNN_160->GetParameter(0) << "\t" << endl;
+	cout << "240 \t " << hist_fitThLO_240->GetChisquare()/hist_fitThLO_240->GetNDF() << "\t" << hist_fitThLO_240->GetParameter(0) << "\t" <<
+						hist_fitThNL_240->GetChisquare()/hist_fitThNL_240->GetNDF() << "\t" << hist_fitThNL_240->GetParameter(0) << "\t" <<
+						hist_fitThNN_240->GetChisquare()/hist_fitThNN_240->GetNDF() << "\t" << hist_fitThNN_240->GetParameter(0) << "\t" << endl;
+	cout << "365 \t " << hist_fitThLO_365->GetChisquare()/hist_fitThLO_365->GetNDF() << "\t" << hist_fitThLO_365->GetParameter(0) << "\t" <<
+						hist_fitThNL_365->GetChisquare()/hist_fitThNL_365->GetNDF() << "\t" << hist_fitThNL_365->GetParameter(0) << "\t" <<
+						hist_fitThNN_365->GetChisquare()/hist_fitThNN_365->GetNDF() << "\t" << hist_fitThNN_365->GetParameter(0) << "\t" << endl;
+	cout << "====================================================================================================" << endl;
 
-	cout << "================= FITTING WITH CPARAM =======================================================================================================================" << endl;
-	cout << "Order \t LO \t\t\t\t\t\t NLO \t\t\t\t\t\t NNLO" << endl;
-	cout << "-------------------------------------------------------------------------------------------------------------------------------------------------------------" << endl;
-	cout << "√s \t χ²/ndf \t Norm \t\t Alpha \t\t χ²/ndf \t Norm \t\t Alpha \t\t χ²/ndf \t Norm \t\t Alpha " << endl;
-	cout << "-------------------------------------------------------------------------------------------------------------------------------------------------------------" << endl;
-	cout << "91.2 \t " << hist_fitCpLO_912->GetChisquare()/hist_fitCpLO_912->GetNDF() << "\t" << hist_fitCpLO_912->GetParameter(0) << "\t" << hist_fitCpLO_912->GetParameter(1) << "\t" <<
-						hist_fitCpNL_912->GetChisquare()/hist_fitCpNL_912->GetNDF() << "\t" << hist_fitCpNL_912->GetParameter(0) << "\t" << hist_fitCpNL_912->GetParameter(1) << "\t" <<
-						hist_fitCpNN_912->GetChisquare()/hist_fitCpNN_912->GetNDF() << "\t" << hist_fitCpNN_912->GetParameter(0) << "\t" << hist_fitCpNN_912->GetParameter(1) << endl;
-	cout << "160 \t " << hist_fitCpLO_160->GetChisquare()/hist_fitCpLO_160->GetNDF() << "\t" << hist_fitCpLO_160->GetParameter(0) << "\t" << hist_fitCpLO_160->GetParameter(1) << "\t" <<
-						hist_fitCpNL_160->GetChisquare()/hist_fitCpNL_160->GetNDF() << "\t" << hist_fitCpNL_160->GetParameter(0) << "\t" << hist_fitCpNL_160->GetParameter(1) << "\t" <<
-						hist_fitCpNN_160->GetChisquare()/hist_fitCpNN_160->GetNDF() << "\t" << hist_fitCpNN_160->GetParameter(0) << "\t" << hist_fitCpNN_160->GetParameter(1) << endl;
-	cout << "240 \t " << hist_fitCpLO_240->GetChisquare()/hist_fitCpLO_240->GetNDF() << "\t" << hist_fitCpLO_240->GetParameter(0) << "\t" << hist_fitCpLO_240->GetParameter(1) << "\t" <<
-						hist_fitCpNL_240->GetChisquare()/hist_fitCpNL_240->GetNDF() << "\t" << hist_fitCpNL_240->GetParameter(0) << "\t" << hist_fitCpNL_240->GetParameter(1) << "\t" <<
-						hist_fitCpNN_240->GetChisquare()/hist_fitCpNN_240->GetNDF() << "\t" << hist_fitCpNN_240->GetParameter(0) << "\t" << hist_fitCpNN_240->GetParameter(1) << endl;
-	cout << "365 \t " << hist_fitCpLO_365->GetChisquare()/hist_fitCpLO_365->GetNDF() << "\t" << hist_fitCpLO_365->GetParameter(0) << "\t" << hist_fitCpLO_365->GetParameter(1) << "\t" <<
-						hist_fitCpNL_365->GetChisquare()/hist_fitCpNL_365->GetNDF() << "\t" << hist_fitCpNL_365->GetParameter(0) << "\t" << hist_fitCpNL_365->GetParameter(1) << "\t" <<
-						hist_fitCpNN_365->GetChisquare()/hist_fitCpNN_365->GetNDF() << "\t" << hist_fitCpNN_365->GetParameter(0) << "\t" << hist_fitCpNN_365->GetParameter(1) << endl;
-	cout << "=============================================================================================================================================================" << endl;
+	cout << "================= FITTING WITH CPARAM ==============================================================" << endl;
+	cout << "Order \t LO \t\t\t\t NLO \t\t\t\t NNLO" << endl;
+	cout << "----------------------------------------------------------------------------------------------------" << endl;
+	cout << "√s \t χ²/ndf \t Alpha \t\t χ²/ndf \t Alpha \t\t χ²/ndf \t Alpha " << endl;
+	cout << "----------------------------------------------------------------------------------------------------" << endl;
+	cout << "91.2 \t " << hist_fitCpLO_912->GetChisquare()/hist_fitCpLO_912->GetNDF() << "\t" << hist_fitCpLO_912->GetParameter(0) << "\t" <<
+						hist_fitCpNL_912->GetChisquare()/hist_fitCpNL_912->GetNDF() << "\t" << hist_fitCpNL_912->GetParameter(0) << "\t" <<
+						hist_fitCpNN_912->GetChisquare()/hist_fitCpNN_912->GetNDF() << "\t" << hist_fitCpNN_912->GetParameter(0) << "\t" << endl;
+	cout << "160 \t " << hist_fitCpLO_160->GetChisquare()/hist_fitCpLO_160->GetNDF() << "\t" << hist_fitCpLO_160->GetParameter(0) << "\t" <<
+						hist_fitCpNL_160->GetChisquare()/hist_fitCpNL_160->GetNDF() << "\t" << hist_fitCpNL_160->GetParameter(0) << "\t" <<
+						hist_fitCpNN_160->GetChisquare()/hist_fitCpNN_160->GetNDF() << "\t" << hist_fitCpNN_160->GetParameter(0) << "\t" << endl;
+	cout << "240 \t " << hist_fitCpLO_240->GetChisquare()/hist_fitCpLO_240->GetNDF() << "\t" << hist_fitCpLO_240->GetParameter(0) << "\t" <<
+						hist_fitCpNL_240->GetChisquare()/hist_fitCpNL_240->GetNDF() << "\t" << hist_fitCpNL_240->GetParameter(0) << "\t" <<
+						hist_fitCpNN_240->GetChisquare()/hist_fitCpNN_240->GetNDF() << "\t" << hist_fitCpNN_240->GetParameter(0) << "\t" << endl;
+	cout << "365 \t " << hist_fitCpLO_365->GetChisquare()/hist_fitCpLO_365->GetNDF() << "\t" << hist_fitCpLO_365->GetParameter(0) << "\t" <<
+						hist_fitCpNL_365->GetChisquare()/hist_fitCpNL_365->GetNDF() << "\t" << hist_fitCpNL_365->GetParameter(0) << "\t" <<
+						hist_fitCpNN_365->GetChisquare()/hist_fitCpNN_365->GetNDF() << "\t" << hist_fitCpNN_365->GetParameter(0) << "\t" << endl;
+	cout << "====================================================================================================" << endl;
 
 }
