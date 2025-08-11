@@ -245,7 +245,7 @@ void ImpactofAlpha()
 	X.clear(), Y.clear(), Err_XX.clear(), Err_XY.clear(), Err_YX.clear(), Err_YY.clear();
 
 	// Import data
-	ifstream infile_01("3-LEP-data/EXP_LL3_912_THR_ASYMM.txt");
+	ifstream infile_01("3-LEP-data/EXP_ALP_912_THR_ASYMM.txt");
 
 	// Read until end of file
 	while ( infile_01 >> Par >> Err_ParX >> Err_ParY >> Prb >> Err_PrbX >> Err_PrbY ) {
@@ -418,12 +418,12 @@ void ImpactofAlpha()
 	
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-	// grph_ThrExL3_912->Fit(hist_fitThLO_912, "RN MINOS");
-	// grph_ThrExL3_912->Fit(hist_fitThNL_912, "RN MINOS");
-	// grph_ThrExL3_912->Fit(hist_fitThNN_912, "RN MINOS");
-	hist_ThrPyth_912->Fit(hist_fitThLO_912, "RNQ MINOS");
-	hist_ThrPyth_912->Fit(hist_fitThNL_912, "RNQ MINOS");
-	hist_ThrPyth_912->Fit(hist_fitThNN_912, "RNQ MINOS");
+	grph_ThrExL3_912->Fit(hist_fitThLO_912, "RNQ MINOS");
+	grph_ThrExL3_912->Fit(hist_fitThNL_912, "RNQ MINOS");
+	grph_ThrExL3_912->Fit(hist_fitThNN_912, "RNQ MINOS");
+	// hist_ThrPyth_912->Fit(hist_fitThLO_912, "RNQ MINOS");
+	// hist_ThrPyth_912->Fit(hist_fitThNL_912, "RNQ MINOS");
+	// hist_ThrPyth_912->Fit(hist_fitThNN_912, "RNQ MINOS");
 
 	hist_ThrPyth_160->Fit(hist_fitThLO_160, "RNQ MINOS");
 	hist_ThrPyth_160->Fit(hist_fitThNL_160, "RNQ MINOS");
@@ -453,7 +453,7 @@ void ImpactofAlpha()
 	hist_CprPyth_365->Fit(hist_fitCpNN_365, "RNQ MINOS");
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////
-// Draw plots
+// Edit plots
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 	grph_ThrExL3_912->GetXaxis()->SetLabelSize(0.06);
@@ -518,107 +518,111 @@ void ImpactofAlpha()
 	hist_CprPyth_240->SetTitle("");
 	hist_CprPyth_365->SetTitle("");
 
-	// Create canvas
-	TCanvas* cv1 = new TCanvas("cv1", "FCC-ee ISR Studies", 1400, 1400);
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////
+// Draw plots
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-	TLegend* lg = new TLegend(0.84, 0.69, 0.92, 0.93);
-	lg->AddEntry(hist_ThrPyth_912, "MC", "L");
-	lg->AddEntry(hist_fitThLO_912, "#it{O}(#alpha_{s}^{1})", "L");
-	lg->AddEntry(hist_fitThNL_912, "#it{O}(#alpha_{s}^{2})", "L");
-	lg->AddEntry(hist_fitThNN_912, "#it{O}(#alpha_{s}^{3})", "L");
-	lg->SetTextSize(0.05);	
+	// // Create canvas
+	// TCanvas* cv1 = new TCanvas("cv1", "FCC-ee ISR Studies", 1400, 1400);
 
-	// Beautify
-	gStyle->SetErrorX(0.000000001);
-	gStyle->SetLabelSize(0.05, "X");
-	gStyle->SetLabelSize(0.05, "Y");
-	gStyle->SetTitleSize(0.06, "X");
-	gStyle->SetTitleSize(0.06, "Y");
-	cv1->SetMargin(0, 0, 0, 0); 
-	cv1->Divide(2,4);
-	for (int i = 1; i <= 8; i++) {
-		cv1->cd(i);
-		gPad->SetTopMargin(0.025);
-		gPad->SetBottomMargin(0.14);
-		gPad->SetLeftMargin(0.15);
-		gPad->SetRightMargin(0.04);
-		gPad->SetTickx(); gPad->SetTicky();
-		gPad->SetLogy();
-	}
+	// TLegend* lg = new TLegend(0.84, 0.69, 0.92, 0.93);
+	// lg->AddEntry(hist_ThrPyth_912, "MC", "L");
+	// lg->AddEntry(hist_fitThLO_912, "#it{O}(#alpha_{s}^{1})", "L");
+	// lg->AddEntry(hist_fitThNL_912, "#it{O}(#alpha_{s}^{2})", "L");
+	// lg->AddEntry(hist_fitThNN_912, "#it{O}(#alpha_{s}^{3})", "L");
+	// lg->SetTextSize(0.05);	
 
-	cv1->cd(7);
-	hist_ThrPyth_912->Draw("HIST");
-	hist_fitThLO_912->Draw("HIST SAME");
-	hist_fitThNL_912->Draw("HIST SAME");
-	hist_fitThNN_912->Draw("HIST SAME");
-	lg->Draw("SAME");
-	cv1->cd(5);
-	hist_ThrPyth_160->Draw("HIST");
-	hist_fitThLO_160->Draw("HIST SAME");
-	hist_fitThNL_160->Draw("HIST SAME");
-	hist_fitThNN_160->Draw("HIST SAME");
-	lg->Draw("SAME");
-	cv1->cd(3);
-	hist_ThrPyth_240->Draw("HIST");
-	hist_fitThLO_240->Draw("HIST SAME");
-	hist_fitThNL_240->Draw("HIST SAME");
-	hist_fitThNN_240->Draw("HIST SAME");
-	lg->Draw("SAME");
-	cv1->cd(1);
-	hist_ThrPyth_365->Draw("HIST");
-	hist_fitThLO_365->Draw("HIST SAME");
-	hist_fitThNL_365->Draw("HIST SAME");
-	hist_fitThNN_365->Draw("HIST SAME");
-	lg->Draw("SAME");
+	// // Beautify
+	// gStyle->SetErrorX(0.000000001);
+	// gStyle->SetLabelSize(0.05, "X");
+	// gStyle->SetLabelSize(0.05, "Y");
+	// gStyle->SetTitleSize(0.06, "X");
+	// gStyle->SetTitleSize(0.06, "Y");
+	// cv1->SetMargin(0, 0, 0, 0); 
+	// cv1->Divide(2,4);
+	// for (int i = 1; i <= 8; i++) {
+	// 	cv1->cd(i);
+	// 	gPad->SetTopMargin(0.025);
+	// 	gPad->SetBottomMargin(0.14);
+	// 	gPad->SetLeftMargin(0.15);
+	// 	gPad->SetRightMargin(0.04);
+	// 	gPad->SetTickx(); gPad->SetTicky();
+	// 	gPad->SetLogy();
+	// }
 
-	cv1->cd(8);
-	hist_CprPyth_912->Draw("HIST");
-	hist_fitCpLO_912->Draw("HIST SAME");
-	hist_fitCpNL_912->Draw("HIST SAME");
-	hist_fitCpNN_912->Draw("HIST SAME");
-	lg->Draw("SAME");
-	cv1->cd(6);
-	hist_CprPyth_160->Draw("HIST");
-	hist_fitCpLO_160->Draw("HIST SAME");
-	hist_fitCpNL_160->Draw("HIST SAME");
-	hist_fitCpNN_160->Draw("HIST SAME");
-	lg->Draw("SAME");
-	cv1->cd(4);
-	hist_CprPyth_240->Draw("HIST");
-	hist_fitCpLO_240->Draw("HIST SAME");
-	hist_fitCpNL_240->Draw("HIST SAME");
-	hist_fitCpNN_240->Draw("HIST SAME");
-	lg->Draw("SAME");
-	cv1->cd(2);
-	hist_CprPyth_365->Draw("HIST");
-	hist_fitCpLO_365->Draw("HIST SAME");
-	hist_fitCpNL_365->Draw("HIST SAME");
-	hist_fitCpNN_365->Draw("HIST SAME");
-	lg->Draw("SAME");
+	// cv1->cd(7);
+	// hist_ThrPyth_912->Draw("HIST");
+	// hist_fitThLO_912->Draw("HIST SAME");
+	// hist_fitThNL_912->Draw("HIST SAME");
+	// hist_fitThNN_912->Draw("HIST SAME");
+	// lg->Draw("SAME");
+	// cv1->cd(5);
+	// hist_ThrPyth_160->Draw("HIST");
+	// hist_fitThLO_160->Draw("HIST SAME");
+	// hist_fitThNL_160->Draw("HIST SAME");
+	// hist_fitThNN_160->Draw("HIST SAME");
+	// lg->Draw("SAME");
+	// cv1->cd(3);
+	// hist_ThrPyth_240->Draw("HIST");
+	// hist_fitThLO_240->Draw("HIST SAME");
+	// hist_fitThNL_240->Draw("HIST SAME");
+	// hist_fitThNN_240->Draw("HIST SAME");
+	// lg->Draw("SAME");
+	// cv1->cd(1);
+	// hist_ThrPyth_365->Draw("HIST");
+	// hist_fitThLO_365->Draw("HIST SAME");
+	// hist_fitThNL_365->Draw("HIST SAME");
+	// hist_fitThNN_365->Draw("HIST SAME");
+	// lg->Draw("SAME");
 
-	// Set limits
-	hist_ThrPyth_912->GetYaxis()->SetRangeUser(1E-4,1E2);
-	hist_ThrPyth_912->GetXaxis()->SetRangeUser(0,0.4);
-	hist_ThrPyth_160->GetYaxis()->SetRangeUser(1E-4,1E2);
-	hist_ThrPyth_160->GetXaxis()->SetRangeUser(0,0.4);
-	hist_ThrPyth_240->GetYaxis()->SetRangeUser(1E-4,1E2);
-	hist_ThrPyth_240->GetXaxis()->SetRangeUser(0,0.4);
-	hist_ThrPyth_365->GetYaxis()->SetRangeUser(1E-4,1E2);
-	hist_ThrPyth_365->GetXaxis()->SetRangeUser(0,0.4);
+	// cv1->cd(8);
+	// hist_CprPyth_912->Draw("HIST");
+	// hist_fitCpLO_912->Draw("HIST SAME");
+	// hist_fitCpNL_912->Draw("HIST SAME");
+	// hist_fitCpNN_912->Draw("HIST SAME");
+	// lg->Draw("SAME");
+	// cv1->cd(6);
+	// hist_CprPyth_160->Draw("HIST");
+	// hist_fitCpLO_160->Draw("HIST SAME");
+	// hist_fitCpNL_160->Draw("HIST SAME");
+	// hist_fitCpNN_160->Draw("HIST SAME");
+	// lg->Draw("SAME");
+	// cv1->cd(4);
+	// hist_CprPyth_240->Draw("HIST");
+	// hist_fitCpLO_240->Draw("HIST SAME");
+	// hist_fitCpNL_240->Draw("HIST SAME");
+	// hist_fitCpNN_240->Draw("HIST SAME");
+	// lg->Draw("SAME");
+	// cv1->cd(2);
+	// hist_CprPyth_365->Draw("HIST");
+	// hist_fitCpLO_365->Draw("HIST SAME");
+	// hist_fitCpNL_365->Draw("HIST SAME");
+	// hist_fitCpNN_365->Draw("HIST SAME");
+	// lg->Draw("SAME");
 
-	hist_CprPyth_912->GetYaxis()->SetRangeUser(1E-3,1E1);
-	hist_CprPyth_912->GetXaxis()->SetRangeUser(0,1.0);
-	hist_CprPyth_160->GetYaxis()->SetRangeUser(1E-3,1E1);
-	hist_CprPyth_160->GetXaxis()->SetRangeUser(0,1.0);
-	hist_CprPyth_240->GetYaxis()->SetRangeUser(1E-3,1E1);
-	hist_CprPyth_240->GetXaxis()->SetRangeUser(0,1.0);
-	hist_CprPyth_365->GetYaxis()->SetRangeUser(1E-3,1E1);
-	hist_CprPyth_365->GetXaxis()->SetRangeUser(0,1.0);
+	// // Set limits
+	// hist_ThrPyth_912->GetYaxis()->SetRangeUser(1E-4,1E2);
+	// hist_ThrPyth_912->GetXaxis()->SetRangeUser(0,0.4);
+	// hist_ThrPyth_160->GetYaxis()->SetRangeUser(1E-4,1E2);
+	// hist_ThrPyth_160->GetXaxis()->SetRangeUser(0,0.4);
+	// hist_ThrPyth_240->GetYaxis()->SetRangeUser(1E-4,1E2);
+	// hist_ThrPyth_240->GetXaxis()->SetRangeUser(0,0.4);
+	// hist_ThrPyth_365->GetYaxis()->SetRangeUser(1E-4,1E2);
+	// hist_ThrPyth_365->GetXaxis()->SetRangeUser(0,0.4);
 
-	// Modify stat-box
-	gStyle->SetOptStat();
-	// Update canvas
-	cv1->Modified();
+	// hist_CprPyth_912->GetYaxis()->SetRangeUser(1E-3,1E1);
+	// hist_CprPyth_912->GetXaxis()->SetRangeUser(0,1.0);
+	// hist_CprPyth_160->GetYaxis()->SetRangeUser(1E-3,1E1);
+	// hist_CprPyth_160->GetXaxis()->SetRangeUser(0,1.0);
+	// hist_CprPyth_240->GetYaxis()->SetRangeUser(1E-3,1E1);
+	// hist_CprPyth_240->GetXaxis()->SetRangeUser(0,1.0);
+	// hist_CprPyth_365->GetYaxis()->SetRangeUser(1E-3,1E1);
+	// hist_CprPyth_365->GetXaxis()->SetRangeUser(0,1.0);
+
+	// // Modify stat-box
+	// gStyle->SetOptStat();
+	// // Update canvas
+	// cv1->Modified();
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////
 // Draw plots
