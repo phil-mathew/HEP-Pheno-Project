@@ -133,11 +133,6 @@ void applyCuts( const std::string& inputFileName, const std::string& outputFileN
 	hist_Esprime_HZ->GetYaxis()->SetTitle("#events");
 	otree->Branch("hist_Esprime_HZ", &hist_Esprime_HZ, "hist_Esprime_HZ");
 
-	TH1F *hist_Esprime_hZ = new TH1F("hist_Esprime_hZ", "Reduced energy after ISR", 200, -1, 366);
-	hist_Esprime_hZ->GetXaxis()->SetTitle("#sqrt{s'}");
-	hist_Esprime_hZ->GetYaxis()->SetTitle("#events");
-	otree->Branch("hist_Esprime_hZ", &hist_Esprime_hZ, "hist_Esprime_hZ");
-
 	TH1F *hist_Esprime_hW = new TH1F("hist_Esprime_hW", "Reduced energy after ISR", 200, -1, 366);
 	hist_Esprime_hW->GetXaxis()->SetTitle("#sqrt{s'}");
 	hist_Esprime_hW->GetYaxis()->SetTitle("#events");
@@ -196,11 +191,6 @@ void applyCuts( const std::string& inputFileName, const std::string& outputFileN
 	hist_nHadron_HZ->GetXaxis()->SetTitle("N_{CH}");
 	hist_nHadron_HZ->GetYaxis()->SetTitle("P(N_{CH})");
 	otree->Branch("hist_nHadron_HZ", &hist_nHadron_HZ, "hist_nHadron_HZ");
-
-	TH1F *hist_nHadron_hZ = new TH1F("hist_nHadron_hZ", "Charged Hadron Multiplicity", 60, 1, 121);
-	hist_nHadron_hZ->GetXaxis()->SetTitle("N_{CH}");
-	hist_nHadron_hZ->GetYaxis()->SetTitle("P(N_{CH})");
-	otree->Branch("hist_nHadron_hZ", &hist_nHadron_hZ, "hist_nHadron_hZ");
 
 	TH1F *hist_nHadron_hW = new TH1F("hist_nHadron_hW", "Charged Hadron Multiplicity", 60, 1, 121);
 	hist_nHadron_hW->GetXaxis()->SetTitle("N_{CH}");
@@ -293,11 +283,6 @@ void applyCuts( const std::string& inputFileName, const std::string& outputFileN
 	hist_ThrPyth_HZ->GetYaxis()->SetTitle("1/#sigma d#sigma/d(1-T)");
 	otree->Branch("hist_ThrPyth_HZ", &hist_ThrPyth_HZ, "hist_ThrPyth_HZ");
 
-	TH1F *hist_ThrPyth_hZ = new TH1F("hist_ThrPyth_hZ", "Inverse Thrust", 200, 0, 0.4);
-	hist_ThrPyth_hZ->GetXaxis()->SetTitle("(1-T)");
-	hist_ThrPyth_hZ->GetYaxis()->SetTitle("1/#sigma d#sigma/d(1-T)");
-	otree->Branch("hist_ThrPyth_hZ", &hist_ThrPyth_hZ, "hist_ThrPyth_hZ");
-
 	TH1F *hist_ThrPyth_hW = new TH1F("hist_ThrPyth_hW", "Inverse Thrust", 200, 0, 0.4);
 	hist_ThrPyth_hW->GetXaxis()->SetTitle("(1-T)");
 	hist_ThrPyth_hW->GetYaxis()->SetTitle("1/#sigma d#sigma/d(1-T)");
@@ -366,11 +351,6 @@ void applyCuts( const std::string& inputFileName, const std::string& outputFileN
 	hist_CprPyth_HZ->GetXaxis()->SetTitle("C");
 	hist_CprPyth_HZ->GetYaxis()->SetTitle("1/#sigma d#sigma/d(C)");
 	otree->Branch("hist_CprPyth_HZ", &hist_CprPyth_HZ, "hist_CprPyth_HZ");
-
-	TH1F *hist_CprPyth_hZ = new TH1F("hist_CprPyth_hZ", "C-parameter", 200, 0, 1.0);
-	hist_CprPyth_hZ->GetXaxis()->SetTitle("C");
-	hist_CprPyth_hZ->GetYaxis()->SetTitle("1/#sigma d#sigma/d(C)");
-	otree->Branch("hist_CprPyth_hZ", &hist_CprPyth_hZ, "hist_CprPyth_hZ");
 
 	TH1F *hist_CprPyth_hW = new TH1F("hist_CprPyth_hW", "C-parameter", 200, 0, 1.0);
 	hist_CprPyth_hW->GetXaxis()->SetTitle("C");
@@ -523,6 +503,7 @@ void applyCuts( const std::string& inputFileName, const std::string& outputFileN
 
 		// 0% cut on √s'
 		if ((*eveSpr)[0] >= nEnerg*0.00){
+			
 			hist_Esprime_al->Fill((*eveSpr)[0]);
 			hist_Esprime_norm->Fill((*eveSpr)[0]);
 
@@ -596,12 +577,6 @@ void applyCuts( const std::string& inputFileName, const std::string& outputFileN
 				hist_ThrPyth_HZ->Fill((*eveThr)[0]);
 				hist_CprPyth_HZ->Fill((*eveCpr)[0]);
 			}
-			if ((*eveCod)[0] == 906) {
-				hist_Esprime_hZ->Fill((*eveSpr)[0]);
-				hist_nHadron_hZ->Fill(nCh);
-				hist_ThrPyth_hZ->Fill((*eveThr)[0]);
-				hist_CprPyth_hZ->Fill((*eveCpr)[0]);
-			}
 			if ((*eveCod)[0] == 907) {
 				hist_Esprime_hW->Fill((*eveSpr)[0]);
 				hist_nHadron_hW->Fill(nCh);
@@ -626,17 +601,17 @@ void applyCuts( const std::string& inputFileName, const std::string& outputFileN
 		}
 
 		// 100% cut on √s'
-		if ((*eveSpr)[0] >= nEnerg-0.20 && (*eveCod)[0] == 221) {
-			hist_ThrPyth_100->Fill((*eveThr)[0]); 
+		if ((*eveSpr)[0] >= nEnerg-0.00 && (*eveCod)[0] == 221) {
+			hist_ThrPyth_100->Fill((*eveThr)[0]);
 			hist_nHadron_100->Fill(nCh);
 			hist_CprPyth_100->Fill((*eveCpr)[0]);
 		}
-
+		
 		// Radiative checks
 		if ((*eveSpr)[0] >= nEnerg*0.00) Rad_000++;
 		if ((*eveSpr)[0] >= nEnerg*0.85) Rad_085++;
 		if ((*eveSpr)[0] >= nEnerg-5.00) Rad_095++;
-		if ((*eveSpr)[0] >= nEnerg-0.20) Rad_100++;
+		if ((*eveSpr)[0] >= nEnerg-0.00) Rad_100++;
 
 		/////////////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -665,7 +640,7 @@ void applyCuts( const std::string& inputFileName, const std::string& outputFileN
 	cout << "Events ≥ " << nEnerg*0.00 << " GeV : " << Rad_000 << endl;
 	cout << "Events ≥ " << nEnerg*0.85 << " GeV : " << Rad_085 << endl;
 	cout << "Events ≥ " << nEnerg-5.00 << " GeV : " << Rad_095 << endl;
-	cout << "Events ≥ " << nEnerg-0.20 << " GeV : " << Rad_100 << endl;
+	cout << "Events ≥ " << nEnerg-0.00 << " GeV : " << Rad_100 << endl;
 	cout << "----------------------------------------" << endl;
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -703,16 +678,16 @@ void applyCuts( const std::string& inputFileName, const std::string& outputFileN
 int main() {
 
 	// // Extraction
-	applyCuts("gen_FCC365.root", "cut_FCC365.root", 365.0);
-	applyCuts("gen_FCC240.root", "cut_FCC240.root", 240.0);
-	applyCuts("gen_FCC160.root", "cut_FCC160.root", 160.0);
-	applyCuts("gen_FCC912.root", "cut_FCC912.root", 91.20);
+	// applyCuts("gen_FCC365.root", "cut_FCC365.root", 365.0);
+	// applyCuts("gen_FCC240.root", "cut_FCC240.root", 240.0);
+	// applyCuts("gen_FCC160.root", "cut_FCC160.root", 160.0);
+	// applyCuts("gen_FCC912.root", "cut_FCC912.root", 91.20);
 	
 	// ISR
-	// applyCuts("gen_FCC365_ISR.root", "cut_FCC365_ISR.root", 365.0);
-	// applyCuts("gen_FCC240_ISR.root", "cut_FCC240_ISR.root", 240.0);
-	// applyCuts("gen_FCC160_ISR.root", "cut_FCC160_ISR.root", 160.0);
-	// applyCuts("gen_FCC912_ISR.root", "cut_FCC912_ISR.root", 91.20);
+	applyCuts("gen_FCC365_ISR.root", "cut_FCC365_ISR.root", 365.0);
+	applyCuts("gen_FCC240_ISR.root", "cut_FCC240_ISR.root", 240.0);
+	applyCuts("gen_FCC160_ISR.root", "cut_FCC160_ISR.root", 160.0);
+	applyCuts("gen_FCC912_ISR.root", "cut_FCC912_ISR.root", 91.20);
 
 	// // Calibration
 	// applyCuts("gen_FCC183.root", "cut_FCC183.root", 183.0);

@@ -51,7 +51,7 @@ int main(){
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 	// Define file
-  	TFile *output = new TFile("gen_FCC240_ISR.root", "RECREATE");
+  	TFile *output = new TFile("gen_FCC912_ISR.root", "RECREATE");
 	
 	// Define tree
 	TTree *tree = new TTree("tree_raw", "Raw Pythia data");
@@ -101,7 +101,7 @@ int main(){
 	// Set # of events
 	int nEvent = 1E6;
 	// Set centre mass
-	int nEnerg = 240.0;
+	float nEnerg = 91.2;
 
 ///////////////////////////////PHYSICS SWITCHES FOR TESLA 500 GeV ///////////////////////////////////////////
 	
@@ -114,9 +114,6 @@ int main(){
 	// Hadronisation
 	// pythia.readString("HadronLevel:Hadronize = off");
 	// pythia.readString("HadronLevel:Decay = off");
-
-	// Top processes
-	pythia.readString("Top:ffbar2ttbar(s:gmZ) = on");										// (604) ee'->tt'
 
 	// Z processes
 	pythia.readString("WeakZ0:gmZmode = 0");												// allow γ* or Z channels
@@ -138,6 +135,9 @@ int main(){
 	// Constrain decays
 	pythia.readString("25:onMode = off");													// turn off H production
 	pythia.readString("25:onIfAny = 1 2 3 4 5 6");											// turn on H iff duscbt
+
+	// Top processes
+	pythia.readString("Top:ffbar2ttbar(s:gmZ) = on");										// (604) ee'->tt'
 
 	// Suppress terminal text
 	pythia.readString("Print:quiet = on");													// print nothing
@@ -259,14 +259,14 @@ int main(){
 		// Compute additional event shapes
 		if (nCh != 0) {
 			
-			std::vector<Vec4> particles;
+			vector<Vec4> particles;
 			for (int i = 0; i < event_fch.size(); ++i) {
 				particles.emplace_back(event_fch[i].p());
 			}
 
 			// Compute C-parameter
 			double norm = 0.0;
-			TMatrixD cMatrix(3, 3);  // 3x3 linear momentum tensor
+			TMatrixD cMatrix(3, 3);
 			cMatrix.Zero();
 
 			for (const auto& p : particles) {
