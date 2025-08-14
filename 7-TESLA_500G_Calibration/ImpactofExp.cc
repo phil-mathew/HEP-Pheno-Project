@@ -491,94 +491,17 @@ void ImpactofExp()
 	hist_CprPyth_161->SetTitle("");
 	hist_CprPyth_183->SetTitle("");
 
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+	// Create canvas
+	TCanvas* cv1 = new TCanvas("cv1", "FCC-ee ISR Studies", 1400, 850);
+
 	// Add legend
-	// TLegend *lg = new TLegend(0.80, 0.80, 0.94, 0.94);
 	TLegend *lg = new TLegend(0.72, 0.85, 0.92, 0.95);
 	lg->AddEntry(hist_ThrPyth_912, "PYTHIA", "L");
 	lg->AddEntry(hist_ThrExAL_912, "ALEPH", "P");
 	lg->AddEntry(hist_ThrExL3_912, "L3", "P");
 	lg->SetTextSize(0.04);
-
-/////////////////////////////////////////////////////////////////////////////////////////////////////////////	
-
-	// // Create canvas
-	// TCanvas* cv = new TCanvas("cv", "FCC-ee ISR Studies", 2400, 1200);
-
-	// // Beautify
-	// gStyle->SetErrorX(0.000000001);
-	// gStyle->SetLabelSize(0.05, "X");
-	// gStyle->SetLabelSize(0.05, "Y");
-	// gStyle->SetTitleSize(0.06, "X");
-	// gStyle->SetTitleSize(0.06, "Y");
-	// cv->SetMargin(0, 0, 0, 0); 
-	// cv->Divide(3,2);
-	// for (int i = 1; i <= 6; i++) {
-	// 	cv->cd(i);
-	// 	gPad->SetTopMargin(0.015);
-	// 	gPad->SetBottomMargin(0.1);
-	// 	gPad->SetLeftMargin(0.11);
-	// 	gPad->SetRightMargin(0.02);
-	// 	gPad->SetTickx(); gPad->SetTicky();
-	// 	// gPad->SetGridx(); gPad->SetGridy();
-	// 	gPad->SetLogy();
-	// }
-
-	// // Draw
-	// cv->cd(1);
-	// hist_ThrPyth_912->Draw("HIST");
-	// hist_ThrExL3_912->Draw("P SAME");
-	// hist_ThrExAL_912->Draw("P SAME");	
-	// lg->Draw("SAME");	
-	// cv->cd(2);
-	// hist_ThrPyth_161->Draw("HIST");
-	// hist_ThrExL3_161->Draw("P SAME");
-	// hist_ThrExAL_161->Draw("P SAME");
-	// lg->Draw("SAME");
-	// cv->cd(3);
-	// hist_ThrPyth_183->Draw("HIST");
-	// hist_ThrExL3_183->Draw("P SAME");
-	// hist_ThrExAL_183->Draw("P SAME");
-	// lg->Draw("SAME");
-	// cv->cd(4);
-	// hist_CprPyth_912->Draw("HIST");
-	// hist_CprExL3_912->Draw("P SAME");
-	// hist_CprExAL_912->Draw("P SAME");
-	// lg->Draw("SAME");
-	// cv->cd(5);
-	// hist_CprPyth_161->Draw("HIST");
-	// hist_CprExL3_161->Draw("P SAME");
-	// hist_CprExAL_161->Draw("P SAME");
-	// lg->Draw("SAME");
-	// cv->cd(6);
-	// hist_CprPyth_183->Draw("HIST");
-	// hist_CprExL3_183->Draw("P SAME");
-	// hist_CprExAL_183->Draw("P SAME");
-	// lg->Draw("SAME");
-
-	// // Set limits
-	// hist_ThrPyth_912->GetYaxis()->SetRangeUser(1E-3,5E1);
-	// hist_ThrPyth_912->GetXaxis()->SetRangeUser(0,0.4);
-	// hist_ThrPyth_161->GetYaxis()->SetRangeUser(1E-3,5E1);
-	// hist_ThrPyth_161->GetXaxis()->SetRangeUser(0,0.4);
-	// hist_ThrPyth_183->GetYaxis()->SetRangeUser(1E-3,5E1);
-	// hist_ThrPyth_183->GetXaxis()->SetRangeUser(0,0.4);
-
-	// hist_CprPyth_912->GetYaxis()->SetRangeUser(1E-2,1E1);
-	// hist_CprPyth_912->GetXaxis()->SetRangeUser(0,0.4);
-	// hist_CprPyth_161->GetYaxis()->SetRangeUser(1E-2,1E1);
-	// hist_CprPyth_161->GetXaxis()->SetRangeUser(0,0.4);	
-	// hist_CprPyth_183->GetYaxis()->SetRangeUser(1E-2,1E1);
-	// hist_CprPyth_183->GetXaxis()->SetRangeUser(0,0.4);
-
-	// // Modify stat-box
-	// gStyle->SetOptStat();
-	// // Update canvas
-	// cv->Modified();
-
-/////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
-	// Create canvas
-	TCanvas* cv1 = new TCanvas("cv1", "FCC-ee ISR Studies", 1400, 850);
 
 	// Beautify
 	gStyle->SetErrorX(0.000000001);
