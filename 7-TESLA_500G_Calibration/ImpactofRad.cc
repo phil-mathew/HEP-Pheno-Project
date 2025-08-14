@@ -74,17 +74,15 @@ void ImpactofRad()
 	TH1F* hist_Esprime_Zq_365 = (TH1F*)input_365_wiISR->Get("hist_Esprime_Zq");
 	hist_Esprime_Zq_365->SetLineColor(kYellow+2); hist_Esprime_Zq_365->SetMarkerColor(kYellow+2); hist_Esprime_Zq_365->SetMarkerStyle(3); hist_Esprime_Zq_365->SetLineStyle(1); hist_Esprime_Zq_365->SetLineWidth(2); hist_Esprime_Zq_365->SetMarkerSize(1);
 	TH1F* hist_Esprime_WW_365 = (TH1F*)input_365_wiISR->Get("hist_Esprime_WW");
-	hist_Esprime_WW_365->SetLineColor(kGreen+2); hist_Esprime_WW_365->SetMarkerColor(kGreen+2); hist_Esprime_WW_365->SetMarkerStyle(3); hist_Esprime_WW_365->SetLineStyle(2); hist_Esprime_WW_365->SetLineWidth(2); hist_Esprime_WW_365->SetMarkerSize(1);
+	hist_Esprime_WW_365->SetLineColor(kGreen+2); hist_Esprime_WW_365->SetMarkerColor(kGreen+2); hist_Esprime_WW_365->SetMarkerStyle(3); hist_Esprime_WW_365->SetLineStyle(1); hist_Esprime_WW_365->SetLineWidth(2); hist_Esprime_WW_365->SetMarkerSize(1);
 	TH1F* hist_Esprime_ZZ_365 = (TH1F*)input_365_wiISR->Get("hist_Esprime_ZZ");
-	hist_Esprime_ZZ_365->SetLineColor(kBlue+2); hist_Esprime_ZZ_365->SetMarkerColor(kBlue+2); hist_Esprime_ZZ_365->SetMarkerStyle(3); hist_Esprime_ZZ_365->SetLineStyle(2); hist_Esprime_ZZ_365->SetLineWidth(2); hist_Esprime_ZZ_365->SetMarkerSize(1);
+	hist_Esprime_ZZ_365->SetLineColor(kBlue+2); hist_Esprime_ZZ_365->SetMarkerColor(kBlue+2); hist_Esprime_ZZ_365->SetMarkerStyle(3); hist_Esprime_ZZ_365->SetLineStyle(1); hist_Esprime_ZZ_365->SetLineWidth(2); hist_Esprime_ZZ_365->SetMarkerSize(1);
 	TH1F* hist_Esprime_tt_365 = (TH1F*)input_365_wiISR->Get("hist_Esprime_tt");
-	hist_Esprime_tt_365->SetLineColor(kRed+2); hist_Esprime_tt_365->SetMarkerColor(kRed+2); hist_Esprime_tt_365->SetMarkerStyle(3); hist_Esprime_tt_365->SetLineStyle(2); hist_Esprime_tt_365->SetLineWidth(2); hist_Esprime_tt_365->SetMarkerSize(1);
+	hist_Esprime_tt_365->SetLineColor(kRed+2); hist_Esprime_tt_365->SetMarkerColor(kRed+2); hist_Esprime_tt_365->SetMarkerStyle(3); hist_Esprime_tt_365->SetLineStyle(1); hist_Esprime_tt_365->SetLineWidth(2); hist_Esprime_tt_365->SetMarkerSize(1);
 	TH1F* hist_Esprime_HZ_365 = (TH1F*)input_365_wiISR->Get("hist_Esprime_HZ");
-	hist_Esprime_HZ_365->SetLineColor(kBlue+2); hist_Esprime_HZ_365->SetMarkerColor(kBlue+2); hist_Esprime_HZ_365->SetMarkerStyle(53); hist_Esprime_HZ_365->SetLineStyle(1); hist_Esprime_HZ_365->SetLineWidth(2); hist_Esprime_HZ_365->SetMarkerSize(1);
-	TH1F* hist_Esprime_hZ_365 = (TH1F*)input_365_wiISR->Get("hist_Esprime_hZ");
-	hist_Esprime_hZ_365->SetLineColor(kGreen+2); hist_Esprime_hZ_365->SetMarkerColor(kGreen+2); hist_Esprime_hZ_365->SetMarkerStyle(53); hist_Esprime_hZ_365->SetLineStyle(1); hist_Esprime_hZ_365->SetLineWidth(2); hist_Esprime_hZ_365->SetMarkerSize(1);
+	hist_Esprime_HZ_365->SetLineColor(kGreen+2); hist_Esprime_HZ_365->SetMarkerColor(kGreen+2); hist_Esprime_HZ_365->SetMarkerStyle(53); hist_Esprime_HZ_365->SetLineStyle(2); hist_Esprime_HZ_365->SetLineWidth(2); hist_Esprime_HZ_365->SetMarkerSize(1);
 	TH1F* hist_Esprime_hW_365 = (TH1F*)input_365_wiISR->Get("hist_Esprime_hW");
-	hist_Esprime_hW_365->SetLineColor(kRed+2); hist_Esprime_hW_365->SetMarkerColor(kRed+2); hist_Esprime_hW_365->SetMarkerStyle(53); hist_Esprime_hW_365->SetLineStyle(1); hist_Esprime_hW_365->SetLineWidth(2); hist_Esprime_hW_365->SetMarkerSize(1);
+	hist_Esprime_hW_365->SetLineColor(kRed+2); hist_Esprime_hW_365->SetMarkerColor(kRed+2); hist_Esprime_hW_365->SetMarkerStyle(53); hist_Esprime_hW_365->SetLineStyle(2); hist_Esprime_hW_365->SetLineWidth(2); hist_Esprime_hW_365->SetMarkerSize(1);
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -1077,8 +1075,7 @@ void ImpactofRad()
 	lg3->AddEntry(hist_Esprime_WW_365, "ee#rightarrowWW", "L");
 	lg3->AddEntry(hist_Esprime_ZZ_365, "ee#rightarrowZZ", "L");
 	lg3->AddEntry(hist_Esprime_tt_365, "ee#rightarrowt#bar{t}", "L");
-	lg3->AddEntry(hist_Esprime_hZ_365, "ee#rightarrowZH", "L");
-	lg3->AddEntry(hist_Esprime_HZ_365, "ee#rightarroweeH", "L");
+	lg3->AddEntry(hist_Esprime_HZ_365, "ee#rightarrowZH", "L");
 	lg3->AddEntry(hist_Esprime_hW_365, "ee#rightarrow#nu_{e}#bar{#nu_{e}}H", "L");
 	lg3->SetTextSize(0.03);
 
@@ -1101,7 +1098,6 @@ void ImpactofRad()
 	hist_Esprime_WW_365->Draw("HIST SAME");
 	hist_Esprime_ZZ_365->Draw("HIST SAME");
 	hist_Esprime_tt_365->Draw("HIST SAME");
-	hist_Esprime_hZ_365->Draw("HIST SAME");
 	hist_Esprime_HZ_365->Draw("HIST SAME");
 	hist_Esprime_hW_365->Draw("HIST SAME");
 	lg3->Draw("SAME");

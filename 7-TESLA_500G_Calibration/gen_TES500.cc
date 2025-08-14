@@ -134,7 +134,6 @@ int main(){
 	
 	// // Higgs processes
 	pythia.readString("HiggsSM:ffbar2HZ = on");												// (904) ee'->H/Z
-	pythia.readString("HiggsSM:ff2Hff(t:ZZ) = on");											// (906) ee'->ZZ->H
 	pythia.readString("HiggsSM:ff2Hff(t:WW) = on");											// (907) ee'->WW->H
 	// Constrain decays
 	pythia.readString("25:onMode = off");													// turn off H production
