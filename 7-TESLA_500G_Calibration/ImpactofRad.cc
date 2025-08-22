@@ -875,7 +875,6 @@ void ImpactofRad()
 	// gPad->SetTickx(); gPad->SetTicky();
 	// gPad->SetLogy();
 
-
 	// hist_Esprime_912->Draw("P");
 	// hist_Esprime_160->Draw("P SAME");
 	// hist_Esprime_240->Draw("P SAME");
@@ -892,136 +891,36 @@ void ImpactofRad()
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-	// hist_ThrPyth_912_000->SetLineColor(kBlack); 
-	// hist_ThrPyth_160_000->SetLineColor(kBlack);
-	// hist_ThrPyth_240_000->SetLineColor(kBlack);
-	// hist_ThrPyth_365_000->SetLineColor(kBlack);
+	hist_ThrPyth_912_000->SetLineColor(kBlack); 
+	hist_ThrPyth_160_000->SetLineColor(kBlack);
+	hist_ThrPyth_240_000->SetLineColor(kBlack);
+	hist_ThrPyth_365_000->SetLineColor(kBlack);
 	
-	// hist_CprPyth_912_000->SetLineColor(kBlack);
-	// hist_CprPyth_160_000->SetLineColor(kBlack);
-	// hist_CprPyth_240_000->SetLineColor(kBlack);
-	// hist_CprPyth_365_000->SetLineColor(kBlack);
+	hist_CprPyth_912_000->SetLineColor(kBlack);
+	hist_CprPyth_160_000->SetLineColor(kBlack);
+	hist_CprPyth_240_000->SetLineColor(kBlack);
+	hist_CprPyth_365_000->SetLineColor(kBlack);
 
-	// hist_ThrPyth_912_100->SetLineColor(kRed+1);
-	// hist_ThrPyth_160_100->SetLineColor(kRed+1);
-	// hist_ThrPyth_240_100->SetLineColor(kRed+1);
-	// hist_ThrPyth_365_100->SetLineColor(kRed+1);
+	hist_ThrPyth_912_100->SetLineColor(kRed+1);
+	hist_ThrPyth_160_100->SetLineColor(kRed+1);
+	hist_ThrPyth_240_100->SetLineColor(kRed+1);
+	hist_ThrPyth_365_100->SetLineColor(kRed+1);
 	
-	// hist_CprPyth_912_100->SetLineColor(kRed+1);
-	// hist_CprPyth_160_100->SetLineColor(kRed+1);
-	// hist_CprPyth_240_100->SetLineColor(kRed+1);
-	// hist_CprPyth_365_100->SetLineColor(kRed+1);
-
-	// // Create canvas
-	// TCanvas* cv2 = new TCanvas("cv2", "FCC-ee ISR Studies", 1000, 1400);
-
-	// // Add legend
-	// TLegend* lg2 = new TLegend(0.20, 0.20, 0.40, 0.45);
-	// lg2->AddEntry(hist_ThrPyth_912_000, "No cut", "L");
-	// lg2->AddEntry(hist_ThrPyth_912_085, "LEP cut", "L");
-	// // lg2->AddEntry(hist_ThrPyth_912_095, "0.95 cut", "L");
-	// lg2->AddEntry(hist_ThrPyth_912_100, "Full cut", "L");
-	// lg2->SetTextSize(0.06);
-
-	// // Beautify
-	// gStyle->SetErrorX(0.000000001);
-	// gStyle->SetLabelSize(0.05, "X");
-	// gStyle->SetLabelSize(0.05, "Y");
-	// gStyle->SetTitleSize(0.06, "X");
-	// gStyle->SetTitleSize(0.06, "Y");
-	// cv2->SetMargin(0, 0, 0, 0); 
-	// cv2->Divide(2,4);
-	// for (int i = 1; i <= 8; i++) {
-	// 	cv2->cd(i);
-	// 	gPad->SetTopMargin(0.025);
-	// 	gPad->SetBottomMargin(0.14);
-	// 	gPad->SetLeftMargin(0.15);
-	// 	gPad->SetRightMargin(0.04);
-	// 	gPad->SetTickx(); gPad->SetTicky();
-	// 	gPad->SetLogy();
-	// }
-
-	// cv2->cd(1);
-	// hist_ThrPyth_912_000->Draw("HIST");
-	// hist_ThrPyth_912_085->Draw("HIST SAME");
-	// hist_ThrPyth_912_100->Draw("HIST SAME");
-	// lg2->Draw("SAME");
-	// cv2->cd(3);
-	// hist_ThrPyth_160_000->Draw("HIST");
-	// hist_ThrPyth_160_085->Draw("HIST SAME");
-	// hist_ThrPyth_160_100->Draw("HIST SAME");
-	// lg2->Draw("SAME");
-	// cv2->cd(5);
-	// hist_ThrPyth_240_000->Draw("HIST");
-	// hist_ThrPyth_240_085->Draw("HIST SAME");
-	// hist_ThrPyth_240_100->Draw("HIST SAME");
-	// lg2->Draw("SAME");
-	// cv2->cd(7);
-	// hist_ThrPyth_365_000->Draw("HIST");
-	// hist_ThrPyth_365_085->Draw("HIST SAME");
-	// hist_ThrPyth_365_100->Draw("HIST SAME");
-	// lg2->Draw("SAME");
-
-	// cv2->cd(2);
-	// hist_CprPyth_912_000->Draw("HIST");
-	// hist_CprPyth_912_085->Draw("HIST SAME");
-	// hist_CprPyth_912_100->Draw("HIST SAME");
-	// lg2->Draw("SAME");
-	// cv2->cd(4);
-	// hist_CprPyth_160_000->Draw("HIST");
-	// hist_CprPyth_160_085->Draw("HIST SAME");
-	// hist_CprPyth_160_100->Draw("HIST SAME");
-	// lg2->Draw("SAME");
-	// cv2->cd(6);
-	// hist_CprPyth_240_000->Draw("HIST");
-	// hist_CprPyth_240_085->Draw("HIST SAME");
-	// hist_CprPyth_240_100->Draw("HIST SAME");
-	// lg2->Draw("SAME");
-	// cv2->cd(8);
-	// hist_CprPyth_365_000->Draw("HIST");
-	// hist_CprPyth_365_085->Draw("HIST SAME");
-	// hist_CprPyth_365_100->Draw("HIST SAME");
-	// lg2->Draw("SAME");
-
-	// // Set limits
-	// hist_ThrPyth_912_000->GetYaxis()->SetRangeUser(1E-4,1E2);
-	// hist_ThrPyth_912_000->GetXaxis()->SetRangeUser(0,0.4);
-	// hist_ThrPyth_160_000->GetYaxis()->SetRangeUser(1E-4,1E2);
-	// hist_ThrPyth_160_000->GetXaxis()->SetRangeUser(0,0.4);
-	// hist_ThrPyth_240_000->GetYaxis()->SetRangeUser(1E-4,1E2);
-	// hist_ThrPyth_240_000->GetXaxis()->SetRangeUser(0,0.4);
-	// hist_ThrPyth_365_000->GetYaxis()->SetRangeUser(1E-4,1E2);
-	// hist_ThrPyth_365_000->GetXaxis()->SetRangeUser(0,0.4);
-
-	// hist_CprPyth_912_000->GetYaxis()->SetRangeUser(1E-4,1E2);
-	// hist_CprPyth_912_000->GetXaxis()->SetRangeUser(0,1.0);
-	// hist_CprPyth_160_000->GetYaxis()->SetRangeUser(1E-4,1E2);
-	// hist_CprPyth_160_000->GetXaxis()->SetRangeUser(0,1.0);
-	// hist_CprPyth_240_000->GetYaxis()->SetRangeUser(1E-4,1E2);
-	// hist_CprPyth_240_000->GetXaxis()->SetRangeUser(0,1.0);
-	// hist_CprPyth_365_000->GetYaxis()->SetRangeUser(1E-4,1E2);
-	// hist_CprPyth_365_000->GetXaxis()->SetRangeUser(0,1.0);	
-
-	// // Modify stat-box
-	// gStyle->SetOptStat();
-	// // Update canvas
-	// cv2->Modified();	
-
-/////////////////////////////////////////////////////////////////////////////////////////////////////////////
+	hist_CprPyth_912_100->SetLineColor(kRed+1);
+	hist_CprPyth_160_100->SetLineColor(kRed+1);
+	hist_CprPyth_240_100->SetLineColor(kRed+1);
+	hist_CprPyth_365_100->SetLineColor(kRed+1);
 
 	// Create canvas
-	TCanvas* cv3 = new TCanvas("cv3", "FCC-ee ISR Studies", 1000, 800);
+	TCanvas* cv2 = new TCanvas("cv2", "FCC-ee ISR Studies", 1000, 1400);
 
 	// Add legend
-	TLegend* lg3 = new TLegend(0.13, 0.65, 0.28, 0.95);
-	lg3->AddEntry(hist_Esprime_365, "ee#rightarrowq#bar{q}", "L");
-	lg3->AddEntry(hist_Esprime_Zq_365, "ee#rightarrow#gamma*/Z", "L");
-	lg3->AddEntry(hist_Esprime_WW_365, "ee#rightarrowWW", "L");
-	lg3->AddEntry(hist_Esprime_ZZ_365, "ee#rightarrowZZ", "L");
-	lg3->AddEntry(hist_Esprime_tt_365, "ee#rightarrowt#bar{t}", "L");
-	lg3->AddEntry(hist_Esprime_HZ_365, "ee#rightarrowZH", "L");
-	lg3->AddEntry(hist_Esprime_hW_365, "ee#rightarrow#nu_{e}#bar{#nu_{e}}H", "L");
-	lg3->SetTextSize(0.03);
+	TLegend* lg2 = new TLegend(0.20, 0.20, 0.40, 0.45);
+	lg2->AddEntry(hist_ThrPyth_912_000, "No cut", "L");
+	lg2->AddEntry(hist_ThrPyth_912_085, "LEP cut", "L");
+	// lg2->AddEntry(hist_ThrPyth_912_095, "0.95 cut", "L");
+	lg2->AddEntry(hist_ThrPyth_912_100, "Full cut", "L");
+	lg2->SetTextSize(0.06);
 
 	// Beautify
 	gStyle->SetErrorX(0.000000001);
@@ -1029,29 +928,129 @@ void ImpactofRad()
 	gStyle->SetLabelSize(0.05, "Y");
 	gStyle->SetTitleSize(0.06, "X");
 	gStyle->SetTitleSize(0.06, "Y");
-	cv3->SetMargin(0, 0, 0, 0); 
-	gPad->SetTopMargin(0.025);
-	gPad->SetBottomMargin(0.10);
-	gPad->SetLeftMargin(0.10);
-	gPad->SetRightMargin(0.01);
-	gPad->SetTickx(); gPad->SetTicky();
-	gPad->SetLogy();
+	cv2->SetMargin(0, 0, 0, 0); 
+	cv2->Divide(2,4);
+	for (int i = 1; i <= 8; i++) {
+		cv2->cd(i);
+		gPad->SetTopMargin(0.025);
+		gPad->SetBottomMargin(0.14);
+		gPad->SetLeftMargin(0.15);
+		gPad->SetRightMargin(0.04);
+		gPad->SetTickx(); gPad->SetTicky();
+		gPad->SetLogy();
+	}
 
-	hist_Esprime_365->Draw("HIST");
-	hist_Esprime_Zq_365->Draw("HIST SAME");
-	hist_Esprime_WW_365->Draw("HIST SAME");
-	hist_Esprime_ZZ_365->Draw("HIST SAME");
-	hist_Esprime_tt_365->Draw("HIST SAME");
-	hist_Esprime_HZ_365->Draw("HIST SAME");
-	hist_Esprime_hW_365->Draw("HIST SAME");
-	lg3->Draw("SAME");
+	cv2->cd(1);
+	hist_ThrPyth_912_000->Draw("HIST");
+	hist_ThrPyth_912_085->Draw("HIST SAME");
+	hist_ThrPyth_912_100->Draw("HIST SAME");
+	lg2->Draw("SAME");
+	cv2->cd(3);
+	hist_ThrPyth_160_000->Draw("HIST");
+	hist_ThrPyth_160_085->Draw("HIST SAME");
+	hist_ThrPyth_160_100->Draw("HIST SAME");
+	lg2->Draw("SAME");
+	cv2->cd(5);
+	hist_ThrPyth_240_000->Draw("HIST");
+	hist_ThrPyth_240_085->Draw("HIST SAME");
+	hist_ThrPyth_240_100->Draw("HIST SAME");
+	lg2->Draw("SAME");
+	cv2->cd(7);
+	hist_ThrPyth_365_000->Draw("HIST");
+	hist_ThrPyth_365_085->Draw("HIST SAME");
+	hist_ThrPyth_365_100->Draw("HIST SAME");
+	lg2->Draw("SAME");
+
+	cv2->cd(2);
+	hist_CprPyth_912_000->Draw("HIST");
+	hist_CprPyth_912_085->Draw("HIST SAME");
+	hist_CprPyth_912_100->Draw("HIST SAME");
+	lg2->Draw("SAME");
+	cv2->cd(4);
+	hist_CprPyth_160_000->Draw("HIST");
+	hist_CprPyth_160_085->Draw("HIST SAME");
+	hist_CprPyth_160_100->Draw("HIST SAME");
+	lg2->Draw("SAME");
+	cv2->cd(6);
+	hist_CprPyth_240_000->Draw("HIST");
+	hist_CprPyth_240_085->Draw("HIST SAME");
+	hist_CprPyth_240_100->Draw("HIST SAME");
+	lg2->Draw("SAME");
+	cv2->cd(8);
+	hist_CprPyth_365_000->Draw("HIST");
+	hist_CprPyth_365_085->Draw("HIST SAME");
+	hist_CprPyth_365_100->Draw("HIST SAME");
+	lg2->Draw("SAME");
 
 	// Set limits
-	hist_Esprime_365->GetYaxis()->SetRangeUser(1E0,1E6);
+	hist_ThrPyth_912_000->GetYaxis()->SetRangeUser(1E-4,1E2);
+	hist_ThrPyth_912_000->GetXaxis()->SetRangeUser(0,0.4);
+	hist_ThrPyth_160_000->GetYaxis()->SetRangeUser(1E-4,1E2);
+	hist_ThrPyth_160_000->GetXaxis()->SetRangeUser(0,0.4);
+	hist_ThrPyth_240_000->GetYaxis()->SetRangeUser(1E-4,1E2);
+	hist_ThrPyth_240_000->GetXaxis()->SetRangeUser(0,0.4);
+	hist_ThrPyth_365_000->GetYaxis()->SetRangeUser(1E-4,1E2);
+	hist_ThrPyth_365_000->GetXaxis()->SetRangeUser(0,0.4);
+
+	hist_CprPyth_912_000->GetYaxis()->SetRangeUser(1E-4,1E2);
+	hist_CprPyth_912_000->GetXaxis()->SetRangeUser(0,1.0);
+	hist_CprPyth_160_000->GetYaxis()->SetRangeUser(1E-4,1E2);
+	hist_CprPyth_160_000->GetXaxis()->SetRangeUser(0,1.0);
+	hist_CprPyth_240_000->GetYaxis()->SetRangeUser(1E-4,1E2);
+	hist_CprPyth_240_000->GetXaxis()->SetRangeUser(0,1.0);
+	hist_CprPyth_365_000->GetYaxis()->SetRangeUser(1E-4,1E2);
+	hist_CprPyth_365_000->GetXaxis()->SetRangeUser(0,1.0);	
 
 	// Modify stat-box
 	gStyle->SetOptStat();
 	// Update canvas
-	cv3->Modified();
+	cv2->Modified();	
+
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+	// // Create canvas
+	// TCanvas* cv3 = new TCanvas("cv3", "FCC-ee ISR Studies", 1000, 800);
+
+	// // Add legend
+	// TLegend* lg3 = new TLegend(0.13, 0.65, 0.28, 0.95);
+	// lg3->AddEntry(hist_Esprime_365, "ee#rightarrowq#bar{q}", "L");
+	// lg3->AddEntry(hist_Esprime_Zq_365, "ee#rightarrow#gamma*/Z", "L");
+	// lg3->AddEntry(hist_Esprime_WW_365, "ee#rightarrowWW", "L");
+	// lg3->AddEntry(hist_Esprime_ZZ_365, "ee#rightarrowZZ", "L");
+	// lg3->AddEntry(hist_Esprime_tt_365, "ee#rightarrowt#bar{t}", "L");
+	// lg3->AddEntry(hist_Esprime_HZ_365, "ee#rightarrowZH", "L");
+	// lg3->AddEntry(hist_Esprime_hW_365, "ee#rightarrow#nu_{e}#bar{#nu_{e}}H", "L");
+	// lg3->SetTextSize(0.03);
+
+	// // Beautify
+	// gStyle->SetErrorX(0.000000001);
+	// gStyle->SetLabelSize(0.05, "X");
+	// gStyle->SetLabelSize(0.05, "Y");
+	// gStyle->SetTitleSize(0.06, "X");
+	// gStyle->SetTitleSize(0.06, "Y");
+	// cv3->SetMargin(0, 0, 0, 0); 
+	// gPad->SetTopMargin(0.025);
+	// gPad->SetBottomMargin(0.10);
+	// gPad->SetLeftMargin(0.10);
+	// gPad->SetRightMargin(0.01);
+	// gPad->SetTickx(); gPad->SetTicky();
+	// gPad->SetLogy();
+
+	// hist_Esprime_365->Draw("HIST");
+	// hist_Esprime_Zq_365->Draw("HIST SAME");
+	// hist_Esprime_WW_365->Draw("HIST SAME");
+	// hist_Esprime_ZZ_365->Draw("HIST SAME");
+	// hist_Esprime_tt_365->Draw("HIST SAME");
+	// hist_Esprime_HZ_365->Draw("HIST SAME");
+	// hist_Esprime_hW_365->Draw("HIST SAME");
+	// lg3->Draw("SAME");
+
+	// // Set limits
+	// hist_Esprime_365->GetYaxis()->SetRangeUser(1E0,1E6);
+
+	// // Modify stat-box
+	// gStyle->SetOptStat();
+	// // Update canvas
+	// cv3->Modified();
 
 }

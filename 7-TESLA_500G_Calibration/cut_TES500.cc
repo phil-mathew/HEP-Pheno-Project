@@ -133,10 +133,10 @@ void applyCuts( const std::string& inputFileName, const std::string& outputFileN
 	hist_Esprime_HZ->GetYaxis()->SetTitle("#events");
 	otree->Branch("hist_Esprime_HZ", &hist_Esprime_HZ, "hist_Esprime_HZ");
 
-	TH1F *hist_Esprime_hW = new TH1F("hist_Esprime_hW", "Reduced energy after ISR", 200, -1, 366);
-	hist_Esprime_hW->GetXaxis()->SetTitle("#sqrt{s'}");
-	hist_Esprime_hW->GetYaxis()->SetTitle("#events");
-	otree->Branch("hist_Esprime_hW", &hist_Esprime_hW, "hist_Esprime_hW");
+	TH1F *hist_Esprime_HW = new TH1F("hist_Esprime_HW", "Reduced energy after ISR", 200, -1, 366);
+	hist_Esprime_HW->GetXaxis()->SetTitle("#sqrt{s'}");
+	hist_Esprime_HW->GetYaxis()->SetTitle("#events");
+	otree->Branch("hist_Esprime_HW", &hist_Esprime_HW, "hist_Esprime_HW");
 
 	TH1F *hist_Esprime_Zq = new TH1F("hist_Esprime_Zq", "Reduced energy after ISR", 200, -1, 366);
 	hist_Esprime_Zq->GetXaxis()->SetTitle("#sqrt{s'}");
@@ -192,10 +192,10 @@ void applyCuts( const std::string& inputFileName, const std::string& outputFileN
 	hist_nHadron_HZ->GetYaxis()->SetTitle("P(N_{CH})");
 	otree->Branch("hist_nHadron_HZ", &hist_nHadron_HZ, "hist_nHadron_HZ");
 
-	TH1F *hist_nHadron_hW = new TH1F("hist_nHadron_hW", "Charged Hadron Multiplicity", 60, 1, 121);
-	hist_nHadron_hW->GetXaxis()->SetTitle("N_{CH}");
-	hist_nHadron_hW->GetYaxis()->SetTitle("P(N_{CH})");
-	otree->Branch("hist_nHadron_hW", &hist_nHadron_hW, "hist_nHadron_hW");
+	TH1F *hist_nHadron_HW = new TH1F("hist_nHadron_HW", "Charged Hadron Multiplicity", 60, 1, 121);
+	hist_nHadron_HW->GetXaxis()->SetTitle("N_{CH}");
+	hist_nHadron_HW->GetYaxis()->SetTitle("P(N_{CH})");
+	otree->Branch("hist_nHadron_HW", &hist_nHadron_HW, "hist_nHadron_HW");
 
 	TH1F *hist_nHadron_Zq = new TH1F("hist_nHadron_Zq", "Charged Hadron Multiplicity", 60, 1, 121);
 	hist_nHadron_Zq->GetXaxis()->SetTitle("N_{CH}");
@@ -283,12 +283,12 @@ void applyCuts( const std::string& inputFileName, const std::string& outputFileN
 	hist_ThrPyth_HZ->GetYaxis()->SetTitle("1/#sigma d#sigma/d(1-T)");
 	otree->Branch("hist_ThrPyth_HZ", &hist_ThrPyth_HZ, "hist_ThrPyth_HZ");
 
-	TH1F *hist_ThrPyth_hW = new TH1F("hist_ThrPyth_hW", "Inverse Thrust", 200, 0, 0.4);
-	hist_ThrPyth_hW->GetXaxis()->SetTitle("(1-T)");
-	hist_ThrPyth_hW->GetYaxis()->SetTitle("1/#sigma d#sigma/d(1-T)");
-	otree->Branch("hist_ThrPyth_hW", &hist_ThrPyth_hW, "hist_ThrPyth_hW");
+	TH1F *hist_ThrPyth_HW = new TH1F("hist_ThrPyth_HW", "Inverse Thrust", 200, 0, 0.4);
+	hist_ThrPyth_HW->GetXaxis()->SetTitle("(1-T)");
+	hist_ThrPyth_HW->GetYaxis()->SetTitle("1/#sigma d#sigma/d(1-T)");
+	otree->Branch("hist_ThrPyth_HW", &hist_ThrPyth_HW, "hist_ThrPyth_HW");
 
-	TH1F *hist_ThrPyth_Zq = new TH1F("hist_ThrPyth_Zq", "Inverse Thrust", 45, 0, 0.45);
+	TH1F *hist_ThrPyth_Zq = new TH1F("hist_ThrPyth_Zq", "Inverse Thrust", 200, 0, 0.4);
 	hist_ThrPyth_Zq->GetXaxis()->SetTitle("(1-T)");
 	hist_ThrPyth_Zq->GetYaxis()->SetTitle("1/#sigma d#sigma/d(1-T)");
 	otree->Branch("hist_ThrPyth_Zq", &hist_ThrPyth_Zq, "hist_ThrPyth_Zq");
@@ -352,12 +352,12 @@ void applyCuts( const std::string& inputFileName, const std::string& outputFileN
 	hist_CprPyth_HZ->GetYaxis()->SetTitle("1/#sigma d#sigma/d(C)");
 	otree->Branch("hist_CprPyth_HZ", &hist_CprPyth_HZ, "hist_CprPyth_HZ");
 
-	TH1F *hist_CprPyth_hW = new TH1F("hist_CprPyth_hW", "C-parameter", 200, 0, 1.0);
-	hist_CprPyth_hW->GetXaxis()->SetTitle("C");
-	hist_CprPyth_hW->GetYaxis()->SetTitle("1/#sigma d#sigma/d(C)");
-	otree->Branch("hist_CprPyth_hW", &hist_CprPyth_hW, "hist_CprPyth_hW");
+	TH1F *hist_CprPyth_HW = new TH1F("hist_CprPyth_HW", "C-parameter", 200, 0, 1.0);
+	hist_CprPyth_HW->GetXaxis()->SetTitle("C");
+	hist_CprPyth_HW->GetYaxis()->SetTitle("1/#sigma d#sigma/d(C)");
+	otree->Branch("hist_CprPyth_HW", &hist_CprPyth_HW, "hist_CprPyth_HW");
 
-	TH1F *hist_CprPyth_Zq = new TH1F("hist_CprPyth_Zq", "C-parameter", 45, 0, 0.45);
+	TH1F *hist_CprPyth_Zq = new TH1F("hist_CprPyth_Zq", "C-parameter", 200, 0, 1.0);
 	hist_CprPyth_Zq->GetXaxis()->SetTitle("C");
 	hist_CprPyth_Zq->GetYaxis()->SetTitle("1/#sigma d#sigma/d(C)");
 	otree->Branch("hist_CprPyth_Zq", &hist_CprPyth_Zq, "hist_CprPyth_Zq");
@@ -578,10 +578,10 @@ void applyCuts( const std::string& inputFileName, const std::string& outputFileN
 				hist_CprPyth_HZ->Fill((*eveCpr)[0]);
 			}
 			if ((*eveCod)[0] == 907) {
-				hist_Esprime_hW->Fill((*eveSpr)[0]);
-				hist_nHadron_hW->Fill(nCh);
-				hist_ThrPyth_hW->Fill((*eveThr)[0]);
-				hist_CprPyth_hW->Fill((*eveCpr)[0]);
+				hist_Esprime_HW->Fill((*eveSpr)[0]);
+				hist_nHadron_HW->Fill(nCh);
+				hist_ThrPyth_HW->Fill((*eveThr)[0]);
+				hist_CprPyth_HW->Fill((*eveCpr)[0]);
 			}
 
 		}
@@ -593,7 +593,7 @@ void applyCuts( const std::string& inputFileName, const std::string& outputFileN
 			hist_CprPyth_085->Fill((*eveCpr)[0]);
 		}
 
-		// 95 cut on √s'
+		// -95 cut on √s'
 		if ((*eveSpr)[0] >= nEnerg-5.00 && (*eveCod)[0] == 221) {
 			hist_ThrPyth_095->Fill((*eveThr)[0]); 
 			hist_nHadron_095->Fill(nCh);
@@ -677,17 +677,17 @@ void applyCuts( const std::string& inputFileName, const std::string& outputFileN
 // Code
 int main() {
 
-	// // Extraction
-	// applyCuts("gen_FCC365.root", "cut_FCC365.root", 365.0);
-	// applyCuts("gen_FCC240.root", "cut_FCC240.root", 240.0);
-	// applyCuts("gen_FCC160.root", "cut_FCC160.root", 160.0);
-	// applyCuts("gen_FCC912.root", "cut_FCC912.root", 91.20);
+	// Extraction
+	applyCuts("gen_FCC912.root", "cut_FCC912.root", 91.20);
+	applyCuts("gen_FCC160.root", "cut_FCC160.root", 160.0);
+	applyCuts("gen_FCC240.root", "cut_FCC240.root", 240.0);
+	applyCuts("gen_FCC365.root", "cut_FCC365.root", 365.0);
 	
 	// ISR
-	applyCuts("gen_FCC365_ISR.root", "cut_FCC365_ISR.root", 365.0);
-	applyCuts("gen_FCC240_ISR.root", "cut_FCC240_ISR.root", 240.0);
-	applyCuts("gen_FCC160_ISR.root", "cut_FCC160_ISR.root", 160.0);
-	applyCuts("gen_FCC912_ISR.root", "cut_FCC912_ISR.root", 91.20);
+	// applyCuts("gen_FCC365_ISR.root", "cut_FCC365_ISR.root", 365.0);
+	// applyCuts("gen_FCC240_ISR.root", "cut_FCC240_ISR.root", 240.0);
+	// applyCuts("gen_FCC160_ISR.root", "cut_FCC160_ISR.root", 160.0);
+	// applyCuts("gen_FCC912_ISR.root", "cut_FCC912_ISR.root", 91.20);
 
 	// // Calibration
 	// applyCuts("gen_FCC183.root", "cut_FCC183.root", 183.0);
@@ -695,8 +695,10 @@ int main() {
 	// applyCuts("gen_FCC912.root", "cut_FCC912.root", 91.20);
 
 	// Hadronisation
-	// applyCuts("gen_FCC912_wiHadron.root", "cut_FCC912_wiHadron.root", 91.2);
-	// applyCuts("gen_FCC912_woHadron.root", "cut_FCC912_woHadron.root", 91.2);
+	applyCuts("gen_FCC912_woHadron.root", "cut_FCC912_woHadron.root", 91.20);
+	applyCuts("gen_FCC160_woHadron.root", "cut_FCC160_woHadron.root", 160.0);
+	applyCuts("gen_FCC240_woHadron.root", "cut_FCC240_woHadron.root", 240.0);
+	applyCuts("gen_FCC365_woHadron.root", "cut_FCC365_woHadron.root", 365.0);
 
 	// Old	
 	// applyCuts("gen_LEP912_wiR.root", "cut_LEP912_wiR.root", 91.0);

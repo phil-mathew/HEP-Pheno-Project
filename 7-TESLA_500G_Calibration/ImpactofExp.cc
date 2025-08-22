@@ -42,9 +42,6 @@ void ImpactofExp()
 	TFile *input_912 = new TFile("cut_FCC912.root", "READ");
 	TFile *input_161 = new TFile("cut_FCC161.root", "READ");
 	TFile *input_183 = new TFile("cut_FCC183.root", "READ");
-	TFile *input_240 = new TFile("cut_FCC240.root", "READ");
-	TFile *input_365 = new TFile("cut_FCC365.root", "READ");
-	TFile *input_500 = new TFile("cut_FCC500.root", "READ");
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////
 // Importing raw TEXT data
@@ -494,10 +491,10 @@ void ImpactofExp()
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 	// Create canvas
-	TCanvas* cv1 = new TCanvas("cv1", "FCC-ee ISR Studies", 1400, 850);
+	TCanvas* cv1 = new TCanvas("cv1", "FCC-ee ISR Studies", 850, 1600);
 
 	// Add legend
-	TLegend *lg = new TLegend(0.72, 0.85, 0.92, 0.95);
+	TLegend *lg = new TLegend(0.75, 0.80, 0.92, 0.95);
 	lg->AddEntry(hist_ThrPyth_912, "PYTHIA", "L");
 	lg->AddEntry(hist_ThrExAL_912, "ALEPH", "P");
 	lg->AddEntry(hist_ThrExL3_912, "L3", "P");
@@ -510,7 +507,7 @@ void ImpactofExp()
 	gStyle->SetTitleSize(0.06, "X");
 	gStyle->SetTitleSize(0.06, "Y");
 	cv1->SetMargin(0, 0, 0, 0); 
-	cv1->Divide(2,1);
+	cv1->Divide(1,2);
 	for (int i = 1; i <= 2; i++) {
 		cv1->cd(i);
 		gPad->SetTopMargin(0.015);
