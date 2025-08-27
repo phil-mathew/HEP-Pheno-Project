@@ -253,149 +253,149 @@ void applyCuts( const std::string& inputFileName, const std::string& outputFileN
 
 	TH1F *hist_ThrPyth = new TH1F("hist_ThrPyth", "Inverse Thrust", 200, 0, 0.4);
 	hist_ThrPyth->GetXaxis()->SetTitle("(1-T)");
-	hist_ThrPyth->GetYaxis()->SetTitle("1/#sigma d#sigma/d(1-T)");
+	hist_ThrPyth->GetYaxis()->SetTitle("1/#sigma_{had} d#sigma/d(1-T)");
 	otree->Branch("hist_ThrPyth", &hist_ThrPyth, "hist_ThrPyth");
 
 	TH1F *hist_ThrPyth_000 = new TH1F("hist_ThrPyth_000", "Inverse Thrust", 200, 0, 0.4);
 	hist_ThrPyth_000->GetXaxis()->SetTitle("(1-T)");
-	hist_ThrPyth_000->GetYaxis()->SetTitle("1/#sigma d#sigma/d(1-T)");
+	hist_ThrPyth_000->GetYaxis()->SetTitle("1/#sigma_{had} d#sigma/d(1-T)");
 	otree->Branch("hist_ThrPyth_000", &hist_ThrPyth_000, "hist_ThrPyth_000");
 
 	TH1F *hist_ThrPyth_085 = new TH1F("hist_ThrPyth_085", "Inverse Thrust", 200, 0, 0.4);
 	hist_ThrPyth_085->GetXaxis()->SetTitle("(1-T)");
-	hist_ThrPyth_085->GetYaxis()->SetTitle("1/#sigma d#sigma/d(1-T)");
+	hist_ThrPyth_085->GetYaxis()->SetTitle("1/#sigma_{had} d#sigma/d(1-T)");
 	otree->Branch("hist_ThrPyth_085", &hist_ThrPyth_085, "hist_ThrPyth_085");
 
 	TH1F *hist_ThrPyth_095 = new TH1F("hist_ThrPyth_095", "Inverse Thrust", 200, 0, 0.4);
 	hist_ThrPyth_095->GetXaxis()->SetTitle("(1-T)");
-	hist_ThrPyth_095->GetYaxis()->SetTitle("1/#sigma d#sigma/d(1-T)");
+	hist_ThrPyth_095->GetYaxis()->SetTitle("1/#sigma_{had} d#sigma/d(1-T)");
 	otree->Branch("hist_ThrPyth_095", &hist_ThrPyth_095, "hist_ThrPyth_095");
 
 	TH1F *hist_ThrPyth_100 = new TH1F("hist_ThrPyth_100", "Inverse Thrust", 200, 0, 0.4);
 	hist_ThrPyth_100->GetXaxis()->SetTitle("(1-T)");
-	hist_ThrPyth_100->GetYaxis()->SetTitle("1/#sigma d#sigma/d(1-T)");
+	hist_ThrPyth_100->GetYaxis()->SetTitle("1/#sigma_{had} d#sigma/d(1-T)");
 	otree->Branch("hist_ThrPyth_100", &hist_ThrPyth_100, "hist_ThrPyth_100");
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 	TH1F *hist_ThrPyth_HZ = new TH1F("hist_ThrPyth_HZ", "Inverse Thrust", 200, 0, 0.4);
 	hist_ThrPyth_HZ->GetXaxis()->SetTitle("(1-T)");
-	hist_ThrPyth_HZ->GetYaxis()->SetTitle("1/#sigma d#sigma/d(1-T)");
+	hist_ThrPyth_HZ->GetYaxis()->SetTitle("1/#sigma_{had} d#sigma/d(1-T)");
 	otree->Branch("hist_ThrPyth_HZ", &hist_ThrPyth_HZ, "hist_ThrPyth_HZ");
 
 	TH1F *hist_ThrPyth_HW = new TH1F("hist_ThrPyth_HW", "Inverse Thrust", 200, 0, 0.4);
 	hist_ThrPyth_HW->GetXaxis()->SetTitle("(1-T)");
-	hist_ThrPyth_HW->GetYaxis()->SetTitle("1/#sigma d#sigma/d(1-T)");
+	hist_ThrPyth_HW->GetYaxis()->SetTitle("1/#sigma_{had} d#sigma/d(1-T)");
 	otree->Branch("hist_ThrPyth_HW", &hist_ThrPyth_HW, "hist_ThrPyth_HW");
 
 	TH1F *hist_ThrPyth_Zq = new TH1F("hist_ThrPyth_Zq", "Inverse Thrust", 200, 0, 0.4);
 	hist_ThrPyth_Zq->GetXaxis()->SetTitle("(1-T)");
-	hist_ThrPyth_Zq->GetYaxis()->SetTitle("1/#sigma d#sigma/d(1-T)");
+	hist_ThrPyth_Zq->GetYaxis()->SetTitle("1/#sigma_{had} d#sigma/d(1-T)");
 	otree->Branch("hist_ThrPyth_Zq", &hist_ThrPyth_Zq, "hist_ThrPyth_Zq");
 
 	TH1F *hist_ThrPyth_tt = new TH1F("hist_ThrPyth_tt", "Inverse Thrust", 200, 0, 0.4);
 	hist_ThrPyth_tt->GetXaxis()->SetTitle("(1-T)");
-	hist_ThrPyth_tt->GetYaxis()->SetTitle("1/#sigma d#sigma/d(1-T)");
+	hist_ThrPyth_tt->GetYaxis()->SetTitle("1/#sigma_{had} d#sigma/d(1-T)");
 	otree->Branch("hist_ThrPyth_tt", &hist_ThrPyth_tt, "hist_ThrPyth_tt");
 
 	TH1F *hist_ThrPyth_WW = new TH1F("hist_ThrPyth_WW", "Inverse Thrust", 200, 0, 0.4);
 	hist_ThrPyth_WW->GetXaxis()->SetTitle("(1-T)");
-	hist_ThrPyth_WW->GetYaxis()->SetTitle("1/#sigma d#sigma/d(1-T)");
+	hist_ThrPyth_WW->GetYaxis()->SetTitle("1/#sigma_{had} d#sigma/d(1-T)");
 	otree->Branch("hist_ThrPyth_WW", &hist_ThrPyth_WW, "hist_ThrPyth_WW");
 
 	TH1F *hist_ThrPyth_ZZ = new TH1F("hist_ThrPyth_ZZ", "Inverse Thrust", 200, 0, 0.4);
 	hist_ThrPyth_ZZ->GetXaxis()->SetTitle("(1-T)");
-	hist_ThrPyth_ZZ->GetYaxis()->SetTitle("1/#sigma d#sigma/d(1-T)");
+	hist_ThrPyth_ZZ->GetYaxis()->SetTitle("1/#sigma_{had} d#sigma/d(1-T)");
 	otree->Branch("hist_ThrPyth_ZZ", &hist_ThrPyth_ZZ, "hist_ThrPyth_ZZ");
 
 	TH1F *hist_ThrPyth_Zt = new TH1F("hist_ThrPyth_Zt", "Inverse Thrust", 200, 0, 0.4);
 	hist_ThrPyth_Zt->GetXaxis()->SetTitle("(1-T)");
-	hist_ThrPyth_Zt->GetYaxis()->SetTitle("1/#sigma d#sigma/d(1-T)");
+	hist_ThrPyth_Zt->GetYaxis()->SetTitle("1/#sigma_{had} d#sigma/d(1-T)");
 	otree->Branch("hist_ThrPyth_Zt", &hist_ThrPyth_Zt, "hist_ThrPyth_Zt");
 
 	TH1F *hist_ThrPyth_noH = new TH1F("hist_ThrPyth_noH", "Inverse Thrust", 200, 0, 0.4);
 	hist_ThrPyth_noH->GetXaxis()->SetTitle("(1-T)");
-	hist_ThrPyth_noH->GetYaxis()->SetTitle("1/#sigma d#sigma/d(1-T)");
+	hist_ThrPyth_noH->GetYaxis()->SetTitle("1/#sigma_{had} d#sigma/d(1-T)");
 	otree->Branch("hist_ThrPyth_noH", &hist_ThrPyth_noH, "hist_ThrPyth_noH");
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 	TH1F *hist_CprPyth = new TH1F("hist_CprPyth", "C-Parameter", 200, 0, 1.0);
 	hist_CprPyth->GetXaxis()->SetTitle("C");
-	hist_CprPyth->GetYaxis()->SetTitle("1/#sigma d#sigma/d(C)");
+	hist_CprPyth->GetYaxis()->SetTitle("1/#sigma_{had} d#sigma/d(C)");
 	otree->Branch("hist_CprPyth", &hist_CprPyth, "hist_CprPyth");
 
 	TH1F *hist_CprPyth_000 = new TH1F("hist_CprPyth_000", "C-parameter", 200, 0, 1.0);
 	hist_CprPyth_000->GetXaxis()->SetTitle("C");
-	hist_CprPyth_000->GetYaxis()->SetTitle("1/#sigma d#sigma/d(C)");
+	hist_CprPyth_000->GetYaxis()->SetTitle("1/#sigma_{had} d#sigma/d(C)");
 	otree->Branch("hist_CprPyth_000", &hist_CprPyth_000, "hist_CprPyth_000");
 
 	TH1F *hist_CprPyth_085 = new TH1F("hist_CprPyth_085", "C-parameter", 200, 0, 1.0);
 	hist_CprPyth_085->GetXaxis()->SetTitle("C");
-	hist_CprPyth_085->GetYaxis()->SetTitle("1/#sigma d#sigma/d(C)");
+	hist_CprPyth_085->GetYaxis()->SetTitle("1/#sigma_{had} d#sigma/d(C)");
 	otree->Branch("hist_CprPyth_085", &hist_CprPyth_085, "hist_CprPyth_085");
 
 	TH1F *hist_CprPyth_095 = new TH1F("hist_CprPyth_095", "C-parameter", 200, 0, 1.0);
 	hist_CprPyth_095->GetXaxis()->SetTitle("C");
-	hist_CprPyth_095->GetYaxis()->SetTitle("1/#sigma d#sigma/d(C)");
+	hist_CprPyth_095->GetYaxis()->SetTitle("1/#sigma_{had} d#sigma/d(C)");
 	otree->Branch("hist_CprPyth_095", &hist_CprPyth_095, "hist_CprPyth_095");
 
 	TH1F *hist_CprPyth_100 = new TH1F("hist_CprPyth_100", "C-parameter", 200, 0, 1.0);
 	hist_CprPyth_100->GetXaxis()->SetTitle("C");
-	hist_CprPyth_100->GetYaxis()->SetTitle("1/#sigma d#sigma/d(C)");
+	hist_CprPyth_100->GetYaxis()->SetTitle("1/#sigma_{had} d#sigma/d(C)");
 	otree->Branch("hist_CprPyth_100", &hist_CprPyth_100, "hist_CprPyth_100");
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 	TH1F *hist_CprPyth_HZ = new TH1F("hist_CprPyth_HZ", "C-parameter", 200, 0, 1.0);
 	hist_CprPyth_HZ->GetXaxis()->SetTitle("C");
-	hist_CprPyth_HZ->GetYaxis()->SetTitle("1/#sigma d#sigma/d(C)");
+	hist_CprPyth_HZ->GetYaxis()->SetTitle("1/#sigma_{had} d#sigma/d(C)");
 	otree->Branch("hist_CprPyth_HZ", &hist_CprPyth_HZ, "hist_CprPyth_HZ");
 
 	TH1F *hist_CprPyth_HW = new TH1F("hist_CprPyth_HW", "C-parameter", 200, 0, 1.0);
 	hist_CprPyth_HW->GetXaxis()->SetTitle("C");
-	hist_CprPyth_HW->GetYaxis()->SetTitle("1/#sigma d#sigma/d(C)");
+	hist_CprPyth_HW->GetYaxis()->SetTitle("1/#sigma_{had} d#sigma/d(C)");
 	otree->Branch("hist_CprPyth_HW", &hist_CprPyth_HW, "hist_CprPyth_HW");
 
 	TH1F *hist_CprPyth_Zq = new TH1F("hist_CprPyth_Zq", "C-parameter", 200, 0, 1.0);
 	hist_CprPyth_Zq->GetXaxis()->SetTitle("C");
-	hist_CprPyth_Zq->GetYaxis()->SetTitle("1/#sigma d#sigma/d(C)");
+	hist_CprPyth_Zq->GetYaxis()->SetTitle("1/#sigma_{had} d#sigma/d(C)");
 	otree->Branch("hist_CprPyth_Zq", &hist_CprPyth_Zq, "hist_CprPyth_Zq");
 
 	TH1F *hist_CprPyth_tt = new TH1F("hist_CprPyth_tt", "C-parameter", 200, 0, 1.0);
 	hist_CprPyth_tt->GetXaxis()->SetTitle("C");
-	hist_CprPyth_tt->GetYaxis()->SetTitle("1/#sigma d#sigma/d(C)");
+	hist_CprPyth_tt->GetYaxis()->SetTitle("1/#sigma_{had} d#sigma/d(C)");
 	otree->Branch("hist_CprPyth_tt", &hist_CprPyth_tt, "hist_CprPyth_tt");
 
 	TH1F *hist_CprPyth_WW = new TH1F("hist_CprPyth_WW", "C-parameter", 200, 0, 1.0);
 	hist_CprPyth_WW->GetXaxis()->SetTitle("C");
-	hist_CprPyth_WW->GetYaxis()->SetTitle("1/#sigma d#sigma/d(C)");
+	hist_CprPyth_WW->GetYaxis()->SetTitle("1/#sigma_{had} d#sigma/d(C)");
 	otree->Branch("hist_CprPyth_WW", &hist_CprPyth_WW, "hist_CprPyth_WW");
 
 	TH1F *hist_CprPyth_ZZ = new TH1F("hist_CprPyth_ZZ", "C-parameter", 200, 0, 1.0);
 	hist_CprPyth_ZZ->GetXaxis()->SetTitle("C");
-	hist_CprPyth_ZZ->GetYaxis()->SetTitle("1/#sigma d#sigma/d(C)");
+	hist_CprPyth_ZZ->GetYaxis()->SetTitle("1/#sigma_{had} d#sigma/d(C)");
 	otree->Branch("hist_CprPyth_ZZ", &hist_CprPyth_ZZ, "hist_CprPyth_ZZ");
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 	TH1F *hist_HjmPyth = new TH1F("hist_HjmPyth", "Heavy jet mass", 100, 0, 1.0);
 	hist_HjmPyth->GetXaxis()->SetTitle("C");
-	hist_HjmPyth->GetYaxis()->SetTitle("1/#sigma d#sigma/d(M_{H})");
+	hist_HjmPyth->GetYaxis()->SetTitle("1/#sigma_{had} d#sigma/d(M_{H})");
 	otree->Branch("hist_HjmPyth", &hist_HjmPyth, "hist_HjmPyth");
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 	TH1F *hist_BtoPyth = new TH1F("hist_BtoPyth", "Total jet broadening", 100, 0, 1.0);
 	hist_BtoPyth->GetXaxis()->SetTitle("C");
-	hist_BtoPyth->GetYaxis()->SetTitle("1/#sigma d#sigma/d(B_{T})");
+	hist_BtoPyth->GetYaxis()->SetTitle("1/#sigma_{had} d#sigma/d(B_{T})");
 	otree->Branch("hist_BtoPyth", &hist_BtoPyth, "hist_BtoPyth");
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////
 	
 	TH1F *hist_BwiPyth = new TH1F("hist_BwiPyth", "Wide jet broadening", 100, 0, 1.0);
 	hist_BwiPyth->GetXaxis()->SetTitle("C");
-	hist_BwiPyth->GetYaxis()->SetTitle("1/#sigma d#sigma/d(B_{W})");
+	hist_BwiPyth->GetYaxis()->SetTitle("1/#sigma_{had} d#sigma/d(B_{W})");
 	otree->Branch("hist_BwiPyth", &hist_BwiPyth, "hist_BwiPyth");
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -506,7 +506,7 @@ void applyCuts( const std::string& inputFileName, const std::string& outputFileN
 			
 			hist_Esprime_al->Fill((*eveSpr)[0]);
 			hist_Esprime_norm->Fill((*eveSpr)[0]);
-
+			
 			hist_CprPyth->Fill((*eveCpr)[0]);
 			hist_ThrPyth->Fill((*eveThr)[0]);
 			hist_TaxPyth->Fill((*eveTax)[0]);
@@ -586,22 +586,22 @@ void applyCuts( const std::string& inputFileName, const std::string& outputFileN
 
 		}
 
-		// LEP cut on √s'
+		// 85% cut on √s'
 		if ((*eveSpr)[0] >= nEnerg*0.85 && (*eveCod)[0] == 221) {
 			hist_ThrPyth_085->Fill((*eveThr)[0]);
 			hist_nHadron_085->Fill(nCh);
 			hist_CprPyth_085->Fill((*eveCpr)[0]);
 		}
 
-		// -95 cut on √s'
-		if ((*eveSpr)[0] >= nEnerg-5.00 && (*eveCod)[0] == 221) {
+		// 95% cut on √s'
+		if ((*eveSpr)[0] >= nEnerg*0.95 && (*eveCod)[0] == 221) {
 			hist_ThrPyth_095->Fill((*eveThr)[0]); 
 			hist_nHadron_095->Fill(nCh);
 			hist_CprPyth_095->Fill((*eveCpr)[0]);
 		}
 
 		// 100% cut on √s'
-		if ((*eveSpr)[0] >= nEnerg-0.00 && (*eveCod)[0] == 221) {
+		if ((*eveSpr)[0] >= nEnerg*1.00 && (*eveCod)[0] == 221) {
 			hist_ThrPyth_100->Fill((*eveThr)[0]);
 			hist_nHadron_100->Fill(nCh);
 			hist_CprPyth_100->Fill((*eveCpr)[0]);
@@ -610,8 +610,8 @@ void applyCuts( const std::string& inputFileName, const std::string& outputFileN
 		// Radiative checks
 		if ((*eveSpr)[0] >= nEnerg*0.00) Rad_000++;
 		if ((*eveSpr)[0] >= nEnerg*0.85) Rad_085++;
-		if ((*eveSpr)[0] >= nEnerg-5.00) Rad_095++;
-		if ((*eveSpr)[0] >= nEnerg-0.00) Rad_100++;
+		if ((*eveSpr)[0] >= nEnerg*0.95) Rad_095++;
+		if ((*eveSpr)[0] >= nEnerg*1.00) Rad_100++;
 
 		/////////////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -624,7 +624,7 @@ void applyCuts( const std::string& inputFileName, const std::string& outputFileN
 		// Reset
 		nCh=0; nCj=0; particles.clear(); jets.clear();
 		/////////////////////////////////////////////////////////////////////////////////////////////////////
-
+		
 	}
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -639,8 +639,8 @@ void applyCuts( const std::string& inputFileName, const std::string& outputFileN
 	cout << "----------------------------------------" << endl;
 	cout << "Events ≥ " << nEnerg*0.00 << " GeV : " << Rad_000 << endl;
 	cout << "Events ≥ " << nEnerg*0.85 << " GeV : " << Rad_085 << endl;
-	cout << "Events ≥ " << nEnerg-5.00 << " GeV : " << Rad_095 << endl;
-	cout << "Events ≥ " << nEnerg-0.00 << " GeV : " << Rad_100 << endl;
+	cout << "Events ≥ " << nEnerg*0.95 << " GeV : " << Rad_095 << endl;
+	cout << "Events ≥ " << nEnerg*1.00 << " GeV : " << Rad_100 << endl;
 	cout << "----------------------------------------" << endl;
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -678,16 +678,16 @@ void applyCuts( const std::string& inputFileName, const std::string& outputFileN
 int main() {
 
 	// Extraction
-	applyCuts("gen_FCC912.root", "cut_FCC912.root", 91.20);
-	applyCuts("gen_FCC160.root", "cut_FCC160.root", 160.0);
-	applyCuts("gen_FCC240.root", "cut_FCC240.root", 240.0);
-	applyCuts("gen_FCC365.root", "cut_FCC365.root", 365.0);
+	// applyCuts("gen_FCC912.root", "cut_FCC912.root", 91.20);
+	// applyCuts("gen_FCC160.root", "cut_FCC160.root", 160.0);
+	// applyCuts("gen_FCC240.root", "cut_FCC240.root", 240.0);
+	// applyCuts("gen_FCC365.root", "cut_FCC365.root", 365.0);
 	
 	// ISR
-	// applyCuts("gen_FCC365_ISR.root", "cut_FCC365_ISR.root", 365.0);
-	// applyCuts("gen_FCC240_ISR.root", "cut_FCC240_ISR.root", 240.0);
-	// applyCuts("gen_FCC160_ISR.root", "cut_FCC160_ISR.root", 160.0);
-	// applyCuts("gen_FCC912_ISR.root", "cut_FCC912_ISR.root", 91.20);
+	applyCuts("gen_FCC365_ISR.root", "cut_FCC365_ISR.root", 365.0);
+	applyCuts("gen_FCC240_ISR.root", "cut_FCC240_ISR.root", 240.0);
+	applyCuts("gen_FCC160_ISR.root", "cut_FCC160_ISR.root", 160.0);
+	applyCuts("gen_FCC912_ISR.root", "cut_FCC912_ISR.root", 91.20);
 
 	// // Calibration
 	// applyCuts("gen_FCC183.root", "cut_FCC183.root", 183.0);
@@ -695,10 +695,10 @@ int main() {
 	// applyCuts("gen_FCC912.root", "cut_FCC912.root", 91.20);
 
 	// Hadronisation
-	applyCuts("gen_FCC912_woHadron.root", "cut_FCC912_woHadron.root", 91.20);
-	applyCuts("gen_FCC160_woHadron.root", "cut_FCC160_woHadron.root", 160.0);
-	applyCuts("gen_FCC240_woHadron.root", "cut_FCC240_woHadron.root", 240.0);
-	applyCuts("gen_FCC365_woHadron.root", "cut_FCC365_woHadron.root", 365.0);
+	// applyCuts("gen_FCC912_woHadron.root", "cut_FCC912_woHadron.root", 91.20);
+	// applyCuts("gen_FCC160_woHadron.root", "cut_FCC160_woHadron.root", 160.0);
+	// applyCuts("gen_FCC240_woHadron.root", "cut_FCC240_woHadron.root", 240.0);
+	// applyCuts("gen_FCC365_woHadron.root", "cut_FCC365_woHadron.root", 365.0);
 
 	// Old	
 	// applyCuts("gen_LEP912_wiR.root", "cut_LEP912_wiR.root", 91.0);
