@@ -377,6 +377,26 @@ void applyCuts( const std::string& inputFileName, const std::string& outputFileN
 	hist_CprPyth_ZZ->GetYaxis()->SetTitle("1/#sigma_{had} d#sigma/d(C)");
 	otree->Branch("hist_CprPyth_ZZ", &hist_CprPyth_ZZ, "hist_CprPyth_ZZ");
 
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////	
+
+	float xbin[] = { 
+		0.000, 0.010, 0.020, 0.030, 0.040, 0.050, 0.060, 0.070, 0.080, 0.090,
+		0.100, 0.110, 0.120, 0.130, 0.140, 0.150, 0.160, 0.170, 0.180, 0.190,
+		0.200, 0.210, 0.220, 0.230, 0.240, 0.250, 0.260, 0.270, 0.280, 0.290,
+		0.300, 0.310, 0.320, 0.330, 0.340, 0.350, 0.360, 0.370, 0.380, 0.390,
+		0.400, 0.410, 0.420, 0.430, 0.440
+	};
+
+	TH1F *hist_ThrPyth_TEO = new TH1F("hist_ThrPyth_TEO", "Inverse Thrust", (sizeof(xbin)/sizeof(xbin[0])-1), xbin);
+	hist_ThrPyth_TEO->GetXaxis()->SetTitle("(1-T)");
+	hist_ThrPyth_TEO->GetYaxis()->SetTitle("1/#sigma_{had} d#sigma/d(1-T)");
+	otree->Branch("hist_ThrPyth_TEO", &hist_ThrPyth_TEO, "hist_ThrPyth_TEO");
+
+	TH1F *hist_CprPyth_TEO = new TH1F("hist_CprPyth_TEO", "C-Parameter", (sizeof(xbin)/sizeof(xbin[0])-1), xbin);
+	hist_CprPyth_TEO->GetXaxis()->SetTitle("C");
+	hist_CprPyth_TEO->GetYaxis()->SetTitle("1/#sigma_{had} d#sigma/d(C)");
+	otree->Branch("hist_CprPyth_TEO", &hist_CprPyth_TEO, "hist_CprPyth_TEO");
+
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 	TH1F *hist_HjmPyth = new TH1F("hist_HjmPyth", "Heavy jet mass", 100, 0, 1.0);
@@ -534,6 +554,9 @@ void applyCuts( const std::string& inputFileName, const std::string& outputFileN
 				hist_nHadron_000->Fill(nCh);
 				hist_ThrPyth_000->Fill((*eveThr)[0]);
 				hist_CprPyth_000->Fill((*eveCpr)[0]);
+
+				hist_ThrPyth_TEO->Fill((*eveThr)[0]);
+				hist_CprPyth_TEO->Fill((*eveCpr)[0]);
 			}
 			if ((*eveCod)[0] == 231) {
 				hist_Esprime_ZZ->Fill((*eveSpr)[0]);
@@ -617,7 +640,7 @@ void applyCuts( const std::string& inputFileName, const std::string& outputFileN
 
         // if (iEvent < 5) {
         //     allJets.push_back(jets);
-        //     procCodes.push_back((*eveCod)[0]);   
+        //     procCodes.push_back((*eveCod)[0]);
         // }
 
 		/////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -678,27 +701,27 @@ void applyCuts( const std::string& inputFileName, const std::string& outputFileN
 int main() {
 
 	// Extraction
-	// applyCuts("gen_FCC912.root", "cut_FCC912.root", 91.20);
-	// applyCuts("gen_FCC160.root", "cut_FCC160.root", 160.0);
-	// applyCuts("gen_FCC240.root", "cut_FCC240.root", 240.0);
-	// applyCuts("gen_FCC365.root", "cut_FCC365.root", 365.0);
+	applyCuts("4-GenData/gen_FCC912.root", "5-CutData/cut_FCC912.root", 91.20);
+	applyCuts("4-GenData/gen_FCC160.root", "5-CutData/cut_FCC160.root", 160.0);
+	applyCuts("4-GenData/gen_FCC240.root", "5-CutData/cut_FCC240.root", 240.0);
+	applyCuts("4-GenData/gen_FCC365.root", "5-CutData/cut_FCC365.root", 365.0);
 	
 	// ISR
-	applyCuts("gen_FCC365_ISR.root", "cut_FCC365_ISR.root", 365.0);
-	applyCuts("gen_FCC240_ISR.root", "cut_FCC240_ISR.root", 240.0);
-	applyCuts("gen_FCC160_ISR.root", "cut_FCC160_ISR.root", 160.0);
-	applyCuts("gen_FCC912_ISR.root", "cut_FCC912_ISR.root", 91.20);
+	// applyCuts("4-GenData/gen_FCC365_ISR.root", "5-CutData/cut_FCC365_ISR.root", 365.0);
+	// applyCuts("4-GenData/gen_FCC240_ISR.root", "5-CutData/cut_FCC240_ISR.root", 240.0);
+	// applyCuts("4-GenData/gen_FCC160_ISR.root", "5-CutData/cut_FCC160_ISR.root", 160.0);
+	// applyCuts("4-GenData/gen_FCC912_ISR.root", "5-CutData/cut_FCC912_ISR.root", 91.20);
 
 	// // Calibration
-	// applyCuts("gen_FCC183.root", "cut_FCC183.root", 183.0);
-	// applyCuts("gen_FCC161.root", "cut_FCC161.root", 161.0);
-	// applyCuts("gen_FCC912.root", "cut_FCC912.root", 91.20);
+	// applyCuts("4-GenData/gen_FCC183.root", "5-CutData/cut_FCC183.root", 183.0);
+	// applyCuts("4-GenData/gen_FCC161.root", "5-CutData/cut_FCC161.root", 161.0);
+	// applyCuts("4-GenData/gen_FCC912.root", "5-CutData/cut_FCC912.root", 91.20);
 
 	// Hadronisation
-	// applyCuts("gen_FCC912_woHadron.root", "cut_FCC912_woHadron.root", 91.20);
-	// applyCuts("gen_FCC160_woHadron.root", "cut_FCC160_woHadron.root", 160.0);
-	// applyCuts("gen_FCC240_woHadron.root", "cut_FCC240_woHadron.root", 240.0);
-	// applyCuts("gen_FCC365_woHadron.root", "cut_FCC365_woHadron.root", 365.0);
+	// applyCuts("4-GenData/gen_FCC912_woHadron.root", "5-CutData/cut_FCC912_woHadron.root", 91.20);
+	// applyCuts("4-GenData/gen_FCC160_woHadron.root", "5-CutData/cut_FCC160_woHadron.root", 160.0);
+	// applyCuts("4-GenData/gen_FCC240_woHadron.root", "5-CutData/cut_FCC240_woHadron.root", 240.0);
+	// applyCuts("4-GenData/gen_FCC365_woHadron.root", "5-CutData/cut_FCC365_woHadron.root", 365.0);
 
 	// Old	
 	// applyCuts("gen_LEP912_wiR.root", "cut_LEP912_wiR.root", 91.0);

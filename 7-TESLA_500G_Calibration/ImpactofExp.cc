@@ -39,9 +39,9 @@ void ImpactofExp()
 // Reading ROOTS
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-	TFile *input_912 = new TFile("cut_FCC912.root", "READ");
-	TFile *input_161 = new TFile("cut_FCC161.root", "READ");
-	TFile *input_183 = new TFile("cut_FCC183.root", "READ");
+	TFile *input_912 = new TFile("5-CutData/cut_FCC912.root", "READ");
+	TFile *input_161 = new TFile("5-CutData/cut_FCC161.root", "READ");
+	TFile *input_183 = new TFile("5-CutData/cut_FCC183.root", "READ");
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////
 // Importing raw TEXT data
@@ -62,7 +62,7 @@ void ImpactofExp()
 	hist_Thr1999->GetXaxis()->SetTitle("1-T");
 	hist_Thr1999->GetYaxis()->SetTitle("P(1-T)");
 	// Import data
-	ifstream infile_01("3-LEP-data/EXP_TES_500_THR_wot.txt");
+	ifstream infile_01("3-LEPdata/EXP_TES_500_THR_wot.txt");
 	// Read through TXT
 	while ( !infile_01.eof() ) {
 		// Set reading order
@@ -83,7 +83,7 @@ void ImpactofExp()
 	hist_Thr199T->GetXaxis()->SetTitle("1-T");
 	hist_Thr199T->GetYaxis()->SetTitle("P(1-T)");
 	// Import data
-	ifstream infile_02("3-LEP-data/EXP_TES_500_THR_wit.txt");
+	ifstream infile_02("3-LEPdata/EXP_TES_500_THR_wit.txt");
 	// Read through TXT
 	while ( !infile_02.eof() ) {
 		// Set reading order
@@ -106,7 +106,7 @@ void ImpactofExp()
 	hist_ThrExL3_912->GetXaxis()->SetTitle("1-T");
 	hist_ThrExL3_912->GetYaxis()->SetTitle("P(1-T)");
 	// Import data
-	ifstream infile_03("3-LEP-data/EXP_LL3_912_THR.txt");
+	ifstream infile_03("3-LEPdata/EXP_LL3_912_THR.txt");
 	// Read through TXT
 	while ( !infile_03.eof() ) {
 		// Set reading order
@@ -127,7 +127,7 @@ void ImpactofExp()
 	hist_ThrExAL_912->GetXaxis()->SetTitle("1-T");
 	hist_ThrExAL_912->GetYaxis()->SetTitle("P(1-T)");
 	// Import data
-	ifstream infile_04("3-LEP-data/EXP_ALP_912_THR.txt");
+	ifstream infile_04("3-LEPdata/EXP_ALP_912_THR.txt");
 	// Read through TXT
 	while ( !infile_04.eof() ) {
 		// Set reading order
@@ -148,7 +148,7 @@ void ImpactofExp()
 	hist_ThrExL3_161->GetXaxis()->SetTitle("1-T");
 	hist_ThrExL3_161->GetYaxis()->SetTitle("P(1-T)");
 	// Import data
-	ifstream infile_05("3-LEP-data/EXP_LL3_161_THR.txt");
+	ifstream infile_05("3-LEPdata/EXP_LL3_161_THR.txt");
 	// Read through TXT
 	while ( !infile_05.eof() ) {
 		// Set reading order
@@ -169,7 +169,7 @@ void ImpactofExp()
 	hist_ThrExAL_161->GetXaxis()->SetTitle("1-T");
 	hist_ThrExAL_161->GetYaxis()->SetTitle("P(1-T)");
 	// Import data
-	ifstream infile_06("3-LEP-data/EXP_ALP_161_THR.txt");
+	ifstream infile_06("3-LEPdata/EXP_ALP_161_THR.txt");
 	// Read through TXT
 	while ( !infile_06.eof() ) {
 		// Set reading order
@@ -190,7 +190,7 @@ void ImpactofExp()
 	hist_ThrExL3_183->GetXaxis()->SetTitle("1-T");
 	hist_ThrExL3_183->GetYaxis()->SetTitle("P(1-T)");
 	// Import data
-	ifstream infile_07("3-LEP-data/EXP_LL3_183_THR.txt");
+	ifstream infile_07("3-LEPdata/EXP_LL3_183_THR.txt");
 	// Read through TXT
 	while ( !infile_07.eof() ) {
 		// Set reading order
@@ -211,7 +211,7 @@ void ImpactofExp()
 	hist_ThrExAL_183->GetXaxis()->SetTitle("1-T");
 	hist_ThrExAL_183->GetYaxis()->SetTitle("P(1-T)");
 	// Import data
-	ifstream infile_08("3-LEP-data/EXP_ALP_183_THR.txt");
+	ifstream infile_08("3-LEPdata/EXP_ALP_183_THR.txt");
 	// Read through TXT
 	while ( !infile_08.eof() ) {
 		// Set reading order
@@ -234,7 +234,7 @@ void ImpactofExp()
 	hist_CprExL3_912->GetXaxis()->SetTitle("1-T");
 	hist_CprExL3_912->GetYaxis()->SetTitle("P(1-T)");
 	// Import data
-	ifstream infile_09("3-LEP-data/EXP_LL3_912_Cpr.txt");
+	ifstream infile_09("3-LEPdata/EXP_LL3_912_Cpr.txt");
 	// Read Cprough TXT
 	while ( !infile_09.eof() ) {
 		// Set reading order
@@ -255,7 +255,7 @@ void ImpactofExp()
 	hist_CprExAL_912->GetXaxis()->SetTitle("1-T");
 	hist_CprExAL_912->GetYaxis()->SetTitle("P(1-T)");
 	// Import data
-	ifstream infile_10("3-LEP-data/EXP_ALP_912_Cpr.txt");
+	ifstream infile_10("3-LEPdata/EXP_ALP_912_Cpr.txt");
 	// Read Cprough TXT
 	while ( !infile_10.eof() ) {
 		// Set reading order
@@ -276,7 +276,7 @@ void ImpactofExp()
 	hist_CprExL3_161->GetXaxis()->SetTitle("1-T");
 	hist_CprExL3_161->GetYaxis()->SetTitle("P(1-T)");
 	// Import data
-	ifstream infile_11("3-LEP-data/EXP_LL3_161_Cpr.txt");
+	ifstream infile_11("3-LEPdata/EXP_LL3_161_Cpr.txt");
 	// Read Cprough TXT
 	while ( !infile_11.eof() ) {
 		// Set reading order
@@ -297,7 +297,7 @@ void ImpactofExp()
 	hist_CprExAL_161->GetXaxis()->SetTitle("1-T");
 	hist_CprExAL_161->GetYaxis()->SetTitle("P(1-T)");
 	// Import data
-	ifstream infile_12("3-LEP-data/EXP_ALP_161_Cpr.txt");
+	ifstream infile_12("3-LEPdata/EXP_ALP_161_Cpr.txt");
 	// Read Cprough TXT
 	while ( !infile_12.eof() ) {
 		// Set reading order
@@ -318,7 +318,7 @@ void ImpactofExp()
 	hist_CprExL3_183->GetXaxis()->SetTitle("1-T");
 	hist_CprExL3_183->GetYaxis()->SetTitle("P(1-T)");
 	// Import data
-	ifstream infile_13("3-LEP-data/EXP_LL3_183_Cpr.txt");
+	ifstream infile_13("3-LEPdata/EXP_LL3_183_Cpr.txt");
 	// Read Cprough TXT
 	while ( !infile_13.eof() ) {
 		// Set reading order
@@ -339,7 +339,7 @@ void ImpactofExp()
 	hist_CprExAL_183->GetXaxis()->SetTitle("1-T");
 	hist_CprExAL_183->GetYaxis()->SetTitle("P(1-T)");
 	// Import data
-	ifstream infile_14("3-LEP-data/EXP_ALP_183_Cpr.txt");
+	ifstream infile_14("3-LEPdata/EXP_ALP_183_Cpr.txt");
 	// Read Cprough TXT
 	while ( !infile_14.eof() ) {
 		// Set reading order
@@ -356,13 +356,13 @@ void ImpactofExp()
 // Reading Pythia histograms from ROOT files
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////	
 
-	TH1F *hist_ThrPy99 = (TH1F*)input_500->Get("hist_ThrPy99_Zq");
-	hist_ThrPy99->SetLineColor(kYellow+2); hist_ThrPy99->SetMarkerColor(kYellow+2); hist_ThrPy99->SetMarkerStyle(kOpenTriangleUp); hist_ThrPy99->SetLineWidth(2);
-	hist_Thr1999->SetLineColor(kBlack); hist_Thr1999->SetMarkerColor(kBlack); hist_Thr1999->SetMarkerStyle(kOpenTriangleUp); hist_Thr1999->SetLineWidth(2); 
+	// TH1F *hist_ThrPy99 = (TH1F*)input_500->Get("hist_ThrPy99_Zq");
+	// hist_ThrPy99->SetLineColor(kYellow+2); hist_ThrPy99->SetMarkerColor(kYellow+2); hist_ThrPy99->SetMarkerStyle(kOpenTriangleUp); hist_ThrPy99->SetLineWidth(2);
+	// hist_Thr1999->SetLineColor(kBlack); hist_Thr1999->SetMarkerColor(kBlack); hist_Thr1999->SetMarkerStyle(kOpenTriangleUp); hist_Thr1999->SetLineWidth(2); 
 
-	TH1F *hist_ThrPy9T = (TH1F*)input_500->Get("hist_ThrPy99_Zt");
-	hist_ThrPy9T->SetLineColor(kYellow+2); hist_ThrPy9T->SetMarkerColor(kYellow+2); hist_ThrPy9T->SetMarkerStyle(kOpenTriangleUp); hist_ThrPy9T->SetLineWidth(2); 
-	hist_Thr199T->SetLineColor(kBlack); hist_Thr199T->SetMarkerColor(kBlack); hist_Thr199T->SetMarkerStyle(kOpenTriangleUp); hist_Thr199T->SetLineWidth(2); 
+	// TH1F *hist_ThrPy9T = (TH1F*)input_500->Get("hist_ThrPy99_Zt");
+	// hist_ThrPy9T->SetLineColor(kYellow+2); hist_ThrPy9T->SetMarkerColor(kYellow+2); hist_ThrPy9T->SetMarkerStyle(kOpenTriangleUp); hist_ThrPy9T->SetLineWidth(2); 
+	// hist_Thr199T->SetLineColor(kBlack); hist_Thr199T->SetMarkerColor(kBlack); hist_Thr199T->SetMarkerStyle(kOpenTriangleUp); hist_Thr199T->SetLineWidth(2); 
 
 	TH1F *hist_ThrPyth_912 = (TH1F*)input_912->Get("hist_ThrPyth_Zq");
 	hist_ThrPyth_912->SetLineColor(kBlack); hist_ThrPyth_912->SetMarkerColor(kBlack); hist_ThrPyth_912->SetMarkerStyle(26); hist_ThrPyth_912->SetLineWidth(2); hist_ThrPyth_912->SetMarkerSize(2);

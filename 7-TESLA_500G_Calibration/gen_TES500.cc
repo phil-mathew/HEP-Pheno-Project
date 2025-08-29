@@ -230,7 +230,7 @@ int main(){
 		isrNum.push_back(nISR);
 		if (!isrEng.empty()) isrMax.push_back(*std::max_element(isrEng.begin(),isrEng.end()));
 		else isrMax.push_back(0.0);
-
+		
 		// Compute √s'
 		sigISR = nEnerg*sqrt(1.0-(2.0*sigISR)/nEnerg);
 

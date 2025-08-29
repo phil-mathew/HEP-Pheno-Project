@@ -40,15 +40,15 @@ void ImpactofHadron()
 // Reading ROOTS
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-	TFile *input_912_wiHadron = new TFile("cut_FCC912.root", "READ");
-	TFile *input_160_wiHadron = new TFile("cut_FCC160.root", "READ");
-	TFile *input_240_wiHadron = new TFile("cut_FCC240.root", "READ");
-	TFile *input_365_wiHadron = new TFile("cut_FCC365.root", "READ");
+	TFile *input_912_wiHadron = new TFile("5-CutData/cut_FCC912.root", "READ");
+	TFile *input_160_wiHadron = new TFile("5-CutData/cut_FCC160.root", "READ");
+	TFile *input_240_wiHadron = new TFile("5-CutData/cut_FCC240.root", "READ");
+	TFile *input_365_wiHadron = new TFile("5-CutData/cut_FCC365.root", "READ");
 
-	TFile *input_912_woHadron = new TFile("cut_FCC912_woHadron.root", "READ");
-	TFile *input_160_woHadron = new TFile("cut_FCC160_woHadron.root", "READ");
-	TFile *input_240_woHadron = new TFile("cut_FCC240_woHadron.root", "READ");
-	TFile *input_365_woHadron = new TFile("cut_FCC365_woHadron.root", "READ");
+	TFile *input_912_woHadron = new TFile("5-CutData/cut_FCC912_woHadron.root", "READ");
+	TFile *input_160_woHadron = new TFile("5-CutData/cut_FCC160_woHadron.root", "READ");
+	TFile *input_240_woHadron = new TFile("5-CutData/cut_FCC240_woHadron.root", "READ");
+	TFile *input_365_woHadron = new TFile("5-CutData/cut_FCC365_woHadron.root", "READ");
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////
 // Defining histograms
