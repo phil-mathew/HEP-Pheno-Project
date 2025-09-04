@@ -101,8 +101,8 @@ void applyCuts( const std::string& inputFileName, const std::string& outputFileN
 	itree->SetBranchAddress("eveTax", &eveTax);											// Event thraxis
 	itree->SetBranchAddress("eveCpr", &eveCpr);  										// Event C-param
 	itree->SetBranchAddress("eveHjm", &eveHjm);  										// Event rho
-	itree->SetBranchAddress("eveBto", &eveBto);										// Event BTotal
-	itree->SetBranchAddress("eveBwi", &eveBwi);										// Event Bwide
+	itree->SetBranchAddress("eveBto", &eveBto);											// Event BTotal
+	itree->SetBranchAddress("eveBwi", &eveBwi);											// Event Bwide
 	itree->SetBranchAddress("isrNum", &isrNum);											// ISR γ number
 	itree->SetBranchAddress("isrMax", &isrMax);											// ISR γ energy
 	itree->SetBranchAddress("parNum", &parNum);											// Parts number
@@ -407,14 +407,14 @@ void applyCuts( const std::string& inputFileName, const std::string& outputFileN
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 	TH1F *hist_BtoPyth = new TH1F("hist_BtoPyth", "Total jet broadening", 100, 0, 1.0);
-	hist_BtoPyth->GetXaxis()->SetTitle("C");
+	hist_BtoPyth->GetXaxis()->SetTitle("B_{T}");
 	hist_BtoPyth->GetYaxis()->SetTitle("1/#sigma_{had} d#sigma/d(B_{T})");
 	otree->Branch("hist_BtoPyth", &hist_BtoPyth, "hist_BtoPyth");
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////
 	
 	TH1F *hist_BwiPyth = new TH1F("hist_BwiPyth", "Wide jet broadening", 100, 0, 1.0);
-	hist_BwiPyth->GetXaxis()->SetTitle("C");
+	hist_BwiPyth->GetXaxis()->SetTitle("B_{W}");
 	hist_BwiPyth->GetYaxis()->SetTitle("1/#sigma_{had} d#sigma/d(B_{W})");
 	otree->Branch("hist_BwiPyth", &hist_BwiPyth, "hist_BwiPyth");
 
@@ -453,7 +453,7 @@ void applyCuts( const std::string& inputFileName, const std::string& outputFileN
 
 	// Define vars
 	int nCh=0, nCj=0, nParts=0, Pdg=0, Rad_000=0, Rad_085=0, Rad_095=0, Rad_100=0;
-	float Pmx, Pmy, Pmz, Eto, Ett, Thr, Tax, Sph, Sax, Spr;
+	float Pmx, Pmy, Pmz, Eto, Ett, Thr, Tax, Sph, Sax, Spr, Hjm, Bto, Bwi;
 	vector<vector<PseudoJet>> allJets;
     vector<int> procCodes;
 	
@@ -537,6 +537,10 @@ void applyCuts( const std::string& inputFileName, const std::string& outputFileN
 
 			hist_NumbISR->Fill((*isrNum)[0]);
 			hist_EmaxISR->Fill((*isrMax)[0]);
+
+			hist_HjmPyth->Fill((*)[0]);
+			hist_BtoPyth->Fill((*)[0]);
+			hist_BwiPyth->Fill((*)[0]);
 
 			// Process cuts
 			if ((*eveCod)[0] == 221) {
@@ -701,11 +705,14 @@ void applyCuts( const std::string& inputFileName, const std::string& outputFileN
 int main() {
 
 	// Extraction
-	applyCuts("4-GenData/gen_FCC912.root", "5-CutData/cut_FCC912.root", 91.20);
-	applyCuts("4-GenData/gen_FCC160.root", "5-CutData/cut_FCC160.root", 160.0);
-	applyCuts("4-GenData/gen_FCC240.root", "5-CutData/cut_FCC240.root", 240.0);
-	applyCuts("4-GenData/gen_FCC365.root", "5-CutData/cut_FCC365.root", 365.0);
+	// applyCuts("4-GenData/gen_FCC912.root", "5-CutData/cut_FCC912.root", 91.20);
+	// applyCuts("4-GenData/gen_FCC160.root", "5-CutData/cut_FCC160.root", 160.0);
+	// applyCuts("4-GenData/gen_FCC240.root", "5-CutData/cut_FCC240.root", 240.0);
+	// applyCuts("4-GenData/gen_FCC365.root", "5-CutData/cut_FCC365.root", 365.0);
 	
+	// Hadronic cuts
+	applyCuts("4-GenData/gen_FCC365.root", "5-CutData/cut_FCC365_wiCut.root", 365.0);
+
 	// ISR
 	// applyCuts("4-GenData/gen_FCC365_ISR.root", "5-CutData/cut_FCC365_ISR.root", 365.0);
 	// applyCuts("4-GenData/gen_FCC240_ISR.root", "5-CutData/cut_FCC240_ISR.root", 240.0);

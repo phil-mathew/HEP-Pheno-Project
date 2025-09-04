@@ -97,6 +97,12 @@ vector<double> C_CPR = {
 };
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+// QCD Factors
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+double Nc = 3.0; double Nf = 5.0;
+
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 // Theory model
 double THR_Order(double *x, double *par, const vector<double>& A, const vector<double>& B, const vector<double>& C, int order) {
@@ -111,10 +117,14 @@ double THR_Order(double *x, double *par, const vector<double>& A, const vector<d
 		// Check proximity
 		if (fabs(tau - bins[i]) < 0.005) {
 
-			// unbarred-to-barred
+			// unbarred
+			double At = 3*(Nc*Nc-1.0)/(4.0*Nc);
+			double Bt = (Nc*Nc-1.0)/(8.0*Nc) * ( (243/4 - 44*1.202)*Nc + 3/(4*Nc) + (8*1.202 - 11)*Nf );
+
+			// barred
 			double AA = A[i];
-			double BB = B[i] - 2*A[i];
-			double CC = C[i] - 2*B[i] - (5.6369 - 2*2)*A[i];
+			double BB = B[i] - At*A[i];
+			double CC = C[i] - At*B[i] - (Bt-At*At)*A[i];
 
 			// construct theory bin
 			double val = 0;
@@ -144,10 +154,14 @@ double CPR_Order(double *x, double *par, const vector<double>& A, const vector<d
 		// Check proximity
 		if (fabs(tau - bins[i]) < 0.005) {
 
-			// unbarred-to-barred
+			// unbarred
+			double At = 3*(Nc*Nc-1.0)/(4.0*Nc);
+			double Bt = (Nc*Nc-1.0)/(8.0*Nc) * ( (243/4 - 44*1.202)*Nc + 3/(4*Nc) + (8*1.202 - 11)*Nf );
+
+			// barred
 			double AA = A[i];
-			double BB = B[i] - 2*A[i];
-			double CC = C[i] - 2*B[i] - (5.6369 - 2*2)*A[i];
+			double BB = B[i] - At*A[i];
+			double CC = C[i] - At*B[i] - (Bt-At*At)*A[i];
 
 			// construct theory bin
 			double val = 0;
