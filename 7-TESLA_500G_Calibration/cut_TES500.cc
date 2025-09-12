@@ -84,9 +84,10 @@ void applyCuts( const std::string& inputFileName, const std::string& outputFileN
 
 	// Intialise vecs
 	vector<int> *eveNum=nullptr, *eveSiz=nullptr, *eveCod=nullptr, *parNum=nullptr, *parPdg=nullptr, \
-	 *parChg=nullptr, *isrNum=nullptr;
+	 *parChg=nullptr, *isrNum=nullptr, *eveNjy=nullptr;
 	vector<float> *eveThr=nullptr, *eveTax=nullptr, *eveSph=nullptr, *eveSax=nullptr, *eveSpr=nullptr, \
 	 *sigmaT=nullptr, *parEto=nullptr, *parEtt=nullptr, *parPmx=nullptr, *parPmy=nullptr, *parPmz=nullptr, \
+	 *eveYcu=nullptr, *eveY23=nullptr, *eveY34=nullptr, \
 	 *isrMax=nullptr, *eveCpr=nullptr, *eveHjm=nullptr, *eveBto=nullptr, *eveBwi=nullptr;
 
 	// Set branches
@@ -103,6 +104,10 @@ void applyCuts( const std::string& inputFileName, const std::string& outputFileN
 	itree->SetBranchAddress("eveHjm", &eveHjm);  										// Event rho
 	itree->SetBranchAddress("eveBto", &eveBto);											// Event BTotal
 	itree->SetBranchAddress("eveBwi", &eveBwi);											// Event Bwide
+	itree->SetBranchAddress("eveYcu", &eveYcu); 										// Event ycut
+	itree->SetBranchAddress("eveNjy", &eveNjy);											// Event Njets(ycut)
+	itree->SetBranchAddress("eveY23", &eveY23);											// Event y23
+	itree->SetBranchAddress("eveY34", &eveY34);											// Event y34
 	itree->SetBranchAddress("isrNum", &isrNum);											// ISR γ number
 	itree->SetBranchAddress("isrMax", &isrMax);											// ISR γ energy
 	itree->SetBranchAddress("parNum", &parNum);											// Parts number
@@ -118,22 +123,17 @@ void applyCuts( const std::string& inputFileName, const std::string& outputFileN
 // Define histograms, Add branches
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-	TH1F *hist_Esprime_norm = new TH1F("hist_Esprime_norm", "Reduced energy after ISR", 100, 0, 1);
-	hist_Esprime_norm->GetXaxis()->SetTitle("#sqrt{s'}");
-	hist_Esprime_norm->GetYaxis()->SetTitle("#events");
-	otree->Branch("hist_Esprime_norm", &hist_Esprime_norm, "hist_Esprime_norm");
-
 	TH1F *hist_Esprime_al = new TH1F("hist_Esprime_al", "Reduced energy after ISR", 200, -1, 366);
 	hist_Esprime_al->GetXaxis()->SetTitle("#sqrt{s'}");
 	hist_Esprime_al->GetYaxis()->SetTitle("#events");
 	otree->Branch("hist_Esprime_al", &hist_Esprime_al, "hist_Esprime_al");
 
-	TH1F *hist_Esprime_HZ = new TH1F("hist_Esprime_HZ", "Reduced energy after ISR", 200, -1, 366);
+	TH1F *hist_Esprime_HZ = new TH1F("hist_Esprime_HZ", "Reduced energy after ISR", 166, 200, 366);
 	hist_Esprime_HZ->GetXaxis()->SetTitle("#sqrt{s'}");
 	hist_Esprime_HZ->GetYaxis()->SetTitle("#events");
 	otree->Branch("hist_Esprime_HZ", &hist_Esprime_HZ, "hist_Esprime_HZ");
 
-	TH1F *hist_Esprime_HW = new TH1F("hist_Esprime_HW", "Reduced energy after ISR", 200, -1, 366);
+	TH1F *hist_Esprime_HW = new TH1F("hist_Esprime_HW", "Reduced energy after ISR", 66, 300, 366);
 	hist_Esprime_HW->GetXaxis()->SetTitle("#sqrt{s'}");
 	hist_Esprime_HW->GetYaxis()->SetTitle("#events");
 	otree->Branch("hist_Esprime_HW", &hist_Esprime_HW, "hist_Esprime_HW");
@@ -143,17 +143,17 @@ void applyCuts( const std::string& inputFileName, const std::string& outputFileN
 	hist_Esprime_Zq->GetYaxis()->SetTitle("#events");
 	otree->Branch("hist_Esprime_Zq", &hist_Esprime_Zq, "hist_Esprime_Zq");
 	
-	TH1F *hist_Esprime_tt = new TH1F("hist_Esprime_tt", "Reduced energy after ISR", 200, -1, 366);
+	TH1F *hist_Esprime_tt = new TH1F("hist_Esprime_tt", "Reduced energy after ISR", 36, 330, 366);
 	hist_Esprime_tt->GetXaxis()->SetTitle("#sqrt{s'}");
 	hist_Esprime_tt->GetYaxis()->SetTitle("#events");
 	otree->Branch("hist_Esprime_tt", &hist_Esprime_tt, "hist_Esprime_tt");
 
-	TH1F *hist_Esprime_WW = new TH1F("hist_Esprime_WW", "Reduced energy after ISR", 200, -1, 366);
+	TH1F *hist_Esprime_WW = new TH1F("hist_Esprime_WW", "Reduced energy after ISR", 266, 100, 366);
 	hist_Esprime_WW->GetXaxis()->SetTitle("#sqrt{s'}");
 	hist_Esprime_WW->GetYaxis()->SetTitle("#events");
 	otree->Branch("hist_Esprime_WW", &hist_Esprime_WW, "hist_Esprime_WW");
 
-	TH1F *hist_Esprime_ZZ = new TH1F("hist_Esprime_ZZ", "Reduced energy after ISR", 200, -1, 366);
+	TH1F *hist_Esprime_ZZ = new TH1F("hist_Esprime_ZZ", "Reduced energy after ISR", 266, 100, 366);
 	hist_Esprime_ZZ->GetXaxis()->SetTitle("#sqrt{s'}");
 	hist_Esprime_ZZ->GetYaxis()->SetTitle("#events");
 	otree->Branch("hist_Esprime_ZZ", &hist_Esprime_ZZ, "hist_Esprime_ZZ");
@@ -164,28 +164,6 @@ void applyCuts( const std::string& inputFileName, const std::string& outputFileN
 	hist_nHadron->GetXaxis()->SetTitle("N_{CH}");
 	hist_nHadron->GetYaxis()->SetTitle("P(N_{CH})");
 	otree->Branch("hist_nHadron", &hist_nHadron, "hist_nHadron");
-
-	TH1F *hist_nHadron_000 = new TH1F("hist_nHadron_000", "Charged Hadron Multiplicity", 60, 1, 121);
-	hist_nHadron_000->GetXaxis()->SetTitle("N_{CH}");
-	hist_nHadron_000->GetYaxis()->SetTitle("P(N_{CH})");
-	otree->Branch("hist_nHadron_000", &hist_nHadron_000, "hist_nHadron_000");
-
-	TH1F *hist_nHadron_085 = new TH1F("hist_nHadron_085", "Charged Hadron Multiplicity", 60, 1, 121);
-	hist_nHadron_085->GetXaxis()->SetTitle("N_{CH}");
-	hist_nHadron_085->GetYaxis()->SetTitle("P(N_{CH})");
-	otree->Branch("hist_nHadron_085", &hist_nHadron_085, "hist_nHadron_085");
-
-	TH1F *hist_nHadron_095 = new TH1F("hist_nHadron_095", "Charged Hadron Multiplicity", 60, 1, 121);
-	hist_nHadron_095->GetXaxis()->SetTitle("N_{CH}");
-	hist_nHadron_095->GetYaxis()->SetTitle("P(N_{CH})");
-	otree->Branch("hist_nHadron_095", &hist_nHadron_095, "hist_nHadron_095");
-
-	TH1F *hist_nHadron_100 = new TH1F("hist_nHadron_100", "Charged Hadron Multiplicity", 60, 1, 121);
-	hist_nHadron_100->GetXaxis()->SetTitle("N_{CH}");
-	hist_nHadron_100->GetYaxis()->SetTitle("P(N_{CH})");
-	otree->Branch("hist_nHadron_100", &hist_nHadron_100, "hist_nHadron_100");
-
-/////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 	TH1F *hist_nHadron_HZ = new TH1F("hist_nHadron_HZ", "Charged Hadron Multiplicity", 60, 1, 121);
 	hist_nHadron_HZ->GetXaxis()->SetTitle("N_{CH}");
@@ -216,107 +194,43 @@ void applyCuts( const std::string& inputFileName, const std::string& outputFileN
 	hist_nHadron_tt->GetXaxis()->SetTitle("N_{CH}");
 	hist_nHadron_tt->GetYaxis()->SetTitle("P(N_{CH})");
 	otree->Branch("hist_nHadron_tt", &hist_nHadron_tt, "hist_nHadron_tt");
-
-	TH1F *hist_nHadron_noH = new TH1F("hist_nHadron_noH", "Charged Hadron Multiplicity", 60, 1, 121);
-	hist_nHadron_noH->GetXaxis()->SetTitle("N_{CH}");
-	hist_nHadron_noH->GetYaxis()->SetTitle("P(N_{CH})");
-	otree->Branch("hist_nHadron_noH", &hist_nHadron_noH, "hist_nHadron_noH");
-
-/////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
-	TH1F *hist_nJetTot = new TH1F("hist_nJetTot", "Jet Multiplicity", 100, -1, 20);
-	hist_nJetTot->GetXaxis()->SetTitle("N_{JETS}");
-	hist_nJetTot->GetYaxis()->SetTitle("P(N_{JETS})");
-	otree->Branch("hist_nJetTot", &hist_nJetTot, "hist_nJetTot");
-
-	TH1F *hist_nJetTot_Zq = new TH1F("hist_nJetTot_Zq", "Jet Multiplicity", 100, -1, 20);
-	hist_nJetTot_Zq->GetXaxis()->SetTitle("N_{JETS}");
-	hist_nJetTot_Zq->GetYaxis()->SetTitle("P(N_{JETS})");
-	otree->Branch("hist_nJetTot_Zq", &hist_nJetTot_Zq, "hist_nJetTot_Zq");
-
-	TH1F *hist_nJetTot_ZZ = new TH1F("hist_nJetTot_ZZ", "Jet Multiplicity", 100, -1, 20);
-	hist_nJetTot_ZZ->GetXaxis()->SetTitle("N_{JETS}");
-	hist_nJetTot_ZZ->GetYaxis()->SetTitle("P(N_{JETS})");
-	otree->Branch("hist_nJetTot_ZZ", &hist_nJetTot_ZZ, "hist_nJetTot_ZZ");
-
-	TH1F *hist_nJetTot_WW = new TH1F("hist_nJetTot_WW", "Jet Multiplicity", 100, -1, 20);
-	hist_nJetTot_WW->GetXaxis()->SetTitle("N_{JETS}");
-	hist_nJetTot_WW->GetYaxis()->SetTitle("P(N_{JETS})");
-	otree->Branch("hist_nJetTot_WW", &hist_nJetTot_WW, "hist_nJetTot_WW");
-
-	TH1F *hist_nJetTot_tt = new TH1F("hist_nJetTot_tt", "Jet Multiplicity", 100, -1, 20);
-	hist_nJetTot_tt->GetXaxis()->SetTitle("N_{JETS}");
-	hist_nJetTot_tt->GetYaxis()->SetTitle("P(N_{JETS})");
-	otree->Branch("hist_nJetTot_tt", &hist_nJetTot_tt, "hist_nJetTot_tt");
 	
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-	TH1F *hist_ThrPyth = new TH1F("hist_ThrPyth", "Inverse Thrust", 200, 0, 0.4);
+	TH1F *hist_ThrPyth = new TH1F("hist_ThrPyth", "Inverse Thrust", 200, 0, 1.0);
 	hist_ThrPyth->GetXaxis()->SetTitle("(1-T)");
 	hist_ThrPyth->GetYaxis()->SetTitle("1/#sigma_{had} d#sigma/d(1-T)");
 	otree->Branch("hist_ThrPyth", &hist_ThrPyth, "hist_ThrPyth");
 
-	TH1F *hist_ThrPyth_000 = new TH1F("hist_ThrPyth_000", "Inverse Thrust", 200, 0, 0.4);
-	hist_ThrPyth_000->GetXaxis()->SetTitle("(1-T)");
-	hist_ThrPyth_000->GetYaxis()->SetTitle("1/#sigma_{had} d#sigma/d(1-T)");
-	otree->Branch("hist_ThrPyth_000", &hist_ThrPyth_000, "hist_ThrPyth_000");
-
-	TH1F *hist_ThrPyth_085 = new TH1F("hist_ThrPyth_085", "Inverse Thrust", 200, 0, 0.4);
-	hist_ThrPyth_085->GetXaxis()->SetTitle("(1-T)");
-	hist_ThrPyth_085->GetYaxis()->SetTitle("1/#sigma_{had} d#sigma/d(1-T)");
-	otree->Branch("hist_ThrPyth_085", &hist_ThrPyth_085, "hist_ThrPyth_085");
-
-	TH1F *hist_ThrPyth_095 = new TH1F("hist_ThrPyth_095", "Inverse Thrust", 200, 0, 0.4);
-	hist_ThrPyth_095->GetXaxis()->SetTitle("(1-T)");
-	hist_ThrPyth_095->GetYaxis()->SetTitle("1/#sigma_{had} d#sigma/d(1-T)");
-	otree->Branch("hist_ThrPyth_095", &hist_ThrPyth_095, "hist_ThrPyth_095");
-
-	TH1F *hist_ThrPyth_100 = new TH1F("hist_ThrPyth_100", "Inverse Thrust", 200, 0, 0.4);
-	hist_ThrPyth_100->GetXaxis()->SetTitle("(1-T)");
-	hist_ThrPyth_100->GetYaxis()->SetTitle("1/#sigma_{had} d#sigma/d(1-T)");
-	otree->Branch("hist_ThrPyth_100", &hist_ThrPyth_100, "hist_ThrPyth_100");
-
-/////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
-	TH1F *hist_ThrPyth_HZ = new TH1F("hist_ThrPyth_HZ", "Inverse Thrust", 200, 0, 0.4);
+	TH1F *hist_ThrPyth_HZ = new TH1F("hist_ThrPyth_HZ", "Inverse Thrust", 200, 0, 1.0);
 	hist_ThrPyth_HZ->GetXaxis()->SetTitle("(1-T)");
 	hist_ThrPyth_HZ->GetYaxis()->SetTitle("1/#sigma_{had} d#sigma/d(1-T)");
 	otree->Branch("hist_ThrPyth_HZ", &hist_ThrPyth_HZ, "hist_ThrPyth_HZ");
 
-	TH1F *hist_ThrPyth_HW = new TH1F("hist_ThrPyth_HW", "Inverse Thrust", 200, 0, 0.4);
+	TH1F *hist_ThrPyth_HW = new TH1F("hist_ThrPyth_HW", "Inverse Thrust", 200, 0, 1.0);
 	hist_ThrPyth_HW->GetXaxis()->SetTitle("(1-T)");
 	hist_ThrPyth_HW->GetYaxis()->SetTitle("1/#sigma_{had} d#sigma/d(1-T)");
 	otree->Branch("hist_ThrPyth_HW", &hist_ThrPyth_HW, "hist_ThrPyth_HW");
 
-	TH1F *hist_ThrPyth_Zq = new TH1F("hist_ThrPyth_Zq", "Inverse Thrust", 200, 0, 0.4);
+	TH1F *hist_ThrPyth_Zq = new TH1F("hist_ThrPyth_Zq", "Inverse Thrust", 200, 0, 1.0);
 	hist_ThrPyth_Zq->GetXaxis()->SetTitle("(1-T)");
 	hist_ThrPyth_Zq->GetYaxis()->SetTitle("1/#sigma_{had} d#sigma/d(1-T)");
 	otree->Branch("hist_ThrPyth_Zq", &hist_ThrPyth_Zq, "hist_ThrPyth_Zq");
 
-	TH1F *hist_ThrPyth_tt = new TH1F("hist_ThrPyth_tt", "Inverse Thrust", 200, 0, 0.4);
+	TH1F *hist_ThrPyth_tt = new TH1F("hist_ThrPyth_tt", "Inverse Thrust", 200, 0, 1.0);
 	hist_ThrPyth_tt->GetXaxis()->SetTitle("(1-T)");
 	hist_ThrPyth_tt->GetYaxis()->SetTitle("1/#sigma_{had} d#sigma/d(1-T)");
 	otree->Branch("hist_ThrPyth_tt", &hist_ThrPyth_tt, "hist_ThrPyth_tt");
 
-	TH1F *hist_ThrPyth_WW = new TH1F("hist_ThrPyth_WW", "Inverse Thrust", 200, 0, 0.4);
+	TH1F *hist_ThrPyth_WW = new TH1F("hist_ThrPyth_WW", "Inverse Thrust", 200, 0, 1.0);
 	hist_ThrPyth_WW->GetXaxis()->SetTitle("(1-T)");
 	hist_ThrPyth_WW->GetYaxis()->SetTitle("1/#sigma_{had} d#sigma/d(1-T)");
 	otree->Branch("hist_ThrPyth_WW", &hist_ThrPyth_WW, "hist_ThrPyth_WW");
 
-	TH1F *hist_ThrPyth_ZZ = new TH1F("hist_ThrPyth_ZZ", "Inverse Thrust", 200, 0, 0.4);
+	TH1F *hist_ThrPyth_ZZ = new TH1F("hist_ThrPyth_ZZ", "Inverse Thrust", 200, 0, 1.0);
 	hist_ThrPyth_ZZ->GetXaxis()->SetTitle("(1-T)");
 	hist_ThrPyth_ZZ->GetYaxis()->SetTitle("1/#sigma_{had} d#sigma/d(1-T)");
 	otree->Branch("hist_ThrPyth_ZZ", &hist_ThrPyth_ZZ, "hist_ThrPyth_ZZ");
-
-	TH1F *hist_ThrPyth_Zt = new TH1F("hist_ThrPyth_Zt", "Inverse Thrust", 200, 0, 0.4);
-	hist_ThrPyth_Zt->GetXaxis()->SetTitle("(1-T)");
-	hist_ThrPyth_Zt->GetYaxis()->SetTitle("1/#sigma_{had} d#sigma/d(1-T)");
-	otree->Branch("hist_ThrPyth_Zt", &hist_ThrPyth_Zt, "hist_ThrPyth_Zt");
-
-	TH1F *hist_ThrPyth_noH = new TH1F("hist_ThrPyth_noH", "Inverse Thrust", 200, 0, 0.4);
-	hist_ThrPyth_noH->GetXaxis()->SetTitle("(1-T)");
-	hist_ThrPyth_noH->GetYaxis()->SetTitle("1/#sigma_{had} d#sigma/d(1-T)");
-	otree->Branch("hist_ThrPyth_noH", &hist_ThrPyth_noH, "hist_ThrPyth_noH");
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -324,28 +238,6 @@ void applyCuts( const std::string& inputFileName, const std::string& outputFileN
 	hist_CprPyth->GetXaxis()->SetTitle("C");
 	hist_CprPyth->GetYaxis()->SetTitle("1/#sigma_{had} d#sigma/d(C)");
 	otree->Branch("hist_CprPyth", &hist_CprPyth, "hist_CprPyth");
-
-	TH1F *hist_CprPyth_000 = new TH1F("hist_CprPyth_000", "C-parameter", 200, 0, 1.0);
-	hist_CprPyth_000->GetXaxis()->SetTitle("C");
-	hist_CprPyth_000->GetYaxis()->SetTitle("1/#sigma_{had} d#sigma/d(C)");
-	otree->Branch("hist_CprPyth_000", &hist_CprPyth_000, "hist_CprPyth_000");
-
-	TH1F *hist_CprPyth_085 = new TH1F("hist_CprPyth_085", "C-parameter", 200, 0, 1.0);
-	hist_CprPyth_085->GetXaxis()->SetTitle("C");
-	hist_CprPyth_085->GetYaxis()->SetTitle("1/#sigma_{had} d#sigma/d(C)");
-	otree->Branch("hist_CprPyth_085", &hist_CprPyth_085, "hist_CprPyth_085");
-
-	TH1F *hist_CprPyth_095 = new TH1F("hist_CprPyth_095", "C-parameter", 200, 0, 1.0);
-	hist_CprPyth_095->GetXaxis()->SetTitle("C");
-	hist_CprPyth_095->GetYaxis()->SetTitle("1/#sigma_{had} d#sigma/d(C)");
-	otree->Branch("hist_CprPyth_095", &hist_CprPyth_095, "hist_CprPyth_095");
-
-	TH1F *hist_CprPyth_100 = new TH1F("hist_CprPyth_100", "C-parameter", 200, 0, 1.0);
-	hist_CprPyth_100->GetXaxis()->SetTitle("C");
-	hist_CprPyth_100->GetYaxis()->SetTitle("1/#sigma_{had} d#sigma/d(C)");
-	otree->Branch("hist_CprPyth_100", &hist_CprPyth_100, "hist_CprPyth_100");
-
-/////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 	TH1F *hist_CprPyth_HZ = new TH1F("hist_CprPyth_HZ", "C-parameter", 200, 0, 1.0);
 	hist_CprPyth_HZ->GetXaxis()->SetTitle("C");
@@ -411,12 +303,17 @@ void applyCuts( const std::string& inputFileName, const std::string& outputFileN
 	hist_BtoPyth->GetYaxis()->SetTitle("1/#sigma_{had} d#sigma/d(B_{T})");
 	otree->Branch("hist_BtoPyth", &hist_BtoPyth, "hist_BtoPyth");
 
-/////////////////////////////////////////////////////////////////////////////////////////////////////////////
-	
 	TH1F *hist_BwiPyth = new TH1F("hist_BwiPyth", "Wide jet broadening", 100, 0, 1.0);
 	hist_BwiPyth->GetXaxis()->SetTitle("B_{W}");
 	hist_BwiPyth->GetYaxis()->SetTitle("1/#sigma_{had} d#sigma/d(B_{W})");
 	otree->Branch("hist_BwiPyth", &hist_BwiPyth, "hist_BwiPyth");
+
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+	TH1F *hist_Y23Pyth = new TH1F("hist_Y23Pyth", "Differential 2-jet rate", 100, 0, 1.0);
+	hist_Y23Pyth->GetXaxis()->SetTitle("y_{23}");
+	hist_Y23Pyth->GetYaxis()->SetTitle("1/#sigma_{had} d#sigma/d(y_{23})");
+	otree->Branch("hist_Y23Pyth", &hist_Y23Pyth, "hist_Y23Pyth");
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -437,6 +334,18 @@ void applyCuts( const std::string& inputFileName, const std::string& outputFileN
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
+	TH1F *hist_ThrPyth_ISR = new TH1F("hist_ThrPyth_ISR", "Inverse Thrust", 200, 0, 1.0);
+	hist_ThrPyth_ISR->GetXaxis()->SetTitle("(1-T)");
+	hist_ThrPyth_ISR->GetYaxis()->SetTitle("1/#sigma_{had} d#sigma/d(1-T)");
+	otree->Branch("hist_ThrPyth_ISR", &hist_ThrPyth_ISR, "hist_ThrPyth_ISR");
+
+	TH1F *hist_CprPyth_ISR = new TH1F("hist_CprPyth_ISR", "C-Parameter", 200, 0, 1.0);
+	hist_CprPyth_ISR->GetXaxis()->SetTitle("C");
+	hist_CprPyth_ISR->GetYaxis()->SetTitle("1/#sigma_{had} d#sigma/d(C)");
+	otree->Branch("hist_CprPyth_ISR", &hist_CprPyth_ISR, "hist_CprPyth_ISR");
+
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
 	TH1F *hist_NumbISR = new TH1F("hist_NumbISR", "Number of ISR photons", 2, 0, 2);
 	hist_NumbISR->GetXaxis()->SetTitle("#E_{#gamma}");
 	hist_NumbISR->GetYaxis()->SetTitle("#events");
@@ -452,112 +361,51 @@ void applyCuts( const std::string& inputFileName, const std::string& outputFileN
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 	// Define vars
-	int nCh=0, nCj=0, nParts=0, Pdg=0, Rad_000=0, Rad_085=0, Rad_095=0, Rad_100=0;
+	int nCh=0, \
+		nRad_wi_al=0, nRad_wi_Zq=0, nRad_wi_ZZ=0, nRad_wi_WW=0, nRad_wi_tt=0, nRad_wi_HZ=0, nRad_wi_HW=0, \
+		nRad_wo_al=0, nRad_wo_Zq=0, nRad_wo_ZZ=0, nRad_wo_WW=0, nRad_wo_tt=0, nRad_wo_HZ=0, nRad_wo_HW=0;
 	float Pmx, Pmy, Pmz, Eto, Ett, Thr, Tax, Sph, Sax, Spr, Hjm, Bto, Bwi;
-	vector<vector<PseudoJet>> allJets;
-    vector<int> procCodes;
-	
-	Pythia8::Thrust thr;
-	Pythia8::Event event;
-
-	// FastJet params
-	double R = 0.6, ptmin = 5.0;
-	vector<fastjet::PseudoJet> particles;
 	
 	// Run through events
 	for(int iEvent = 0; iEvent < itree->GetEntries(); iEvent++ ) {
 		
-		// Access
-		itree->GetEntry(iEvent);
-
-		// Reset
-		event.init(); event.clear();
+		itree->GetEntry(iEvent);	// Access		
+		nCh=0;						// Reset
 
 		// Run through particles
 		for(int jParts = 0; jParts < (*eveSiz)[0]; jParts++) {
+	
+			// Multiplicity
+			if ((*parChg)[jParts]!=0) nCh++;
 			
-			////////////////////////// READING PARTS DATA ///////////////////////////////////////////////////
-			Pdg = (*parPdg)[jParts]; Eto = (*parEto)[jParts]; Ett = (*parEtt)[jParts];
-			Pmx = (*parPmx)[jParts]; Pmy = (*parPmy)[jParts]; Pmz = (*parPmz)[jParts];
-			
-			/////////////////////////////////////////////////////////////////////////////////////////////////
-			Pythia8::Vec4 Pm4(Pmx, Pmy, Pmz, Eto);
- 			event.append(Pdg, 1, 0, 0, Pm4);
-			
-			////////////////////////// STORING JETS PARAMS //////////////////////////////////////////////////
-			fastjet::PseudoJet particle(Pmx,Pmy,Pmz,Eto);								// Particle vector
-			particle.set_user_index(Pdg);												// Set particle id
-			particles.push_back(particle);												// Add to particles		
-			
-			////////////////////////// COMPUTING NCH CURVE //////////////////////////////////////////////////
-			if ((*parChg)[jParts]!=0) nCh++;											// Charged hadrons
-
-		}
-		
-		////////////////////////// CLUSTERING JET PARTICLES /////////////////////////////////////////////////
-		fastjet::JetDefinition jet_def(antikt_algorithm, R);							// Jet definition
-		fastjet::ClusterSequence cs(particles, jet_def);								// Run clustering
-		vector<fastjet::PseudoJet> jets = sorted_by_pt(cs.inclusive_jets(ptmin));		// Sort/store jets
-		nCj = jets.size();																// Jet multiplicity
-
-		////////////////////////// PRINTING CLUSTERED INFO //////////////////////////////////////////////////
-
-		// cout << "Event " << iEvent << " has " << particles.size() << " particles" << " / " << jets.size() << " jets" << endl;
-
-		// Run through jets
-		for (int iJet = 0; iJet < jets.size(); iJet++) {
-			
-			vector<fastjet::PseudoJet> constituents = jets[iJet].constituents();		// Jet constituents		
-			// cout << "Jet#" << iJet << " has " << constituents.size() << endl;		// Print info
-
-			// Run through constituents
-			for (int jJet = 0; jJet < constituents.size(); jJet++) {
-				
-				fastjet::PseudoJet constituent = jets[iJet].constituents()[jJet];		// Jet constituent
-				// cout << jJet << "\t" << constituents[jJet].user_index() << endl;		// Print info
-
-			}
 		}
 
 		////////////////////////// COMPUTING EVENT SHAPES VARS //////////////////////////////////////////////
 
-		// 0% cut on √s'
+		// Sanity √s' check
 		if ((*eveSpr)[0] >= nEnerg*0.00){
 			
 			hist_Esprime_al->Fill((*eveSpr)[0]);
-			hist_Esprime_norm->Fill((*eveSpr)[0]);
-			
 			hist_CprPyth->Fill((*eveCpr)[0]);
 			hist_ThrPyth->Fill((*eveThr)[0]);
 			hist_TaxPyth->Fill((*eveTax)[0]);
 			hist_SphPyth->Fill((*eveSph)[0]);
 			hist_SaxPyth->Fill((*eveSax)[0]);
 			hist_nHadron->Fill(nCh);
-			hist_nJetTot->Fill(nCj);
-
+			hist_HjmPyth->Fill((*eveHjm)[0]);
+			hist_BtoPyth->Fill((*eveBto)[0]);
+			hist_BwiPyth->Fill((*eveBwi)[0]);
+			hist_Y23Pyth->Fill((*eveY23)[0]);
 			hist_NumbISR->Fill((*isrNum)[0]);
 			hist_EmaxISR->Fill((*isrMax)[0]);
-
-			hist_HjmPyth->Fill((*)[0]);
-			hist_BtoPyth->Fill((*)[0]);
-			hist_BwiPyth->Fill((*)[0]);
 
 			// Process cuts
 			if ((*eveCod)[0] == 221) {
 				hist_Esprime_Zq->Fill((*eveSpr)[0]);
 				hist_nHadron_Zq->Fill(nCh);
-				hist_nJetTot_Zq->Fill(nCj);
 
 				hist_CprPyth_Zq->Fill((*eveCpr)[0]);
 				hist_ThrPyth_Zq->Fill((*eveThr)[0]); 
-				hist_ThrPyth_Zt->Fill((*eveThr)[0]); 
-
-				hist_nHadron_noH->Fill(nCh);
-				hist_ThrPyth_noH->Fill((*eveThr)[0]);
-
-				hist_nHadron_000->Fill(nCh);
-				hist_ThrPyth_000->Fill((*eveThr)[0]);
-				hist_CprPyth_000->Fill((*eveCpr)[0]);
 
 				hist_ThrPyth_TEO->Fill((*eveThr)[0]);
 				hist_CprPyth_TEO->Fill((*eveCpr)[0]);
@@ -565,39 +413,24 @@ void applyCuts( const std::string& inputFileName, const std::string& outputFileN
 			if ((*eveCod)[0] == 231) {
 				hist_Esprime_ZZ->Fill((*eveSpr)[0]);
 				hist_nHadron_ZZ->Fill(nCh);
-				hist_nJetTot_ZZ->Fill(nCj);
 
 				hist_CprPyth_ZZ->Fill((*eveCpr)[0]);
 				hist_ThrPyth_ZZ->Fill((*eveThr)[0]); 
-
-				hist_nHadron_noH->Fill(nCh);
-				hist_ThrPyth_noH->Fill((*eveThr)[0]);
 			}
 			if ((*eveCod)[0] == 233) {
 				hist_Esprime_WW->Fill((*eveSpr)[0]);
 				hist_nHadron_WW->Fill(nCh);
-				hist_nJetTot_WW->Fill(nCj);
 
 				hist_CprPyth_WW->Fill((*eveCpr)[0]);
 				hist_ThrPyth_WW->Fill((*eveThr)[0]); 
-
-				hist_nHadron_noH->Fill(nCh);
-				hist_ThrPyth_noH->Fill((*eveThr)[0]);
 			}
 			if ((*eveCod)[0] == 604) {
 				hist_Esprime_tt->Fill((*eveSpr)[0]);
 				hist_nHadron_tt->Fill(nCh);
-				hist_nJetTot_tt->Fill(nCj);
 
 				hist_CprPyth_tt->Fill((*eveCpr)[0]);
 				hist_ThrPyth_tt->Fill((*eveThr)[0]); 
-				hist_ThrPyth_Zt->Fill((*eveThr)[0]); 
-
-				hist_nHadron_noH->Fill(nCh);
-				hist_ThrPyth_noH->Fill((*eveThr)[0]);
 			}
-
-			//Higgs processes
 			if ((*eveCod)[0] == 904) {
 				hist_Esprime_HZ->Fill((*eveSpr)[0]);
 				hist_nHadron_HZ->Fill(nCh);
@@ -612,78 +445,58 @@ void applyCuts( const std::string& inputFileName, const std::string& outputFileN
 			}
 
 		}
-
-		// 85% cut on √s'
-		if ((*eveSpr)[0] >= nEnerg*0.85 && (*eveCod)[0] == 221) {
-			hist_ThrPyth_085->Fill((*eveThr)[0]);
-			hist_nHadron_085->Fill(nCh);
-			hist_CprPyth_085->Fill((*eveCpr)[0]);
-		}
-
-		// 95% cut on √s'
-		if ((*eveSpr)[0] >= nEnerg*0.95 && (*eveCod)[0] == 221) {
-			hist_ThrPyth_095->Fill((*eveThr)[0]); 
-			hist_nHadron_095->Fill(nCh);
-			hist_CprPyth_095->Fill((*eveCpr)[0]);
-		}
-
-		// 100% cut on √s'
-		if ((*eveSpr)[0] >= nEnerg*1.00 && (*eveCod)[0] == 221) {
-			hist_ThrPyth_100->Fill((*eveThr)[0]);
-			hist_nHadron_100->Fill(nCh);
-			hist_CprPyth_100->Fill((*eveCpr)[0]);
-		}
 		
-		// Radiative checks
-		if ((*eveSpr)[0] >= nEnerg*0.00) Rad_000++;
-		if ((*eveSpr)[0] >= nEnerg*0.85) Rad_085++;
-		if ((*eveSpr)[0] >= nEnerg*0.95) Rad_095++;
-		if ((*eveSpr)[0] >= nEnerg*1.00) Rad_100++;
-
-		/////////////////////////////////////////////////////////////////////////////////////////////////////
-
-        // if (iEvent < 5) {
-        //     allJets.push_back(jets);
-        //     procCodes.push_back((*eveCod)[0]);
-        // }
-
-		/////////////////////////////////////////////////////////////////////////////////////////////////////
-		// Reset
-		nCh=0; nCj=0; particles.clear(); jets.clear();
-		/////////////////////////////////////////////////////////////////////////////////////////////////////
+		// √s' cut
+		if ((*eveSpr)[0] == nEnerg) {
+			nRad_wo_al++;
+			if ((*eveCod)[0] == 221) {
+				nRad_wo_Zq++;
+				hist_ThrPyth_ISR->Fill((*eveThr)[0]);
+				hist_CprPyth_ISR->Fill((*eveCpr)[0]);
+			}
+			if ((*eveCod)[0] == 231) nRad_wo_ZZ++;
+			if ((*eveCod)[0] == 233) nRad_wo_WW++;
+			if ((*eveCod)[0] == 604) nRad_wo_tt++;
+			if ((*eveCod)[0] == 904) nRad_wo_HZ++;
+			if ((*eveCod)[0] == 907) nRad_wo_HW++;
+		}
+		else {
+			nRad_wi_al++;
+			if ((*eveCod)[0] == 221) nRad_wi_Zq++;
+			if ((*eveCod)[0] == 231) nRad_wi_ZZ++;
+			if ((*eveCod)[0] == 233) nRad_wi_WW++;
+			if ((*eveCod)[0] == 604) nRad_wi_tt++;
+			if ((*eveCod)[0] == 904) nRad_wi_HZ++;
+			if ((*eveCod)[0] == 907) nRad_wi_HW++;
+		}
 		
 	}
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////
+// Print info
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-	// DrawJets3D_Combined(allJets, procCodes);
+	cout << "----------------------------------------" << endl;
+	cout << "Non-radiative:Radiative:Summed at " << nEnerg << " GeV " << endl;
+	cout << "----------------------------------------" << endl;
+	cout << "al = " << nRad_wo_al << " : " << nRad_wi_al << " : " << nRad_wo_al+nRad_wi_al << endl;
+	cout << "gZ = " << nRad_wo_Zq << " : " << nRad_wi_Zq << " : " << nRad_wo_Zq+nRad_wi_Zq << endl;
+	cout << "ZZ = " << nRad_wo_ZZ << " : " << nRad_wi_ZZ << " : " << nRad_wo_ZZ+nRad_wi_ZZ << endl;
+	cout << "WW = " << nRad_wo_WW << " : " << nRad_wi_WW << " : " << nRad_wo_WW+nRad_wi_WW << endl;
+	cout << "tt = " << nRad_wo_tt << " : " << nRad_wi_tt << " : " << nRad_wo_tt+nRad_wi_tt << endl;
+	cout << "HZ = " << nRad_wo_HZ << " : " << nRad_wi_HZ << " : " << nRad_wo_HZ+nRad_wi_HZ << endl;
+	cout << "HW = " << nRad_wo_HW << " : " << nRad_wi_HW << " : " << nRad_wo_HW+nRad_wi_HW << endl;
+	cout << "----------------------------------------" << endl;
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////
-	
-	// Print info
-	cout << "----------------------------------------" << endl;
-	cout << "Colliding at " << nEnerg << " GeV " << endl;
-	cout << "----------------------------------------" << endl;
-	cout << "Events ≥ " << nEnerg*0.00 << " GeV : " << Rad_000 << endl;
-	cout << "Events ≥ " << nEnerg*0.85 << " GeV : " << Rad_085 << endl;
-	cout << "Events ≥ " << nEnerg*0.95 << " GeV : " << Rad_095 << endl;
-	cout << "Events ≥ " << nEnerg*1.00 << " GeV : " << Rad_100 << endl;
-	cout << "----------------------------------------" << endl;
-
-/////////////////////////////////////////////////////////////////////////////////////////////////////////////
-// KNO Scaling
+// KNO scaling
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////	
 
-	TH1F* KNOO_nHadron = ComputeKNOScaling(hist_nHadron_000, "KNOO_nHadron");
+	TH1F* KNOO_nHadron = ComputeKNOScaling(hist_nHadron, "KNOO_nHadron");
 	TH1F* KNOO_nHadron_Zq = ComputeKNOScaling(hist_nHadron_Zq, "KNOO_nHadron_Zq");
 	TH1F* KNOO_nHadron_ZZ = ComputeKNOScaling(hist_nHadron_ZZ, "KNOO_nHadron_ZZ");
 	TH1F* KNOO_nHadron_WW = ComputeKNOScaling(hist_nHadron_WW, "KNOO_nHadron_WW");
 	TH1F* KNOO_nHadron_tt = ComputeKNOScaling(hist_nHadron_tt, "KNOO_nHadron_tt");
-
-	TH1F* KNOO_nHadron_000 = ComputeKNOScaling(hist_nHadron_000, "KNOO_nHadron_000");
-	TH1F* KNOO_nHadron_085 = ComputeKNOScaling(hist_nHadron_085, "KNOO_nHadron_085");
-	TH1F* KNOO_nHadron_095 = ComputeKNOScaling(hist_nHadron_095, "KNOO_nHadron_095");
-	TH1F* KNOO_nHadron_100 = ComputeKNOScaling(hist_nHadron_100, "KNOO_nHadron_100");
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -711,13 +524,14 @@ int main() {
 	// applyCuts("4-GenData/gen_FCC365.root", "5-CutData/cut_FCC365.root", 365.0);
 	
 	// Hadronic cuts
-	applyCuts("4-GenData/gen_FCC365.root", "5-CutData/cut_FCC365_wiCut.root", 365.0);
+	// applyCuts("4-GenData/gen_FCC365.root", "5-CutData/cut_FCC365_wiCut.root", 365.0);
 
 	// ISR
-	// applyCuts("4-GenData/gen_FCC365_ISR.root", "5-CutData/cut_FCC365_ISR.root", 365.0);
-	// applyCuts("4-GenData/gen_FCC240_ISR.root", "5-CutData/cut_FCC240_ISR.root", 240.0);
-	// applyCuts("4-GenData/gen_FCC160_ISR.root", "5-CutData/cut_FCC160_ISR.root", 160.0);
-	// applyCuts("4-GenData/gen_FCC912_ISR.root", "5-CutData/cut_FCC912_ISR.root", 91.20);
+	// applyCuts("4-GenData/gen_FCC500_ISR.root", "5-CutData/cut_FCC500_ISR.root", 500.0);
+	applyCuts("4-GenData/gen_FCC365_ISR.root", "5-CutData/cut_FCC365_ISR.root", 365.0);
+	applyCuts("4-GenData/gen_FCC240_ISR.root", "5-CutData/cut_FCC240_ISR.root", 240.0);
+	applyCuts("4-GenData/gen_FCC160_ISR.root", "5-CutData/cut_FCC160_ISR.root", 160.0);
+	applyCuts("4-GenData/gen_FCC912_ISR.root", "5-CutData/cut_FCC912_ISR.root", 91.20);
 
 	// // Calibration
 	// applyCuts("4-GenData/gen_FCC183.root", "5-CutData/cut_FCC183.root", 183.0);

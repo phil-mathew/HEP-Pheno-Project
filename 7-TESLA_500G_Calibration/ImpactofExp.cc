@@ -398,6 +398,17 @@ void ImpactofExp()
 // Normalising by area under histogram
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////	
 
+	cout << "--------------------------------------------" << endl;
+	cout << "hist_ThrPyth_912->Integral(width) = " << hist_ThrPyth_912->Integral("width") << endl;
+	cout << "hist_ThrPyth_912->Integral() = " << hist_ThrPyth_912->Integral() << endl;
+	cout << "--------------------------------------------" << endl;
+	cout << "hist_ThrPyth_161->Integral(width) = " << hist_ThrPyth_161->Integral("width") << endl;
+	cout << "hist_ThrPyth_161->Integral() = " << hist_ThrPyth_161->Integral() << endl;
+	cout << "--------------------------------------------" << endl;
+	cout << "hist_ThrPyth_183->Integral(width) = " << hist_ThrPyth_183->Integral("width") << endl;
+	cout << "hist_ThrPyth_183->Integral() = " << hist_ThrPyth_183->Integral() << endl;
+	cout << "--------------------------------------------" << endl;
+
 	hist_ThrPyth_912->Scale(1.0/hist_ThrPyth_912->Integral("width"));
 	hist_CprPyth_912->Scale(1.0/hist_CprPyth_912->Integral("width"));
 
@@ -565,7 +576,7 @@ void ImpactofExp()
 	lg->Draw("SAME");
 
 	// Set limits
-	hist_ThrPyth_912->GetYaxis()->SetRangeUser(1E-3,1E9);
+	hist_ThrPyth_912->GetYaxis()->SetRangeUser(1E-3,1E2);
 	hist_ThrPyth_912->GetXaxis()->SetRangeUser(0,0.4);
 	hist_CprPyth_912->GetYaxis()->SetRangeUser(1E-3,1E9);
 	hist_CprPyth_912->GetXaxis()->SetRangeUser(0,0.4);	
