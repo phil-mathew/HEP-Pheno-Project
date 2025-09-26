@@ -32,16 +32,41 @@
 // Header
 using namespace std;
 
+TGraphAsymmErrors* HistToGraph(const TH1* h, bool skipEmpty=false) {
+    const int nb = h->GetNbinsX();
+    auto g = new TGraphAsymmErrors();
+    int p = 0;
+
+    for (int i = 1; i <= nb; ++i) {
+        const double xlow = h->GetXaxis()->GetBinLowEdge(i);
+        const double xup  = h->GetXaxis()->GetBinUpEdge(i);
+        const double x    = h->GetXaxis()->GetBinCenter(i);
+        const double exl  = x - xlow;               // left x-error
+        const double exh  = xup - x;                // right x-error
+
+        const double y    = h->GetBinContent(i);
+        const double ey   = h->GetBinError(i);      // symmetric y-error
+        if (skipEmpty && y == 0 && ey == 0) continue;
+
+        g->SetPoint(p, x, y);
+        g->SetPointError(p, exl, exh, ey, ey);      // same up/down if symmetric
+        ++p;
+    }
+    g->SetTitle(h->GetTitle());
+    g->GetXaxis()->SetTitle(h->GetXaxis()->GetTitle());
+    g->GetYaxis()->SetTitle(h->GetYaxis()->GetTitle());
+    return g;
+}
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+// Theoretical model for Thrust
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 // bin widths
 vector<double> bins = { 0.005, 0.015, 0.025, 0.035, 0.045, 0.055, 0.065, 0.075, 0.085, 0.095, 0.105, 0.115, 0.125, 0.135, 0.145, 0.155, \
 						0.165, 0.175, 0.185, 0.195, 0.205, 0.215, 0.225, 0.235, 0.245, 0.255, 0.265, 0.275, 0.285, 0.295, 0.305, 0.315, \
 						0.325, 0.335, 0.345, 0.355, 0.365, 0.375, 0.385, 0.395, 0.405, 0.415, 0.425, 0.435, 0.445 };
-
-//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-// Theoretical model for Thrust
-//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 // LO parameters A_T
 vector<double> A_THR = {
@@ -248,30 +273,45 @@ void ImpactofAlpha()
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 	// Buffers
-	double Par, Prb, Err_ParX, Err_ParY, Err_PrbX, Err_PrbY;
-	vector<float> X, Y, Err_XX, Err_XY, Err_YX, Err_YY;
+	double Par, Prb, ErrHi_Par, ErrLo_Par, ErrHi_Prb, ErrLo_Prb;
+	vector<float> X, Y, ErrHi_X, ErrLo_X, ErrHi_Y, ErrLo_Y;
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 	// Flush vecs
-	X.clear(), Y.clear(), Err_XX.clear(), Err_XY.clear(), Err_YX.clear(), Err_YY.clear();
+	X.clear(), Y.clear(), ErrHi_X.clear(), ErrLo_X.clear(), ErrHi_Y.clear(), ErrLo_Y.clear();
+
+	// Define histogram
+	TH1F *hist_ThrExL3_912 = new TH1F("hist_ThrExL3_912", "", 500, 0, 0.4);
+	hist_ThrExL3_912->SetTitle("Inverse Thrust");
+	hist_ThrExL3_912->SetName("hist_ThrExL3_912");
+	hist_ThrExL3_912->GetXaxis()->SetTitle("1-T");
+	hist_ThrExL3_912->GetYaxis()->SetTitle("1/#sigma d#sigma/d(1-T)");
+	hist_ThrExL3_912->SetLineColor(kYellow+2); hist_ThrExL3_912->SetMarkerColor(kYellow+2); hist_ThrExL3_912->SetMarkerStyle(27); hist_ThrExL3_912->SetLineWidth(2); hist_ThrExL3_912->SetMarkerSize(2);
 
 	// Import data
-	ifstream infile_01("3-LEP-data/EXP_ALP_912_THR_ASYMM.txt");
+	ifstream infile_01("3-LEPdata/EXP_ALP_912_THR_ASYMM.txt");
 
-	// Read until end of file
-	while ( infile_01 >> Par >> Err_ParX >> Err_ParY >> Prb >> Err_PrbX >> Err_PrbY ) {
-
-		// Fill vectors
-		X.push_back(Par); Y.push_back(Prb);
-		Err_XX.push_back(Err_ParX); Err_XY.push_back(Err_ParY);
-		Err_YX.push_back(Err_PrbX);	Err_YY.push_back(Err_PrbY);
-
+	// Sanity check
+	if (!infile_01.is_open()) {
+		std::cerr << "File not found!\n";
 	}
+
+	// Set reading order
+	while ( infile_01 >> Par >> ErrHi_Par >> ErrLo_Par >> Prb >> ErrHi_Prb >> ErrLo_Prb ) {
+		// Populate graph
+		X.push_back(Par); Y.push_back(Prb);
+		ErrHi_X.push_back(ErrHi_Par-Par); ErrLo_X.push_back(Par-ErrLo_Par);
+		ErrHi_Y.push_back(ErrHi_Prb); ErrLo_Y.push_back(ErrLo_Prb);
+		// Populate histogram
+		hist_ThrExL3_912->SetBinContent(hist_ThrExL3_912->FindBin(Par), Prb);
+		hist_ThrExL3_912->SetBinError(hist_ThrExL3_912->FindBin(Par), ErrHi_Prb+ErrLo_Prb);
+	}
+	// Close file
 	infile_01.close();
 
-	// Create TGraphAsymmErrors
-	TGraphAsymmErrors* grph_ThrExL3_912 = new TGraphAsymmErrors( X.size(), &X[0], &Y[0], &Err_XX[0], &Err_XY[0], &Err_YX[0], &Err_YY[0] );
+	// Define graph
+	TGraphAsymmErrors* grph_ThrExL3_912 = new TGraphAsymmErrors( X.size(), &X[0], &Y[0], &ErrHi_X[0], &ErrLo_X[0], &ErrHi_Y[0], &ErrLo_Y[0] );
 	// Beautify
 	grph_ThrExL3_912->SetTitle("Inverse Thrust");
 	grph_ThrExL3_912->SetName("grph_ThrExL3_912");
@@ -282,24 +322,29 @@ void ImpactofAlpha()
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 	// Flush vecs
-	X.clear(), Y.clear(), Err_XX.clear(), Err_XY.clear(), Err_YX.clear(), Err_YY.clear();
+	X.clear(), Y.clear(), ErrHi_X.clear(), ErrLo_X.clear(), ErrHi_Y.clear(), ErrLo_Y.clear();
 
 	// Import data
-	ifstream infile_02("3-LEP-data/EXP_LL3_912_CPR_ASYMM.txt");
+	ifstream infile_02("3-LEPdata/EXP_ALP_912_CPR_ASYMM.txt");
 
-	// Read until end of file
-	while ( infile_02 >> Par >> Err_ParX >> Err_ParY >> Prb >> Err_PrbX >> Err_PrbY ) {
-
-		// Fill vectors
-		X.push_back(Par); Y.push_back(Prb);
-		Err_XX.push_back(Err_ParX); Err_XY.push_back(Err_ParY);
-		Err_YX.push_back(Err_PrbX);	Err_YY.push_back(Err_PrbY);
-
+	// Sanity check
+	if (!infile_02.is_open()) {
+		std::cerr << "File not found!\n";
 	}
+
+	// Set reading order
+	while ( infile_02 >> Par >> ErrHi_Par >> ErrLo_Par >> Prb >> ErrHi_Prb >> ErrLo_Prb ) {
+		// Populate axes
+		X.push_back(Par); Y.push_back(Prb);
+		// // Populate errors
+		ErrHi_X.push_back(ErrHi_Par); ErrLo_X.push_back(ErrLo_Par);
+		ErrHi_Y.push_back(ErrHi_Prb); ErrLo_Y.push_back(ErrLo_Prb);
+	}
+	// Close file
 	infile_02.close();
 
 	// Create TGraphAsymmErrors
-	TGraphAsymmErrors* grph_CprExL3_912 = new TGraphAsymmErrors( X.size(), &X[0], &Y[0], &Err_XX[0], &Err_XY[0], &Err_YX[0], &Err_YY[0] );
+	TGraphAsymmErrors* grph_CprExL3_912 = new TGraphAsymmErrors( X.size(), &X[0], &Y[0], &ErrHi_X[0], &ErrLo_X[0], &ErrHi_Y[0], &ErrLo_Y[0] );
 	// Beautify
 	grph_CprExL3_912->SetTitle("C-parameter");
 	grph_CprExL3_912->SetName("grph_CprExL3_912");
@@ -341,10 +386,10 @@ void ImpactofAlpha()
 // Fit PYTHIA to Theory
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-	float AlpFit_912_min = 0.10, AlpFit_912_max = 0.25, CprFit_912_min = 0.36, CprFit_912_max = 0.74;
-	float AlpFit_160_min = 0.10, AlpFit_160_max = 0.25, CprFit_160_min = 0.36, CprFit_160_max = 0.74;
-	float AlpFit_240_min = 0.10, AlpFit_240_max = 0.25, CprFit_240_min = 0.36, CprFit_240_max = 0.74;
-	float AlpFit_365_min = 0.10, AlpFit_365_max = 0.25, CprFit_365_min = 0.36, CprFit_365_max = 0.74;
+	float AlpFit_912_min = 0.09, AlpFit_912_max = 0.25, CprFit_912_min = 0.36, CprFit_912_max = 0.74;
+	float AlpFit_160_min = 0.09, AlpFit_160_max = 0.25, CprFit_160_min = 0.36, CprFit_160_max = 0.74;
+	float AlpFit_240_min = 0.09, AlpFit_240_max = 0.25, CprFit_240_min = 0.36, CprFit_240_max = 0.74;
+	float AlpFit_365_min = 0.09, AlpFit_365_max = 0.25, CprFit_365_min = 0.36, CprFit_365_max = 0.74;
 
 	TF1 *hist_fitThLO_912 = new TF1("hist_fitThLO_912", THR_LOOO, AlpFit_912_min, AlpFit_912_max, 1);
 	hist_fitThLO_912->SetLineColor(kGreen+1); hist_fitThLO_912->SetMarkerColor(kGreen+1); hist_fitThLO_912->SetMarkerStyle(53); hist_fitThLO_912->SetLineWidth(2); hist_fitThLO_912->SetMarkerSize(1);	
@@ -439,10 +484,15 @@ void ImpactofAlpha()
 	// grph_ThrExL3_912->Fit(hist_fitThLO_912, "RNQ MINOS");
 	// grph_ThrExL3_912->Fit(hist_fitThNL_912, "RNQ MINOS");
 	// grph_ThrExL3_912->Fit(hist_fitThNN_912, "RNQ MINOS");
+	// grph_CprExL3_912->Fit(hist_fitCpLO_912, "RNQ MINOS");
+	// grph_CprExL3_912->Fit(hist_fitCpNL_912, "RNQ MINOS");
+	// grph_CprExL3_912->Fit(hist_fitCpNN_912, "RNQ MINOS");
+
+	// TGraphAsymmErrors* grph_ThrPyth_912 = HistToGraph(hist_ThrPyth_912, true);
+
 	hist_ThrPyth_912->Fit(hist_fitThLO_912, "RNQ MINOS");
 	hist_ThrPyth_912->Fit(hist_fitThNL_912, "RNQ MINOS");
-	hist_ThrPyth_912->Fit(hist_fitThNN_912, "RNQ MINOS");
-
+	grph_ThrExL3_912->Fit(hist_fitThNN_912, "RNQ MINOS");
 	hist_ThrPyth_160->Fit(hist_fitThLO_160, "RNQ MINOS");
 	hist_ThrPyth_160->Fit(hist_fitThNL_160, "RNQ MINOS");
 	hist_ThrPyth_160->Fit(hist_fitThNN_160, "RNQ MINOS");
@@ -453,13 +503,9 @@ void ImpactofAlpha()
 	hist_ThrPyth_365->Fit(hist_fitThNL_365, "RNQ MINOS");
 	hist_ThrPyth_365->Fit(hist_fitThNN_365, "RNQ MINOS");
 	
-	// grph_CprExL3_912->Fit(hist_fitCpLO_912, "RN MINOS");
-	// grph_CprExL3_912->Fit(hist_fitCpNL_912, "RN MINOS");
-	// grph_CprExL3_912->Fit(hist_fitCpNN_912, "RN MINOS");
 	hist_CprPyth_912->Fit(hist_fitCpLO_912, "RNQ MINOS");
 	hist_CprPyth_912->Fit(hist_fitCpNL_912, "RNQ MINOS");
 	hist_CprPyth_912->Fit(hist_fitCpNN_912, "RNQ MINOS");
-
 	hist_CprPyth_160->Fit(hist_fitCpLO_160, "RNQ MINOS");
 	hist_CprPyth_160->Fit(hist_fitCpNL_160, "RNQ MINOS");
 	hist_CprPyth_160->Fit(hist_fitCpNN_160, "RNQ MINOS");
@@ -641,6 +687,45 @@ void ImpactofAlpha()
 	// gStyle->SetOptStat();
 	// // Update canvas
 	// cv1->Modified();
+
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+	// Create canvas
+	TCanvas* cv2 = new TCanvas("cv2", "FCC-ee ISR Studies", 800, 600);
+
+	TLegend* lg2 = new TLegend(0.84, 0.69, 0.92, 0.93);
+	lg2->AddEntry(hist_ThrPyth_912, "PYTHIA", "P");
+	lg2->AddEntry(hist_ThrExL3_912, "ALEPH", "P");
+	lg2->SetTextSize(0.05);	
+
+	// Beautify
+	gStyle->SetErrorX(0.000000001);
+	gStyle->SetLabelSize(0.05, "X");
+	gStyle->SetLabelSize(0.05, "Y");
+	gStyle->SetTitleSize(0.06, "X");
+	gStyle->SetTitleSize(0.06, "Y");
+	cv2->SetMargin(0, 0, 0, 0); 
+	gPad->SetTopMargin(0.025);
+	gPad->SetBottomMargin(0.14);
+	gPad->SetLeftMargin(0.15);
+	gPad->SetRightMargin(0.04);
+	gPad->SetTickx(); gPad->SetTicky();
+	// gPad->SetLogy();
+
+	// Draw
+	hist_ThrPyth_912->Draw("P");
+	hist_ThrExL3_912->Draw("P SAME");
+	lg2->Draw("SAME");
+
+	// Set limits
+	// hist_ThrPyth_912->GetYaxis()->SetRangeUser(1E-4,1E2);
+	hist_ThrPyth_912->GetYaxis()->SetRangeUser(0,5);
+	hist_ThrPyth_912->GetXaxis()->SetRangeUser(0.09,0.25);
+
+	// Modify stat-box
+	gStyle->SetOptStat();
+	// Update canvas
+	cv2->Modified();
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////
 // Print results

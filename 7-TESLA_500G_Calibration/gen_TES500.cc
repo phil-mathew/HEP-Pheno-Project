@@ -51,7 +51,7 @@ int main(){
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 	// Define file
-  	TFile *output = new TFile("4-GenData/gen_FCC500_ISR.root", "RECREATE");
+  	TFile *output = new TFile("4-GenData/gen_FCC.root", "RECREATE");
 	
 	// Define tree
 	TTree *tree = new TTree("tree_raw", "Raw Pythia data");
@@ -104,9 +104,9 @@ int main(){
 	float mW = pythia.particleData.m0(24);													// W+ mass
 
 	// Set # events
-	int nEvent = 1E6;
+	int nEvent = 148230;
 	// Set centre mass
-	float nEnerg = 500.0;
+	float nEnerg = 160.0;
 
 ///////////////////////////////PHYSICS SWITCHES FOR TESLA 500 GeV ///////////////////////////////////////////
 	
@@ -114,7 +114,7 @@ int main(){
 	pythia.readString("Beams:idA = 11"); 													// beam energy
 	pythia.readString("Beams:idB = -11"); 													// beam energy
 	pythia.settings.parm("Beams:eCM", nEnerg);												// c-om energy
-	// pythia.readString("PDF:lepton = off");													// ISR toggle
+	pythia.readString("PDF:lepton = off");													// ISR toggle
 	
 	// Hadronisation
 	// pythia.readString("HadronLevel:Hadronize = off");
