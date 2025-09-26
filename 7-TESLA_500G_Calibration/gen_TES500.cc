@@ -51,7 +51,7 @@ int main(){
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 	// Define file
-  	TFile *output = new TFile("4-GenData/gen_FCC.root", "RECREATE");
+  	TFile *output = new TFile("4-GenData/gen_FCC912.root", "RECREATE");
 	
 	// Define tree
 	TTree *tree = new TTree("tree_raw", "Raw Pythia data");
@@ -104,9 +104,9 @@ int main(){
 	float mW = pythia.particleData.m0(24);													// W+ mass
 
 	// Set # events
-	int nEvent = 148230;
+	int nEvent = 5E6;
 	// Set centre mass
-	float nEnerg = 160.0;
+	float nEnerg = 91.2;
 
 ///////////////////////////////PHYSICS SWITCHES FOR TESLA 500 GeV ///////////////////////////////////////////
 	
