@@ -55,6 +55,7 @@ int main(){
 	
 	// Define tree
 	TTree *tree = new TTree("tree_raw", "Raw Pythia data");
+	tree->SetAutoSave(0);
 
 	// Intialise vecs
 	vector<int> eveNum, eveSiz, eveCod, isrNum, parNum, parPdg, parChg, eveNjy;
@@ -473,9 +474,12 @@ int main(){
 			eveY34.push_back((float)cluster_seq.exclusive_ymerge(3)); // 4→3 transition
 		}
 
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 		// Populate
-		tree->Fill();
+		tree->Fill();  
+
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 	}
 

@@ -123,6 +123,10 @@ void applyCuts( const std::string& inputFileName, const std::string& outputFileN
 // Define histograms, Add branches
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
+	TH1::SetDefaultSumw2(true);
+
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
 	TH1F *hist_Esprime_al = new TH1F("hist_Esprime_al", "Reduced energy after ISR", 200, -1, 366);
 	hist_Esprime_al->GetXaxis()->SetTitle("#sqrt{s'}");
 	hist_Esprime_al->GetYaxis()->SetTitle("#events");

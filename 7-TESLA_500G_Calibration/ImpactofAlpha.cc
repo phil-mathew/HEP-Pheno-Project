@@ -251,22 +251,22 @@ void ImpactofAlpha()
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////	
 
 	TH1F *hist_ThrPyth_912 = (TH1F*)input_912->Get("hist_ThrPyth_TEO");
-	hist_ThrPyth_912->SetLineColor(kBlack); hist_ThrPyth_912->SetMarkerColor(kBlack); hist_ThrPyth_912->SetMarkerStyle(26); hist_ThrPyth_912->SetLineWidth(2); hist_ThrPyth_912->SetMarkerSize(2);
+	hist_ThrPyth_912->SetLineColor(kBlack); hist_ThrPyth_912->SetMarkerColor(kBlack); hist_ThrPyth_912->SetMarkerStyle(26); hist_ThrPyth_912->SetLineWidth(2); hist_ThrPyth_912->SetMarkerSize(1);
 	TH1F *hist_ThrPyth_160 = (TH1F*)input_160->Get("hist_ThrPyth_TEO");
-	hist_ThrPyth_160->SetLineColor(kBlack); hist_ThrPyth_160->SetMarkerColor(kBlack); hist_ThrPyth_160->SetMarkerStyle(26); hist_ThrPyth_160->SetLineWidth(2); hist_ThrPyth_160->SetMarkerSize(2);
+	hist_ThrPyth_160->SetLineColor(kBlack); hist_ThrPyth_160->SetMarkerColor(kBlack); hist_ThrPyth_160->SetMarkerStyle(26); hist_ThrPyth_160->SetLineWidth(2); hist_ThrPyth_160->SetMarkerSize(1);
 	TH1F *hist_ThrPyth_240 = (TH1F*)input_240->Get("hist_ThrPyth_TEO");
-	hist_ThrPyth_240->SetLineColor(kBlack); hist_ThrPyth_240->SetMarkerColor(kBlack); hist_ThrPyth_240->SetMarkerStyle(26); hist_ThrPyth_240->SetLineWidth(2); hist_ThrPyth_240->SetMarkerSize(2);
+	hist_ThrPyth_240->SetLineColor(kBlack); hist_ThrPyth_240->SetMarkerColor(kBlack); hist_ThrPyth_240->SetMarkerStyle(26); hist_ThrPyth_240->SetLineWidth(2); hist_ThrPyth_240->SetMarkerSize(1);
 	TH1F *hist_ThrPyth_365 = (TH1F*)input_365->Get("hist_ThrPyth_TEO");
-	hist_ThrPyth_365->SetLineColor(kBlack); hist_ThrPyth_365->SetMarkerColor(kBlack); hist_ThrPyth_365->SetMarkerStyle(26); hist_ThrPyth_365->SetLineWidth(2); hist_ThrPyth_365->SetMarkerSize(2);
+	hist_ThrPyth_365->SetLineColor(kBlack); hist_ThrPyth_365->SetMarkerColor(kBlack); hist_ThrPyth_365->SetMarkerStyle(26); hist_ThrPyth_365->SetLineWidth(2); hist_ThrPyth_365->SetMarkerSize(1);
 
 	TH1F *hist_CprPyth_912 = (TH1F*)input_912->Get("hist_CprPyth_TEO");
-	hist_CprPyth_912->SetLineColor(kBlack); hist_CprPyth_912->SetMarkerColor(kBlack); hist_CprPyth_912->SetMarkerStyle(26); hist_CprPyth_912->SetLineWidth(2); hist_CprPyth_912->SetMarkerSize(2);
+	hist_CprPyth_912->SetLineColor(kBlack); hist_CprPyth_912->SetMarkerColor(kBlack); hist_CprPyth_912->SetMarkerStyle(26); hist_CprPyth_912->SetLineWidth(2); hist_CprPyth_912->SetMarkerSize(1);
 	TH1F *hist_CprPyth_160 = (TH1F*)input_160->Get("hist_CprPyth_TEO");
-	hist_CprPyth_160->SetLineColor(kBlack); hist_CprPyth_160->SetMarkerColor(kBlack); hist_CprPyth_160->SetMarkerStyle(26); hist_CprPyth_160->SetLineWidth(2); hist_CprPyth_160->SetMarkerSize(2);
+	hist_CprPyth_160->SetLineColor(kBlack); hist_CprPyth_160->SetMarkerColor(kBlack); hist_CprPyth_160->SetMarkerStyle(26); hist_CprPyth_160->SetLineWidth(2); hist_CprPyth_160->SetMarkerSize(1);
 	TH1F *hist_CprPyth_240 = (TH1F*)input_240->Get("hist_CprPyth_TEO");
-	hist_CprPyth_240->SetLineColor(kBlack); hist_CprPyth_240->SetMarkerColor(kBlack); hist_CprPyth_240->SetMarkerStyle(26); hist_CprPyth_240->SetLineWidth(2); hist_CprPyth_240->SetMarkerSize(2);
+	hist_CprPyth_240->SetLineColor(kBlack); hist_CprPyth_240->SetMarkerColor(kBlack); hist_CprPyth_240->SetMarkerStyle(26); hist_CprPyth_240->SetLineWidth(2); hist_CprPyth_240->SetMarkerSize(1);
 	TH1F *hist_CprPyth_365 = (TH1F*)input_365->Get("hist_CprPyth_TEO");
-	hist_CprPyth_365->SetLineColor(kBlack); hist_CprPyth_365->SetMarkerColor(kBlack); hist_CprPyth_365->SetMarkerStyle(26); hist_CprPyth_365->SetLineWidth(2); hist_CprPyth_365->SetMarkerSize(2);
+	hist_CprPyth_365->SetLineColor(kBlack); hist_CprPyth_365->SetMarkerColor(kBlack); hist_CprPyth_365->SetMarkerStyle(26); hist_CprPyth_365->SetLineWidth(2); hist_CprPyth_365->SetMarkerSize(1);
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////
 // Reading experimental data from TXT files
@@ -317,7 +317,7 @@ void ImpactofAlpha()
 	grph_ThrExL3_912->SetName("grph_ThrExL3_912");
 	grph_ThrExL3_912->GetXaxis()->SetTitle("1-T");
 	grph_ThrExL3_912->GetYaxis()->SetTitle("1/#sigma d#sigma/d(1-T)");
-	grph_ThrExL3_912->SetLineColor(kBlack); grph_ThrExL3_912->SetMarkerColor(kBlack); grph_ThrExL3_912->SetLineWidth(2); grph_ThrExL3_912->SetMarkerSize(2);
+	grph_ThrExL3_912->SetLineColor(kYellow+2); grph_ThrExL3_912->SetMarkerColor(kYellow+2); grph_ThrExL3_912->SetLineWidth(2); grph_ThrExL3_912->SetMarkerSize(2);
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -356,7 +356,7 @@ void ImpactofAlpha()
 // Normalising by area under histogram
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////	
 
-	hist_ThrPyth_912->Scale(1.0/hist_ThrPyth_912->Integral("width"));
+	hist_ThrPyth_912->Scale(1.0/hist_ThrPyth_912->Integral("width"));	
 	hist_ThrPyth_160->Scale(1.0/hist_ThrPyth_160->Integral("width"));
 	hist_ThrPyth_240->Scale(1.0/hist_ThrPyth_240->Integral("width"));
 	hist_ThrPyth_365->Scale(1.0/hist_ThrPyth_365->Integral("width"));
@@ -365,6 +365,9 @@ void ImpactofAlpha()
 	hist_CprPyth_160->Scale(1.0/hist_CprPyth_160->Integral("width"));
 	hist_CprPyth_240->Scale(1.0/hist_CprPyth_240->Integral("width"));
 	hist_CprPyth_365->Scale(1.0/hist_CprPyth_365->Integral("width"));
+
+	TGraphAsymmErrors* grph_ThrPyth_912 = HistToGraph(hist_ThrPyth_912, true);
+	grph_ThrPyth_912->SetLineColor(kBlack); grph_ThrPyth_912->SetMarkerColor(kBlack); grph_ThrPyth_912->SetLineWidth(2); grph_ThrPyth_912->SetMarkerSize(1);
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////
 // Disable histogram stats
@@ -391,6 +394,9 @@ void ImpactofAlpha()
 
 	TF1 *hist_fitThNN_912 = new TF1("hist_fitThNN_912", THR_NNLO, AlpFit_912_min, AlpFit_912_max, 1);
 	hist_fitThNN_912->SetLineColor(kBlue+1); hist_fitThNN_912->SetMarkerColor(kBlue+1); hist_fitThNN_912->SetMarkerStyle(53); hist_fitThNN_912->SetLineWidth(2); hist_fitThNN_912->SetMarkerSize(1);
+	TF1 *hist_fitThNN_91X = new TF1("hist_fitThNN_91X", THR_NNLO, AlpFit_912_min, AlpFit_912_max, 1);
+	hist_fitThNN_91X->SetLineColor(kRed+2); hist_fitThNN_91X->SetMarkerColor(kRed+2); hist_fitThNN_91X->SetMarkerStyle(53); hist_fitThNN_91X->SetLineWidth(2); hist_fitThNN_91X->SetMarkerSize(1);
+
 	TF1 *hist_fitThNN_160 = new TF1("hist_fitThNN_160", THR_NNLO, AlpFit_160_min, AlpFit_160_max, 1);
 	hist_fitThNN_160->SetLineColor(kBlue+1); hist_fitThNN_160->SetMarkerColor(kBlue+1); hist_fitThNN_160->SetMarkerStyle(53); hist_fitThNN_160->SetLineWidth(2); hist_fitThNN_160->SetMarkerSize(1);
 	TF1 *hist_fitThNN_240 = new TF1("hist_fitThNN_240", THR_NNLO, AlpFit_240_min, AlpFit_240_max, 1);
@@ -412,6 +418,8 @@ void ImpactofAlpha()
 	float guess = 0.1, guess_min = 0.01, guess_max = 1.0;
 
 	hist_fitThNN_912->SetParameter(0, guess); hist_fitThNN_912->SetParLimits(0, guess_min, guess_max);
+	hist_fitThNN_91X->SetParameter(0, guess); hist_fitThNN_91X->SetParLimits(0, guess_min, guess_max);
+
 	hist_fitThNN_160->SetParameter(0, guess); hist_fitThNN_160->SetParLimits(0, guess_min, guess_max);
 	hist_fitThNN_240->SetParameter(0, guess); hist_fitThNN_240->SetParLimits(0, guess_min, guess_max);
 	hist_fitThNN_365->SetParameter(0, guess); hist_fitThNN_365->SetParLimits(0, guess_min, guess_max);
@@ -423,12 +431,9 @@ void ImpactofAlpha()
 	
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-	// grph_ThrExL3_912->Fit(hist_fitThNN_912, "RNQ MINOS");
-	// grph_CprExL3_912->Fit(hist_fitCpNN_912, "RNQ MINOS");
+	grph_ThrPyth_912->Fit(hist_fitThNN_912, "RNQ MINOS");
+	grph_ThrExL3_912->Fit(hist_fitThNN_91X, "RNQ MINOS");	
 
-	// TGraphAsymmErrors* grph_ThrPyth_912 = HistToGraph(hist_ThrPyth_912, true);
-
-	hist_ThrPyth_912->Fit(hist_fitThNN_912, "RNQ MINOS");
 	hist_ThrPyth_160->Fit(hist_fitThNN_160, "RNQ MINOS");
 	hist_ThrPyth_240->Fit(hist_fitThNN_240, "RNQ MINOS");
 	hist_ThrPyth_365->Fit(hist_fitThNN_365, "RNQ MINOS");
@@ -503,6 +508,8 @@ void ImpactofAlpha()
 	hist_CprPyth_160->SetTitle("");
 	hist_CprPyth_240->SetTitle("");
 	hist_CprPyth_365->SetTitle("");
+
+	grph_ThrPyth_912->SetTitle("");
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////
 // Draw plots
@@ -600,8 +607,10 @@ void ImpactofAlpha()
 	TCanvas* cv2 = new TCanvas("cv2", "FCC-ee ISR Studies", 800, 600);
 
 	TLegend* lg2 = new TLegend(0.84, 0.69, 0.92, 0.93);
-	lg2->AddEntry(hist_ThrPyth_912, "PYTHIA", "P");
-	lg2->AddEntry(hist_ThrExL3_912, "ALEPH", "P");
+	// lg2->AddEntry(grph_ThrPyth_912, "PYTHIA data", "PL");
+	// lg2->AddEntry(hist_fitThNN_912, "PYTHIA fits", "PL");
+	lg2->AddEntry(grph_ThrExL3_912, "ALEPH data", "PL");
+	lg2->AddEntry(hist_fitThNN_91X, "ALEPH fits", "PL");
 	lg2->SetTextSize(0.05);	
 
 	// Beautify
@@ -619,14 +628,16 @@ void ImpactofAlpha()
 	// gPad->SetLogy();
 
 	// Draw
-	hist_ThrPyth_912->Draw("P");
-	hist_ThrExL3_912->Draw("P SAME");
+	// grph_ThrPyth_912->Draw();
+	// hist_fitThNN_912->Draw("SAME");
+	grph_ThrExL3_912->Draw();	
+	hist_fitThNN_91X->Draw("SAME");
 	lg2->Draw("SAME");
 
 	// Set limits
-	// hist_ThrPyth_912->GetYaxis()->SetRangeUser(1E-4,1E2);
-	hist_ThrPyth_912->GetYaxis()->SetRangeUser(0,5);
-	hist_ThrPyth_912->GetXaxis()->SetRangeUser(0.09,0.25);
+	grph_ThrExL3_912->GetYaxis()->SetRangeUser(1E-4,1E2);
+	grph_ThrExL3_912->GetYaxis()->SetRangeUser(0,4);
+	grph_ThrExL3_912->GetXaxis()->SetRangeUser(0.09,0.25);
 
 	// Modify stat-box
 	gStyle->SetOptStat();
@@ -637,12 +648,13 @@ void ImpactofAlpha()
 // Print results
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-	cout << fixed << setprecision(6);
+	cout << fixed << setprecision(4);
 
 	cout << "====== FITTING WITH THRUST ======" << endl;
 	cout << "√s \t χ²/ndf \t Alpha " << endl;
 	cout << "---------------------------------" << endl;
 	cout << "91.2 \t " << hist_fitThNN_912->GetChisquare()<<"/"<<hist_fitThNN_912->GetNDF() << "\t" << hist_fitThNN_912->GetParameter(0) << "\t" << endl;
+	cout << "ALEPH \t " << hist_fitThNN_91X->GetChisquare()<<"/"<<hist_fitThNN_91X->GetNDF() << "\t" << hist_fitThNN_91X->GetParameter(0) << "\t" << endl;
 	cout << "160 \t " << hist_fitThNN_160->GetChisquare()<<"/"<<hist_fitThNN_160->GetNDF() << "\t" << hist_fitThNN_160->GetParameter(0) << "\t" << endl;
 	cout << "240 \t " << hist_fitThNN_240->GetChisquare()<<"/"<<hist_fitThNN_240->GetNDF() << "\t" << hist_fitThNN_240->GetParameter(0) << "\t" << endl;
 	cout << "365 \t " << hist_fitThNN_365->GetChisquare()<<"/"<<hist_fitThNN_365->GetNDF() << "\t" << hist_fitThNN_365->GetParameter(0) << "\t" << endl;
