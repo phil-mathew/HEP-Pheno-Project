@@ -60,175 +60,242 @@ TGraphAsymmErrors* HistToGraph(const TH1* h, bool skipEmpty=false) {
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-// Theoretical model for Thrust
+// QCD theory models
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-// bin widths
-vector<double> bins = { 0.005, 0.015, 0.025, 0.035, 0.045, 0.055, 0.065, 0.075, 0.085, 0.095, 0.105, 0.115, 0.125, 0.135, 0.145, 0.155, \
-						0.165, 0.175, 0.185, 0.195, 0.205, 0.215, 0.225, 0.235, 0.245, 0.255, 0.265, 0.275, 0.285, 0.295, 0.305, 0.315, \
-						0.325, 0.335, 0.345, 0.355, 0.365, 0.375, 0.385, 0.395, 0.405, 0.415, 0.425, 0.435, 0.445 };
+// Thrust [Bins, LO, NLO, NNLO]
+std::vector<std::array<double,4>> Theory_THR = {
+    {0.005, 25.7970, -495.7000, -9000.0000},
+    {0.015, 18.2990,  216.6000, -3300.0000},
+    {0.025, 15.4110,  280.9000,  1600.0000},
+    {0.035, 13.5230,  292.0000,  4000.0000},
+    {0.045, 12.1030,  287.7000,  4900.0000},
+    {0.055, 10.9692,  277.2000,  5300.0000},
+    {0.065, 10.0228,  263.8000,  5500.0000},
+    {0.075,  9.2112,  250.5000,  5400.0000},
+    {0.085,  8.5022,  237.1000,  5500.0000},
+    {0.095,  7.8724,  224.4000,  5200.0000},
+    {0.105,  7.3045,  211.3000,  5100.0000},
+    {0.115,  6.7891,  199.3000,  4800.0000},
+    {0.125,  6.3179,  187.8000,  4500.0000},
+    {0.135,  5.8820,  176.8000,  4300.0000},
+    {0.145,  5.4791,  166.6000,  4100.0000},
+    {0.155,  5.1030,  157.2000,  3900.0000},
+    {0.165,  4.7484,  147.5000,  3800.0000},
+    {0.175,  4.4141,  139.3000,  3500.0000},
+    {0.185,  4.0962,  130.6000,  3290.0000},
+    {0.195,  3.7931,  123.1000,  3200.0000},
+    {0.205,  3.5028,  115.3000,  2980.0000},
+    {0.215,  3.2220,  108.1000,  2850.0000},
+    {0.225,  2.9494,  101.1000,  2630.0000},
+    {0.235,  2.6826,   94.7000,  2500.0000},
+    {0.245,  2.4223,   88.2000,  2330.0000},
+    {0.255,  2.1634,   82.1000,  2350.0000},
+    {0.265,  1.9062,   75.4000,  2150.0000},
+    {0.275,  1.6470,   69.4000,  1970.0000},
+    {0.285,  1.3841,   63.0000,  1800.0000},
+    {0.295,  1.1169,   56.4000,  1830.0000},
+    {0.305,  0.8415,   48.8800,  1740.0000},
+    {0.315,  0.5567,   41.3500,  1570.0000},
+    {0.325,  0.2593,   33.5300,  1420.0000},
+    {0.335,  0.1706,   21.0800,  1030.0000},
+    {0.345,  0.0000,    8.5700,   296.0000},
+    {0.355,  0.0000,    4.4740,   155.0000},
+    {0.365,  0.0000,    2.4340,    53.0000},
+    {0.375,  0.0000,    1.3010,    35.7000},
+    {0.385,  0.0000,    0.6440,    10.9000},
+    {0.395,  0.0000,    0.2818,     0.1800},
+    {0.405,  0.0000,    5.12E-2,   -1.0E-3},
+    {0.415,  0.0000,    1.45987E-5,-0.1950},
+    {0.425,  0.0000,    4.66279E-5,-0.0090},
+    {0.435,  0.0000,    0.0000,    -0.0010},
+    {0.445,  0.0000,    0.0000,     0.0000}
+};
 
-// LO parameters A_T
-vector<double> A_THR = {
-2.58e+01, 1.83e+01, 1.54e+01, 1.35e+01, 1.21e+01, 1.10e+01, 1.00e+01, 9.21e+00, 8.50e+00, 7.87e+00,
-7.30e+00, 6.79e+00, 6.32e+00, 5.88e+00, 5.48e+00, 5.10e+00, 4.75e+00, 4.41e+00, 4.10e+00, 3.79e+00,
-3.50e+00, 3.22e+00, 2.95e+00, 2.68e+00, 2.42e+00, 2.16e+00, 1.91e+00, 1.65e+00, 1.38e+00, 1.12e+00,
-8.42e-01, 5.57e-01, 2.59e-01, 1.71e-02, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
-};
-// NLO parameters B_T
-vector<double> B_THR = {
--4.96e+02, 2.17e+02, 2.81e+02, 2.92e+02, 2.88e+02, 2.77e+02, 2.64e+02, 2.51e+02, 2.37e+02, 2.24e+02,
-2.11e+02, 1.99e+02, 1.88e+02, 1.77e+02, 1.67e+02, 1.57e+02, 1.48e+02, 1.39e+02, 1.31e+02, 1.23e+02,
-1.15e+02, 1.08e+02, 1.01e+02, 9.47e+01, 8.82e+01, 8.21e+01, 7.54e+01, 6.94e+01, 6.30e+01, 5.64e+01,
-4.89e+01, 4.14e+01, 3.35e+01, 2.11e+01, 8.57e+00, 4.47e+00, 2.43e+00, 1.30e+00, 6.44e-01, 2.82e-01,
-5.12e-02, 1.46e-05, 4.66e-05, 0
-};
-// NNLO parameters C_T
-vector<double> C_THR = {
--9.00e+03, -3.30e+03, 1.60e+03, 4.00e+03, 4.90e+03, 5.30e+03, 5.50e+03, 5.40e+03, 5.50e+03, 5.20e+03,
-5.10e+03, 4.80e+03, 4.50e+03, 4.30e+03, 4.10e+03, 3.90e+03, 3.80e+03, 3.50e+03, 3.29e+03, 3.20e+03,
-2.98e+03, 2.85e+03, 2.63e+03, 2.50e+03, 2.33e+03, 2.35e+03, 2.15e+03, 1.97e+03, 1.80e+03, 1.83e+03,
-1.74e+03, 1.57e+03, 1.42e+03, 1.03e+03, 2.96e+02, 1.55e+02, 5.30e+01, 3.57e+01, 1.09e+01, 1.80e-01,
--1.00e-03, -1.95e-01, -9.00e-03, -1.00e-03
+// C-parameter [Bins, LO, NLO, NNLO]
+std::vector<std::array<double,4>> Theory_CPR = {
+    {0.005, 35.3270, -2151.0000, 30600.0000},
+    {0.015, 27.9630,  -475.1000, -30400.0000},
+    {0.025, 25.1240,  -145.1000, -21500.0000},
+    {0.035, 23.2690,    13.0000, -14800.0000},
+    {0.045, 21.8870,   109.1000, -11200.0000},
+    {0.055, 20.7740,   171.0000,  -7600.0000},
+    {0.065, 19.8310,   215.0000,  -5300.0000},
+    {0.075, 19.0420,   244.0000,  -2700.0000},
+    {0.085, 18.3400,   267.0000,  -1500.0000},
+    {0.095, 17.7100,   283.0000,   -750.0000},
+    {0.105, 17.1520,   295.0000,   1600.0000},
+    {0.115, 16.6370,   306.0000,   1400.0000},
+    {0.125, 16.1540,   310.0000,   1700.0000},
+    {0.135, 15.7130,   318.0000,   3300.0000},
+    {0.145, 15.3120,   321.0000,   3600.0000},
+    {0.155, 14.9330,   323.0000,   4300.0000},
+    {0.165, 14.5720,   324.0000,   4200.0000},
+    {0.175, 14.2280,   326.0000,   4800.0000},
+    {0.185, 13.9150,   324.1000,   5400.0000},
+    {0.195, 13.6090,   322.7000,   4400.0000},
+    {0.205, 13.3210,   324.2000,   5500.0000},
+    {0.215, 13.0390,   321.4000,   5800.0000},
+    {0.225, 12.7790,   320.8000,   5900.0000},
+    {0.235, 12.5240,   318.4000,   6200.0000},
+    {0.245, 12.2810,   317.9000,   6700.0000},
+    {0.255, 12.0460,   315.6000,   6300.0000},
+    {0.265, 11.8230,   311.3000,   6200.0000},
+    {0.275, 11.6080,   307.9000,   6600.0000},
+    {0.285, 11.3920,   307.8000,   5900.0000},
+    {0.295, 11.1970,   302.9000,   6800.0000},
+    {0.305, 11.0000,   300.8000,   6500.0000},
+    {0.315, 10.8120,   298.0000,   6800.0000},
+    {0.325, 10.6270,   296.4000,   6500.0000},
+    {0.335, 10.4510,   290.8000,   6300.0000},
+    {0.345, 10.2730,   289.7000,   6100.0000},
+    {0.355, 10.1100,   285.6000,   6200.0000},
+    {0.365,  9.9460,   284.3000,   6400.0000},
+    {0.375,  9.7870,   280.4000,   7000.0000},
+    {0.385,  9.6280,   275.2000,   6500.0000},
+    {0.395,  9.4840,   273.2000,   6100.0000},
+    {0.405,  9.3321,   271.1000,   6200.0000},
+    {0.415,  9.1900,   268.5000,   7000.0000},
+    {0.425,  9.0490,   263.6000,   5800.0000},
+    {0.435,  8.9140,   261.6000,   6100.0000},
+    {0.445,  8.7791,   258.0000,   6200.0000},
+    {0.455,  8.6450,   255.5000,   6000.0000},
+    {0.465,  8.5180,   251.8000,   6500.0000},
+    {0.475,  8.3920,   249.1000,   5600.0000},
+    {0.485,  8.2690,   246.5000,   5900.0000},
+    {0.495,  8.1520,   241.5000,   5800.0000},
+    {0.505,  8.0330,   241.7000,   5800.0000},
+    {0.515,  7.9180,   237.6000,   5500.0000},
+    {0.525,  7.8040,   232.6000,   6100.0000},
+    {0.535,  7.6910,   231.2000,   5000.0000},
+    {0.545,  7.5890,   228.5000,   5500.0000},
+    {0.555,  7.4760,   224.7000,   5700.0000},
+    {0.565,  7.3770,   224.7000,   5700.0000},
+    {0.575,  7.2710,   219.0000,   5600.0000},
+    {0.585,  7.1720,   218.0000,   5400.0000},
+    {0.595,  7.0730,   214.3000,   5200.0000},
+    {0.605,  6.9760,   210.5000,   4900.0000},
+    {0.615,  6.8800,   208.4000,   5200.0000},
+    {0.625,  6.7880,   204.6000,   4600.0000},
+    {0.635,  6.6920,   202.5000,   5100.0000},
+    {0.645,  6.6000,   200.9000,   5100.0000},
+    {0.655,  6.5150,   197.7000,   4400.0000},
+    {0.665,  6.4260,   194.7000,   5000.0000},
+    {0.675,  6.3370,   192.4000,   4700.0000},
+    {0.685,  6.2530,   189.2000,   5100.0000},
+    {0.695,  6.1710,   187.7000,   4500.0000},
+    {0.705,  6.0874,   184.0000,   4300.0000},
+    {0.715,  6.0103,   182.6000,   3900.0000},
+    {0.725,  5.9266,   180.0000,   4400.0000},
+    {0.735,  5.8474,   177.5000,   4300.0000},
+    {0.745,  5.7695,   174.5000,   3200.0000},
+    {0.755,  0.0000,   601.1000,  12700.0000},
+    {0.765,  0.0000,   277.1000,  13800.0000},
+    {0.775,  0.0000,   190.5000,   9990.0000},
+    {0.785,  0.0000,   142.4600,   7600.0000},
+    {0.795,  0.0000,   111.2400,   6170.0000},
+    {0.805,  0.0000,    88.9500,   4650.0000},
+    {0.815,  0.0000,    72.2800,   3490.0000},
+    {0.825,  0.0000,    59.1300,   3020.0000},
+    {0.835,  0.0000,    48.7600,   1930.0000},
+    {0.845,  0.0000,    40.3700,   1930.0000},
+    {0.855,  0.0000,    33.3600,    820.0000},
+    {0.865,  0.0000,    27.5400,   1260.0000},
+    {0.875,  0.0000,    22.7000,    940.0000},
+    {0.885,  0.0000,    18.5600,    680.0000},
+    {0.895,  0.0000,    15.0600,    590.0000},
+    {0.905,  0.0000,    12.1200,    457.0000},
+    {0.915,  0.0000,     9.5870,    350.0000},
+    {0.925,  0.0000,     7.4580,    219.0000},
+    {0.935,  0.0000,     5.6450,     10.0000},
+    {0.945,  0.0000,     4.1250,    101.9000},
+    {0.955,  0.0000,     2.8750,     25.9000},
+    {0.965,  0.0000,     1.8350,     22.6000},
+    {0.975,  0.0000,     1.0080,      3.9000},
+    {0.985,  0.0000,     0.3990,     -0.4886},
+    {0.995,  0.0000,     0.0188,     -0.1443}
 };
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-// Theoretical model for CPR
-//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
-// LO params A_C
-vector<double> A_CPR = {
-3.5327e+01, 2.7963e+01, 2.5124e+01, 2.2369e+01, 2.1887e+01, 2.0774e+01, 1.9831e+01, 1.9042e+01, 1.8340e+01, 1.7710e+01,
-1.7152e+01, 1.6637e+01, 1.6145e+01, 1.5713e+01, 1.5312e+01, 1.4933e+01, 1.4572e+01, 1.4228e+01, 1.3915e+01, 1.3609e+01,
-1.3321e+01, 1.3039e+01, 1.2779e+01, 1.2524e+01, 1.2281e+01, 1.2046e+01, 1.1823e+01, 1.1608e+01, 1.1392e+01, 1.1197e+01,
-1.1002e+01, 1.0810e+01, 1.0627e+01, 1.0451e+01, 1.0273e+01, 1.0101e+01, 9.9461e+00, 9.7874e+00, 9.6281e+00, 9.4488e+00,
-9.3321e+00, 9.1940e+00, 9.0491e+00, 8.9004e+00, 8.7791e+00, 8.6545e+00, 8.5181e+00, 8.3521e+00, 8.1526e+00, 8.1526e+00
-};
-// NLO params B_C
-vector<double> B_CPR = {
--2.1510e+03, -4.7510e+02, -1.4510e+02, -1.3010e+02, -1.0910e+02, 1.7110e+02, 2.1500e+02, 2.4400e+02, 2.6700e+02, 2.8300e+02,
-2.9610e+02, 3.0610e+02, 3.0600e+02, 3.1810e+02, 3.2000e+02, 3.2300e+02, 3.2400e+02, 3.2600e+02, 3.2420e+02, 3.2270e+02,
-3.2190e+02, 3.2140e+02, 3.2080e+02, 3.1840e+02, 3.1760e+02, 3.1600e+02, 3.1390e+02, 3.0790e+02, 3.0780e+02, 3.0290e+02,
-2.9900e+02, 2.9080e+02, 2.9640e+02, 2.9410e+02, 2.8970e+02, 2.8960e+02, 2.8430e+02, 2.8100e+02, 2.7520e+02, 2.7300e+02,
-2.7110e+02, 2.6850e+02, 2.6360e+02, 2.6160e+02, 2.5800e+02, 2.5550e+02, 2.5180e+02, 2.4910e+02, 2.4650e+02, 2.4650e+02
-};
-// NNLO params C_C
-vector<double> C_CPR = {
-3.0640e+04, -3.0400e+04, -2.1500e+04, -1.4800e+04, -1.1200e+04, -7.6000e+03, -5.7000e+03, -2.7500e+03, -1.0600e+03, -7.5000e+02,
-1.4000e+03, 1.6500e+03, 3.0000e+03, 3.1000e+03, 3.9000e+03, 4.1000e+03, 4.3000e+03, 4.8000e+03, 5.4000e+03, 5.9000e+03,
-5.8000e+03, 5.5000e+03, 5.9000e+03, 6.2000e+03, 6.7000e+03, 6.4000e+03, 6.6000e+03, 6.6000e+03, 6.9000e+03, 6.8000e+03,
-5.8000e+03, 5.8000e+03, 5.6000e+03, 5.8000e+03, 5.6000e+03, 5.4000e+03, 5.0000e+03, 4.8000e+03, 4.6000e+03, 4.3000e+03,
-4.2000e+03, 4.1000e+03, 4.0000e+03, 3.9000e+03, 3.9000e+03, 3.8000e+03, 3.6000e+03, 3.5000e+03, 3.4000e+03, 3.4000e+03
-};
-
-//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-// QCD Factors
+// Fit functions
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 double Nc = 3.0; double Nf = 5.0;
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-// Theory model
-double THR_Order(double *x, double *par, const vector<double>& A, const vector<double>& B, const vector<double>& C, int order) {
-
-	double tau = x[0]; 
-	double alphaS = par[0]; 
-	double asbar = alphaS / (2 * TMath::Pi());
-
-	// Run through bins
-	for (size_t i = 0; i < bins.size(); ++i) {
-		
-		// Check proximity
-		if (fabs(tau - bins[i]) < 0.005) {
-
-			// unbarred
-			double At = 3*(Nc*Nc-1.0)/(4.0*Nc);
-			double Bt = (Nc*Nc-1.0)/(8.0*Nc) * ( (243/4 - 44*1.202)*Nc + 3/(4*Nc) + (8*1.202 - 11)*Nf );
-
-			// barred
-			double AA = A[i];
-			double BB = B[i] - At*A[i];
-			double CC = C[i] - At*B[i] - (Bt-At*At)*A[i];
-
-			// construct theory bin
-			double val = 0;
-			if (order == 1) val += asbar * AA;
-			if (order == 2) val += asbar * AA + asbar * asbar * BB;
-			if (order == 3) val += asbar * AA + asbar * asbar * BB + asbar * asbar * asbar * CC;
-
-			// normalise to dO
-			return val / bins[i];
-		}
-	}
-	return 0;
-}
-
-//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
-// Theory model
-double CPR_Order(double *x, double *par, const vector<double>& A, const vector<double>& B, const vector<double>& C, int order) {
-
-	double tau = x[0]; 
-	double alphaS = par[0]; 
-	double asbar = alphaS / (2 * TMath::Pi());
-
-	// Run through bins
-	for (size_t i = 0; i < bins.size(); ++i) {
-		
-		// Check proximity
-		if (fabs(tau - bins[i]) < 0.005) {
-
-			// unbarred
-			double At = 3*(Nc*Nc-1.0)/(4.0*Nc);
-			double Bt = (Nc*Nc-1.0)/(8.0*Nc) * ( (243/4 - 44*1.202)*Nc + 3/(4*Nc) + (8*1.202 - 11)*Nf );
-
-			// barred
-			double AA = A[i];
-			double BB = B[i] - At*A[i];
-			double CC = C[i] - At*B[i] - (Bt-At*At)*A[i];
-
-			// construct theory bin
-			double val = 0;
-			if (order == 1) val += asbar * AA;
-			if (order == 2) val += asbar * AA + asbar * asbar * BB;
-			if (order == 3) val += asbar * AA + asbar * asbar * BB + asbar * asbar * asbar * CC;
-
-			// normalise to dO
-			return val / bins[i];
-		}
-	}
-	return 0;
-}
-
-//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
-// Wrapper LO
-double THR_LOOO(double *x, double *par) {
-    return THR_Order(x, par, A_THR, B_THR, C_THR, 1);
-}
-// Wrapper NLO
-double THR_NLOO(double *x, double *par) {
-    return THR_Order(x, par, A_THR, B_THR, C_THR, 2);
-}
-// Wrapper NNLO
 double THR_NNLO(double *x, double *par) {
-    return THR_Order(x, par, A_THR, B_THR, C_THR, 3);
+   
+	double tau   = x[0];
+    double alphaS = par[0];
+    double asbar  = alphaS / (2 * TMath::Pi());
+
+    // unbarred
+    double At = 3.0*(Nc*Nc-1.0)/(4.0*Nc);
+    double Bt = (Nc*Nc-1.0)/(8.0*Nc) * ( (243.0/4.0 - 44.0*1.202)*Nc + 3.0/(4.0*Nc) + (8.0*1.202 - 11.0)*Nf );
+
+	// Run through bins
+    for (const auto &row : Theory_THR) {
+        
+		// bin vector
+		double bin = row[0];
+        
+		// Check proximity
+		if (std::fabs(tau - bin) < 0.005) {
+
+			// extract
+			double A = row[1], B = row[2], C = row[3];
+			
+			// barred
+            double AA = A;
+            double BB = B - At*A;
+            double CC = C - At*B - (Bt - At*At)*A;
+
+			// construct
+            double val = asbar*AA + asbar*asbar*BB + asbar*asbar*asbar*CC;
+
+			// normalise
+			return val / bin;
+        }
+    }
+    return 0.0;
 }
 
-//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
-// Wrapper LO
-double CPR_LOOO(double *x, double *par) {
-    return CPR_Order(x, par, A_CPR, B_CPR, C_CPR, 1);
-}
-// Wrapper NLO
-double CPR_NLOO(double *x, double *par) {
-    return CPR_Order(x, par, A_CPR, B_CPR, C_CPR, 2);
-}
-// Wrapper NNLO
 double CPR_NNLO(double *x, double *par) {
-    return CPR_Order(x, par, A_CPR, B_CPR, C_CPR, 3);
+   
+	double tau   = x[0];
+    double alphaS = par[0];
+    double asbar  = alphaS / (2 * TMath::Pi());
+
+    // unbarred
+    double At = 3.0*(Nc*Nc-1.0)/(4.0*Nc);
+    double Bt = (Nc*Nc-1.0)/(8.0*Nc) * ( (243.0/4.0 - 44.0*1.202)*Nc + 3.0/(4.0*Nc) + (8.0*1.202 - 11.0)*Nf );
+
+	// Run through bins
+    for (const auto &row : Theory_CPR) {
+        
+		// bin vector
+		double bin = row[0];
+        
+		// Check proximity
+		if (std::fabs(tau - bin) < 0.005) {
+
+			// extract
+			double A = row[1], B = row[2], C = row[3];
+			
+			// barred
+            double AA = A;
+            double BB = B - At*A;
+            double CC = C - At*B - (Bt - At*At)*A;
+
+			// construct
+            double val = asbar*AA + asbar*asbar*BB + asbar*asbar*asbar*CC;
+
+			// normalise
+			return val / bin;
+        }
+    }
+    return 0.0;
 }
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -286,7 +353,7 @@ void ImpactofAlpha()
 	hist_ThrExL3_912->SetTitle("Inverse Thrust");
 	hist_ThrExL3_912->SetName("hist_ThrExL3_912");
 	hist_ThrExL3_912->GetXaxis()->SetTitle("1-T");
-	hist_ThrExL3_912->GetYaxis()->SetTitle("1/#sigma d#sigma/d(1-T)");
+	hist_ThrExL3_912->GetYaxis()->SetTitle("1/#sigma_{had} d#sigma/d(1-T)");
 	hist_ThrExL3_912->SetLineColor(kYellow+2); hist_ThrExL3_912->SetMarkerColor(kYellow+2); hist_ThrExL3_912->SetMarkerStyle(27); hist_ThrExL3_912->SetLineWidth(2); hist_ThrExL3_912->SetMarkerSize(2);
 
 	// Import data
@@ -316,13 +383,21 @@ void ImpactofAlpha()
 	grph_ThrExL3_912->SetTitle("Inverse Thrust");
 	grph_ThrExL3_912->SetName("grph_ThrExL3_912");
 	grph_ThrExL3_912->GetXaxis()->SetTitle("1-T");
-	grph_ThrExL3_912->GetYaxis()->SetTitle("1/#sigma d#sigma/d(1-T)");
+	grph_ThrExL3_912->GetYaxis()->SetTitle("1/#sigma_{had} d#sigma/d(1-T)");
 	grph_ThrExL3_912->SetLineColor(kYellow+2); grph_ThrExL3_912->SetMarkerColor(kYellow+2); grph_ThrExL3_912->SetLineWidth(2); grph_ThrExL3_912->SetMarkerSize(2);
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 	// Flush vecs
 	X.clear(), Y.clear(), ErrHi_X.clear(), ErrLo_X.clear(), ErrHi_Y.clear(), ErrLo_Y.clear();
+
+	// Define histogram
+	TH1F *hist_CprExL3_912 = new TH1F("hist_CprExL3_912", "", 500, 0, 0.4);
+	hist_CprExL3_912->SetTitle("Inverse Thrust");
+	hist_CprExL3_912->SetName("hist_CprExL3_912");
+	hist_CprExL3_912->GetXaxis()->SetTitle("1-T");
+	hist_CprExL3_912->GetYaxis()->SetTitle("1/#sigma_{had} d#sigma/d(1-T)");
+	hist_CprExL3_912->SetLineColor(kYellow+2); hist_CprExL3_912->SetMarkerColor(kYellow+2); hist_CprExL3_912->SetMarkerStyle(27); hist_CprExL3_912->SetLineWidth(2); hist_CprExL3_912->SetMarkerSize(2);
 
 	// Import data
 	ifstream infile_02("3-LEPdata/EXP_ALP_912_CPR_ASYMM.txt");
@@ -336,9 +411,11 @@ void ImpactofAlpha()
 	while ( infile_02 >> Par >> ErrHi_Par >> ErrLo_Par >> Prb >> ErrHi_Prb >> ErrLo_Prb ) {
 		// Populate axes
 		X.push_back(Par); Y.push_back(Prb);
-		// // Populate errors
 		ErrHi_X.push_back(ErrHi_Par); ErrLo_X.push_back(ErrLo_Par);
 		ErrHi_Y.push_back(ErrHi_Prb); ErrLo_Y.push_back(ErrLo_Prb);
+		// Populate histogram
+		hist_CprExL3_912->SetBinContent(hist_CprExL3_912->FindBin(Par), Prb);
+		hist_CprExL3_912->SetBinError(hist_CprExL3_912->FindBin(Par), ErrHi_Prb+ErrLo_Prb);
 	}
 	// Close file
 	infile_02.close();
@@ -349,8 +426,8 @@ void ImpactofAlpha()
 	grph_CprExL3_912->SetTitle("C-parameter");
 	grph_CprExL3_912->SetName("grph_CprExL3_912");
 	grph_CprExL3_912->GetXaxis()->SetTitle("C");
-	grph_CprExL3_912->GetYaxis()->SetTitle("1/#sigma d#sigma/d(C)");
-	grph_CprExL3_912->SetLineColor(kBlack); grph_CprExL3_912->SetMarkerColor(kBlack); grph_CprExL3_912->SetLineWidth(2); grph_CprExL3_912->SetMarkerSize(2);
+	grph_CprExL3_912->GetYaxis()->SetTitle("1/#sigma_{had} d#sigma/d(C)");
+	grph_CprExL3_912->SetLineColor(kYellow+2); grph_CprExL3_912->SetMarkerColor(kYellow+2); grph_CprExL3_912->SetLineWidth(2); grph_CprExL3_912->SetMarkerSize(2);
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////
 // Normalising by area under histogram
@@ -368,6 +445,14 @@ void ImpactofAlpha()
 
 	TGraphAsymmErrors* grph_ThrPyth_912 = HistToGraph(hist_ThrPyth_912, true);
 	grph_ThrPyth_912->SetLineColor(kBlack); grph_ThrPyth_912->SetMarkerColor(kBlack); grph_ThrPyth_912->SetLineWidth(2); grph_ThrPyth_912->SetMarkerSize(1);
+
+	TGraphAsymmErrors* grph_CprPyth_912 = HistToGraph(hist_CprPyth_912, true);
+	grph_CprPyth_912->SetLineColor(kBlack); grph_CprPyth_912->SetMarkerColor(kBlack); grph_CprPyth_912->SetLineWidth(2); grph_CprPyth_912->SetMarkerSize(1);
+
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+	// cout << hist_ThrPyth_912->Integral("width") << " " << hist_CprExL3_912->Integral("width") << endl;
+	// cout << hist_ThrPyth_912->Integral() << " " << hist_CprExL3_912->Integral() << endl;
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////
 // Disable histogram stats
@@ -392,7 +477,7 @@ void ImpactofAlpha()
 	float AlpFit_240_min = 0.09, AlpFit_240_max = 0.25, CprFit_240_min = 0.36, CprFit_240_max = 0.74;
 	float AlpFit_365_min = 0.09, AlpFit_365_max = 0.25, CprFit_365_min = 0.36, CprFit_365_max = 0.74;
 
-	TF1 *hist_fitThNN_912 = new TF1("hist_fitThNN_912", THR_NNLO, AlpFit_912_min, AlpFit_912_max, 1);
+	TF1 *hist_fitThNN_912 = new TF1("hist_fitThNN_912", THR_NNLO, 0.09, 0.25, 1);
 	hist_fitThNN_912->SetLineColor(kBlue+1); hist_fitThNN_912->SetMarkerColor(kBlue+1); hist_fitThNN_912->SetMarkerStyle(53); hist_fitThNN_912->SetLineWidth(2); hist_fitThNN_912->SetMarkerSize(1);
 	TF1 *hist_fitThNN_91X = new TF1("hist_fitThNN_91X", THR_NNLO, AlpFit_912_min, AlpFit_912_max, 1);
 	hist_fitThNN_91X->SetLineColor(kRed+2); hist_fitThNN_91X->SetMarkerColor(kRed+2); hist_fitThNN_91X->SetMarkerStyle(53); hist_fitThNN_91X->SetLineWidth(2); hist_fitThNN_91X->SetMarkerSize(1);
@@ -406,6 +491,9 @@ void ImpactofAlpha()
 
 	TF1 *hist_fitCpNN_912 = new TF1("hist_fitCpNN_912", CPR_NNLO, CprFit_912_min, CprFit_912_max, 1);
 	hist_fitCpNN_912->SetLineColor(kBlue+1); hist_fitCpNN_912->SetMarkerColor(kBlue+1); hist_fitCpNN_912->SetMarkerStyle(53); hist_fitCpNN_912->SetLineWidth(2); hist_fitCpNN_912->SetMarkerSize(1);
+	TF1 *hist_fitCpNN_91X = new TF1("hist_fitCpNN_91X", CPR_NNLO, CprFit_912_min, CprFit_912_max, 1);
+	hist_fitCpNN_91X->SetLineColor(kRed+2); hist_fitCpNN_91X->SetMarkerColor(kRed+2); hist_fitCpNN_91X->SetMarkerStyle(53); hist_fitCpNN_91X->SetLineWidth(2); hist_fitCpNN_91X->SetMarkerSize(1);
+
 	TF1 *hist_fitCpNN_160 = new TF1("hist_fitCpNN_160", CPR_NNLO, CprFit_160_min, CprFit_160_max, 1);
 	hist_fitCpNN_160->SetLineColor(kBlue+1); hist_fitCpNN_160->SetMarkerColor(kBlue+1); hist_fitCpNN_160->SetMarkerStyle(53); hist_fitCpNN_160->SetLineWidth(2); hist_fitCpNN_160->SetMarkerSize(1);
 	TF1 *hist_fitCpNN_240 = new TF1("hist_fitCpNN_240", CPR_NNLO, CprFit_240_min, CprFit_240_max, 1);
@@ -425,6 +513,8 @@ void ImpactofAlpha()
 	hist_fitThNN_365->SetParameter(0, guess); hist_fitThNN_365->SetParLimits(0, guess_min, guess_max);
 	
 	hist_fitCpNN_912->SetParameter(0, guess); hist_fitCpNN_912->SetParLimits(0, guess_min, guess_max);
+	hist_fitCpNN_91X->SetParameter(0, guess); hist_fitCpNN_91X->SetParLimits(0, guess_min, guess_max);
+
 	hist_fitCpNN_160->SetParameter(0, guess); hist_fitCpNN_160->SetParLimits(0, guess_min, guess_max);
 	hist_fitCpNN_240->SetParameter(0, guess); hist_fitCpNN_240->SetParLimits(0, guess_min, guess_max);
 	hist_fitCpNN_365->SetParameter(0, guess); hist_fitCpNN_365->SetParLimits(0, guess_min, guess_max);
@@ -438,7 +528,9 @@ void ImpactofAlpha()
 	hist_ThrPyth_240->Fit(hist_fitThNN_240, "RNQ MINOS");
 	hist_ThrPyth_365->Fit(hist_fitThNN_365, "RNQ MINOS");
 	
-	hist_CprPyth_912->Fit(hist_fitCpNN_912, "RNQ MINOS");
+	grph_CprPyth_912->Fit(hist_fitCpNN_912, "RNQ MINOS");
+	grph_CprExL3_912->Fit(hist_fitCpNN_91X, "RNQ MINOS");
+
 	hist_CprPyth_160->Fit(hist_fitCpNN_160, "RNQ MINOS");
 	hist_CprPyth_240->Fit(hist_fitCpNN_240, "RNQ MINOS");
 	hist_CprPyth_365->Fit(hist_fitCpNN_365, "RNQ MINOS");
@@ -447,55 +539,55 @@ void ImpactofAlpha()
 // Edit plots
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-	grph_ThrExL3_912->GetXaxis()->SetLabelSize(0.06);
-	grph_ThrExL3_912->GetXaxis()->SetTitleSize(0.06);
-	grph_ThrExL3_912->GetYaxis()->SetLabelSize(0.06);
-	grph_ThrExL3_912->GetYaxis()->SetTitleSize(0.06);
+	// grph_ThrExL3_912->GetXaxis()->SetLabelSize(0.06);
+	// grph_ThrExL3_912->GetXaxis()->SetTitleSize(0.06);
+	// grph_ThrExL3_912->GetYaxis()->SetLabelSize(0.06);
+	// grph_ThrExL3_912->GetYaxis()->SetTitleSize(0.06);
 
-	hist_ThrPyth_912->GetXaxis()->SetLabelSize(0.06);
-	hist_ThrPyth_912->GetXaxis()->SetTitleSize(0.06);
-	hist_ThrPyth_912->GetYaxis()->SetLabelSize(0.06);
-	hist_ThrPyth_912->GetYaxis()->SetTitleSize(0.06);
+	// hist_ThrPyth_912->GetXaxis()->SetLabelSize(0.06);
+	// hist_ThrPyth_912->GetXaxis()->SetTitleSize(0.06);
+	// hist_ThrPyth_912->GetYaxis()->SetLabelSize(0.06);
+	// hist_ThrPyth_912->GetYaxis()->SetTitleSize(0.06);
 
-	hist_ThrPyth_160->GetXaxis()->SetLabelSize(0.06);
-	hist_ThrPyth_160->GetXaxis()->SetTitleSize(0.06);
-	hist_ThrPyth_160->GetYaxis()->SetLabelSize(0.06);
-	hist_ThrPyth_160->GetYaxis()->SetTitleSize(0.06);
+	// hist_ThrPyth_160->GetXaxis()->SetLabelSize(0.06);
+	// hist_ThrPyth_160->GetXaxis()->SetTitleSize(0.06);
+	// hist_ThrPyth_160->GetYaxis()->SetLabelSize(0.06);
+	// hist_ThrPyth_160->GetYaxis()->SetTitleSize(0.06);
 
-	hist_ThrPyth_240->GetXaxis()->SetLabelSize(0.06);
-	hist_ThrPyth_240->GetXaxis()->SetTitleSize(0.06);
-	hist_ThrPyth_240->GetYaxis()->SetLabelSize(0.06);
-	hist_ThrPyth_240->GetYaxis()->SetTitleSize(0.06);
+	// hist_ThrPyth_240->GetXaxis()->SetLabelSize(0.06);
+	// hist_ThrPyth_240->GetXaxis()->SetTitleSize(0.06);
+	// hist_ThrPyth_240->GetYaxis()->SetLabelSize(0.06);
+	// hist_ThrPyth_240->GetYaxis()->SetTitleSize(0.06);
 
-	hist_ThrPyth_365->GetXaxis()->SetLabelSize(0.06);
-	hist_ThrPyth_365->GetXaxis()->SetTitleSize(0.06);
-	hist_ThrPyth_365->GetYaxis()->SetLabelSize(0.06);
-	hist_ThrPyth_365->GetYaxis()->SetTitleSize(0.06);
+	// hist_ThrPyth_365->GetXaxis()->SetLabelSize(0.06);
+	// hist_ThrPyth_365->GetXaxis()->SetTitleSize(0.06);
+	// hist_ThrPyth_365->GetYaxis()->SetLabelSize(0.06);
+	// hist_ThrPyth_365->GetYaxis()->SetTitleSize(0.06);
 
-	grph_CprExL3_912->GetXaxis()->SetLabelSize(0.06);
-	grph_CprExL3_912->GetXaxis()->SetTitleSize(0.06);
-	grph_CprExL3_912->GetYaxis()->SetLabelSize(0.06);
-	grph_CprExL3_912->GetYaxis()->SetTitleSize(0.06);
+	// grph_CprExL3_912->GetXaxis()->SetLabelSize(0.06);
+	// grph_CprExL3_912->GetXaxis()->SetTitleSize(0.06);
+	// grph_CprExL3_912->GetYaxis()->SetLabelSize(0.06);
+	// grph_CprExL3_912->GetYaxis()->SetTitleSize(0.06);
 
-	hist_CprPyth_912->GetXaxis()->SetLabelSize(0.06);
-	hist_CprPyth_912->GetXaxis()->SetTitleSize(0.06);
-	hist_CprPyth_912->GetYaxis()->SetLabelSize(0.06);
-	hist_CprPyth_912->GetYaxis()->SetTitleSize(0.06);
+	// hist_CprPyth_912->GetXaxis()->SetLabelSize(0.06);
+	// hist_CprPyth_912->GetXaxis()->SetTitleSize(0.06);
+	// hist_CprPyth_912->GetYaxis()->SetLabelSize(0.06);
+	// hist_CprPyth_912->GetYaxis()->SetTitleSize(0.06);
 
-	hist_CprPyth_160->GetXaxis()->SetLabelSize(0.06);
-	hist_CprPyth_160->GetXaxis()->SetTitleSize(0.06);
-	hist_CprPyth_160->GetYaxis()->SetLabelSize(0.06);
-	hist_CprPyth_160->GetYaxis()->SetTitleSize(0.06);
+	// hist_CprPyth_160->GetXaxis()->SetLabelSize(0.06);
+	// hist_CprPyth_160->GetXaxis()->SetTitleSize(0.06);
+	// hist_CprPyth_160->GetYaxis()->SetLabelSize(0.06);
+	// hist_CprPyth_160->GetYaxis()->SetTitleSize(0.06);
 
-	hist_CprPyth_240->GetXaxis()->SetLabelSize(0.06);
-	hist_CprPyth_240->GetXaxis()->SetTitleSize(0.06);
-	hist_CprPyth_240->GetYaxis()->SetLabelSize(0.06);
-	hist_CprPyth_240->GetYaxis()->SetTitleSize(0.06);
+	// hist_CprPyth_240->GetXaxis()->SetLabelSize(0.06);
+	// hist_CprPyth_240->GetXaxis()->SetTitleSize(0.06);
+	// hist_CprPyth_240->GetYaxis()->SetLabelSize(0.06);
+	// hist_CprPyth_240->GetYaxis()->SetTitleSize(0.06);
 
-	hist_CprPyth_365->GetXaxis()->SetLabelSize(0.06);
-	hist_CprPyth_365->GetXaxis()->SetTitleSize(0.06);
-	hist_CprPyth_365->GetYaxis()->SetLabelSize(0.06);
-	hist_CprPyth_365->GetYaxis()->SetTitleSize(0.06);
+	// hist_CprPyth_365->GetXaxis()->SetLabelSize(0.06);
+	// hist_CprPyth_365->GetXaxis()->SetTitleSize(0.06);
+	// hist_CprPyth_365->GetYaxis()->SetLabelSize(0.06);
+	// hist_CprPyth_365->GetYaxis()->SetTitleSize(0.06);
 
 	grph_ThrExL3_912->SetTitle("");
 	grph_CprExL3_912->SetTitle("");
@@ -508,8 +600,6 @@ void ImpactofAlpha()
 	hist_CprPyth_160->SetTitle("");
 	hist_CprPyth_240->SetTitle("");
 	hist_CprPyth_365->SetTitle("");
-
-	grph_ThrPyth_912->SetTitle("");
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////
 // Draw plots
@@ -604,14 +694,14 @@ void ImpactofAlpha()
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 	// Create canvas
-	TCanvas* cv2 = new TCanvas("cv2", "FCC-ee ISR Studies", 800, 600);
+	TCanvas* cv2 = new TCanvas("cv2", "FCC-ee ISR Studies", 2000, 1200);
 
-	TLegend* lg2 = new TLegend(0.84, 0.69, 0.92, 0.93);
-	// lg2->AddEntry(grph_ThrPyth_912, "PYTHIA data", "PL");
-	// lg2->AddEntry(hist_fitThNN_912, "PYTHIA fits", "PL");
+	TLegend* lg2 = new TLegend(0.54, 0.69, 0.92, 0.93);
 	lg2->AddEntry(grph_ThrExL3_912, "ALEPH data", "PL");
 	lg2->AddEntry(hist_fitThNN_91X, "ALEPH fits", "PL");
-	lg2->SetTextSize(0.05);	
+	lg2->AddEntry(grph_ThrPyth_912, "PYTHIA data", "PL");
+	lg2->AddEntry(hist_fitThNN_912, "PYTHIA fits", "PL");
+	lg2->SetTextSize(0.05);
 
 	// Beautify
 	gStyle->SetErrorX(0.000000001);
@@ -620,24 +710,79 @@ void ImpactofAlpha()
 	gStyle->SetTitleSize(0.06, "X");
 	gStyle->SetTitleSize(0.06, "Y");
 	cv2->SetMargin(0, 0, 0, 0); 
-	gPad->SetTopMargin(0.025);
-	gPad->SetBottomMargin(0.14);
-	gPad->SetLeftMargin(0.15);
-	gPad->SetRightMargin(0.04);
-	gPad->SetTickx(); gPad->SetTicky();
-	// gPad->SetLogy();
+	cv2->Divide(4,2);
+	for (int i = 1; i <= 8; i++) {
+		cv2->cd(i);
+		gPad->SetTopMargin(0.015);
+		gPad->SetBottomMargin(0.1);
+		gPad->SetLeftMargin(0.15);
+		gPad->SetRightMargin(0.04);
+		gPad->SetTickx(); gPad->SetTicky();
+		// gPad->SetGridx(); gPad->SetGridy();
+		// gPad->SetLogy();
+	}
+
+	grph_ThrPyth_912->SetTitle("");
+	hist_fitThNN_91X->SetTitle("");
+	grph_CprPyth_912->SetTitle("");
+	hist_fitCpNN_91X->SetTitle("");
 
 	// Draw
-	// grph_ThrPyth_912->Draw();
-	// hist_fitThNN_912->Draw("SAME");
+	cv2->cd(1);
+	grph_ThrExL3_912->Draw();	
+	grph_ThrPyth_912->Draw("SAME");
+	lg2->Draw("SAME");
+	cv2->cd(2);
+	hist_fitThNN_91X->Draw();	
+	hist_fitThNN_912->Draw("SAME");
+	cv2->cd(3);
 	grph_ThrExL3_912->Draw();	
 	hist_fitThNN_91X->Draw("SAME");
+	cv2->cd(4);
+	grph_ThrPyth_912->Draw();
+	hist_fitThNN_912->Draw("SAME");
+
+	// Draw
+	cv2->cd(5);
+	grph_CprExL3_912->Draw();
+	grph_CprPyth_912->Draw("SAME");
 	lg2->Draw("SAME");
+	cv2->cd(6);
+	hist_fitCpNN_91X->Draw();	
+	hist_fitCpNN_912->Draw("SAME");
+	cv2->cd(7);
+	grph_CprExL3_912->Draw();	
+	hist_fitCpNN_91X->Draw("SAME");
+	cv2->cd(8);
+	grph_CprPyth_912->Draw();
+	hist_fitCpNN_912->Draw("SAME");
 
 	// Set limits
 	grph_ThrExL3_912->GetYaxis()->SetRangeUser(1E-4,1E2);
 	grph_ThrExL3_912->GetYaxis()->SetRangeUser(0,4);
 	grph_ThrExL3_912->GetXaxis()->SetRangeUser(0.09,0.25);
+	grph_ThrPyth_912->GetYaxis()->SetRangeUser(1E-4,1E2);
+	grph_ThrPyth_912->GetYaxis()->SetRangeUser(0,4);
+	grph_ThrPyth_912->GetXaxis()->SetRangeUser(0.09,0.25);
+	hist_fitThNN_91X->GetYaxis()->SetRangeUser(1E-4,1E2);
+	hist_fitThNN_91X->GetYaxis()->SetRangeUser(0,4);
+	hist_fitThNN_91X->GetXaxis()->SetRangeUser(0.09,0.25);
+	hist_fitThNN_912->GetYaxis()->SetRangeUser(1E-4,1E2);
+	hist_fitThNN_912->GetYaxis()->SetRangeUser(0,4);
+	hist_fitThNN_912->GetXaxis()->SetRangeUser(0.09,0.25);
+
+	grph_CprExL3_912->GetYaxis()->SetRangeUser(1E-4,1E2);
+	grph_CprExL3_912->GetYaxis()->SetRangeUser(0,1.2);
+	grph_CprExL3_912->GetXaxis()->SetRangeUser(0.36,0.74);
+	grph_CprPyth_912->GetYaxis()->SetRangeUser(1E-4,1E2);
+	grph_CprPyth_912->GetYaxis()->SetRangeUser(0,1.2);
+	grph_CprPyth_912->GetXaxis()->SetRangeUser(0.36,0.74);
+	hist_fitCpNN_91X->GetYaxis()->SetRangeUser(1E-4,1E2);
+	hist_fitCpNN_91X->GetYaxis()->SetRangeUser(0,1.2);
+	hist_fitCpNN_91X->GetXaxis()->SetRangeUser(0.36,0.74);
+	hist_fitCpNN_912->GetYaxis()->SetRangeUser(1E-4,1E2);
+	hist_fitCpNN_912->GetYaxis()->SetRangeUser(0,1.2);
+	hist_fitCpNN_912->GetXaxis()->SetRangeUser(0.36,0.74);
 
 	// Modify stat-box
 	gStyle->SetOptStat();
@@ -651,22 +796,23 @@ void ImpactofAlpha()
 	cout << fixed << setprecision(4);
 
 	cout << "====== FITTING WITH THRUST ======" << endl;
-	cout << "√s \t χ²/ndf \t Alpha " << endl;
+	cout << "√s \t χ²/ndf \t Alpha \t Fit range" << endl;
 	cout << "---------------------------------" << endl;
-	cout << "91.2 \t " << hist_fitThNN_912->GetChisquare()<<"/"<<hist_fitThNN_912->GetNDF() << "\t" << hist_fitThNN_912->GetParameter(0) << "\t" << endl;
-	cout << "ALEPH \t " << hist_fitThNN_91X->GetChisquare()<<"/"<<hist_fitThNN_91X->GetNDF() << "\t" << hist_fitThNN_91X->GetParameter(0) << "\t" << endl;
-	cout << "160 \t " << hist_fitThNN_160->GetChisquare()<<"/"<<hist_fitThNN_160->GetNDF() << "\t" << hist_fitThNN_160->GetParameter(0) << "\t" << endl;
-	cout << "240 \t " << hist_fitThNN_240->GetChisquare()<<"/"<<hist_fitThNN_240->GetNDF() << "\t" << hist_fitThNN_240->GetParameter(0) << "\t" << endl;
-	cout << "365 \t " << hist_fitThNN_365->GetChisquare()<<"/"<<hist_fitThNN_365->GetNDF() << "\t" << hist_fitThNN_365->GetParameter(0) << "\t" << endl;
+	cout << "ALEPH \t " << hist_fitThNN_91X->GetChisquare()<<"/"<<hist_fitThNN_91X->GetNDF() << "\t" << hist_fitThNN_91X->GetParameter(0) << "\t" << AlpFit_912_min << "-" << AlpFit_912_max << endl;
+	cout << "91.2 \t " << hist_fitThNN_912->GetChisquare()<<"/"<<hist_fitThNN_912->GetNDF() << "\t" << hist_fitThNN_912->GetParameter(0) << "\t" << AlpFit_912_min << "-" << AlpFit_912_max << endl;
+	cout << "160 \t " << hist_fitThNN_160->GetChisquare()<<"/"<<hist_fitThNN_160->GetNDF() << "\t" << hist_fitThNN_160->GetParameter(0) << "\t" << AlpFit_160_min << "-" << AlpFit_160_max << endl;
+	cout << "240 \t " << hist_fitThNN_240->GetChisquare()<<"/"<<hist_fitThNN_240->GetNDF() << "\t" << hist_fitThNN_240->GetParameter(0) << "\t" << AlpFit_240_min << "-" << AlpFit_240_max << endl;
+	cout << "365 \t " << hist_fitThNN_365->GetChisquare()<<"/"<<hist_fitThNN_365->GetNDF() << "\t" << hist_fitThNN_365->GetParameter(0) << "\t" << AlpFit_365_min << "-" << AlpFit_365_max << endl;
 	cout << "=================================" << endl;
 
 	cout << "====== FITTING WITH CPARAM ======" << endl;
-	cout << "√s \t χ²/ndf \t Alpha " << endl;
+	cout << "√s \t χ²/ndf \t Alpha \t Fit range" << endl;
 	cout << "---------------------------------" << endl;
-	cout << "91.2 \t " << hist_fitCpNN_912->GetChisquare()<<"/"<<hist_fitCpNN_912->GetNDF() << "\t" << hist_fitCpNN_912->GetParameter(0) << "\t" << endl;
-	cout << "160 \t " << hist_fitCpNN_160->GetChisquare()<<"/"<<hist_fitCpNN_160->GetNDF() << "\t" << hist_fitCpNN_160->GetParameter(0) << "\t" << endl;
-	cout << "240 \t " << hist_fitCpNN_240->GetChisquare()<<"/"<<hist_fitCpNN_240->GetNDF() << "\t" << hist_fitCpNN_240->GetParameter(0) << "\t" << endl;
-	cout << "365 \t " << hist_fitCpNN_365->GetChisquare()<<"/"<<hist_fitCpNN_365->GetNDF() << "\t" << hist_fitCpNN_365->GetParameter(0) << "\t" << endl;
+	cout << "ALEPH \t " << hist_fitCpNN_91X->GetChisquare()<<"/"<<hist_fitCpNN_91X->GetNDF() << "\t" << hist_fitCpNN_91X->GetParameter(0) << "\t" << CprFit_912_min << "-" << CprFit_912_max << endl;
+	cout << "91.2 \t " << hist_fitCpNN_912->GetChisquare()<<"/"<<hist_fitCpNN_912->GetNDF() << "\t" << hist_fitCpNN_912->GetParameter(0) << "\t" << CprFit_912_min << "-" << CprFit_912_max << endl;
+	cout << "160 \t " << hist_fitCpNN_160->GetChisquare()<<"/"<<hist_fitCpNN_160->GetNDF() << "\t" << hist_fitCpNN_160->GetParameter(0) << "\t" << CprFit_160_min << "-" << CprFit_160_max << endl;
+	cout << "240 \t " << hist_fitCpNN_240->GetChisquare()<<"/"<<hist_fitCpNN_240->GetNDF() << "\t" << hist_fitCpNN_240->GetParameter(0) << "\t" << CprFit_240_min << "-" << CprFit_240_max << endl;
+	cout << "365 \t " << hist_fitCpNN_365->GetChisquare()<<"/"<<hist_fitCpNN_365->GetNDF() << "\t" << hist_fitCpNN_365->GetParameter(0) << "\t" << CprFit_365_min << "-" << CprFit_365_max << endl;
 	cout << "=================================" << endl;
 
 }

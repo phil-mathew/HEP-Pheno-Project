@@ -198,7 +198,54 @@ void applyCuts( const std::string& inputFileName, const std::string& outputFileN
 	hist_nHadron_tt->GetXaxis()->SetTitle("N_{CH}");
 	hist_nHadron_tt->GetYaxis()->SetTitle("P(N_{CH})");
 	otree->Branch("hist_nHadron_tt", &hist_nHadron_tt, "hist_nHadron_tt");
-	
+
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////	
+
+	float bins_THR[] = {
+		0.000, 0.010, 0.020, 0.030, 0.040,
+		0.050, 0.060, 0.070, 0.080, 0.090,
+		0.100, 0.110, 0.120, 0.130, 0.140,
+		0.150, 0.160, 0.170, 0.180, 0.190,
+		0.200, 0.210, 0.220, 0.230, 0.240,
+		0.250, 0.260, 0.270, 0.280, 0.290,
+		0.300, 0.310, 0.320, 0.330, 0.340,
+		0.350, 0.360, 0.370, 0.380, 0.390,
+		0.400, 0.410, 0.420, 0.430, 0.440
+	};
+
+	TH1F *hist_ThrPyth_TEO = new TH1F("hist_ThrPyth_TEO", "Inverse Thrust", (sizeof(bins_THR)/sizeof(bins_THR[0])-1), bins_THR);
+	hist_ThrPyth_TEO->GetXaxis()->SetTitle("(1-T)");
+	hist_ThrPyth_TEO->GetYaxis()->SetTitle("1/#sigma_{had} d#sigma/d(1-T)");
+	otree->Branch("hist_ThrPyth_TEO", &hist_ThrPyth_TEO, "hist_ThrPyth_TEO");
+
+	float bins_CPR[] = {
+		0.000, 0.010, 0.020, 0.030, 0.040,
+		0.050, 0.060, 0.070, 0.080, 0.090,
+		0.100, 0.110, 0.120, 0.130, 0.140,
+		0.150, 0.160, 0.170, 0.180, 0.190,
+		0.200, 0.210, 0.220, 0.230, 0.240,
+		0.250, 0.260, 0.270, 0.280, 0.290,
+		0.300, 0.310, 0.320, 0.330, 0.340,
+		0.350, 0.360, 0.370, 0.380, 0.390,
+		0.400, 0.410, 0.420, 0.430, 0.440,
+		0.450, 0.460, 0.470, 0.480, 0.490,
+		0.500, 0.510, 0.520, 0.530, 0.540,
+		0.550, 0.560, 0.570, 0.580, 0.590,
+		0.600, 0.610, 0.620, 0.630, 0.640,
+		0.650, 0.660, 0.670, 0.680, 0.690,
+		0.700, 0.710, 0.720, 0.730, 0.740,
+		0.750, 0.760, 0.770, 0.780, 0.790,
+		0.800, 0.810, 0.820, 0.830, 0.840,
+		0.850, 0.860, 0.870, 0.880, 0.890,
+		0.900, 0.910, 0.920, 0.930, 0.940,
+		0.950, 0.960, 0.970, 0.980, 0.990
+	};
+
+	TH1F *hist_CprPyth_TEO = new TH1F("hist_CprPyth_TEO", "C-Parameter", (sizeof(bins_CPR)/sizeof(bins_CPR[0])-1), bins_CPR);
+	hist_CprPyth_TEO->GetXaxis()->SetTitle("C");
+	hist_CprPyth_TEO->GetYaxis()->SetTitle("1/#sigma_{had} d#sigma/d(C)");
+	otree->Branch("hist_CprPyth_TEO", &hist_CprPyth_TEO, "hist_CprPyth_TEO");
+
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 	TH1F *hist_ThrPyth = new TH1F("hist_ThrPyth", "Inverse Thrust", 200, 0, 1.0);
@@ -272,26 +319,6 @@ void applyCuts( const std::string& inputFileName, const std::string& outputFileN
 	hist_CprPyth_ZZ->GetXaxis()->SetTitle("C");
 	hist_CprPyth_ZZ->GetYaxis()->SetTitle("1/#sigma_{had} d#sigma/d(C)");
 	otree->Branch("hist_CprPyth_ZZ", &hist_CprPyth_ZZ, "hist_CprPyth_ZZ");
-
-/////////////////////////////////////////////////////////////////////////////////////////////////////////////	
-
-	float xbin[] = { 
-		0.000, 0.010, 0.020, 0.030, 0.040, 0.050, 0.060, 0.070, 0.080, 0.090,
-		0.100, 0.110, 0.120, 0.130, 0.140, 0.150, 0.160, 0.170, 0.180, 0.190,
-		0.200, 0.210, 0.220, 0.230, 0.240, 0.250, 0.260, 0.270, 0.280, 0.290,
-		0.300, 0.310, 0.320, 0.330, 0.340, 0.350, 0.360, 0.370, 0.380, 0.390,
-		0.400, 0.410, 0.420, 0.430, 0.440
-	};
-
-	TH1F *hist_ThrPyth_TEO = new TH1F("hist_ThrPyth_TEO", "Inverse Thrust", (sizeof(xbin)/sizeof(xbin[0])-1), xbin);
-	hist_ThrPyth_TEO->GetXaxis()->SetTitle("(1-T)");
-	hist_ThrPyth_TEO->GetYaxis()->SetTitle("1/#sigma_{had} d#sigma/d(1-T)");
-	otree->Branch("hist_ThrPyth_TEO", &hist_ThrPyth_TEO, "hist_ThrPyth_TEO");
-
-	TH1F *hist_CprPyth_TEO = new TH1F("hist_CprPyth_TEO", "C-Parameter", (sizeof(xbin)/sizeof(xbin[0])-1), xbin);
-	hist_CprPyth_TEO->GetXaxis()->SetTitle("C");
-	hist_CprPyth_TEO->GetYaxis()->SetTitle("1/#sigma_{had} d#sigma/d(C)");
-	otree->Branch("hist_CprPyth_TEO", &hist_CprPyth_TEO, "hist_CprPyth_TEO");
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
