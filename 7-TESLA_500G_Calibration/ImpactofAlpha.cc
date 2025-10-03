@@ -308,7 +308,7 @@ void ImpactofAlpha()
 // Reading ROOTS
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-	TFile *input_912 = new TFile("5-CutData/cut_FCC912.root", "READ");
+	TFile *input_912 = new TFile("5-CutData/cut_FCC912_woHadron.root", "READ");
 	TFile *input_160 = new TFile("5-CutData/cut_FCC160.root", "READ");
 	TFile *input_240 = new TFile("5-CutData/cut_FCC240.root", "READ");
 	TFile *input_365 = new TFile("5-CutData/cut_FCC365.root", "READ");

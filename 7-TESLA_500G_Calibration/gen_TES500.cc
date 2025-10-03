@@ -51,7 +51,7 @@ int main(){
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 	// Define file
-  	TFile *output = new TFile("4-GenData/gen_FCC912.root", "RECREATE");
+  	TFile *output = new TFile("4-GenData/gen_FCC912_woHadron.root", "RECREATE");
 	
 	// Define tree
 	TTree *tree = new TTree("tree_raw", "Raw Pythia data");
@@ -105,7 +105,7 @@ int main(){
 	float mW = pythia.particleData.m0(24);													// W+ mass
 
 	// Set # events
-	int nEvent = 5E6;
+	int nEvent = 1E6;
 	// Set centre mass
 	float nEnerg = 91.2;
 
@@ -118,6 +118,7 @@ int main(){
 	pythia.readString("PDF:lepton = off");													// ISR toggle
 	
 	// Hadronisation
+	pythia.readString("HadronLevel:all = off");
 	// pythia.readString("HadronLevel:Hadronize = off");
 	// pythia.readString("HadronLevel:Decay = off");
 

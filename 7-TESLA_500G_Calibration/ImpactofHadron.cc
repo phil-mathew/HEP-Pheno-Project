@@ -54,8 +54,8 @@ void ImpactofHadron()
 // Defining histograms
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-	TH1F *hist_ThrPyth_912_wiHadron = (TH1F*)input_912_wiHadron->Get("hist_ThrPyth_Zq");
-	TH1F *hist_ThrPyth_912_woHadron = (TH1F*)input_912_woHadron->Get("hist_ThrPyth_Zq");
+	TH1F *hist_ThrPyth_912_wiHadron = (TH1F*)input_912_wiHadron->Get("hist_ThrPyth_Zq"); hist_ThrPyth_912_wiHadron->SetLineColor(kBlack); hist_ThrPyth_912_wiHadron->SetLineWidth(2);
+	TH1F *hist_ThrPyth_912_woHadron = (TH1F*)input_912_woHadron->Get("hist_ThrPyth_Zq"); hist_ThrPyth_912_woHadron->SetLineColor(kBlue); hist_ThrPyth_912_woHadron->SetLineWidth(2);
 	TH1F *hist_ThrPyth_160_wiHadron = (TH1F*)input_160_wiHadron->Get("hist_ThrPyth_Zq");
 	TH1F *hist_ThrPyth_160_woHadron = (TH1F*)input_160_woHadron->Get("hist_ThrPyth_Zq");
 	TH1F *hist_ThrPyth_240_wiHadron = (TH1F*)input_240_wiHadron->Get("hist_ThrPyth_Zq");
@@ -143,10 +143,12 @@ void ImpactofHadron()
 
 	// Add legend
 	TLegend *lg1 = new TLegend(0.45, 0.80, 0.60, 0.95);
-	lg1->AddEntry(hist_ThrCorr_912, "#sqrt{s} = 91.2 GeV", "L");
-	lg1->AddEntry(hist_ThrCorr_160, "#sqrt{s} = 160 GeV", "L");
-	lg1->AddEntry(hist_ThrCorr_240, "#sqrt{s} = 240 GeV", "L");
-	lg1->AddEntry(hist_ThrCorr_365, "#sqrt{s} = 365 GeV", "L");
+	// lg1->AddEntry(hist_ThrCorr_912, "#sqrt{s} = 91.2 GeV", "L");
+	// lg1->AddEntry(hist_ThrCorr_160, "#sqrt{s} = 160 GeV", "L");
+	// lg1->AddEntry(hist_ThrCorr_240, "#sqrt{s} = 240 GeV", "L");
+	// lg1->AddEntry(hist_ThrCorr_365, "#sqrt{s} = 365 GeV", "L");
+	lg1->AddEntry(hist_ThrPyth_912_wiHadron, "with", "L");
+	lg1->AddEntry(hist_ThrPyth_912_woHadron, "woth", "L");
 	lg1->SetTextSize(0.03);
 
 	// Create canvas
@@ -176,12 +178,17 @@ void ImpactofHadron()
 	// 	gPad->SetTickx(); gPad->SetTicky();
 	// }
 
+	hist_ThrPyth_912_wiHadron->Scale(1.0/hist_ThrPyth_912_wiHadron->Integral("width"));
+	hist_ThrPyth_912_woHadron->Scale(1.0/hist_ThrPyth_912_woHadron->Integral("width"));
+
 	// Draw
 	cv->cd(1);
-	hist_ThrCorr_912->Draw("HIST");
-	hist_ThrCorr_160->Draw("HIST SAME");
-	hist_ThrCorr_240->Draw("HIST SAME");
-	hist_ThrCorr_365->Draw("HIST SAME");
+	hist_ThrPyth_912_wiHadron->Draw("HIST");
+	hist_ThrPyth_912_woHadron->Draw("HIST SAME");
+	// hist_ThrCorr_912->Draw("HIST");
+	// hist_ThrCorr_160->Draw("HIST SAME");
+	// hist_ThrCorr_240->Draw("HIST SAME");
+	// hist_ThrCorr_365->Draw("HIST SAME");
 	lg1->Draw("SAME");
 
 	// cv->cd(2);
@@ -192,10 +199,10 @@ void ImpactofHadron()
 	// lg1->Draw("SAME");
 
 	// Set limits
-	hist_ThrCorr_912->GetYaxis()->SetRangeUser(0,2);
-	hist_ThrCorr_912->GetXaxis()->SetRangeUser(0,0.4);
-	hist_CprCorr_912->GetYaxis()->SetRangeUser(0,2);
-	hist_CprCorr_912->GetXaxis()->SetRangeUser(0,0.4);
+	// hist_ThrCorr_912->GetYaxis()->SetRangeUser(0,2);
+	// hist_ThrCorr_912->GetXaxis()->SetRangeUser(0,0.4);
+	// hist_CprCorr_912->GetYaxis()->SetRangeUser(0,2);
+	// hist_CprCorr_912->GetXaxis()->SetRangeUser(0,0.4);
 
 	// Modify stat-box
 	gStyle->SetOptStat();
