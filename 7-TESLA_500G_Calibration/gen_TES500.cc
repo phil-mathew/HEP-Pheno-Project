@@ -51,7 +51,7 @@ int main(){
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 	// Define file
-  	TFile *output = new TFile("4-GenData/gen_FCC912_woHadron.root", "RECREATE");
+  	TFile *output = new TFile("4-GenData/gen_FCC500_woHadron.root", "RECREATE");
 	
 	// Define tree
 	TTree *tree = new TTree("tree_raw", "Raw Pythia data");
@@ -107,7 +107,7 @@ int main(){
 	// Set # events
 	int nEvent = 1E6;
 	// Set centre mass
-	float nEnerg = 91.2;
+	float nEnerg = 500.0;
 
 ///////////////////////////////PHYSICS SWITCHES FOR TESLA 500 GeV ///////////////////////////////////////////
 	

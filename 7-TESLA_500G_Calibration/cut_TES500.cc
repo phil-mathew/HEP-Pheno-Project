@@ -201,7 +201,7 @@ void applyCuts( const std::string& inputFileName, const std::string& outputFileN
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////	
 
-	float bins_THR[] = {
+	float bins_TEO_THR[] = {
 		0.000, 0.010, 0.020, 0.030, 0.040,
 		0.050, 0.060, 0.070, 0.080, 0.090,
 		0.100, 0.110, 0.120, 0.130, 0.140,
@@ -213,12 +213,12 @@ void applyCuts( const std::string& inputFileName, const std::string& outputFileN
 		0.400, 0.410, 0.420, 0.430, 0.440
 	};
 
-	TH1F *hist_ThrPyth_TEO = new TH1F("hist_ThrPyth_TEO", "Inverse Thrust", (sizeof(bins_THR)/sizeof(bins_THR[0])-1), bins_THR);
+	TH1F *hist_ThrPyth_TEO = new TH1F("hist_ThrPyth_TEO", "Inverse Thrust", (sizeof(bins_TEO_THR)/sizeof(bins_TEO_THR[0])-1), bins_TEO_THR);
 	hist_ThrPyth_TEO->GetXaxis()->SetTitle("(1-T)");
 	hist_ThrPyth_TEO->GetYaxis()->SetTitle("1/#sigma_{had} d#sigma/d(1-T)");
 	otree->Branch("hist_ThrPyth_TEO", &hist_ThrPyth_TEO, "hist_ThrPyth_TEO");
 
-	float bins_CPR[] = {
+	float bins_TEO_CPR[] = {
 		0.000, 0.010, 0.020, 0.030, 0.040,
 		0.050, 0.060, 0.070, 0.080, 0.090,
 		0.100, 0.110, 0.120, 0.130, 0.140,
@@ -241,10 +241,47 @@ void applyCuts( const std::string& inputFileName, const std::string& outputFileN
 		0.950, 0.960, 0.970, 0.980, 0.990
 	};
 
-	TH1F *hist_CprPyth_TEO = new TH1F("hist_CprPyth_TEO", "C-Parameter", (sizeof(bins_CPR)/sizeof(bins_CPR[0])-1), bins_CPR);
+	TH1F *hist_CprPyth_TEO = new TH1F("hist_CprPyth_TEO", "C-Parameter", (sizeof(bins_TEO_CPR)/sizeof(bins_TEO_CPR[0])-1), bins_TEO_CPR);
 	hist_CprPyth_TEO->GetXaxis()->SetTitle("C");
 	hist_CprPyth_TEO->GetYaxis()->SetTitle("1/#sigma_{had} d#sigma/d(C)");
 	otree->Branch("hist_CprPyth_TEO", &hist_CprPyth_TEO, "hist_CprPyth_TEO");
+
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////	
+
+	float bins_EXP_THR[] = {
+		0.00, 0.01, 0.02, 0.03, 0.04, 
+		0.05, 0.06, 0.07, 0.08, 0.09, 
+		0.10, 0.11, 0.12, 0.13, 0.14, 
+		0.15, 0.16, 0.17, 0.18, 0.19, 
+		0.20, 0.21, 0.22, 0.23, 0.24, 
+		0.25, 0.26, 0.27, 0.28, 0.29,
+		0.30, 0.31, 0.32, 0.33, 0.34, 
+		0.35, 0.36, 0.37, 0.38, 0.39, 
+		0.40, 0.41, 0.42
+	};
+
+	TH1F *hist_ThrPyth_EXP = new TH1F("hist_ThrPyth_EXP", "Inverse Thrust", (sizeof(bins_EXP_THR)/sizeof(bins_EXP_THR[0])-1), bins_EXP_THR);
+	hist_ThrPyth_EXP->GetXaxis()->SetTitle("(1-T)");
+	hist_ThrPyth_EXP->GetYaxis()->SetTitle("1/#sigma_{had} d#sigma/d(1-T)");
+	otree->Branch("hist_ThrPyth_EXP", &hist_ThrPyth_EXP, "hist_ThrPyth_EXP");
+
+	float bins_EXP_CPR[] = {
+		0.00, 0.02, 0.04, 0.06, 0.08,
+		0.10, 0.12, 0.14, 0.16, 0.18,
+		0.20, 0.22, 0.24, 0.26, 0.28,
+		0.30, 0.32, 0.34, 0.36, 0.38,
+		0.40, 0.42,	0.44, 0.46, 0.48,
+		0.50, 0.52, 0.54, 0.56, 0.58,
+		0.60, 0.62, 0.64, 0.66, 0.68,
+		0.70, 0.72, 0.74, 0.76, 0.78,
+		0.80, 0.82, 0.84, 0.86, 0.88,
+		0.90, 0.92, 0.94, 0.96, 0.98
+	};
+
+	TH1F *hist_CprPyth_EXP = new TH1F("hist_CprPyth_EXP", "C-Parameter", (sizeof(bins_EXP_CPR)/sizeof(bins_EXP_CPR[0])-1), bins_EXP_CPR);
+	hist_CprPyth_EXP->GetXaxis()->SetTitle("C");
+	hist_CprPyth_EXP->GetYaxis()->SetTitle("1/#sigma_{had} d#sigma/d(C)");
+	otree->Branch("hist_CprPyth_EXP", &hist_CprPyth_EXP, "hist_CprPyth_EXP");
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -440,6 +477,8 @@ void applyCuts( const std::string& inputFileName, const std::string& outputFileN
 
 				hist_ThrPyth_TEO->Fill((*eveThr)[0]);
 				hist_CprPyth_TEO->Fill((*eveCpr)[0]);
+				hist_ThrPyth_EXP->Fill((*eveThr)[0]);
+				hist_CprPyth_EXP->Fill((*eveCpr)[0]);
 			}
 			if ((*eveCod)[0] == 231) {
 				hist_Esprime_ZZ->Fill((*eveSpr)[0]);
@@ -549,7 +588,7 @@ void applyCuts( const std::string& inputFileName, const std::string& outputFileN
 int main() {
 
 	// Extraction
-	// applyCuts("4-GenData/gen_FCC912.root", "5-CutData/cut_FCC912.root", 91.20);
+	applyCuts("4-GenData/gen_FCC912.root", "5-CutData/cut_FCC912.root", 91.20);
 	// applyCuts("4-GenData/gen_FCC160.root", "5-CutData/cut_FCC160.root", 160.0);
 	// applyCuts("4-GenData/gen_FCC200.root", "5-CutData/cut_FCC200.root", 200.0);
 	// applyCuts("4-GenData/gen_FCC240.root", "5-CutData/cut_FCC240.root", 240.0);
@@ -572,9 +611,9 @@ int main() {
 
 	// Hadronisation
 	applyCuts("4-GenData/gen_FCC912_woHadron.root", "5-CutData/cut_FCC912_woHadron.root", 91.20);
-	// applyCuts("4-GenData/gen_FCC160_woHadron.root", "5-CutData/cut_FCC160_woHadron.root", 160.0);
-	// applyCuts("4-GenData/gen_FCC240_woHadron.root", "5-CutData/cut_FCC240_woHadron.root", 240.0);
-	// applyCuts("4-GenData/gen_FCC365_woHadron.root", "5-CutData/cut_FCC365_woHadron.root", 365.0);
+	applyCuts("4-GenData/gen_FCC160_woHadron.root", "5-CutData/cut_FCC160_woHadron.root", 160.0);
+	applyCuts("4-GenData/gen_FCC240_woHadron.root", "5-CutData/cut_FCC240_woHadron.root", 240.0);
+	applyCuts("4-GenData/gen_FCC365_woHadron.root", "5-CutData/cut_FCC365_woHadron.root", 365.0);
 
 	// Old	
 	// applyCuts("gen_LEP912_wiR.root", "cut_LEP912_wiR.root", 91.0);
