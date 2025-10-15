@@ -374,14 +374,6 @@ void ImpactofAlpha()
 	hist_CprPyth_365_woHadron->SetLineColor(kBlack); hist_CprPyth_365_woHadron->SetMarkerColor(kBlack); hist_CprPyth_365_woHadron->SetMarkerStyle(26); hist_CprPyth_365_woHadron->SetLineWidth(2); hist_CprPyth_365_woHadron->SetMarkerSize(1);
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
-	TGraphAsymmErrors* grph_ThrPyth_912_woHadron = HistToGraph(hist_ThrPyth_912_woHadron, true);
-	grph_ThrPyth_912_woHadron->SetLineColor(kBlack); grph_ThrPyth_912_woHadron->SetMarkerColor(kBlack); grph_ThrPyth_912_woHadron->SetLineWidth(2); grph_ThrPyth_912_woHadron->SetMarkerSize(1);
-
-	TGraphAsymmErrors* grph_CprPyth_912_woHadron = HistToGraph(hist_CprPyth_912_woHadron, true);
-	grph_CprPyth_912_woHadron->SetLineColor(kBlack); grph_CprPyth_912_woHadron->SetMarkerColor(kBlack); grph_CprPyth_912_woHadron->SetLineWidth(2); grph_CprPyth_912_woHadron->SetMarkerSize(1);
-
-/////////////////////////////////////////////////////////////////////////////////////////////////////////////
 // Normalising to (1/N)(dN/dO)
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////	
 
@@ -406,6 +398,15 @@ void ImpactofAlpha()
 	hist_CprPyth_160_wiHadron->Scale(1.0/hist_CprPyth_160_wiHadron->Integral("width"));
 	hist_CprPyth_240_wiHadron->Scale(1.0/hist_CprPyth_240_wiHadron->Integral("width"));
 	hist_CprPyth_365_wiHadron->Scale(1.0/hist_CprPyth_365_wiHadron->Integral("width"));
+
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+	TGraphAsymmErrors* grph_ThrPyth_912_wiHadron = HistToGraph(hist_ThrPyth_912_wiHadron, true);
+
+	TGraphAsymmErrors* grph_ThrPyth_912_woHadron = HistToGraph(hist_ThrPyth_912_woHadron, true);
+
+	TGraphAsymmErrors* grph_CprPyth_912_woHadron = HistToGraph(hist_CprPyth_912_woHadron, true);
+	grph_CprPyth_912_woHadron->SetLineColor(kBlack); grph_CprPyth_912_woHadron->SetMarkerColor(kBlack); grph_CprPyth_912_woHadron->SetLineWidth(2); grph_CprPyth_912_woHadron->SetMarkerSize(1);
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////
 // Hadronic correction factors
@@ -444,6 +445,8 @@ void ImpactofAlpha()
 	
 	hist_ThrALPH_912_woHadron->Multiply(hist_ThrCorr_912_rebinned);
 	hist_ThrALPH_912_woHadron->SetLineColor(kBlack); hist_ThrALPH_912_woHadron->SetMarkerColor(kBlack); hist_ThrALPH_912_woHadron->SetMarkerStyle(27); hist_ThrALPH_912_woHadron->SetLineWidth(2); hist_ThrALPH_912_woHadron->SetMarkerSize(1);
+
+	TGraphAsymmErrors* grph_ThrALPH_912_woHadron = HistToGraph(hist_ThrALPH_912_woHadron, true);
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////
 // Fit PYTHIA to Theory
@@ -495,7 +498,7 @@ void ImpactofAlpha()
 	hist_fitCpNN_160->SetParameter(0, guess); hist_fitCpNN_160->SetParLimits(0, guess_min, guess_max);
 	hist_fitCpNN_240->SetParameter(0, guess); hist_fitCpNN_240->SetParLimits(0, guess_min, guess_max);
 	hist_fitCpNN_365->SetParameter(0, guess); hist_fitCpNN_365->SetParLimits(0, guess_min, guess_max);
-	
+
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 	hist_ThrPyth_912_woHadron->Fit(hist_fitThNN_912, "RNQ MINOS");
@@ -690,47 +693,52 @@ void ImpactofAlpha()
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-	// // Create canvas
-	// TCanvas* cv2 = new TCanvas("cv2", "FCC-ee ISR Studies", 2000, 1200);
+	// Create canvas
+	TCanvas* cv2 = new TCanvas("cv2", "FCC-ee ISR Studies", 2000, 1200);
 
-	// TLegend* lg2 = new TLegend(0.54, 0.69, 0.92, 0.93);
+	TLegend* lg2 = new TLegend(0.54, 0.69, 0.92, 0.93);
 	// lg2->AddEntry(grph_ThrALPH_912_wiHadron, "ALEPH data", "PL");
 	// lg2->AddEntry(hist_fitThNN_91X, "ALEPH fits", "PL");
 	// lg2->AddEntry(grph_ThrPyth_912_woHadron, "PYTHIA data", "PL");
 	// lg2->AddEntry(hist_fitThNN_912, "PYTHIA fits", "PL");
-	// lg2->SetTextSize(0.05);
+	lg2->AddEntry(hist_ThrALPH_912_wiHadron, "ALEPH-hadron", "PL");
+	lg2->AddEntry(hist_ThrALPH_912_woHadron, "ALEPH-parton", "PL");
+	lg2->AddEntry(hist_ThrPyth_912_wiHadron, "PYTHIA-hadron", "PL");
+	lg2->AddEntry(hist_ThrPyth_912_woHadron, "PYTHIA-parton", "PL");
+	lg2->SetTextSize(0.05);
 
-	// // Beautify
-	// gStyle->SetErrorX(0.000000001);
-	// gStyle->SetLabelSize(0.05, "X");
-	// gStyle->SetLabelSize(0.05, "Y");
-	// gStyle->SetTitleSize(0.06, "X");
-	// gStyle->SetTitleSize(0.06, "Y");
-	// cv2->SetMargin(0, 0, 0, 0); 
-	// cv2->Divide(4,2);
-	// for (int i = 1; i <= 8; i++) {
-	// 	cv2->cd(i);
-	// 	gPad->SetTopMargin(0.015);
-	// 	gPad->SetBottomMargin(0.1);
-	// 	gPad->SetLeftMargin(0.15);
-	// 	gPad->SetRightMargin(0.04);
-	// 	gPad->SetTickx(); gPad->SetTicky();
-	// 	// gPad->SetGridx(); gPad->SetGridy();
-	// 	// gPad->SetLogy();
-	// }
+	// Beautify
+	gStyle->SetErrorX(0.000000001);
+	gStyle->SetLabelSize(0.05, "X");
+	gStyle->SetLabelSize(0.05, "Y");
+	gStyle->SetTitleSize(0.06, "X");
+	gStyle->SetTitleSize(0.06, "Y");
+	cv2->SetMargin(0, 0, 0, 0); 
+	cv2->Divide(4,2);
+	for (int i = 1; i <= 8; i++) {
+		cv2->cd(i);
+		gPad->SetTopMargin(0.015);
+		gPad->SetBottomMargin(0.1);
+		gPad->SetLeftMargin(0.15);
+		gPad->SetRightMargin(0.04);
+		gPad->SetTickx(); gPad->SetTicky();
+		// gPad->SetGridx(); gPad->SetGridy();
+		// gPad->SetLogy();
+	}
 
-	// grph_ThrPyth_912_woHadron->SetTitle("");
-	// hist_fitThNN_91X->SetTitle("");
-	// grph_CprPyth_912_woHadron->SetTitle("");
-	// hist_fitCpNN_91X->SetTitle("");
+	hist_ThrALPH_912_wiHadron->SetLineColor(kRed+2); hist_ThrALPH_912_wiHadron->SetMarkerColor(kRed+2); hist_ThrALPH_912_wiHadron->SetLineWidth(2); hist_ThrALPH_912_wiHadron->SetMarkerStyle(26); hist_ThrALPH_912_wiHadron->SetMarkerSize(1);
+	hist_ThrALPH_912_woHadron->SetLineColor(kBlack); hist_ThrALPH_912_woHadron->SetMarkerColor(kBlack); hist_ThrALPH_912_woHadron->SetLineWidth(2); hist_ThrALPH_912_woHadron->SetMarkerStyle(26); hist_ThrALPH_912_woHadron->SetMarkerSize(1);
+	hist_ThrPyth_912_wiHadron->SetLineColor(kGreen+2); hist_ThrPyth_912_wiHadron->SetMarkerColor(kGreen+2); hist_ThrPyth_912_wiHadron->SetLineWidth(2); hist_ThrPyth_912_wiHadron->SetMarkerStyle(26); hist_ThrPyth_912_wiHadron->SetMarkerSize(1);
+	hist_ThrPyth_912_woHadron->SetLineColor(kYellow+2); hist_ThrPyth_912_woHadron->SetMarkerColor(kYellow+2); hist_ThrPyth_912_woHadron->SetLineWidth(2); hist_ThrPyth_912_woHadron->SetMarkerStyle(26); hist_ThrPyth_912_woHadron->SetMarkerSize(1);
+
 
 	// Draw
-	// cv2->cd(1);
-	// hist_ThrPyth_912_woHadron_Correction->Draw("HIST");
-	// hist_ThrPyth_912_wiHadron_Correction->Draw("HIST SAME");
-	// hist_ThrCorr_912->Draw("HIST SAME");
-	// hist_ThrALPH_912_woHadron->Draw("HIST SAME");
-	// lg2->Draw("SAME");
+	cv2->cd(1);
+	hist_ThrALPH_912_wiHadron->Draw("HIST");
+	hist_ThrALPH_912_woHadron->Draw("HIST SAME");
+	hist_ThrPyth_912_wiHadron->Draw("HIST SAME");
+	hist_ThrPyth_912_woHadron->Draw("HIST SAME");
+	lg2->Draw("SAME");
 	// cv2->cd(2);
 	// hist_fitThNN_91X->Draw();	
 	// hist_fitThNN_912->Draw("SAME");
@@ -738,13 +746,13 @@ void ImpactofAlpha()
 	// grph_ThrALPH_912_wiHadron->Draw();	
 	// hist_fitThNN_91X->Draw("SAME");
 	// cv2->cd(4);
-	// grph_ThrPyth_912->Draw();
+	// grph_ThrPyth_912_woHadron->Draw();
 	// hist_fitThNN_912->Draw("SAME");
 
-	// // Draw
+	// Draw
 	// cv2->cd(5);
 	// grph_CprALPH_912_wiHadron->Draw();
-	// grph_CprPyth_912->Draw("SAME");
+	// grph_CprPyth_912_woHadron->Draw("SAME");
 	// lg2->Draw("SAME");
 	// cv2->cd(6);
 	// hist_fitCpNN_91X->Draw();	
@@ -753,16 +761,17 @@ void ImpactofAlpha()
 	// grph_CprALPH_912_wiHadron->Draw();	
 	// hist_fitCpNN_91X->Draw("SAME");
 	// cv2->cd(8);
-	// grph_CprPyth_912->Draw();
+	// grph_CprPyth_912_woHadron->Draw();
 	// hist_fitCpNN_912->Draw("SAME");
 
 	// Set limits
-	// grph_ThrALPH_912_wiHadron->GetYaxis()->SetRangeUser(1E-4,1E2);
-	// grph_ThrALPH_912_wiHadron->GetYaxis()->SetRangeUser(0,4);
-	// grph_ThrALPH_912_wiHadron->GetXaxis()->SetRangeUser(0.09,0.25);
-	// grph_ThrPyth_912->GetYaxis()->SetRangeUser(1E-4,1E2);
-	// grph_ThrPyth_912->GetYaxis()->SetRangeUser(0,4);
-	// grph_ThrPyth_912->GetXaxis()->SetRangeUser(0.09,0.25);
+	// hist_ThrALPH_912_wiHadron->GetYaxis()->SetRangeUser(1E-4,1E2);
+	// hist_ThrALPH_912_wiHadron->GetYaxis()->SetRangeUser(0,4);
+	// hist_ThrALPH_912_wiHadron->GetXaxis()->SetRangeUser(0.09,0.25);
+
+	// grph_ThrPyth_912_woHadron->GetYaxis()->SetRangeUser(1E-4,1E2);
+	// grph_ThrPyth_912_woHadron->GetYaxis()->SetRangeUser(0,4);
+	// grph_ThrPyth_912_woHadron->GetXaxis()->SetRangeUser(0.09,0.25);
 	// hist_fitThNN_91X->GetYaxis()->SetRangeUser(1E-4,1E2);
 	// hist_fitThNN_91X->GetYaxis()->SetRangeUser(0,4);
 	// hist_fitThNN_91X->GetXaxis()->SetRangeUser(0.09,0.25);
@@ -773,9 +782,9 @@ void ImpactofAlpha()
 	// grph_CprALPH_912_wiHadron->GetYaxis()->SetRangeUser(1E-4,1E2);
 	// grph_CprALPH_912_wiHadron->GetYaxis()->SetRangeUser(0,1.2);
 	// grph_CprALPH_912_wiHadron->GetXaxis()->SetRangeUser(0.36,0.74);
-	// grph_CprPyth_912->GetYaxis()->SetRangeUser(1E-4,1E2);
-	// grph_CprPyth_912->GetYaxis()->SetRangeUser(0,1.2);
-	// grph_CprPyth_912->GetXaxis()->SetRangeUser(0.36,0.74);
+	// grph_CprPyth_912_woHadron->GetYaxis()->SetRangeUser(1E-4,1E2);
+	// grph_CprPyth_912_woHadron->GetYaxis()->SetRangeUser(0,1.2);
+	// grph_CprPyth_912_woHadron->GetXaxis()->SetRangeUser(0.36,0.74);
 	// hist_fitCpNN_91X->GetYaxis()->SetRangeUser(1E-4,1E2);
 	// hist_fitCpNN_91X->GetYaxis()->SetRangeUser(0,1.2);
 	// hist_fitCpNN_91X->GetXaxis()->SetRangeUser(0.36,0.74);
@@ -783,10 +792,10 @@ void ImpactofAlpha()
 	// hist_fitCpNN_912->GetYaxis()->SetRangeUser(0,1.2);
 	// hist_fitCpNN_912->GetXaxis()->SetRangeUser(0.36,0.74);
 
-	// // Modify stat-box
-	// gStyle->SetOptStat();
-	// // Update canvas
-	// cv2->Modified();
+	// Modify stat-box
+	gStyle->SetOptStat();
+	// Update canvas
+	cv2->Modified();
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////
 // Print results

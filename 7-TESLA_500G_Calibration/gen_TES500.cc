@@ -43,22 +43,22 @@ using namespace std;
 using namespace fastjet;
 // Extras
 
-// Code
-int main(){
+// Generate events, store data
+void genEvents(const std::string &outputFileName, float nEnerg, int nEvent){
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////
 // Create output Tfile
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 	// Define file
-  	TFile *output = new TFile("4-GenData/gen_FCC500_woHadron.root", "RECREATE");
+  	TFile *output = new TFile(outputFileName.c_str(), "RECREATE");
 	
 	// Define tree
 	TTree *tree = new TTree("tree_raw", "Raw Pythia data");
 	tree->SetAutoSave(0);
 
 	// Intialise vecs
-	vector<int> eveNum, eveSiz, eveCod, isrNum, parNum, parPdg, parChg, eveNjy;
+	vector<int> eveNum, eveSiz, eveCod, isrNum, parNum, parPdg, parChg, parSat, eveNjy;
 	vector<float> eveSph, eveSax, eveThr, eveTax, eveSpr, isrMax, \
 					eveCpr, eveHjm, eveBto, eveBwi, sigmaT, \
 					eveYcu, eveY23, eveY34, \
@@ -85,6 +85,7 @@ int main(){
 	tree->Branch("isrNum", "vector<int>", &isrNum);											// ISR γ number
 	tree->Branch("isrMax", "vector<float>", &isrMax);										// ISR γ energy
 	tree->Branch("parNum", "vector<int>", &parNum);											// Parts number
+	tree->Branch("parSat", "vector<int>", &parSat);											// Parts status
 	tree->Branch("parPdg", "vector<int>", &parPdg);											// Parts pdg id
 	tree->Branch("parChg", "vector<int>", &parChg);											// Parts charge
 	tree->Branch("parEto", "vector<float>", &parEto);										// Parts energy
@@ -104,21 +105,16 @@ int main(){
 	float mZ = pythia.particleData.m0(23);													// Z0 mass
 	float mW = pythia.particleData.m0(24);													// W+ mass
 
-	// Set # events
-	int nEvent = 1E6;
-	// Set centre mass
-	float nEnerg = 500.0;
-
 ///////////////////////////////PHYSICS SWITCHES FOR TESLA 500 GeV ///////////////////////////////////////////
 	
 	// Define Beam params
 	pythia.readString("Beams:idA = 11"); 													// beam energy
 	pythia.readString("Beams:idB = -11"); 													// beam energy
 	pythia.settings.parm("Beams:eCM", nEnerg);												// c-om energy
-	pythia.readString("PDF:lepton = off");													// ISR toggle
+	// pythia.readString("PDF:lepton = off");													// ISR toggle
 	
 	// Hadronisation
-	pythia.readString("HadronLevel:all = off");
+	// pythia.readString("HadronLevel:all = off");
 	// pythia.readString("HadronLevel:Hadronize = off");
 	// pythia.readString("HadronLevel:Decay = off");
 
@@ -147,9 +143,9 @@ int main(){
 	pythia.readString("Top:ffbar2ttbar(s:gmZ) = on");										// (604) ee'->tt'
 
 	// Suppress terminal text
-	pythia.readString("Print:quiet = on");													// print nothing
-	pythia.readString("Next:numberCount = 1000");											// print #events updates
-	// pythia.readString("Next:numberShowEvent = 10");
+	// pythia.readString("Print:quiet = on");													// print nothing
+	pythia.readString("Next:numberCount = 1E4");											// print #events
+	pythia.readString("Next:numberShowEvent = 10");										// print #listings
 	
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////
 // Generate Pythia collisions
@@ -196,6 +192,7 @@ int main(){
 		// Reset part vectors
 		parNum.clear(); parPdg.clear(); parChg.clear(); parEto.clear(); 
 		parEtt.clear(); parPmx.clear(); parPmy.clear(); parPmz.clear();
+		parSat.clear();
 
 		// Run through particles
 		for (int jParts=0; jParts<pythia.event.size(); jParts++) {
@@ -207,6 +204,7 @@ int main(){
 				nCh++;																		// Count FC particles
 				eveNum.push_back(iEvent);													// Add event number
 				parNum.push_back(jParts);													// Add particle number
+				parSat.push_back(pythia.event[jParts].status());							// Add particle status
 				parPdg.push_back(pythia.event[jParts].id());								// Add particle pdg id
 				parChg.push_back(pythia.particleData.charge(pythia.event[jParts].id()));	// Add particle charge
 				parEto.push_back(pythia.event[jParts].e());									// Add particle energy
@@ -498,13 +496,67 @@ int main(){
 	output->Close();
 	delete output;
 
-/////////////////////////////////////////////////////////////////////////////////////////////////////////////
-// Terminate
-/////////////////////////////////////////////////////////////////////////////////////////////////////////////
-	return 0;
-/////////////////////////////////////////////////////////////////////////////////////////////////////////////
+}
+
+// Code
+int main() {
+
+	// Call generator
+	// genEvents("4-GenData/gen_FCC912.root", 91.20, 1E6);
+    // genEvents("4-GenData/gen_FCC160.root", 160.0, 1E6);
+	// genEvents("4-GenData/gen_FCC240.root", 240.0, 1E6);
+	// genEvents("4-GenData/gen_FCC365.root", 365.0, 1E6);
+	// genEvents("4-GenData/gen_FCC500.root", 500.0, 1E3);
+
+	// ISR
+	// genEvents("4-GenData/gen_FCC912_ISR.root", 91.20, 1E6);
+    // genEvents("4-GenData/gen_FCC160_ISR.root", 160.0, 1E6);
+	// genEvents("4-GenData/gen_FCC240_ISR.root", 240.0, 1E6);
+	// genEvents("4-GenData/gen_FCC365_ISR.root", 365.0, 1E6);
+	// genEvents("4-GenData/gen_FCC500_ISR.root", 500.0, 1E6);
+
+	// Parton-level
+	// genEvents("4-GenData/gen_FCC912_woHadron.root", 91.20, 1E6);
+    // genEvents("4-GenData/gen_FCC160_woHadron.root", 160.0, 1E6);
+	// genEvents("4-GenData/gen_FCC240_woHadron.root", 240.0, 1E6);
+	// genEvents("4-GenData/gen_FCC365_woHadron.root", 365.0, 1E6);
+	// genEvents("4-GenData/gen_FCC500_woHadron.root", 500.0, 1E3);
+
+	// Test
+	// genEvents("4-GenData/gen_FCCtest.root", 500, 2);
+
+	// Terminate
+    return 0;
 
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 // // Search ISR photon
 // if (pythia.event[jParts].isFinal() && pythia.event[jParts].id()==22 && pythia.event[jParts].e()>5) {
