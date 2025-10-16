@@ -111,7 +111,7 @@ void genEvents(const std::string &outputFileName, float nEnerg, int nEvent){
 	pythia.readString("Beams:idA = 11"); 													// beam energy
 	pythia.readString("Beams:idB = -11"); 													// beam energy
 	pythia.settings.parm("Beams:eCM", nEnerg);												// c-om energy
-	// pythia.readString("PDF:lepton = off");													// ISR toggle
+	pythia.readString("PDF:lepton = off");													// ISR toggle
 	
 	// Hadronisation
 	// pythia.readString("HadronLevel:all = off");
@@ -143,9 +143,9 @@ void genEvents(const std::string &outputFileName, float nEnerg, int nEvent){
 	pythia.readString("Top:ffbar2ttbar(s:gmZ) = on");										// (604) ee'->tt'
 
 	// Suppress terminal text
-	// pythia.readString("Print:quiet = on");													// print nothing
-	pythia.readString("Next:numberCount = 1E4");											// print #events
-	pythia.readString("Next:numberShowEvent = 10");										// print #listings
+	pythia.readString("Print:quiet = on");													// print nothing
+	pythia.readString("Next:numberCount = 10000");											// print #events
+	// pythia.readString("Next:numberShowEvent = 10");										// print #listings
 	
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////
 // Generate Pythia collisions
@@ -502,11 +502,11 @@ void genEvents(const std::string &outputFileName, float nEnerg, int nEvent){
 int main() {
 
 	// Call generator
-	// genEvents("4-GenData/gen_FCC912.root", 91.20, 1E6);
-    // genEvents("4-GenData/gen_FCC160.root", 160.0, 1E6);
-	// genEvents("4-GenData/gen_FCC240.root", 240.0, 1E6);
-	// genEvents("4-GenData/gen_FCC365.root", 365.0, 1E6);
-	// genEvents("4-GenData/gen_FCC500.root", 500.0, 1E3);
+	genEvents("4-GenData/gen_FCC912.root", 91.20, 1E6);
+    genEvents("4-GenData/gen_FCC160.root", 160.0, 1E6);
+	genEvents("4-GenData/gen_FCC240.root", 240.0, 1E6);
+	genEvents("4-GenData/gen_FCC365.root", 365.0, 1E6);
+	genEvents("4-GenData/gen_FCC500.root", 500.0, 1E6);
 
 	// ISR
 	// genEvents("4-GenData/gen_FCC912_ISR.root", 91.20, 1E6);
@@ -521,6 +521,10 @@ int main() {
 	// genEvents("4-GenData/gen_FCC240_woHadron.root", 240.0, 1E6);
 	// genEvents("4-GenData/gen_FCC365_woHadron.root", 365.0, 1E6);
 	// genEvents("4-GenData/gen_FCC500_woHadron.root", 500.0, 1E3);
+
+	// Experimental
+    genEvents("4-GenData/gen_FCC161.root", 161.0, 1E6);
+	genEvents("4-GenData/gen_FCC183.root", 183.0, 1E6);	
 
 	// Test
 	// genEvents("4-GenData/gen_FCCtest.root", 500, 2);

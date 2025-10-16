@@ -173,10 +173,10 @@ void ImpactofHad()
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 	// Create canvas
-	TCanvas* cv2 = new TCanvas("cv2", "FCC-ee ISR Studies", 1600, 1400);
+	TCanvas* cv2 = new TCanvas("cv2", "FCC-ee ISR Studies", 2000, 800);
 
 	// Add legend
-	TLegend* lg2 = new TLegend(0.79, 0.70, 0.92, 0.95);
+	TLegend* lg2 = new TLegend(0.80, 0.70, 0.92, 0.95);
 	lg2->AddEntry(hist_ThrPyth_al_365_woCut, "ee#rightarrowq#bar{q}", "L");
 	lg2->AddEntry(hist_ThrPyth_Zq_365_woCut, "ee#rightarrow#gamma*/Z", "L");
 	lg2->AddEntry(hist_ThrPyth_ZZ_365_woCut, "ee#rightarrowWW", "L");
@@ -193,16 +193,19 @@ void ImpactofHad()
 	gStyle->SetTitleSize(0.06, "X");
 	gStyle->SetTitleSize(0.06, "Y");
 	cv2->SetMargin(0, 0, 0, 0); 
-	cv2->Divide(2,2);
-	for (int i = 1; i <= 4; i++) {
+	cv2->Divide(2,1);
+	for (int i = 1; i <= 2; i++) {
 		cv2->cd(i);
 		gPad->SetTopMargin(0.017);
 		gPad->SetBottomMargin(0.1);
-		gPad->SetLeftMargin(0.15);
+		gPad->SetLeftMargin(0.10);
 		gPad->SetRightMargin(0.04);
 		gPad->SetTickx(); gPad->SetTicky();
 		gPad->SetLogy();
 	}
+
+	hist_ThrPyth_al_365_woCut->GetYaxis()->SetTitle("#");
+	hist_CprPyth_al_365_woCut->GetYaxis()->SetTitle("#");
 
 	// Draw
 	cv2->cd(1);
@@ -216,16 +219,6 @@ void ImpactofHad()
 	lg2->Draw("SAME");
 
 	cv2->cd(2);
-	hist_ThrPyth_al_365_wiCut->Draw("HIST");
-	hist_ThrPyth_Zq_365_wiCut->Draw("HIST SAME");
-	hist_ThrPyth_WW_365_wiCut->Draw("HIST SAME");
-	hist_ThrPyth_ZZ_365_wiCut->Draw("HIST SAME");
-	hist_ThrPyth_tt_365_wiCut->Draw("HIST SAME");
-	hist_ThrPyth_HZ_365_wiCut->Draw("HIST SAME");
-	hist_ThrPyth_HW_365_wiCut->Draw("HIST SAME");
-	lg2->Draw("SAME");
-
-	cv2->cd(3);
 	hist_CprPyth_al_365_woCut->Draw("HIST");
 	hist_CprPyth_Zq_365_woCut->Draw("HIST SAME");
 	hist_CprPyth_WW_365_woCut->Draw("HIST SAME");
@@ -235,25 +228,35 @@ void ImpactofHad()
 	hist_CprPyth_HW_365_woCut->Draw("HIST SAME");
 	lg2->Draw("SAME");
 
-	cv2->cd(4);
-	hist_CprPyth_al_365_wiCut->Draw("HIST");
-	hist_CprPyth_Zq_365_wiCut->Draw("HIST SAME");
-	hist_CprPyth_WW_365_wiCut->Draw("HIST SAME");
-	hist_CprPyth_ZZ_365_wiCut->Draw("HIST SAME");
-	hist_CprPyth_tt_365_wiCut->Draw("HIST SAME");
-	hist_CprPyth_HZ_365_wiCut->Draw("HIST SAME");
-	hist_CprPyth_HW_365_wiCut->Draw("HIST SAME");
-	lg2->Draw("SAME");
+	// cv2->cd(2);
+	// hist_ThrPyth_al_365_wiCut->Draw("HIST");
+	// hist_ThrPyth_Zq_365_wiCut->Draw("HIST SAME");
+	// hist_ThrPyth_WW_365_wiCut->Draw("HIST SAME");
+	// hist_ThrPyth_ZZ_365_wiCut->Draw("HIST SAME");
+	// hist_ThrPyth_tt_365_wiCut->Draw("HIST SAME");
+	// hist_ThrPyth_HZ_365_wiCut->Draw("HIST SAME");
+	// hist_ThrPyth_HW_365_wiCut->Draw("HIST SAME");
+	// lg2->Draw("SAME");
+
+	// cv2->cd(4);
+	// hist_CprPyth_al_365_wiCut->Draw("HIST");
+	// hist_CprPyth_Zq_365_wiCut->Draw("HIST SAME");
+	// hist_CprPyth_WW_365_wiCut->Draw("HIST SAME");
+	// hist_CprPyth_ZZ_365_wiCut->Draw("HIST SAME");
+	// hist_CprPyth_tt_365_wiCut->Draw("HIST SAME");
+	// hist_CprPyth_HZ_365_wiCut->Draw("HIST SAME");
+	// hist_CprPyth_HW_365_wiCut->Draw("HIST SAME");
+	// lg2->Draw("SAME");
 
 	// Set limits
 	hist_ThrPyth_al_365_woCut->GetYaxis()->SetRangeUser(1E0,1E5);
-	hist_ThrPyth_al_365_woCut->GetXaxis()->SetRangeUser(0,0.4);
-	hist_ThrPyth_al_365_wiCut->GetYaxis()->SetRangeUser(1E0,1E5);
-	hist_ThrPyth_al_365_wiCut->GetXaxis()->SetRangeUser(0,0.4);
+	hist_ThrPyth_al_365_woCut->GetXaxis()->SetRangeUser(0,0.45);
+	// hist_ThrPyth_al_365_wiCut->GetYaxis()->SetRangeUser(1E0,1E5);
+	// hist_ThrPyth_al_365_wiCut->GetXaxis()->SetRangeUser(0,0.4);
 	hist_CprPyth_al_365_woCut->GetYaxis()->SetRangeUser(1E0,1E5);
 	hist_CprPyth_al_365_woCut->GetXaxis()->SetRangeUser(0,1.0);	
-	hist_CprPyth_al_365_wiCut->GetYaxis()->SetRangeUser(1E0,1E5);
-	hist_CprPyth_al_365_wiCut->GetXaxis()->SetRangeUser(0,1.0);	
+	// hist_CprPyth_al_365_wiCut->GetYaxis()->SetRangeUser(1E0,1E5);
+	// hist_CprPyth_al_365_wiCut->GetXaxis()->SetRangeUser(0,1.0);	
 
 	// Modify stat-box
 	gStyle->SetOptStat();

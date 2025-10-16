@@ -236,17 +236,17 @@ void ImpactofRad()
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-	hist_ThrPyth_912_100->SetStats(kFALSE);
-	hist_ThrPyth_160_100->SetStats(kFALSE);
-	hist_ThrPyth_240_100->SetStats(kFALSE);
-	hist_ThrPyth_365_100->SetStats(kFALSE);
+	hist_ThrPyth_912_000->SetStats(kFALSE);
+	hist_ThrPyth_160_000->SetStats(kFALSE);
+	hist_ThrPyth_240_000->SetStats(kFALSE);
+	hist_ThrPyth_365_000->SetStats(kFALSE);
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-	hist_CprPyth_912_100->SetStats(kFALSE);
-	hist_CprPyth_160_100->SetStats(kFALSE);
-	hist_CprPyth_240_100->SetStats(kFALSE);
-	hist_CprPyth_365_100->SetStats(kFALSE);
+	hist_CprPyth_912_000->SetStats(kFALSE);
+	hist_CprPyth_160_000->SetStats(kFALSE);
+	hist_CprPyth_240_000->SetStats(kFALSE);
+	hist_CprPyth_365_000->SetStats(kFALSE);
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////
 // Clear titles
@@ -307,8 +307,6 @@ void ImpactofRad()
 	// Add legend
 	TLegend* lg2 = new TLegend(0.22, 0.20, 0.45, 0.40);
 	lg2->AddEntry(hist_ThrPyth_912_000, "ee(#gamma)#rightarrow#gamma*/Z", "L");
-	// lg2->AddEntry(hist_ThrPyth_912_085, "#sqrt{s'/s} > 0.85", "L");
-	// lg2->AddEntry(hist_ThrPyth_912_095, "#sqrt{s'/s} > 0.95", "L");
 	lg2->AddEntry(hist_ThrPyth_912_100, "ee#rightarrow#gamma*/Z", "L");
 	lg2->SetTextSize(0.06);
 

@@ -165,22 +165,22 @@ void applyCuts( const std::string& inputFileName, const std::string& outputFileN
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-	TH1F *hist_ThrPyth_000 = new TH1F("hist_ThrPyth_000", "Inverse Thrust", 200, 0, 1.0);
+	TH1F *hist_ThrPyth_000 = new TH1F("hist_ThrPyth_000", "Inverse Thrust", 200, 0, 0.45);
 	hist_ThrPyth_000->GetXaxis()->SetTitle("(1-T)");
 	hist_ThrPyth_000->GetYaxis()->SetTitle("1/#sigma_{had} d#sigma/d(1-T)");
 	otree->Branch("hist_ThrPyth_000", &hist_ThrPyth_000, "hist_ThrPyth_000");
 
-	TH1F *hist_ThrPyth_085 = new TH1F("hist_ThrPyth_085", "Inverse Thrust", 200, 0, 1.0);
+	TH1F *hist_ThrPyth_085 = new TH1F("hist_ThrPyth_085", "Inverse Thrust", 200, 0, 0.45);
 	hist_ThrPyth_085->GetXaxis()->SetTitle("(1-T)");
 	hist_ThrPyth_085->GetYaxis()->SetTitle("1/#sigma_{had} d#sigma/d(1-T)");
 	otree->Branch("hist_ThrPyth_085", &hist_ThrPyth_085, "hist_ThrPyth_085");
 
-	TH1F *hist_ThrPyth_100 = new TH1F("hist_ThrPyth_100", "Inverse Thrust", 200, 0, 1.0);
+	TH1F *hist_ThrPyth_100 = new TH1F("hist_ThrPyth_100", "Inverse Thrust", 200, 0, 0.45);
 	hist_ThrPyth_100->GetXaxis()->SetTitle("(1-T)");
 	hist_ThrPyth_100->GetYaxis()->SetTitle("1/#sigma_{had} d#sigma/d(1-T)");
 	otree->Branch("hist_ThrPyth_100", &hist_ThrPyth_100, "hist_ThrPyth_100");
 
-	TH1F *hist_ThrPyth_ISR = new TH1F("hist_ThrPyth_ISR", "Inverse Thrust", 200, 0, 1.0);
+	TH1F *hist_ThrPyth_ISR = new TH1F("hist_ThrPyth_ISR", "Inverse Thrust", 200, 0, 0.45);
 	hist_ThrPyth_ISR->GetXaxis()->SetTitle("(1-T)");
 	hist_ThrPyth_ISR->GetYaxis()->SetTitle("1/#sigma_{had} d#sigma/d(1-T)");
 	otree->Branch("hist_ThrPyth_ISR", &hist_ThrPyth_ISR, "hist_ThrPyth_ISR");
@@ -354,37 +354,37 @@ void applyCuts( const std::string& inputFileName, const std::string& outputFileN
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-	TH1F *hist_ThrPyth = new TH1F("hist_ThrPyth", "Inverse Thrust", 200, 0, 1.0);
+	TH1F *hist_ThrPyth = new TH1F("hist_ThrPyth", "Inverse Thrust", 200, 0, 0.45);
 	hist_ThrPyth->GetXaxis()->SetTitle("(1-T)");
 	hist_ThrPyth->GetYaxis()->SetTitle("1/#sigma_{had} d#sigma/d(1-T)");
 	otree->Branch("hist_ThrPyth", &hist_ThrPyth, "hist_ThrPyth");
 
-	TH1F *hist_ThrPyth_HZ = new TH1F("hist_ThrPyth_HZ", "Inverse Thrust", 200, 0, 1.0);
+	TH1F *hist_ThrPyth_HZ = new TH1F("hist_ThrPyth_HZ", "Inverse Thrust", 200, 0, 0.45);
 	hist_ThrPyth_HZ->GetXaxis()->SetTitle("(1-T)");
 	hist_ThrPyth_HZ->GetYaxis()->SetTitle("1/#sigma_{had} d#sigma/d(1-T)");
 	otree->Branch("hist_ThrPyth_HZ", &hist_ThrPyth_HZ, "hist_ThrPyth_HZ");
 
-	TH1F *hist_ThrPyth_HW = new TH1F("hist_ThrPyth_HW", "Inverse Thrust", 200, 0, 1.0);
+	TH1F *hist_ThrPyth_HW = new TH1F("hist_ThrPyth_HW", "Inverse Thrust", 200, 0, 0.45);
 	hist_ThrPyth_HW->GetXaxis()->SetTitle("(1-T)");
 	hist_ThrPyth_HW->GetYaxis()->SetTitle("1/#sigma_{had} d#sigma/d(1-T)");
 	otree->Branch("hist_ThrPyth_HW", &hist_ThrPyth_HW, "hist_ThrPyth_HW");
 
-	TH1F *hist_ThrPyth_Zq = new TH1F("hist_ThrPyth_Zq", "Inverse Thrust", 200, 0, 1.0);
+	TH1F *hist_ThrPyth_Zq = new TH1F("hist_ThrPyth_Zq", "Inverse Thrust", 200, 0, 0.45);
 	hist_ThrPyth_Zq->GetXaxis()->SetTitle("(1-T)");
 	hist_ThrPyth_Zq->GetYaxis()->SetTitle("1/#sigma_{had} d#sigma/d(1-T)");
 	otree->Branch("hist_ThrPyth_Zq", &hist_ThrPyth_Zq, "hist_ThrPyth_Zq");
 
-	TH1F *hist_ThrPyth_tt = new TH1F("hist_ThrPyth_tt", "Inverse Thrust", 200, 0, 1.0);
+	TH1F *hist_ThrPyth_tt = new TH1F("hist_ThrPyth_tt", "Inverse Thrust", 200, 0, 0.45);
 	hist_ThrPyth_tt->GetXaxis()->SetTitle("(1-T)");
 	hist_ThrPyth_tt->GetYaxis()->SetTitle("1/#sigma_{had} d#sigma/d(1-T)");
 	otree->Branch("hist_ThrPyth_tt", &hist_ThrPyth_tt, "hist_ThrPyth_tt");
 
-	TH1F *hist_ThrPyth_WW = new TH1F("hist_ThrPyth_WW", "Inverse Thrust", 200, 0, 1.0);
+	TH1F *hist_ThrPyth_WW = new TH1F("hist_ThrPyth_WW", "Inverse Thrust", 200, 0, 0.45);
 	hist_ThrPyth_WW->GetXaxis()->SetTitle("(1-T)");
 	hist_ThrPyth_WW->GetYaxis()->SetTitle("1/#sigma_{had} d#sigma/d(1-T)");
 	otree->Branch("hist_ThrPyth_WW", &hist_ThrPyth_WW, "hist_ThrPyth_WW");
 
-	TH1F *hist_ThrPyth_ZZ = new TH1F("hist_ThrPyth_ZZ", "Inverse Thrust", 200, 0, 1.0);
+	TH1F *hist_ThrPyth_ZZ = new TH1F("hist_ThrPyth_ZZ", "Inverse Thrust", 200, 0, 0.45);
 	hist_ThrPyth_ZZ->GetXaxis()->SetTitle("(1-T)");
 	hist_ThrPyth_ZZ->GetYaxis()->SetTitle("1/#sigma_{had} d#sigma/d(1-T)");
 	otree->Branch("hist_ThrPyth_ZZ", &hist_ThrPyth_ZZ, "hist_ThrPyth_ZZ");
@@ -649,12 +649,11 @@ void applyCuts( const std::string& inputFileName, const std::string& outputFileN
 int main() {
 
 	// Extraction
-	// applyCuts("4-GenData/gen_FCC912.root", "5-CutData/cut_FCC912.root", 91.20);
-	// applyCuts("4-GenData/gen_FCC160.root", "5-CutData/cut_FCC160.root", 160.0);
-	// applyCuts("4-GenData/gen_FCC200.root", "5-CutData/cut_FCC200.root", 200.0);
-	// applyCuts("4-GenData/gen_FCC240.root", "5-CutData/cut_FCC240.root", 240.0);
-	// applyCuts("4-GenData/gen_FCC365.root", "5-CutData/cut_FCC365.root", 365.0);
-	// applyCuts("4-GenData/gen_FCC500.root", "5-CutData/cut_FCC500.root", 500.0);
+	applyCuts("4-GenData/gen_FCC912.root", "5-CutData/cut_FCC912.root", 91.20);
+	applyCuts("4-GenData/gen_FCC160.root", "5-CutData/cut_FCC160.root", 160.0);
+	applyCuts("4-GenData/gen_FCC240.root", "5-CutData/cut_FCC240.root", 240.0);
+	applyCuts("4-GenData/gen_FCC365.root", "5-CutData/cut_FCC365.root", 365.0);
+	applyCuts("4-GenData/gen_FCC500.root", "5-CutData/cut_FCC500.root", 500.0);
 	
 	// Hadronic cuts
 	// applyCuts("4-GenData/gen_FCC365.root", "5-CutData/cut_FCC365_wiCut.root", 365.0);
@@ -666,7 +665,8 @@ int main() {
 	// applyCuts("4-GenData/gen_FCC160_ISR.root", "5-CutData/cut_FCC160_ISR.root", 160.0);
 	// applyCuts("4-GenData/gen_FCC912_ISR.root", "5-CutData/cut_FCC912_ISR.root", 91.20);
 
-	// // Calibration
+	// Calibration
+	// applyCuts("4-GenData/gen_FCC200.root", "5-CutData/cut_FCC200.root", 200.0);
 	// applyCuts("4-GenData/gen_FCC183.root", "5-CutData/cut_FCC183.root", 183.0);
 	// applyCuts("4-GenData/gen_FCC161.root", "5-CutData/cut_FCC161.root", 161.0);
 	// applyCuts("4-GenData/gen_FCC912.root", "5-CutData/cut_FCC912.root", 91.20);
