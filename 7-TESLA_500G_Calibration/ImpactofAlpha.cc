@@ -1,5 +1,5 @@
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////
-// Code to generate plots in ROOT from TTree file produced by Pythia
+// Code to generate plots in ROOT from TTree file produced by PyAlla
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 // Plugins
@@ -312,6 +312,8 @@ void ImpactofAlpha()
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 	TFile *input_EXPDATA = TFile::Open("3-LEPdata/EXPDATA.root");
+	TFile *input_EXP_ALP = TFile::Open("3-LEPdata/EXP_ALP.root");
+	TFile *input_EXP_LL3 = TFile::Open("3-LEPdata/EXP_LL3.root");
 
 	TFile *input_912_wiHadron = new TFile("5-CutData/cut_FCC912.root", "READ");
 	TFile *input_160_wiHadron = new TFile("5-CutData/cut_FCC160.root", "READ");
@@ -485,19 +487,19 @@ void ImpactofAlpha()
 
 	float guess = 0.1, guess_min = 0.01, guess_max = 1.0;
 
-	hist_fitThNN_912->SetParameter(0, guess); hist_fitThNN_912->SetParLimits(0, guess_min, guess_max);
-	hist_fitThNN_91X->SetParameter(0, guess); hist_fitThNN_91X->SetParLimits(0, guess_min, guess_max);
+	hist_fitThNN_912->SetParameter(0, 0.1275); hist_fitThNN_912->SetParLimits(0, guess_min, guess_max);
+	hist_fitThNN_91X->SetParameter(0, 0.1275); hist_fitThNN_91X->SetParLimits(0, guess_min, guess_max);
 
-	hist_fitThNN_160->SetParameter(0, guess); hist_fitThNN_160->SetParLimits(0, guess_min, guess_max);
-	hist_fitThNN_240->SetParameter(0, guess); hist_fitThNN_240->SetParLimits(0, guess_min, guess_max);
-	hist_fitThNN_365->SetParameter(0, guess); hist_fitThNN_365->SetParLimits(0, guess_min, guess_max);
+	hist_fitThNN_160->SetParameter(0, 0.1172); hist_fitThNN_160->SetParLimits(0, guess_min, guess_max);
+	hist_fitThNN_240->SetParameter(0, 0.1084); hist_fitThNN_240->SetParLimits(0, guess_min, guess_max);
+	hist_fitThNN_365->SetParameter(0, 0.1084); hist_fitThNN_365->SetParLimits(0, guess_min, guess_max);
 	
-	hist_fitCpNN_912->SetParameter(0, guess); hist_fitCpNN_912->SetParLimits(0, guess_min, guess_max);
-	hist_fitCpNN_91X->SetParameter(0, guess); hist_fitCpNN_91X->SetParLimits(0, guess_min, guess_max);
+	hist_fitCpNN_912->SetParameter(0, 0.1273); hist_fitCpNN_912->SetParLimits(0, guess_min, guess_max);
+	hist_fitCpNN_91X->SetParameter(0, 0.1273); hist_fitCpNN_91X->SetParLimits(0, guess_min, guess_max);
 
-	hist_fitCpNN_160->SetParameter(0, guess); hist_fitCpNN_160->SetParLimits(0, guess_min, guess_max);
-	hist_fitCpNN_240->SetParameter(0, guess); hist_fitCpNN_240->SetParLimits(0, guess_min, guess_max);
-	hist_fitCpNN_365->SetParameter(0, guess); hist_fitCpNN_365->SetParLimits(0, guess_min, guess_max);
+	hist_fitCpNN_160->SetParameter(0, 0.1190); hist_fitCpNN_160->SetParLimits(0, guess_min, guess_max);
+	hist_fitCpNN_240->SetParameter(0, 0.1076); hist_fitCpNN_240->SetParLimits(0, guess_min, guess_max);
+	hist_fitCpNN_365->SetParameter(0, 0.1076); hist_fitCpNN_365->SetParLimits(0, guess_min, guess_max);
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -799,9 +801,94 @@ void ImpactofAlpha()
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
+	// Create canvas
+	TCanvas* cv4 = new TCanvas("cv4", "FCC-ee ISR Studies", 800, 700);
 
+	// Import aleph
+	TDirectory *table_EXP_ALP = (TDirectory*)input_EXP_ALP->Get("Table 52");
+	TGraphAsymmErrors* grph_AlphaSS_ExALP = (TGraphAsymmErrors*)table_EXP_ALP->Get("Graph1D_y1");
+	grph_AlphaSS_ExALP->SetLineColor(kBlue+2); grph_AlphaSS_ExALP->SetMarkerColor(kBlue+2); grph_AlphaSS_ExALP->SetMarkerStyle(53); grph_AlphaSS_ExALP->SetLineWidth(2); grph_AlphaSS_ExALP->SetMarkerSize(1);
 
+	// FCC energy
+	double xbin_AlphaSS_PyAll[4] = {91.2, 160.0, 240.0, 365.0};
 
+	// Access pythia bins
+	double ybin_AlphaSS_PyAll[4] = {
+	(hist_fitThNN_912->GetParameter(0)+hist_fitCpNN_912->GetParameter(0))/2,
+	(hist_fitThNN_160->GetParameter(0)+hist_fitCpNN_160->GetParameter(0))/2,
+	(hist_fitThNN_240->GetParameter(0)+hist_fitCpNN_240->GetParameter(0))/2,
+	(hist_fitThNN_365->GetParameter(0)+hist_fitCpNN_365->GetParameter(0))/2
+	};
+
+	// Access pythia bins
+	double ybin_AlphaSS_PyThr[4] = {
+	hist_fitThNN_912->GetParameter(0),
+	hist_fitThNN_160->GetParameter(0),
+	hist_fitThNN_240->GetParameter(0),
+	hist_fitThNN_365->GetParameter(0)
+	};
+
+	// Access pythia bins
+	double ybin_AlphaSS_PyCpr[4] = {
+	hist_fitCpNN_912->GetParameter(0),
+	hist_fitCpNN_160->GetParameter(0),
+	hist_fitCpNN_240->GetParameter(0),
+	hist_fitCpNN_365->GetParameter(0)
+	};
+
+	// Access pythia errors
+	double yerr_AlphaSS_PyThr[4] = {
+	hist_fitThNN_912->GetParError(0),
+	hist_fitThNN_160->GetParError(0),
+	hist_fitThNN_240->GetParError(0),
+	hist_fitThNN_365->GetParError(0)
+	};
+
+	// Construct pythia graph
+	auto grph_AlphaSS_PyAll = new TGraphAsymmErrors(4, xbin_AlphaSS_PyAll, ybin_AlphaSS_PyAll, nullptr, yerr_AlphaSS_PyThr);
+	grph_AlphaSS_PyAll->SetLineColor(kBlack); grph_AlphaSS_PyAll->SetMarkerColor(kBlack); grph_AlphaSS_PyAll->SetMarkerStyle(20); grph_AlphaSS_PyAll->SetLineWidth(2); grph_AlphaSS_PyAll->SetMarkerSize(2);
+	auto grph_AlphaSS_PyThr = new TGraphAsymmErrors(4, xbin_AlphaSS_PyAll, ybin_AlphaSS_PyThr, nullptr, yerr_AlphaSS_PyThr);
+	grph_AlphaSS_PyThr->SetLineColor(kRed+2); grph_AlphaSS_PyThr->SetMarkerColor(kRed+2); grph_AlphaSS_PyThr->SetMarkerStyle(53); grph_AlphaSS_PyThr->SetLineWidth(2); grph_AlphaSS_PyThr->SetMarkerSize(2);
+	auto grph_AlphaSS_PyCpr = new TGraphAsymmErrors(4, xbin_AlphaSS_PyAll, ybin_AlphaSS_PyCpr, nullptr, yerr_AlphaSS_PyThr);
+	grph_AlphaSS_PyCpr->SetLineColor(kBlue+2); grph_AlphaSS_PyCpr->SetMarkerColor(kBlue+2); grph_AlphaSS_PyCpr->SetMarkerStyle(53); grph_AlphaSS_PyCpr->SetLineWidth(2); grph_AlphaSS_PyCpr->SetMarkerSize(2);
+
+	// Add legend
+	TLegend *lg4 = new TLegend(0.76, 0.78, 0.92, 0.93);
+	lg4->AddEntry(grph_AlphaSS_PyAll, "PYTHIA", "PL");
+	// lg4->AddEntry(grph_AlphaSS_PyThr, "PYTHIA (1-T)", "PL");
+	// lg4->AddEntry(grph_AlphaSS_PyCpr, "PYTHIA (C)", "PL");
+	lg4->AddEntry(grph_AlphaSS_ExALP, "ALEPH", "PL");
+	lg4->SetTextSize(0.04);
+
+	// Beautify
+	gStyle->SetLabelSize(0.05, "X");
+	gStyle->SetLabelSize(0.05, "Y");
+	gStyle->SetTitleSize(0.06, "X");
+	gStyle->SetTitleSize(0.06, "Y");
+	cv4->SetMargin(0, 0, 0, 0);
+	gPad->SetTopMargin(0.025);
+	gPad->SetBottomMargin(0.12);
+	gPad->SetLeftMargin(0.18);
+	gPad->SetRightMargin(0.02);
+	gPad->SetTickx(); gPad->SetTicky();
+
+	// Beautify
+	grph_AlphaSS_PyAll->GetXaxis()->SetLabelSize(0.05); grph_AlphaSS_PyAll->GetXaxis()->SetTitleSize(0.05);
+	grph_AlphaSS_PyAll->GetYaxis()->SetLabelSize(0.05); grph_AlphaSS_PyAll->GetYaxis()->SetTitleSize(0.05);
+	grph_AlphaSS_PyAll->SetTitle("");
+	grph_AlphaSS_PyAll->GetYaxis()->SetTitle("#alpha_{S}(#sqrt{s})");
+	grph_AlphaSS_PyAll->GetXaxis()->SetTitle("#sqrt{s}");
+
+	// // Draw
+	grph_AlphaSS_PyAll->Draw("APEL");
+	// grph_AlphaSS_PyThr->Draw("PEL SAME");
+	// grph_AlphaSS_PyCpr->Draw("PEL SAME");
+	grph_AlphaSS_ExALP->Draw("PEL SAME");
+	lg4->Draw("SAME");
+
+	// Set limits
+	grph_AlphaSS_PyAll->GetYaxis()->SetRangeUser(0.09,0.14);
+	grph_AlphaSS_PyAll->GetXaxis()->SetRangeUser(0,400);
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////
 // Print results
@@ -810,7 +897,7 @@ void ImpactofAlpha()
 	cout << fixed << setprecision(4);
 
 	cout << "====== FITTING WITH THRUST ======" << endl;
-	cout << "√s \t χ²/ndf \t Alpha \t Fit range" << endl;
+	cout << "√s \t χ²/ndf \t Alpha \t Error \t Fit range" << endl;
 	cout << "---------------------------------" << endl;
 	cout << "ALEPH \t " << hist_fitThNN_91X->GetChisquare()<<"/"<<hist_fitThNN_91X->GetNDF() << "\t" << hist_fitThNN_91X->GetParameter(0) << "\t" << AlpFit_912_min << "-" << AlpFit_912_max << endl;
 	cout << "91.2 \t " << hist_fitThNN_912->GetChisquare()<<"/"<<hist_fitThNN_912->GetNDF() << "\t" << hist_fitThNN_912->GetParameter(0) << "\t" << AlpFit_912_min << "-" << AlpFit_912_max << endl;
@@ -820,7 +907,7 @@ void ImpactofAlpha()
 	cout << "=================================" << endl;
 
 	cout << "====== FITTING WITH CPARAM ======" << endl;
-	cout << "√s \t χ²/ndf \t Alpha \t Fit range" << endl;
+	cout << "√s \t χ²/ndf \t Alpha \t Error \t Fit range" << endl;
 	cout << "---------------------------------" << endl;
 	cout << "ALEPH \t " << hist_fitCpNN_91X->GetChisquare()<<"/"<<hist_fitCpNN_91X->GetNDF() << "\t" << hist_fitCpNN_91X->GetParameter(0) << "\t" << CprFit_912_min << "-" << CprFit_912_max << endl;
 	cout << "91.2 \t " << hist_fitCpNN_912->GetChisquare()<<"/"<<hist_fitCpNN_912->GetNDF() << "\t" << hist_fitCpNN_912->GetParameter(0) << "\t" << CprFit_912_min << "-" << CprFit_912_max << endl;
@@ -828,5 +915,14 @@ void ImpactofAlpha()
 	cout << "240 \t " << hist_fitCpNN_240->GetChisquare()<<"/"<<hist_fitCpNN_240->GetNDF() << "\t" << hist_fitCpNN_240->GetParameter(0) << "\t" << CprFit_240_min << "-" << CprFit_240_max << endl;
 	cout << "365 \t " << hist_fitCpNN_365->GetChisquare()<<"/"<<hist_fitCpNN_365->GetNDF() << "\t" << hist_fitCpNN_365->GetParameter(0) << "\t" << CprFit_365_min << "-" << CprFit_365_max << endl;
 	cout << "=================================" << endl;
+
+	cout << "====== FINAL ======" << endl;
+	cout << "√s \t Alpha " << endl;
+	cout << "-------------------" << endl;
+	cout << "91.2 \t " << (hist_fitThNN_912->GetParameter(0)+hist_fitCpNN_912->GetParameter(0))/2 << endl;
+	cout << "160 \t " << (hist_fitThNN_160->GetParameter(0)+hist_fitCpNN_160->GetParameter(0))/2 << "\t" << endl;
+	cout << "240 \t " << (hist_fitThNN_240->GetParameter(0)+hist_fitCpNN_240->GetParameter(0))/2 << "\t" << endl;
+	cout << "365 \t " << (hist_fitThNN_365->GetParameter(0)+hist_fitCpNN_365->GetParameter(0))/2 << "\t" << endl;
+	cout << "===================" << endl;
 
 }

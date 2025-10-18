@@ -223,13 +223,13 @@ void genEvents(const std::string &outputFileName, float nEnerg, int nEvent){
 
 					// Check mothers
 					if ( (abs(pythia.event[idmom1].id())==11 || abs(pythia.event[idmom2].id())==11) ) {
-						
-						// Print isr info
-						// cout << "ISR Photon at " << jParts << " with " << pythia.event[jParts].e() << endl;
 
-						nISR++;																// Count isr photons
-						isrEng.push_back(pythia.event[jParts].e()/nEnerg);					// Count event isr
-						sigISR =+ pythia.event[jParts].e();									// 
+						// Count photons
+						nISR++;
+						// Store event isr
+						isrEng.push_back(pythia.event[jParts].e());
+						// Store isr energy
+						sigISR =+ pythia.event[jParts].e();
 
 					}
 					
@@ -243,8 +243,9 @@ void genEvents(const std::string &outputFileName, float nEnerg, int nEvent){
 		if( nISR > 1 ) cout << nISR << " photons found in event " << iEvent << endl;
 		// cout << *std::max_element(gammas.begin(),gammas.end()) << " GeV photon at √s' = " << sigISR << endl;
 
-		// Store ISR info
+		// Store # ISR photons
 		isrNum.push_back(nISR);
+		// Store most energetic ISR photon
 		if (!isrEng.empty()) isrMax.push_back(*std::max_element(isrEng.begin(),isrEng.end()));
 		else isrMax.push_back(0.0);
 		
@@ -261,118 +262,10 @@ void genEvents(const std::string &outputFileName, float nEnerg, int nEvent){
 
 		// Store thrust data
 		if (nCh!=0) if (thr.analyze(event_fch)) {
-			
-
-			////////////////////////// COMPUTING THRUST ///////////////////////////////////////////////////////
+		
+		////////////////////////// COMPUTING THRUST ///////////////////////////////////////////////////////
 			eveThr.push_back(1.0-thr.thrust());			// Add event thrust
 			eveTax.push_back(thr.eventAxis(1).pz());	// Add event thrθ
-			
-			////////////////////////// COMPUTING JET BROADENINGS //////////////////////////////////////////////
-			// Get the thrust axis (as a 4-vector) from the thrust analysis
-			Vec4 t4 = thr.eventAxis(1);
-
-			// Convert thrust axis to a 3-vector (spatial part only)
-			TVector3 nT(t4.px(), t4.py(), t4.pz());
-
-			// If the thrust axis is zero (e.g. empty event), set broadenings to 0
-			if (nT.Mag() == 0) { 
-				eveBto.push_back(0.0); 
-				eveBwi.push_back(0.0); 
-			}
-
-			// Otherwise, compute the jet broadenings
-			else {
-				// Normalize the thrust axis to unit length
-				nT *= 1.0 / nT.Mag();
-
-				double sumP = 0.0;             // sum of absolute momenta over all particles
-				double sumPerp1 = 0.0;         // sum of transverse momenta in hemisphere 1
-				double sumPerp2 = 0.0;         // sum of transverse momenta in hemisphere 2
-
-				// Loop over all charged final-state particles in the event
-				for (int i = 0; i < event_fch.size(); ++i) {
-					// Momentum 3-vector of particle i
-					TVector3 p(event_fch[i].px(), event_fch[i].py(), event_fch[i].pz());
-					double pabs = p.Mag();
-					if (pabs <= 0) continue;
-
-					// Momentum component along thrust axis
-					double ppar  = p.Dot(nT);
-
-					// Transverse momentum magnitude: sqrt(|p|^2 - p_parallel^2)
-					double pperp = std::sqrt(std::max(0.0, pabs*pabs - ppar*ppar));
-
-					// Accumulate total |p| and transverse momenta in each hemisphere
-					sumP += pabs;
-					if (ppar >= 0) sumPerp1 += pperp;    // hemisphere 1 (forward)
-					else           sumPerp2 += pperp;    // hemisphere 2 (backward)
-				}
-
-				// Broadening of hemisphere 1 and 2
-				double B1 = (sumP > 0) ? (sumPerp1 / sumP) : 0.0;
-				double B2 = (sumP > 0) ? (sumPerp2 / sumP) : 0.0;
-
-				// Total broadening = average of the two hemispheres
-				double BT = 0.5 * (B1 + B2);
-				// Wide broadening = larger of the two hemispheres
-				double BW = std::max(B1, B2);
-
-				// Store results into your event tree vectors
-				eveBto.push_back((float)BT);
-				eveBwi.push_back((float)BW);
-			}
-		
-			////////////////////////// COMPUTING HEAVY JET MASS ///////////////////////////////////////////////
-			// Extract thrust axis components (already computed by thrust analysis)
-			double nx = t4.px(), ny = t4.py(), nz = t4.pz();
-
-			// Compute its magnitude
-			double nmag = std::sqrt(nx*nx + ny*ny + nz*nz);
-
-			if (nmag > 0) {
-				// Normalize thrust axis to unit vector
-				nx /= nmag; ny /= nmag; nz /= nmag;
-
-				// Variables to accumulate 4-momentum sums in each hemisphere
-				double E1=0, px1=0, py1=0, pz1=0;  // hemisphere 1
-				double E2=0, px2=0, py2=0, pz2=0;  // hemisphere 2
-
-				// Loop over all charged final-state particles
-				for (int i = 0; i < event_fch.size(); ++i) {
-					double px = event_fch[i].px();
-					double py = event_fch[i].py();
-					double pz = event_fch[i].pz();
-					double E  = event_fch[i].e();
-
-					// Momentum component along thrust axis
-					double ppar = px*nx + py*ny + pz*nz;
-
-					// Split particles into hemispheres based on sign of p_parallel
-					if (ppar >= 0) {
-						// Add 4-momentum to hemisphere 1
-						E1  += E;  px1 += px;  py1 += py;  pz1 += pz;
-					} else {
-						// Add 4-momentum to hemisphere 2
-						E2  += E;  px2 += px;  py2 += py;  pz2 += pz;
-					}
-				}
-
-				// Compute invariant masses of each hemisphere: M^2 = E^2 - |p|^2
-				double M1 = std::sqrt(std::max(0.0, E1*E1 - (px1*px1+py1*py1+pz1*pz1)));
-				double M2 = std::sqrt(std::max(0.0, E2*E2 - (px2*px2+py2*py2+pz2*pz2)));
-
-				// Heavy jet mass = max(M1, M2) normalized by √s
-				double MH = std::max(M1, M2) / nEnerg;
-
-				// Store in output vector
-				eveHjm.push_back((float)MH);
-			} 
-			else {
-				// If thrust axis is zero (empty event), store 0
-				eveHjm.push_back(0.0f);
-			}
-
-		}
 
 		////////////////////////// COMPUTING SPHERICITY ///////////////////////////////////////////////////////
 		if (nCh!=0) if (sph.analyze(event_fch)) {
@@ -433,46 +326,6 @@ void genEvents(const std::string &outputFileName, float nEnerg, int nEvent){
 
 		}
 
-		// ---------------- Durham jet algorithm analysis ----------------
-
-		// Build a list of FastJet PseudoJet objects from the event's final particles
-		std::vector<fastjet::PseudoJet> parts;
-		parts.reserve(parNum.back());  // (optional) reserve memory for speed
-
-		// Loop over all stored final particles
-		for (size_t i = 0; i < parPdg.size(); ++i) {
-			int pdg = parPdg[i];
-
-			// Skip neutrinos (they are invisible in the detector)
-			if (abs(pdg)==12 || abs(pdg)==14 || abs(pdg)==16) continue;
-
-			// Create a FastJet PseudoJet from px,py,pz,E and add to list
-			parts.emplace_back(parPmx[i], parPmy[i], parPmz[i], parEto[i]);
-		}
-
-		// Only run clustering if we actually have any visible particles
-		if (!parts.empty()) {
-			// Define the Durham (e⁺e⁻ kT) jet algorithm
-			fastjet::JetDefinition jet_def(fastjet::ee_kt_algorithm);
-
-			// Cluster all particles into jets using this algorithm
-			fastjet::ClusterSequence cluster_seq(parts, jet_def);
-
-			// --- Exclusive jet rates R_n(ycut) ---
-			// For each resolution parameter ycut in your grid:
-			//    - run exclusive clustering at that ycut
-			//    - count how many jets the event is classified as
-			for (double y : YCUT_GRID) {
-				eveYcu.push_back((float)y);  // store the ycut value
-				eveNjy.push_back(cluster_seq.exclusive_jets_ycut(y).size()); // store n_jets
-			}
-
-			// --- Jet transition scales ---
-			// exclusive_ymerge(n-1) gives the y-value at which the event goes from n→(n-1) jets
-			eveY23.push_back((float)cluster_seq.exclusive_ymerge(2)); // 3→2 transition
-			eveY34.push_back((float)cluster_seq.exclusive_ymerge(3)); // 4→3 transition
-		}
-
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 		// Populate
@@ -502,11 +355,11 @@ void genEvents(const std::string &outputFileName, float nEnerg, int nEvent){
 int main() {
 
 	// Call generator
-	genEvents("4-GenData/gen_FCC912.root", 91.20, 1E6);
-    genEvents("4-GenData/gen_FCC160.root", 160.0, 1E6);
-	genEvents("4-GenData/gen_FCC240.root", 240.0, 1E6);
-	genEvents("4-GenData/gen_FCC365.root", 365.0, 1E6);
-	genEvents("4-GenData/gen_FCC500.root", 500.0, 1E6);
+	// genEvents("4-GenData/gen_FCC912.root", 91.20, 1E6);
+    // genEvents("4-GenData/gen_FCC160.root", 160.0, 1E6);
+	// genEvents("4-GenData/gen_FCC240.root", 240.0, 1E6);
+	// genEvents("4-GenData/gen_FCC365.root", 365.0, 1E6);
+	// genEvents("4-GenData/gen_FCC500.root", 500.0, 1E6);
 
 	// ISR
 	// genEvents("4-GenData/gen_FCC912_ISR.root", 91.20, 1E6);
@@ -523,8 +376,9 @@ int main() {
 	// genEvents("4-GenData/gen_FCC500_woHadron.root", 500.0, 1E3);
 
 	// Experimental
-    genEvents("4-GenData/gen_FCC161.root", 161.0, 1E6);
-	genEvents("4-GenData/gen_FCC183.root", 183.0, 1E6);	
+    // genEvents("4-GenData/gen_FCC161.root", 161.0, 1E6);
+	// genEvents("4-GenData/gen_FCC183.root", 183.0, 1E6);
+	// genEvents("4-GenData/gen_FCC200.root", 200.0, 1E6);
 
 	// Test
 	// genEvents("4-GenData/gen_FCCtest.root", 500, 2);
