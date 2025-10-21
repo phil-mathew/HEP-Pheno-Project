@@ -111,7 +111,7 @@ void genEvents(const std::string &outputFileName, float nEnerg, int nEvent){
 	pythia.readString("Beams:idA = 11"); 													// beam energy
 	pythia.readString("Beams:idB = -11"); 													// beam energy
 	pythia.settings.parm("Beams:eCM", nEnerg);												// c-om energy
-	pythia.readString("PDF:lepton = off");													// ISR toggle
+	// pythia.readString("PDF:lepton = off");													// ISR toggle
 	
 	// Hadronisation
 	// pythia.readString("HadronLevel:all = off");
@@ -143,9 +143,9 @@ void genEvents(const std::string &outputFileName, float nEnerg, int nEvent){
 	pythia.readString("Top:ffbar2ttbar(s:gmZ) = on");										// (604) ee'->tt'
 
 	// Suppress terminal text
-	pythia.readString("Print:quiet = on");													// print nothing
+	// pythia.readString("Print:quiet = on");													// print nothing
 	pythia.readString("Next:numberCount = 10000");											// print #events
-	// pythia.readString("Next:numberShowEvent = 10");										// print #listings
+	pythia.readString("Next:numberShowEvent = 10");										// print #listings
 	
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////
 // Generate Pythia collisions
@@ -263,71 +263,72 @@ void genEvents(const std::string &outputFileName, float nEnerg, int nEvent){
 		// Store thrust data
 		if (nCh!=0) if (thr.analyze(event_fch)) {
 		
-		////////////////////////// COMPUTING THRUST ///////////////////////////////////////////////////////
-			eveThr.push_back(1.0-thr.thrust());			// Add event thrust
-			eveTax.push_back(thr.eventAxis(1).pz());	// Add event thrθ
+			////////////////////////// COMPUTING THRUST ///////////////////////////////////////////////////////
+				eveThr.push_back(1.0-thr.thrust());			// Add event thrust
+				eveTax.push_back(thr.eventAxis(1).pz());	// Add event thrθ
 
-		////////////////////////// COMPUTING SPHERICITY ///////////////////////////////////////////////////////
-		if (nCh!=0) if (sph.analyze(event_fch)) {
-			eveSph.push_back(sph.sphericity());			// Add event spheric
-			eveSax.push_back(sph.eventAxis(1).pz());	// Add event sphθ
-		}
-
-		////////////////////////// COMPUTING C-PARAMETER /////////////////////////////////////////////////////
-		if (nCh != 0) {
-			
-			// Collect 4-momenta of all charged final-state particles into a vector
-			vector<Vec4> particles;
-			for (int i = 0; i < event_fch.size(); ++i) {
-				particles.emplace_back(event_fch[i].p());
+			////////////////////////// COMPUTING SPHERICITY ///////////////////////////////////////////////////////
+			if (nCh!=0) if (sph.analyze(event_fch)) {
+				eveSph.push_back(sph.sphericity());			// Add event spheric
+				eveSax.push_back(sph.eventAxis(1).pz());	// Add event sphθ
 			}
 
-			// Normalization factor (sum of |p|) and the 3×3 linearized momentum tensor
-			double norm = 0.0;
-			TMatrixD cMatrix(3,3);
-			cMatrix.Zero();  // start all elements at 0
+			////////////////////////// COMPUTING C-PARAMETER /////////////////////////////////////////////////////
+			if (nCh != 0) {
+				
+				// Collect 4-momenta of all charged final-state particles into a vector
+				vector<Vec4> particles;
+				for (int i = 0; i < event_fch.size(); ++i) {
+					particles.emplace_back(event_fch[i].p());
+				}
 
-			// Build the linearized momentum tensor
-			//    Θ_ij = (1 / Σ|p|) Σ_k (p_{k,i} p_{k,j} / |p_k|)
-			for (const auto& p : particles) {
-				TVector3 pi(p.px(), p.py(), p.pz());
-				double p_abs = pi.Mag();
-				if (p_abs > 0) {
-					norm += p_abs;  // accumulate total |p|
+				// Normalization factor (sum of |p|) and the 3×3 linearized momentum tensor
+				double norm = 0.0;
+				TMatrixD cMatrix(3,3);
+				cMatrix.Zero();  // start all elements at 0
 
-					// Outer product of momentum direction, weighted by |p|
-					for (int i = 0; i < 3; ++i) {
-						for (int j = 0; j < 3; ++j) {
-							cMatrix(i, j) += (pi[i] * pi[j]) / p_abs;
+				// Build the linearized momentum tensor
+				//    Θ_ij = (1 / Σ|p|) Σ_k (p_{k,i} p_{k,j} / |p_k|)
+				for (const auto& p : particles) {
+					TVector3 pi(p.px(), p.py(), p.pz());
+					double p_abs = pi.Mag();
+					if (p_abs > 0) {
+						norm += p_abs;  // accumulate total |p|
+
+						// Outer product of momentum direction, weighted by |p|
+						for (int i = 0; i < 3; ++i) {
+							for (int j = 0; j < 3; ++j) {
+								cMatrix(i, j) += (pi[i] * pi[j]) / p_abs;
+							}
 						}
 					}
 				}
+
+				// Only continue if we had any particles
+				if (norm > 0) {
+					// Normalize the tensor by total momentum sum
+					cMatrix *= (1.0 / norm);
+
+					// Diagonalize the matrix to get eigenvalues (λ1 ≥ λ2 ≥ λ3)
+					TMatrixDEigen eig(cMatrix);
+					TVectorD eigenVals = eig.GetEigenValuesRe();
+					double lambda1 = eigenVals[0];
+					double lambda2 = eigenVals[1];
+					double lambda3 = eigenVals[2];
+
+					// Compute the C-parameter:
+					//   C = 3 * (λ1λ2 + λ2λ3 + λ3λ1)
+					double C = 3.0 * (lambda1 * lambda2 + lambda2 * lambda3 + lambda3 * lambda1);
+
+					// Store result for this event
+					eveCpr.push_back(C);
+				}
+
 			}
-
-			// Only continue if we had any particles
-			if (norm > 0) {
-				// Normalize the tensor by total momentum sum
-				cMatrix *= (1.0 / norm);
-
-				// Diagonalize the matrix to get eigenvalues (λ1 ≥ λ2 ≥ λ3)
-				TMatrixDEigen eig(cMatrix);
-				TVectorD eigenVals = eig.GetEigenValuesRe();
-				double lambda1 = eigenVals[0];
-				double lambda2 = eigenVals[1];
-				double lambda3 = eigenVals[2];
-
-				// Compute the C-parameter:
-				//   C = 3 * (λ1λ2 + λ2λ3 + λ3λ1)
-				double C = 3.0 * (lambda1 * lambda2 + lambda2 * lambda3 + lambda3 * lambda1);
-
-				// Store result for this event
-				eveCpr.push_back(C);
-			}
-
 		}
-
+		
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
+	
 		// Populate
 		tree->Fill();  
 
@@ -381,7 +382,7 @@ int main() {
 	// genEvents("4-GenData/gen_FCC200.root", 200.0, 1E6);
 
 	// Test
-	// genEvents("4-GenData/gen_FCCtest.root", 500, 2);
+	genEvents("4-GenData/gen_FCCtest.root", 500, 1);
 
 	// Terminate
     return 0;

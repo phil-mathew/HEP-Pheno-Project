@@ -289,17 +289,19 @@ void ImpactofRad()
 // Draw plots
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
+	gStyle->SetCanvasPreferGL(true);
+
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-	hist_ThrPyth_912_000->GetYaxis()->SetTitle("#");
-	hist_ThrPyth_160_000->GetYaxis()->SetTitle("#");
-	hist_ThrPyth_240_000->GetYaxis()->SetTitle("#");
-	hist_ThrPyth_365_000->GetYaxis()->SetTitle("#");
+	// hist_ThrPyth_912_000->GetYaxis()->SetTitle("#");
+	// hist_ThrPyth_160_000->GetYaxis()->SetTitle("#");
+	// hist_ThrPyth_240_000->GetYaxis()->SetTitle("#");
+	// hist_ThrPyth_365_000->GetYaxis()->SetTitle("#");
 
-	hist_CprPyth_912_000->GetYaxis()->SetTitle("#");
-	hist_CprPyth_160_000->GetYaxis()->SetTitle("#");
-	hist_CprPyth_240_000->GetYaxis()->SetTitle("#");
-	hist_CprPyth_365_000->GetYaxis()->SetTitle("#");
+	// hist_CprPyth_912_000->GetYaxis()->SetTitle("#");
+	// hist_CprPyth_160_000->GetYaxis()->SetTitle("#");
+	// hist_CprPyth_240_000->GetYaxis()->SetTitle("#");
+	// hist_CprPyth_365_000->GetYaxis()->SetTitle("#");
 
 	// Create canvas
 	TCanvas* cv2 = new TCanvas("cv2", "FCC-ee ISR Studies", 1000, 1300);
@@ -434,7 +436,7 @@ void ImpactofRad()
 	// // Modify stat-box
 	// gStyle->SetOptStat();
 	// // Update canvas
-	// // cv3->Modified();
+	// cv3->Modified();
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -448,13 +450,13 @@ void ImpactofRad()
 	// hist_EgwiISR_365->SetTitle("");
 
 	// // Create canvas
-	// TCanvas* cv3 = new TCanvas("cv3", "FCC-ee ISR Studies", 2000, 800);
+	// TCanvas* cv4 = new TCanvas("cv4", "FCC-ee ISR Studies", 2000, 800);
 
 	// // Add legend
-	// TLegend* lg3 = new TLegend(0.60, 0.80, 0.90, 0.90);
-	// lg3->AddEntry(hist_EgwiISR_912, "ISR", "L");
-	// lg3->AddEntry(hist_EgwoISR_912, "non-ISR", "L");
-	// lg3->SetTextSize(0.06);
+	// TLegend* lg4 = new TLegend(0.60, 0.80, 0.90, 0.90);
+	// lg4->AddEntry(hist_EgwiISR_912, "ISR", "L");
+	// lg4->AddEntry(hist_EgwoISR_912, "non-ISR", "L");
+	// lg4->SetTextSize(0.06);
 
 	// // Beautify
 	// gStyle->SetErrorX(0.000000001);
@@ -462,10 +464,10 @@ void ImpactofRad()
 	// gStyle->SetLabelSize(0.05, "Y");
 	// gStyle->SetTitleSize(0.06, "X");
 	// gStyle->SetTitleSize(0.06, "Y");
-	// cv3->SetMargin(0, 0, 0, 0); 
-	// cv3->Divide(4,1);
+	// cv4->SetMargin(0, 0, 0, 0); 
+	// cv4->Divide(4,1);
 	// for (int i = 1; i <= 4; i++) {
-	// 	cv3->cd(i);
+	// 	cv4->cd(i);
 	// 	gPad->SetTopMargin(0.04);
 	// 	gPad->SetBottomMargin(0.16);
 	// 	gPad->SetLeftMargin(0.18);
@@ -474,22 +476,22 @@ void ImpactofRad()
 	// 	gPad->SetLogy();
 	// }
 
-	// cv3->cd(1);
+	// cv4->cd(1);
 	// hist_EgwiISR_912->Draw("HIST");
 	// hist_EgwoISR_912->Draw("HIST SAME");
-	// lg3->Draw("SAME");
-	// cv3->cd(2);
+	// lg4->Draw("SAME");
+	// cv4->cd(2);
 	// hist_EgwiISR_160->Draw("HIST");
 	// hist_EgwoISR_160->Draw("HIST SAME");
-	// lg3->Draw("SAME");
-	// cv3->cd(3);
+	// lg4->Draw("SAME");
+	// cv4->cd(3);
 	// hist_EgwiISR_240->Draw("HIST");
 	// hist_EgwoISR_240->Draw("HIST SAME");
-	// lg3->Draw("SAME");
-	// cv3->cd(4);
+	// lg4->Draw("SAME");
+	// cv4->cd(4);
 	// hist_EgwiISR_365->Draw("HIST");
 	// hist_EgwoISR_365->Draw("HIST SAME");
-	// lg3->Draw("SAME");
+	// lg4->Draw("SAME");
 
 	// // Set limits
 	// hist_EgwiISR_912->GetYaxis()->SetRangeUser(1E0,1E6);
@@ -504,6 +506,6 @@ void ImpactofRad()
 	// // Modify stat-box
 	// gStyle->SetOptStat();
 	// // Update canvas
-	// cv3->Modified();
+	// cv4->Modified();
 
 }

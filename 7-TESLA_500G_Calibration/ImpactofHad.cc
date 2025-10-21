@@ -172,11 +172,15 @@ void ImpactofHad()
 // Draw Plots
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
+	gStyle->SetCanvasPreferGL(true);
+
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
 	// Create canvas
-	TCanvas* cv2 = new TCanvas("cv2", "FCC-ee ISR Studies", 2000, 800);
+	TCanvas* cv2 = new TCanvas("cv2", "FCC-ee ISR Studies", 800, 1400);
 
 	// Add legend
-	TLegend* lg2 = new TLegend(0.80, 0.70, 0.92, 0.95);
+	TLegend* lg2 = new TLegend(0.78, 0.70, 0.92, 0.95);
 	lg2->AddEntry(hist_ThrPyth_al_365_woCut, "ee#rightarrowq#bar{q}", "L");
 	lg2->AddEntry(hist_ThrPyth_Zq_365_woCut, "ee#rightarrow#gamma*/Z", "L");
 	lg2->AddEntry(hist_ThrPyth_ZZ_365_woCut, "ee#rightarrowWW", "L");
@@ -193,7 +197,7 @@ void ImpactofHad()
 	gStyle->SetTitleSize(0.06, "X");
 	gStyle->SetTitleSize(0.06, "Y");
 	cv2->SetMargin(0, 0, 0, 0); 
-	cv2->Divide(2,1);
+	cv2->Divide(1,2);
 	for (int i = 1; i <= 2; i++) {
 		cv2->cd(i);
 		gPad->SetTopMargin(0.017);

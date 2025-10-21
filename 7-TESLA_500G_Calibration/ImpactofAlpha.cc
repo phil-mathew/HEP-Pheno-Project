@@ -607,6 +607,10 @@ void ImpactofAlpha()
 // Draw plots
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
+	gStyle->SetCanvasPreferGL(true);
+
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
 	// // Create canvas
 	// TCanvas* cv1 = new TCanvas("cv1", "FCC-ee ISR Studies", 1400, 1400);
 
@@ -807,7 +811,15 @@ void ImpactofAlpha()
 	// Import aleph
 	TDirectory *table_EXP_ALP = (TDirectory*)input_EXP_ALP->Get("Table 52");
 	TGraphAsymmErrors* grph_AlphaSS_ExALP = (TGraphAsymmErrors*)table_EXP_ALP->Get("Graph1D_y1");
-	grph_AlphaSS_ExALP->SetLineColor(kBlue+2); grph_AlphaSS_ExALP->SetMarkerColor(kBlue+2); grph_AlphaSS_ExALP->SetMarkerStyle(53); grph_AlphaSS_ExALP->SetLineWidth(2); grph_AlphaSS_ExALP->SetMarkerSize(1);
+	grph_AlphaSS_ExALP->SetLineColor(kBlue+2); grph_AlphaSS_ExALP->SetMarkerColor(kBlue+2); grph_AlphaSS_ExALP->SetMarkerStyle(53); grph_AlphaSS_ExALP->SetLineWidth(2); grph_AlphaSS_ExALP->SetMarkerSize(1); grph_AlphaSS_ExALP->SetFillColorAlpha(kBlue, 0.1);
+
+	// L3 graph
+	double xbin_AlphaSS_ExLL3[16] = { 41.4, 55.3, 65.4, 75.7, 82.3, 85.1, 91.2, 130.1, 136.1, 161.3, 172.3, 182.8, 188.6, 194.4, 200, 206.2 };
+	double ybin_AlphaSS_ExLL3[16] = { 0.1418, 0.1260, 0.1331, 0.1204, 0.1184, 0.1152, 0.1210, 0.1138, 0.1121, 0.1051, 0.1099, 0.1096, 0.1122, 0.1123, 0.1138, 0.1132 };
+	double yerr_AlphaSS_ExLL3[16] = { 0.011814821, 0.011638299, 0.010180864, 0.010230347, 0.009896464, 0.010293202, 0.006824222, 0.006787488, 0.007315053, 0.007477968, 0.007912016, 0.005521775, 0.005337602, 0.005647123, 0.005728001, 0.005497272 };
+	// Construct
+	auto grph_AlphaSS_ExLL3 = new TGraphErrors(16, xbin_AlphaSS_ExLL3, ybin_AlphaSS_ExLL3, nullptr, yerr_AlphaSS_ExLL3);
+	grph_AlphaSS_ExLL3->SetLineColor(kRed+2); grph_AlphaSS_ExLL3->SetMarkerColor(kRed+2); grph_AlphaSS_ExLL3->SetMarkerStyle(53); grph_AlphaSS_ExLL3->SetLineWidth(2); grph_AlphaSS_ExLL3->SetMarkerSize(1); grph_AlphaSS_ExLL3->SetFillColorAlpha(kRed, 0.1);
 
 	// FCC energy
 	double xbin_AlphaSS_PyAll[4] = {91.2, 160.0, 240.0, 365.0};
@@ -846,7 +858,7 @@ void ImpactofAlpha()
 
 	// Construct pythia graph
 	auto grph_AlphaSS_PyAll = new TGraphAsymmErrors(4, xbin_AlphaSS_PyAll, ybin_AlphaSS_PyAll, nullptr, yerr_AlphaSS_PyThr);
-	grph_AlphaSS_PyAll->SetLineColor(kBlack); grph_AlphaSS_PyAll->SetMarkerColor(kBlack); grph_AlphaSS_PyAll->SetMarkerStyle(20); grph_AlphaSS_PyAll->SetLineWidth(2); grph_AlphaSS_PyAll->SetMarkerSize(2);
+	grph_AlphaSS_PyAll->SetLineColor(kBlack); grph_AlphaSS_PyAll->SetMarkerColor(kBlack); grph_AlphaSS_PyAll->SetMarkerStyle(20); grph_AlphaSS_PyAll->SetLineWidth(2); grph_AlphaSS_PyAll->SetMarkerSize(1.5);
 	auto grph_AlphaSS_PyThr = new TGraphAsymmErrors(4, xbin_AlphaSS_PyAll, ybin_AlphaSS_PyThr, nullptr, yerr_AlphaSS_PyThr);
 	grph_AlphaSS_PyThr->SetLineColor(kRed+2); grph_AlphaSS_PyThr->SetMarkerColor(kRed+2); grph_AlphaSS_PyThr->SetMarkerStyle(53); grph_AlphaSS_PyThr->SetLineWidth(2); grph_AlphaSS_PyThr->SetMarkerSize(2);
 	auto grph_AlphaSS_PyCpr = new TGraphAsymmErrors(4, xbin_AlphaSS_PyAll, ybin_AlphaSS_PyCpr, nullptr, yerr_AlphaSS_PyThr);
@@ -858,6 +870,7 @@ void ImpactofAlpha()
 	// lg4->AddEntry(grph_AlphaSS_PyThr, "PYTHIA (1-T)", "PL");
 	// lg4->AddEntry(grph_AlphaSS_PyCpr, "PYTHIA (C)", "PL");
 	lg4->AddEntry(grph_AlphaSS_ExALP, "ALEPH", "PL");
+	lg4->AddEntry(grph_AlphaSS_ExLL3, "L3", "PL");
 	lg4->SetTextSize(0.04);
 
 	// Beautify
@@ -869,7 +882,7 @@ void ImpactofAlpha()
 	gPad->SetTopMargin(0.025);
 	gPad->SetBottomMargin(0.12);
 	gPad->SetLeftMargin(0.18);
-	gPad->SetRightMargin(0.02);
+	gPad->SetRightMargin(0.04);
 	gPad->SetTickx(); gPad->SetTicky();
 
 	// Beautify
@@ -877,52 +890,56 @@ void ImpactofAlpha()
 	grph_AlphaSS_PyAll->GetYaxis()->SetLabelSize(0.05); grph_AlphaSS_PyAll->GetYaxis()->SetTitleSize(0.05);
 	grph_AlphaSS_PyAll->SetTitle("");
 	grph_AlphaSS_PyAll->GetYaxis()->SetTitle("#alpha_{S}(#sqrt{s})");
-	grph_AlphaSS_PyAll->GetXaxis()->SetTitle("#sqrt{s}");
+	grph_AlphaSS_PyAll->GetXaxis()->SetTitle("#sqrt{s} (GeV)");
 
 	// // Draw
 	grph_AlphaSS_PyAll->Draw("APEL");
 	// grph_AlphaSS_PyThr->Draw("PEL SAME");
 	// grph_AlphaSS_PyCpr->Draw("PEL SAME");
-	grph_AlphaSS_ExALP->Draw("PEL SAME");
+	grph_AlphaSS_ExALP->Draw("PEL3 SAME");
+	grph_AlphaSS_ExLL3->Draw("PEL3 SAME");
 	lg4->Draw("SAME");
 
 	// Set limits
-	grph_AlphaSS_PyAll->GetYaxis()->SetRangeUser(0.09,0.14);
-	grph_AlphaSS_PyAll->GetXaxis()->SetRangeUser(0,400);
+	grph_AlphaSS_PyAll->GetYaxis()->SetRangeUser(0.09,0.16);
+	grph_AlphaSS_PyAll->GetXaxis()->SetLimits(0, 425);
+
+	// Update canvas
+	cv4->Modified();
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////
 // Print results
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-	cout << fixed << setprecision(4);
+	// cout << fixed << setprecision(4);
 
-	cout << "====== FITTING WITH THRUST ======" << endl;
-	cout << "√s \t χ²/ndf \t Alpha \t Error \t Fit range" << endl;
-	cout << "---------------------------------" << endl;
-	cout << "ALEPH \t " << hist_fitThNN_91X->GetChisquare()<<"/"<<hist_fitThNN_91X->GetNDF() << "\t" << hist_fitThNN_91X->GetParameter(0) << "\t" << AlpFit_912_min << "-" << AlpFit_912_max << endl;
-	cout << "91.2 \t " << hist_fitThNN_912->GetChisquare()<<"/"<<hist_fitThNN_912->GetNDF() << "\t" << hist_fitThNN_912->GetParameter(0) << "\t" << AlpFit_912_min << "-" << AlpFit_912_max << endl;
-	cout << "160 \t " << hist_fitThNN_160->GetChisquare()<<"/"<<hist_fitThNN_160->GetNDF() << "\t" << hist_fitThNN_160->GetParameter(0) << "\t" << AlpFit_160_min << "-" << AlpFit_160_max << endl;
-	cout << "240 \t " << hist_fitThNN_240->GetChisquare()<<"/"<<hist_fitThNN_240->GetNDF() << "\t" << hist_fitThNN_240->GetParameter(0) << "\t" << AlpFit_240_min << "-" << AlpFit_240_max << endl;
-	cout << "365 \t " << hist_fitThNN_365->GetChisquare()<<"/"<<hist_fitThNN_365->GetNDF() << "\t" << hist_fitThNN_365->GetParameter(0) << "\t" << AlpFit_365_min << "-" << AlpFit_365_max << endl;
-	cout << "=================================" << endl;
+	// cout << "====== FITTING WITH THRUST ======" << endl;
+	// cout << "√s \t χ²/ndf \t Alpha \t Error \t Fit range" << endl;
+	// cout << "---------------------------------" << endl;
+	// cout << "ALEPH \t " << hist_fitThNN_91X->GetChisquare()<<"/"<<hist_fitThNN_91X->GetNDF() << "\t" << hist_fitThNN_91X->GetParameter(0) << "\t" << AlpFit_912_min << "-" << AlpFit_912_max << endl;
+	// cout << "91.2 \t " << hist_fitThNN_912->GetChisquare()<<"/"<<hist_fitThNN_912->GetNDF() << "\t" << hist_fitThNN_912->GetParameter(0) << "\t" << AlpFit_912_min << "-" << AlpFit_912_max << endl;
+	// cout << "160 \t " << hist_fitThNN_160->GetChisquare()<<"/"<<hist_fitThNN_160->GetNDF() << "\t" << hist_fitThNN_160->GetParameter(0) << "\t" << AlpFit_160_min << "-" << AlpFit_160_max << endl;
+	// cout << "240 \t " << hist_fitThNN_240->GetChisquare()<<"/"<<hist_fitThNN_240->GetNDF() << "\t" << hist_fitThNN_240->GetParameter(0) << "\t" << AlpFit_240_min << "-" << AlpFit_240_max << endl;
+	// cout << "365 \t " << hist_fitThNN_365->GetChisquare()<<"/"<<hist_fitThNN_365->GetNDF() << "\t" << hist_fitThNN_365->GetParameter(0) << "\t" << AlpFit_365_min << "-" << AlpFit_365_max << endl;
+	// cout << "=================================" << endl;
 
-	cout << "====== FITTING WITH CPARAM ======" << endl;
-	cout << "√s \t χ²/ndf \t Alpha \t Error \t Fit range" << endl;
-	cout << "---------------------------------" << endl;
-	cout << "ALEPH \t " << hist_fitCpNN_91X->GetChisquare()<<"/"<<hist_fitCpNN_91X->GetNDF() << "\t" << hist_fitCpNN_91X->GetParameter(0) << "\t" << CprFit_912_min << "-" << CprFit_912_max << endl;
-	cout << "91.2 \t " << hist_fitCpNN_912->GetChisquare()<<"/"<<hist_fitCpNN_912->GetNDF() << "\t" << hist_fitCpNN_912->GetParameter(0) << "\t" << CprFit_912_min << "-" << CprFit_912_max << endl;
-	cout << "160 \t " << hist_fitCpNN_160->GetChisquare()<<"/"<<hist_fitCpNN_160->GetNDF() << "\t" << hist_fitCpNN_160->GetParameter(0) << "\t" << CprFit_160_min << "-" << CprFit_160_max << endl;
-	cout << "240 \t " << hist_fitCpNN_240->GetChisquare()<<"/"<<hist_fitCpNN_240->GetNDF() << "\t" << hist_fitCpNN_240->GetParameter(0) << "\t" << CprFit_240_min << "-" << CprFit_240_max << endl;
-	cout << "365 \t " << hist_fitCpNN_365->GetChisquare()<<"/"<<hist_fitCpNN_365->GetNDF() << "\t" << hist_fitCpNN_365->GetParameter(0) << "\t" << CprFit_365_min << "-" << CprFit_365_max << endl;
-	cout << "=================================" << endl;
+	// cout << "====== FITTING WITH CPARAM ======" << endl;
+	// cout << "√s \t χ²/ndf \t Alpha \t Error \t Fit range" << endl;
+	// cout << "---------------------------------" << endl;
+	// cout << "ALEPH \t " << hist_fitCpNN_91X->GetChisquare()<<"/"<<hist_fitCpNN_91X->GetNDF() << "\t" << hist_fitCpNN_91X->GetParameter(0) << "\t" << CprFit_912_min << "-" << CprFit_912_max << endl;
+	// cout << "91.2 \t " << hist_fitCpNN_912->GetChisquare()<<"/"<<hist_fitCpNN_912->GetNDF() << "\t" << hist_fitCpNN_912->GetParameter(0) << "\t" << CprFit_912_min << "-" << CprFit_912_max << endl;
+	// cout << "160 \t " << hist_fitCpNN_160->GetChisquare()<<"/"<<hist_fitCpNN_160->GetNDF() << "\t" << hist_fitCpNN_160->GetParameter(0) << "\t" << CprFit_160_min << "-" << CprFit_160_max << endl;
+	// cout << "240 \t " << hist_fitCpNN_240->GetChisquare()<<"/"<<hist_fitCpNN_240->GetNDF() << "\t" << hist_fitCpNN_240->GetParameter(0) << "\t" << CprFit_240_min << "-" << CprFit_240_max << endl;
+	// cout << "365 \t " << hist_fitCpNN_365->GetChisquare()<<"/"<<hist_fitCpNN_365->GetNDF() << "\t" << hist_fitCpNN_365->GetParameter(0) << "\t" << CprFit_365_min << "-" << CprFit_365_max << endl;
+	// cout << "=================================" << endl;
 
-	cout << "====== FINAL ======" << endl;
-	cout << "√s \t Alpha " << endl;
-	cout << "-------------------" << endl;
-	cout << "91.2 \t " << (hist_fitThNN_912->GetParameter(0)+hist_fitCpNN_912->GetParameter(0))/2 << endl;
-	cout << "160 \t " << (hist_fitThNN_160->GetParameter(0)+hist_fitCpNN_160->GetParameter(0))/2 << "\t" << endl;
-	cout << "240 \t " << (hist_fitThNN_240->GetParameter(0)+hist_fitCpNN_240->GetParameter(0))/2 << "\t" << endl;
-	cout << "365 \t " << (hist_fitThNN_365->GetParameter(0)+hist_fitCpNN_365->GetParameter(0))/2 << "\t" << endl;
-	cout << "===================" << endl;
+	// cout << "====== FINAL ======" << endl;
+	// cout << "√s \t Alpha " << endl;
+	// cout << "-------------------" << endl;
+	// cout << "91.2 \t " << (hist_fitThNN_912->GetParameter(0)+hist_fitCpNN_912->GetParameter(0))/2 << endl;
+	// cout << "160 \t " << (hist_fitThNN_160->GetParameter(0)+hist_fitCpNN_160->GetParameter(0))/2 << "\t" << endl;
+	// cout << "240 \t " << (hist_fitThNN_240->GetParameter(0)+hist_fitCpNN_240->GetParameter(0))/2 << "\t" << endl;
+	// cout << "365 \t " << (hist_fitThNN_365->GetParameter(0)+hist_fitCpNN_365->GetParameter(0))/2 << "\t" << endl;
+	// cout << "===================" << endl;
 
 }

@@ -116,17 +116,12 @@ void ImpactofExp()
 	hist_CprExL3_200->SetLineColor(kBlue); hist_CprExL3_200->SetMarkerColor(kBlue); hist_CprExL3_200->SetMarkerStyle(53); hist_CprExL3_200->SetLineWidth(1); hist_CprExL3_200->SetMarkerSize(1.5);
 	hist_CprExAL_200->SetLineColor(kRed+2); hist_CprExAL_200->SetMarkerColor(kRed+2); hist_CprExAL_200->SetMarkerStyle(53); hist_CprExAL_200->SetLineWidth(1);	hist_CprExAL_200->SetMarkerSize(1.5);
 
-	TH1F *hist_HjmPyth_912 = (TH1F*)input_912->Get("hist_HjmPyth");
-	hist_HjmPyth_912->SetLineColor(kBlack); hist_HjmPyth_912->SetMarkerColor(kBlack); hist_HjmPyth_912->SetMarkerStyle(26); hist_HjmPyth_912->SetLineWidth(2); hist_HjmPyth_912->SetMarkerSize(2);
-	hist_HjmExAL_912->SetLineColor(kRed+2); hist_HjmExAL_912->SetMarkerColor(kRed+2); hist_HjmExAL_912->SetMarkerStyle(53); hist_HjmExAL_912->SetLineWidth(1); hist_HjmExAL_912->SetMarkerSize(1.5);
-
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////
 // Normalising by area under histogram
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////	
 
 	hist_ThrPyth_912->Scale(1.0/hist_ThrPyth_912->Integral("width"));
 	hist_CprPyth_912->Scale(1.0/hist_CprPyth_912->Integral("width"));
-	hist_HjmPyth_912->Scale(1.0/hist_HjmPyth_912->Integral("width"));
 
 	hist_ThrPyth_161->Scale(1.0/hist_ThrPyth_161->Integral("width"));
 	hist_CprPyth_161->Scale(1.0/hist_CprPyth_161->Integral("width"));
@@ -173,10 +168,12 @@ void ImpactofExp()
 	hist_CprExL3_200->SetStats(kFALSE);
 	hist_CprExAL_200->SetStats(kFALSE);
 
-	hist_HjmPyth_912->SetStats(kFALSE);
-
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////
 // Draw plots
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+	gStyle->SetCanvasPreferGL(true);
+
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 	hist_ThrPyth_912->GetXaxis()->SetLabelSize(0.04);

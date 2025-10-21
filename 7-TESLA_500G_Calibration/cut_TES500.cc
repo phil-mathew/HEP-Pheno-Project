@@ -191,25 +191,25 @@ void applyCuts( const std::string& inputFileName, const std::string& outputFileN
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-	TH1F *hist_nHadron = new TH1F("hist_nHadron", "Charged Hadron Multiplicity", 121, -0.5, 120.5);
+	TH1F *hist_nHadron = new TH1F("hist_nHadron", "Charged Hadron Multiplicity", 60, 1, 121);
 	hist_nHadron->GetXaxis()->SetTitle("N_{Ch}"); hist_nHadron->GetYaxis()->SetTitle("P(N_{Ch})");
 
-	TH1F *hist_nHadron_HZ = new TH1F("hist_nHadron_HZ", "Charged Hadron Multiplicity", 121, -0.5, 120.5);
+	TH1F *hist_nHadron_HZ = new TH1F("hist_nHadron_HZ", "Charged Hadron Multiplicity", 60, 1, 121);
 	hist_nHadron_HZ->GetXaxis()->SetTitle("N_{Ch}"); hist_nHadron_HZ->GetYaxis()->SetTitle("P(N_{Ch})");
 
-	TH1F *hist_nHadron_HW = new TH1F("hist_nHadron_HW", "Charged Hadron Multiplicity", 121, -0.5, 120.5);
+	TH1F *hist_nHadron_HW = new TH1F("hist_nHadron_HW", "Charged Hadron Multiplicity", 60, 1, 121);
 	hist_nHadron_HW->GetXaxis()->SetTitle("N_{Ch}"); hist_nHadron_HW->GetYaxis()->SetTitle("P(N_{Ch})");
 
-	TH1F *hist_nHadron_Zq = new TH1F("hist_nHadron_Zq", "Charged Hadron Multiplicity", 121, -0.5, 120.5);
+	TH1F *hist_nHadron_Zq = new TH1F("hist_nHadron_Zq", "Charged Hadron Multiplicity", 60, 1, 121);
 	hist_nHadron_Zq->GetXaxis()->SetTitle("N_{Ch}"); hist_nHadron_Zq->GetYaxis()->SetTitle("P(N_{Ch})");
 
-	TH1F *hist_nHadron_ZZ = new TH1F("hist_nHadron_ZZ", "Charged Hadron Multiplicity", 121, -0.5, 120.5);
+	TH1F *hist_nHadron_ZZ = new TH1F("hist_nHadron_ZZ", "Charged Hadron Multiplicity", 60, 1, 121);
 	hist_nHadron_ZZ->GetXaxis()->SetTitle("N_{Ch}"); hist_nHadron_ZZ->GetYaxis()->SetTitle("P(N_{Ch})");
 
-	TH1F *hist_nHadron_WW = new TH1F("hist_nHadron_WW", "Charged Hadron Multiplicity", 121, -0.5, 120.5);
+	TH1F *hist_nHadron_WW = new TH1F("hist_nHadron_WW", "Charged Hadron Multiplicity", 60, 1, 121);
 	hist_nHadron_WW->GetXaxis()->SetTitle("N_{Ch}"); hist_nHadron_WW->GetYaxis()->SetTitle("P(N_{Ch})");
 
-	TH1F *hist_nHadron_tt = new TH1F("hist_nHadron_tt", "Charged Hadron Multiplicity", 121, -0.5, 120.5);
+	TH1F *hist_nHadron_tt = new TH1F("hist_nHadron_tt", "Charged Hadron Multiplicity", 60, 1, 121);
 	hist_nHadron_tt->GetXaxis()->SetTitle("N_{Ch}"); hist_nHadron_tt->GetYaxis()->SetTitle("P(N_{Ch})");
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////	
@@ -366,16 +366,20 @@ void applyCuts( const std::string& inputFileName, const std::string& outputFileN
 			// Charged multiplicity
 			if ((*parChg)[jParts]!=0) nCh++;
 
-			// Inclusive spectrum
-			if ((*eveCod)[0] == 221) {
+			// Inclusive spectrums
+			if ((*eveCod)[0] == 221 && (*parChg)[jParts]!=0) {
+				// Access momentums
 				double px = (*parPmx)[jParts], py = (*parPmy)[jParts], pz = (*parPmz)[jParts];
+				// Compute total momentum
 				double q = std::sqrt(px*px + py*py + pz*pz);
 				if ((*parChg)[jParts] != 0 && q > 0.0) {
-					
+					// Compute scaled momentum
 					double xp = 2.0 * q / nEnerg;
-					
+					// Sanity check
 					if (xp > 0.0) {
+						// Compute ξ
 						double zeta = std::log(1.0/xp);
+						// Fill ξ
 						hist_ZetaInc->Fill(zeta);
 					}
 				}		
@@ -574,6 +578,9 @@ int main() {
 	// applyCuts("gen_TES50t_noR.root", "cut_TES50t_noR.root", 500.0);
 	// applyCuts("gen_TES50t_noR_noH.root", "cut_TES50t_noR_noH.root", 500.0);
 	// applyCuts("gen_TES500_noR.root", "cut_TES500_noR.root", 500.0);
+
+	// Test
+	// applyCuts("4-GenData/gen_FCCtest.root", "5-CutData/cut_FCCtest.root", 500.0);
 
 	// Terminate
 	return 0;
