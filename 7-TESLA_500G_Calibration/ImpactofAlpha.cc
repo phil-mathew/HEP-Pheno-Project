@@ -864,12 +864,12 @@ void ImpactofAlpha() {
 	grph_AlphaSS_PyCpr->SetLineColor(kBlue+2); grph_AlphaSS_PyCpr->SetMarkerColor(kBlue+2); grph_AlphaSS_PyCpr->SetMarkerStyle(53); grph_AlphaSS_PyCpr->SetLineWidth(2); grph_AlphaSS_PyCpr->SetMarkerSize(2);
 
 	// Add legend
-	TLegend *lg4 = new TLegend(0.76, 0.78, 0.92, 0.93);
-	lg4->AddEntry(grph_AlphaSS_PyAll, "PYTHIA", "PL");
+	TLegend *lg4 = new TLegend(0.53, 0.75, 0.92, 0.93);
+	lg4->AddEntry(grph_AlphaSS_PyAll, "PYTHIA O(#alpha^{3}_{S})", "PL");
 	// lg4->AddEntry(grph_AlphaSS_PyThr, "PYTHIA (1-T)", "PL");
 	// lg4->AddEntry(grph_AlphaSS_PyCpr, "PYTHIA (C)", "PL");
-	lg4->AddEntry(grph_AlphaSS_ExALP, "ALEPH", "PL");
-	lg4->AddEntry(grph_AlphaSS_ExLL3, "L3", "PL");
+	lg4->AddEntry(grph_AlphaSS_ExALP, "ALEPH O(#alpha^{2}_{S})+NLLA", "PL");
+	lg4->AddEntry(grph_AlphaSS_ExLL3, "L3 O(#alpha^{2}_{S})+NLLA", "PL");
 	lg4->SetTextSize(0.04);
 
 	// Beautify
@@ -895,13 +895,13 @@ void ImpactofAlpha() {
 	grph_AlphaSS_PyAll->Draw("APEL");
 	// grph_AlphaSS_PyThr->Draw("PEL SAME");
 	// grph_AlphaSS_PyCpr->Draw("PEL SAME");
-	grph_AlphaSS_ExALP->Draw("PEL3 SAME");
-	grph_AlphaSS_ExLL3->Draw("PEL3 SAME");
+	grph_AlphaSS_ExALP->Draw("PE SAME");
+	grph_AlphaSS_ExLL3->Draw("PE SAME");
 	lg4->Draw("SAME");
 
 	// Set limits
 	grph_AlphaSS_PyAll->GetYaxis()->SetRangeUser(0.09,0.16);
-	grph_AlphaSS_PyAll->GetXaxis()->SetLimits(0, 425);
+	grph_AlphaSS_PyAll->GetXaxis()->SetLimits(0, 400);
 
 	// Update canvas
 	cv4->Modified();

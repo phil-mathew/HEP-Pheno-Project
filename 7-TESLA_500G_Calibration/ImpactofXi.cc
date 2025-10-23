@@ -122,54 +122,59 @@ void ImpactofXi() {
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-	// // Create canvas
-	// TCanvas* cv3 = new TCanvas("cv3", "FCC-ee ISR Studies", 800, 700);
+	// hist_ZetaInc_912->Scale(1.0/hist_ZetaInc_912->Integral("width"));
+	// hist_ZetaInc_160->Scale(1.0/hist_ZetaInc_160->Integral("width"));
+	// hist_ZetaInc_240->Scale(1.0/hist_ZetaInc_240->Integral("width"));
+	// hist_ZetaInc_365->Scale(1.0/hist_ZetaInc_365->Integral("width"));
 
-	// // Add legend
-	// TLegend *lg3 = new TLegend(0.77, 0.75, 0.95, 0.95);
-	// lg3->AddEntry(hist_ZetaInc_912, "91.2 GeV", "P");
-	// lg3->AddEntry(hist_ZetaInc_160, "160 GeV", "P");
-	// lg3->AddEntry(hist_ZetaInc_240, "240 GeV", "P");
-	// lg3->AddEntry(hist_ZetaInc_365, "365 GeV", "P");
-	// lg3->SetTextSize(0.04);
+	// Create canvas
+	TCanvas* cv3 = new TCanvas("cv3", "FCC-ee ISR Studies", 800, 700);
 
-	// // Beautify
-	// gStyle->SetLabelSize(0.05, "X");
-	// gStyle->SetLabelSize(0.05, "Y");
-	// gStyle->SetTitleSize(0.06, "X");
-	// gStyle->SetTitleSize(0.06, "Y");
-	// cv3->SetMargin(0, 0, 0, 0);
-	// gPad->SetTopMargin(0.025);
-	// gPad->SetBottomMargin(0.12);
-	// gPad->SetLeftMargin(0.12);
-	// gPad->SetRightMargin(0.02);
-	// gPad->SetTickx(); gPad->SetTicky();
+	// Add legend
+	TLegend *lg3 = new TLegend(0.77, 0.75, 0.95, 0.95);
+	lg3->AddEntry(hist_ZetaInc_912, "91.2 GeV", "P");
+	lg3->AddEntry(hist_ZetaInc_160, "160 GeV", "P");
+	lg3->AddEntry(hist_ZetaInc_240, "240 GeV", "P");
+	lg3->AddEntry(hist_ZetaInc_365, "365 GeV", "P");
+	lg3->SetTextSize(0.04);
 
-	// // Beautify
-	// hist_ZetaInc_912->GetXaxis()->SetLabelSize(0.05); hist_ZetaInc_912->GetXaxis()->SetTitleSize(0.05);
-	// hist_ZetaInc_912->GetYaxis()->SetLabelSize(0.05); hist_ZetaInc_912->GetYaxis()->SetTitleSize(0.05);
-	// hist_ZetaInc_912->SetTitle("");
-	// hist_ZetaInc_912->GetYaxis()->SetTitle("F(#xi)");
+	// Beautify
+	gStyle->SetLabelSize(0.05, "X");
+	gStyle->SetLabelSize(0.05, "Y");
+	gStyle->SetTitleSize(0.06, "X");
+	gStyle->SetTitleSize(0.06, "Y");
+	cv3->SetMargin(0, 0, 0, 0);
+	gPad->SetTopMargin(0.025);
+	gPad->SetBottomMargin(0.12);
+	gPad->SetLeftMargin(0.12);
+	gPad->SetRightMargin(0.02);
+	gPad->SetTickx(); gPad->SetTicky();
 
-	// // Draw
-	// hist_ZetaInc_912->Draw("P");
-	// hist_ZetaInc_160->Draw("P SAME");
-	// hist_ZetaInc_240->Draw("P SAME");
-	// hist_ZetaInc_365->Draw("P SAME");
-	// hist_fitZeta_912->Draw("SAME");
-	// hist_fitZeta_160->Draw("SAME");
-	// hist_fitZeta_240->Draw("SAME");
-	// hist_fitZeta_365->Draw("SAME");
-	// lg3->Draw("SAME");
+	// Beautify
+	hist_ZetaInc_912->GetXaxis()->SetLabelSize(0.05); hist_ZetaInc_912->GetXaxis()->SetTitleSize(0.05);
+	hist_ZetaInc_912->GetYaxis()->SetLabelSize(0.05); hist_ZetaInc_912->GetYaxis()->SetTitleSize(0.05);
+	hist_ZetaInc_912->SetTitle("");
+	hist_ZetaInc_912->GetYaxis()->SetTitle("F(#xi)");
 
-	// // Set limits
-	// hist_ZetaInc_912->GetYaxis()->SetRangeUser(0,8);
-	// hist_ZetaInc_912->GetXaxis()->SetRangeUser(0,8);
+	// Draw
+	hist_ZetaInc_912->Draw("P");
+	hist_ZetaInc_160->Draw("P SAME");
+	hist_ZetaInc_240->Draw("P SAME");
+	hist_ZetaInc_365->Draw("P SAME");
+	hist_fitZeta_912->Draw("SAME");
+	hist_fitZeta_160->Draw("SAME");
+	hist_fitZeta_240->Draw("SAME");
+	hist_fitZeta_365->Draw("SAME");
+	lg3->Draw("SAME");
 
-	// // Modify stat-box
-	// gStyle->SetOptStat();
-	// // Update canvas
-	// cv3->Modified();
+	// Set limits
+	hist_ZetaInc_912->GetYaxis()->SetRangeUser(0,8);
+	hist_ZetaInc_912->GetXaxis()->SetRangeUser(0,8);
+
+	// Modify stat-box
+	gStyle->SetOptStat();
+	// Update canvas
+	cv3->Modified();
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -209,7 +214,7 @@ void ImpactofXi() {
 	double yerr_ZetaSta_ExTAS[4] = { hist_fitZeta_014->GetParError(1), hist_fitZeta_022->GetParError(1), hist_fitZeta_035->GetParError(1), hist_fitZeta_044->GetParError(1) };
 	// Construct
 	auto grph_ZetaSta_ExTAS = new TGraphErrors(4, xbin_ZetaSta_ExTAS, ybin_ZetaSta_ExTAS, nullptr, yerr_ZetaSta_ExTAS);
-	grph_ZetaSta_ExTAS->SetLineColor(kYellow+2); grph_ZetaSta_ExTAS->SetMarkerColor(kYellow+2); grph_ZetaSta_ExTAS->SetMarkerStyle(20); grph_ZetaSta_ExTAS->SetLineWidth(2); grph_ZetaSta_ExTAS->SetMarkerSize(1.5);
+	grph_ZetaSta_ExTAS->SetLineColor(kYellow+2); grph_ZetaSta_ExTAS->SetMarkerColor(kYellow+2); grph_ZetaSta_ExTAS->SetMarkerStyle(53); grph_ZetaSta_ExTAS->SetLineWidth(2); grph_ZetaSta_ExTAS->SetMarkerSize(1);
 
 	// Add legend
 	TLegend *lg4 = new TLegend(0.74, 0.18, 0.90, 0.40);
@@ -239,10 +244,10 @@ void ImpactofXi() {
 	grph_ZetaSta_Pythi->GetXaxis()->SetTitle("#sqrt{s} (GeV)");
 
 	// Draw
-	grph_ZetaSta_Pythi->Draw("APL");
-	grph_ZetaSta_ExALP->Draw("PEL SAME");
-	grph_ZetaSta_ExLL3->Draw("PEL SAME");
-	grph_ZetaSta_ExTAS->Draw("PEL SAME");
+	grph_ZetaSta_Pythi->Draw("AP");
+	grph_ZetaSta_ExALP->Draw("PE SAME");
+	grph_ZetaSta_ExLL3->Draw("PE SAME");
+	grph_ZetaSta_ExTAS->Draw("PE SAME");
 	lg4->Draw("SAME");
 
 	// Set limits

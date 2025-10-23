@@ -66,19 +66,19 @@ void ImpactofMults() {
 	hist_nHadron_240_Zq->SetLineColor(kGreen+2); hist_nHadron_240_Zq->SetMarkerColor(kGreen+2); hist_nHadron_240_Zq->SetMarkerStyle(26); hist_nHadron_240_Zq->SetLineWidth(2); hist_nHadron_240_Zq->SetMarkerSize(2);
 
 	TH1F* hist_nHadron_365_al = (TH1F*)input_365->Get("hist_nHadron");
-	hist_nHadron_365_al->SetLineColor(kBlack); hist_nHadron_365_al->SetMarkerColor(kBlack); hist_nHadron_365_al->SetMarkerStyle(3); hist_nHadron_365_al->SetLineWidth(2); hist_nHadron_365_al->SetMarkerSize(1);
+	hist_nHadron_365_al->SetLineColor(kBlack); hist_nHadron_365_al->SetMarkerColor(kBlack); hist_nHadron_365_al->SetMarkerStyle(21); hist_nHadron_365_al->SetLineWidth(2); hist_nHadron_365_al->SetMarkerSize(1);
 	TH1F* hist_nHadron_365_Zq = (TH1F*)input_365->Get("hist_nHadron_Zq");
-	hist_nHadron_365_Zq->SetLineColor(kRed+2); hist_nHadron_365_Zq->SetMarkerColor(kRed+2); hist_nHadron_365_Zq->SetMarkerStyle(3); hist_nHadron_365_Zq->SetLineWidth(2); hist_nHadron_365_Zq->SetMarkerSize(1);
+	hist_nHadron_365_Zq->SetLineColor(kRed+2); hist_nHadron_365_Zq->SetMarkerColor(kRed+1); hist_nHadron_365_Zq->SetMarkerStyle(21); hist_nHadron_365_Zq->SetLineWidth(2); hist_nHadron_365_Zq->SetMarkerSize(1);
 	TH1F* hist_nHadron_365_WW = (TH1F*)input_365->Get("hist_nHadron_WW");
-	hist_nHadron_365_WW->SetLineColor(kGreen+2); hist_nHadron_365_WW->SetMarkerColor(kGreen+2); hist_nHadron_365_WW->SetMarkerStyle(3); hist_nHadron_365_WW->SetLineWidth(2); hist_nHadron_365_WW->SetMarkerSize(1);
+	hist_nHadron_365_WW->SetLineColor(kGreen+2); hist_nHadron_365_WW->SetMarkerColor(kGreen+1); hist_nHadron_365_WW->SetMarkerStyle(21); hist_nHadron_365_WW->SetLineWidth(2); hist_nHadron_365_WW->SetMarkerSize(1);
 	TH1F* hist_nHadron_365_ZZ = (TH1F*)input_365->Get("hist_nHadron_ZZ");
-	hist_nHadron_365_ZZ->SetLineColor(kBlue+2); hist_nHadron_365_ZZ->SetMarkerColor(kBlue+2); hist_nHadron_365_ZZ->SetMarkerStyle(3); hist_nHadron_365_ZZ->SetLineWidth(2); hist_nHadron_365_ZZ->SetMarkerSize(1);
+	hist_nHadron_365_ZZ->SetLineColor(kBlue+2); hist_nHadron_365_ZZ->SetMarkerColor(kBlue+1); hist_nHadron_365_ZZ->SetMarkerStyle(21); hist_nHadron_365_ZZ->SetLineWidth(2); hist_nHadron_365_ZZ->SetMarkerSize(1);
 	TH1F* hist_nHadron_365_tt = (TH1F*)input_365->Get("hist_nHadron_tt");
-	hist_nHadron_365_tt->SetLineColor(kYellow+2); hist_nHadron_365_tt->SetMarkerColor(kYellow+2); hist_nHadron_365_tt->SetMarkerStyle(3); hist_nHadron_365_tt->SetLineWidth(2); hist_nHadron_365_tt->SetMarkerSize(1);
+	hist_nHadron_365_tt->SetLineColor(kYellow+2); hist_nHadron_365_tt->SetMarkerColor(kYellow+1); hist_nHadron_365_tt->SetMarkerStyle(21); hist_nHadron_365_tt->SetLineWidth(2); hist_nHadron_365_tt->SetMarkerSize(1);
 	TH1F* hist_nHadron_365_HZ = (TH1F*)input_365->Get("hist_nHadron_HZ");
-	hist_nHadron_365_HZ->SetLineColor(kMagenta+2); hist_nHadron_365_HZ->SetMarkerColor(kMagenta+2); hist_nHadron_365_HZ->SetMarkerStyle(53); hist_nHadron_365_HZ->SetLineWidth(2); hist_nHadron_365_HZ->SetMarkerSize(1);
+	hist_nHadron_365_HZ->SetLineColor(kMagenta+2); hist_nHadron_365_HZ->SetMarkerColor(kMagenta+1); hist_nHadron_365_HZ->SetMarkerStyle(21); hist_nHadron_365_HZ->SetLineWidth(2); hist_nHadron_365_HZ->SetMarkerSize(1);
 	TH1F* hist_nHadron_365_HW = (TH1F*)input_365->Get("hist_nHadron_HW");
-	hist_nHadron_365_HW->SetLineColor(kCyan+2); hist_nHadron_365_HW->SetMarkerColor(kCyan+2); hist_nHadron_365_HW->SetMarkerStyle(53); hist_nHadron_365_HW->SetLineWidth(2); hist_nHadron_365_HW->SetMarkerSize(1);
+	hist_nHadron_365_HW->SetLineColor(kCyan+2); hist_nHadron_365_HW->SetMarkerColor(kCyan+1); hist_nHadron_365_HW->SetMarkerStyle(21); hist_nHadron_365_HW->SetLineWidth(2); hist_nHadron_365_HW->SetMarkerSize(1);
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////
 // Disable histogram stats
@@ -160,58 +160,66 @@ void ImpactofMults() {
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-	// // Create canvas
-	// TCanvas* cv2 = new TCanvas("cv2", "FCC-ee ISR Studies", 800, 700);
+	// Create canvas
+	TCanvas* cv2 = new TCanvas("cv2", "FCC-ee ISR Studies", 800, 700);
 
-	// // Add legend
-	// TLegend* lg2 = new TLegend(0.77, 0.64, 0.95, 0.95);
-	// lg2->AddEntry(hist_nHadron_365_al, "ee#rightarrowq#bar{q}", "L");
-	// lg2->AddEntry(hist_nHadron_365_Zq, "ee#rightarrow#gamma*/Z", "L");
-	// lg2->AddEntry(hist_nHadron_365_ZZ, "ee#rightarrowWW", "L");
-	// lg2->AddEntry(hist_nHadron_365_WW, "ee#rightarrowZZ", "L");
-	// lg2->AddEntry(hist_nHadron_365_tt, "ee#rightarrowt#bar{t}", "L");
-	// lg2->AddEntry(hist_nHadron_365_HZ, "ee#rightarrowZH", "L");
-	// lg2->AddEntry(hist_nHadron_365_HW, "ee#rightarrow#nu#bar{#nu}H", "L");
-	// lg2->SetTextSize(0.04);
+	// Add legend
+	TLegend* lg2 = new TLegend(0.75, 0.64, 0.92, 0.95);
+	lg2->AddEntry(hist_nHadron_365_al, "ee#rightarrowq#bar{q}", "P");
+	lg2->AddEntry(hist_nHadron_365_Zq, "ee#rightarrow#gamma/Z", "P");
+	lg2->AddEntry(hist_nHadron_365_ZZ, "ee#rightarrowZZ", "P");
+	lg2->AddEntry(hist_nHadron_365_WW, "ee#rightarrowWW", "P");
+	lg2->AddEntry(hist_nHadron_365_tt, "ee#rightarrowt#bar{t}", "P");
+	lg2->AddEntry(hist_nHadron_365_HZ, "ee#rightarrowZH", "P");
+	lg2->AddEntry(hist_nHadron_365_HW, "ee#rightarrow#nu#bar{#nu}H", "P");
+	lg2->SetTextSize(0.04);
 
-	// // Beautify
-	// gStyle->SetLabelSize(0.05, "X");
-	// gStyle->SetLabelSize(0.05, "Y");
-	// gStyle->SetTitleSize(0.06, "X");
-	// gStyle->SetTitleSize(0.06, "Y");
-	// cv2->SetMargin(0, 0, 0, 0); 
-	// gPad->SetTopMargin(0.025);
-	// gPad->SetBottomMargin(0.12);
-	// gPad->SetLeftMargin(0.12);
-	// gPad->SetRightMargin(0.02);
-	// gPad->SetTickx(); gPad->SetTicky();
-	// gPad->SetLogy();
+	// Beautify
+	gStyle->SetLabelSize(0.05, "X");
+	gStyle->SetLabelSize(0.05, "Y");
+	gStyle->SetTitleSize(0.06, "X");
+	gStyle->SetTitleSize(0.06, "Y");
+	cv2->SetMargin(0, 0, 0, 0); 
+	gPad->SetTopMargin(0.025);
+	gPad->SetBottomMargin(0.12);
+	gPad->SetLeftMargin(0.12);
+	gPad->SetRightMargin(0.04);
+	gPad->SetTickx(); gPad->SetTicky();
+	gPad->SetLogy();
 
-	// // Beautify
-	// hist_nHadron_365_al->GetXaxis()->SetLabelSize(0.05); hist_nHadron_365_al->GetXaxis()->SetTitleSize(0.05);
-	// hist_nHadron_365_al->GetYaxis()->SetLabelSize(0.05); hist_nHadron_365_al->GetYaxis()->SetTitleSize(0.05);
-	// hist_nHadron_365_al->SetTitle("");
-	// hist_nHadron_365_al->GetYaxis()->SetTitle("#");
+	// Beautify
+	hist_nHadron_365_al->GetXaxis()->SetLabelSize(0.05); hist_nHadron_365_al->GetXaxis()->SetTitleSize(0.05);
+	hist_nHadron_365_al->GetYaxis()->SetLabelSize(0.05); hist_nHadron_365_al->GetYaxis()->SetTitleSize(0.05);
+	hist_nHadron_365_al->SetTitle("");
+	hist_nHadron_365_al->GetYaxis()->SetTitle("#");
 
-	// // Draw
-	// hist_nHadron_365_al->Draw("HIST");
-	// hist_nHadron_365_Zq->Draw("HIST SAME");
-	// hist_nHadron_365_ZZ->Draw("HIST SAME");
-	// hist_nHadron_365_WW->Draw("HIST SAME");
-	// hist_nHadron_365_tt->Draw("HIST SAME");
-	// hist_nHadron_365_HZ->Draw("HIST SAME");
-	// hist_nHadron_365_HW->Draw("HIST SAME");
+	hist_nHadron_365_al->SetFillStyle(3001); hist_nHadron_365_al->SetFillColor(kBlack); 
+	hist_nHadron_365_Zq->SetFillStyle(3001); hist_nHadron_365_Zq->SetFillColor(kRed);
+	hist_nHadron_365_WW->SetFillStyle(3001); hist_nHadron_365_WW->SetFillColor(kGreen); 
+	hist_nHadron_365_ZZ->SetFillStyle(3001); hist_nHadron_365_ZZ->SetFillColor(kBlue); 
+	hist_nHadron_365_tt->SetFillStyle(3001); hist_nHadron_365_tt->SetFillColor(kYellow); 
+	hist_nHadron_365_HZ->SetFillStyle(3001); hist_nHadron_365_HZ->SetFillColor(kMagenta+1); 
+	hist_nHadron_365_HW->SetFillStyle(3001); hist_nHadron_365_HW->SetFillColor(kCyan+1); 
 
-	// lg2->Draw("SAME");
+	// Draw
+	hist_nHadron_365_al->Draw("HIST");
+	hist_nHadron_365_Zq->Draw("HIST SAME");
+	hist_nHadron_365_WW->Draw("HIST SAME");
+	hist_nHadron_365_ZZ->Draw("HIST SAME");
+	hist_nHadron_365_tt->Draw("HIST SAME");
+	hist_nHadron_365_HZ->Draw("HIST SAME");
+	hist_nHadron_365_HW->Draw("HIST SAME");
 
-	// // Set limits
-	// hist_nHadron_365_al->GetYaxis()->SetRangeUser(1,2E5);
-	// hist_nHadron_365_al->GetXaxis()->SetRangeUser(0,120);
+	lg2->Draw("SAME");
 
-	// // Modify stat-box
-	// gStyle->SetOptStat();
-	// // Update canvas
-	// cv2->Modified();
+	// Set limits
+	hist_nHadron_365_al->GetYaxis()->SetRangeUser(2,1E6);
+	hist_nHadron_365_al->GetXaxis()->SetRangeUser(0,120);
+
+	// Modify stat-box
+	gStyle->SetOptStat();
+	// Update canvas
+	cv2->Modified();
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -288,11 +296,11 @@ void ImpactofMults() {
 	grph_nHadAvg_Pythi->GetXaxis()->SetTitle("#sqrt{s} (GeV)");
 
 	// Draw
-	grph_nHadAvg_Pythi->Draw("APL");
-	grph_nHadAvg_ExALP->Draw("PEL SAME");
-	grph_nHadAvg_ExLL3->Draw("PEL SAME");
-	grph_ZetaSta_ExAMY->Draw("PEL SAME");
-	grph_ZetaSta_ExTAS->Draw("PEL SAME");
+	grph_nHadAvg_Pythi->Draw("AP");
+	grph_nHadAvg_ExALP->Draw("PE SAME");
+	grph_nHadAvg_ExLL3->Draw("PE SAME");
+	grph_ZetaSta_ExAMY->Draw("PE SAME");
+	grph_ZetaSta_ExTAS->Draw("PE SAME");
 	lg4->Draw("SAME");
 
 	// Set limits
