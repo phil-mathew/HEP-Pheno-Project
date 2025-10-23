@@ -39,8 +39,7 @@ TGraphAsymmErrors* HistToGraph(const TH1* h, bool skipEmpty=false) {
 }
 
 // Code
-void ImpactofXi()
-{
+void ImpactofXi() {
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////
 // Reading ROOTS
@@ -49,6 +48,7 @@ void ImpactofXi()
 	TFile *input_EXPDATA = TFile::Open("3-LEPdata/EXPDATA.root");
 	TFile *input_EXP_ALP = TFile::Open("3-LEPdata/EXP_ALP.root");
 	TFile *input_EXP_LL3 = TFile::Open("3-LEPdata/EXP_LL3.root");
+	TFile *input_EXP_TAS = TFile::Open("3-LEPdata/EXP_TAS.root");
 
 	TFile *input_912 = new TFile("5-CutData/cut_FCC912.root", "READ");
 	TFile *input_160 = new TFile("5-CutData/cut_FCC160.root", "READ");
@@ -67,6 +67,12 @@ void ImpactofXi()
 	hist_ZetaInc_240->SetLineColor(kYellow+2); hist_ZetaInc_240->SetMarkerColor(kYellow+2); hist_ZetaInc_240->SetMarkerStyle(53); hist_ZetaInc_240->SetLineWidth(2); hist_ZetaInc_240->SetMarkerSize(1);
 	TH1F *hist_ZetaInc_365 = (TH1F*)input_365->Get("hist_ZetaInc");
 	hist_ZetaInc_365->SetLineColor(kGreen+2); hist_ZetaInc_365->SetMarkerColor(kGreen+2); hist_ZetaInc_365->SetMarkerStyle(53); hist_ZetaInc_365->SetLineWidth(2); hist_ZetaInc_365->SetMarkerSize(1);
+
+	TDirectory *table_EXP_TAS = (TDirectory*)input_EXP_TAS->Get("Table 4");
+	TGraphAsymmErrors* grph_ZetaInc_014 = (TGraphAsymmErrors*)table_EXP_TAS->Get("Graph1D_y1");
+	TGraphAsymmErrors* grph_ZetaInc_022 = (TGraphAsymmErrors*)table_EXP_TAS->Get("Graph1D_y2");
+	TGraphAsymmErrors* grph_ZetaInc_035 = (TGraphAsymmErrors*)table_EXP_TAS->Get("Graph1D_y3");
+	TGraphAsymmErrors* grph_ZetaInc_044 = (TGraphAsymmErrors*)table_EXP_TAS->Get("Graph1D_y4");
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////
 // Disable histogram stats
@@ -95,6 +101,20 @@ void ImpactofXi()
 	hist_ZetaInc_365->Fit(hist_fitZeta_365, "RNQ MINOS");
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+	TF1 *hist_fitZeta_014 = new TF1("hist_fitZeta_014", "gaus", 1.0, 3.5);
+	grph_ZetaInc_014->Fit(hist_fitZeta_014, "RNQ MINOS");
+
+	TF1 *hist_fitZeta_022 = new TF1("hist_fitZeta_022", "gaus", 1.0, 4.0);
+	grph_ZetaInc_022->Fit(hist_fitZeta_022, "RNQ MINOS");
+
+	TF1 *hist_fitZeta_035 = new TF1("hist_fitZeta_035", "gaus", 1.0, 4.0);
+	grph_ZetaInc_035->Fit(hist_fitZeta_035, "RNQ MINOS");
+
+	TF1 *hist_fitZeta_044 = new TF1("hist_fitZeta_044", "gaus", 1.0, 4.0);
+	grph_ZetaInc_044->Fit(hist_fitZeta_044, "RNQ MINOS");
+
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////
 // Draw plots
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -102,54 +122,54 @@ void ImpactofXi()
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-	// Create canvas
-	TCanvas* cv3 = new TCanvas("cv3", "FCC-ee ISR Studies", 800, 700);
+	// // Create canvas
+	// TCanvas* cv3 = new TCanvas("cv3", "FCC-ee ISR Studies", 800, 700);
 
-	// Add legend
-	TLegend *lg3 = new TLegend(0.77, 0.75, 0.95, 0.95);
-	lg3->AddEntry(hist_ZetaInc_912, "91.2 GeV", "P");
-	lg3->AddEntry(hist_ZetaInc_160, "160 GeV", "P");
-	lg3->AddEntry(hist_ZetaInc_240, "240 GeV", "P");
-	lg3->AddEntry(hist_ZetaInc_365, "365 GeV", "P");
-	lg3->SetTextSize(0.04);
+	// // Add legend
+	// TLegend *lg3 = new TLegend(0.77, 0.75, 0.95, 0.95);
+	// lg3->AddEntry(hist_ZetaInc_912, "91.2 GeV", "P");
+	// lg3->AddEntry(hist_ZetaInc_160, "160 GeV", "P");
+	// lg3->AddEntry(hist_ZetaInc_240, "240 GeV", "P");
+	// lg3->AddEntry(hist_ZetaInc_365, "365 GeV", "P");
+	// lg3->SetTextSize(0.04);
 
-	// Beautify
-	gStyle->SetLabelSize(0.05, "X");
-	gStyle->SetLabelSize(0.05, "Y");
-	gStyle->SetTitleSize(0.06, "X");
-	gStyle->SetTitleSize(0.06, "Y");
-	cv3->SetMargin(0, 0, 0, 0);
-	gPad->SetTopMargin(0.025);
-	gPad->SetBottomMargin(0.12);
-	gPad->SetLeftMargin(0.12);
-	gPad->SetRightMargin(0.02);
-	gPad->SetTickx(); gPad->SetTicky();
+	// // Beautify
+	// gStyle->SetLabelSize(0.05, "X");
+	// gStyle->SetLabelSize(0.05, "Y");
+	// gStyle->SetTitleSize(0.06, "X");
+	// gStyle->SetTitleSize(0.06, "Y");
+	// cv3->SetMargin(0, 0, 0, 0);
+	// gPad->SetTopMargin(0.025);
+	// gPad->SetBottomMargin(0.12);
+	// gPad->SetLeftMargin(0.12);
+	// gPad->SetRightMargin(0.02);
+	// gPad->SetTickx(); gPad->SetTicky();
 
-	// Beautify
-	hist_ZetaInc_912->GetXaxis()->SetLabelSize(0.05); hist_ZetaInc_912->GetXaxis()->SetTitleSize(0.05);
-	hist_ZetaInc_912->GetYaxis()->SetLabelSize(0.05); hist_ZetaInc_912->GetYaxis()->SetTitleSize(0.05);
-	hist_ZetaInc_912->SetTitle("");
-	hist_ZetaInc_912->GetYaxis()->SetTitle("F(#xi)");
+	// // Beautify
+	// hist_ZetaInc_912->GetXaxis()->SetLabelSize(0.05); hist_ZetaInc_912->GetXaxis()->SetTitleSize(0.05);
+	// hist_ZetaInc_912->GetYaxis()->SetLabelSize(0.05); hist_ZetaInc_912->GetYaxis()->SetTitleSize(0.05);
+	// hist_ZetaInc_912->SetTitle("");
+	// hist_ZetaInc_912->GetYaxis()->SetTitle("F(#xi)");
 
-	// Draw
-	hist_ZetaInc_912->Draw("P");
-	hist_ZetaInc_160->Draw("P SAME");
-	hist_ZetaInc_240->Draw("P SAME");
-	hist_ZetaInc_365->Draw("P SAME");
-	hist_fitZeta_912->Draw("SAME");
-	hist_fitZeta_160->Draw("SAME");
-	hist_fitZeta_240->Draw("SAME");
-	hist_fitZeta_365->Draw("SAME");
-	lg3->Draw("SAME");
+	// // Draw
+	// hist_ZetaInc_912->Draw("P");
+	// hist_ZetaInc_160->Draw("P SAME");
+	// hist_ZetaInc_240->Draw("P SAME");
+	// hist_ZetaInc_365->Draw("P SAME");
+	// hist_fitZeta_912->Draw("SAME");
+	// hist_fitZeta_160->Draw("SAME");
+	// hist_fitZeta_240->Draw("SAME");
+	// hist_fitZeta_365->Draw("SAME");
+	// lg3->Draw("SAME");
 
-	// Set limits
-	hist_ZetaInc_912->GetYaxis()->SetRangeUser(0,8);
-	hist_ZetaInc_912->GetXaxis()->SetRangeUser(0,8);
+	// // Set limits
+	// hist_ZetaInc_912->GetYaxis()->SetRangeUser(0,8);
+	// hist_ZetaInc_912->GetXaxis()->SetRangeUser(0,8);
 
-	// Modify stat-box
-	gStyle->SetOptStat();
-	// Update canvas
-	cv3->Modified();
+	// // Modify stat-box
+	// gStyle->SetOptStat();
+	// // Update canvas
+	// cv3->Modified();
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -183,11 +203,20 @@ void ImpactofXi()
 	auto grph_ZetaSta_ExLL3 = new TGraphErrors(10, xbin_ZetaSta_ExLL3, ybin_ZetaSta_ExLL3, nullptr, yerr_ZetaSta_ExLL3);
 	grph_ZetaSta_ExLL3->SetLineColor(kRed+2); grph_ZetaSta_ExLL3->SetMarkerColor(kRed+2); grph_ZetaSta_ExLL3->SetMarkerStyle(53); grph_ZetaSta_ExLL3->SetLineWidth(2); grph_ZetaSta_ExLL3->SetMarkerSize(1);
 
+	// TASSO graph
+	double xbin_ZetaSta_ExTAS[4] = { 14.0, 22.0, 35.0, 44.0 };
+	double ybin_ZetaSta_ExTAS[4] = { hist_fitZeta_014->GetParameter(1), hist_fitZeta_022->GetParameter(1), hist_fitZeta_035->GetParameter(1), hist_fitZeta_044->GetParameter(1)	};
+	double yerr_ZetaSta_ExTAS[4] = { hist_fitZeta_014->GetParError(1), hist_fitZeta_022->GetParError(1), hist_fitZeta_035->GetParError(1), hist_fitZeta_044->GetParError(1) };
+	// Construct
+	auto grph_ZetaSta_ExTAS = new TGraphErrors(4, xbin_ZetaSta_ExTAS, ybin_ZetaSta_ExTAS, nullptr, yerr_ZetaSta_ExTAS);
+	grph_ZetaSta_ExTAS->SetLineColor(kYellow+2); grph_ZetaSta_ExTAS->SetMarkerColor(kYellow+2); grph_ZetaSta_ExTAS->SetMarkerStyle(20); grph_ZetaSta_ExTAS->SetLineWidth(2); grph_ZetaSta_ExTAS->SetMarkerSize(1.5);
+
 	// Add legend
-	TLegend *lg4 = new TLegend(0.16, 0.78, 0.32, 0.93);
+	TLegend *lg4 = new TLegend(0.74, 0.18, 0.90, 0.40);
 	lg4->AddEntry(grph_ZetaSta_Pythi, "PYTHIA", "PL");
 	lg4->AddEntry(grph_ZetaSta_ExALP, "ALEPH", "PL");
 	lg4->AddEntry(grph_ZetaSta_ExLL3, "L3", "PL");
+	lg4->AddEntry(grph_ZetaSta_ExTAS, "TASSO", "PL");
 	lg4->SetTextSize(0.04);
 
 	// Beautify
@@ -199,7 +228,7 @@ void ImpactofXi()
 	gPad->SetTopMargin(0.025);
 	gPad->SetBottomMargin(0.12);
 	gPad->SetLeftMargin(0.14);
-	gPad->SetRightMargin(0.02);
+	gPad->SetRightMargin(0.05);
 	gPad->SetTickx(); gPad->SetTicky();
 
 	// Beautify
@@ -213,11 +242,12 @@ void ImpactofXi()
 	grph_ZetaSta_Pythi->Draw("APL");
 	grph_ZetaSta_ExALP->Draw("PEL SAME");
 	grph_ZetaSta_ExLL3->Draw("PEL SAME");
+	grph_ZetaSta_ExTAS->Draw("PEL SAME");
 	lg4->Draw("SAME");
 
 	// Set limits
 	grph_ZetaSta_Pythi->GetYaxis()->SetRangeUser(2,5);
-	grph_ZetaSta_Pythi->GetXaxis()->SetLimits(0, 425);
+	grph_ZetaSta_Pythi->GetXaxis()->SetLimits(0, 400);
 
 	// Update canvas
 	cv5->Modified();

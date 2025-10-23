@@ -552,7 +552,7 @@ int main() {
 	
 	// Hadronic cuts
 	// applyCuts("4-GenData/gen_FCC365.root", "5-CutData/cut_FCC365_wiCut.root", 365.0);
-
+	
 	// ISR
 	// applyCuts("4-GenData/gen_FCC500_ISR.root", "5-CutData/cut_FCC500_ISR.root", 500.0);
 	// applyCuts("4-GenData/gen_FCC365_ISR.root", "5-CutData/cut_FCC365_ISR.root", 365.0);
