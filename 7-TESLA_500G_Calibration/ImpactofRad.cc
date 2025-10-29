@@ -127,44 +127,44 @@ void ImpactofRad() {
 	TH1F *hist_ThrPyth_912_000 = (TH1F*)input_912_wiISR->Get("hist_ThrPyth_000");
 	hist_ThrPyth_912_000->SetLineColor(kBlack); hist_ThrPyth_912_000->SetMarkerColor(kBlack); hist_ThrPyth_912_000->SetMarkerStyle(kStar); hist_ThrPyth_912_000->SetLineWidth(2); 
 	TH1F *hist_ThrPyth_912_100 = (TH1F*)input_912_woISR->Get("hist_ThrPyth_100");
-	hist_ThrPyth_912_100->SetLineColor(kRed+1); hist_ThrPyth_912_100->SetMarkerColor(kRed+1); hist_ThrPyth_912_100->SetMarkerStyle(kStar); hist_ThrPyth_912_100->SetLineWidth(2); 
+	hist_ThrPyth_912_100->SetLineColor(kRed+1); hist_ThrPyth_912_100->SetMarkerColor(kRed+1); hist_ThrPyth_912_100->SetMarkerStyle(53); hist_ThrPyth_912_100->SetLineWidth(2); 
 
 	TH1F *hist_ThrPyth_160_000 = (TH1F*)input_160_wiISR->Get("hist_ThrPyth_000");
 	hist_ThrPyth_160_000->SetLineColor(kBlack); hist_ThrPyth_160_000->SetMarkerColor(kBlack); hist_ThrPyth_160_000->SetMarkerStyle(kStar); hist_ThrPyth_160_000->SetLineWidth(2); 	
 	TH1F *hist_ThrPyth_160_100 = (TH1F*)input_160_woISR->Get("hist_ThrPyth_100");
-	hist_ThrPyth_160_100->SetLineColor(kRed+1); hist_ThrPyth_160_100->SetMarkerColor(kRed+1); hist_ThrPyth_160_100->SetMarkerStyle(kStar); hist_ThrPyth_160_100->SetLineWidth(2); 
+	hist_ThrPyth_160_100->SetLineColor(kRed+1); hist_ThrPyth_160_100->SetMarkerColor(kRed+1); hist_ThrPyth_160_100->SetMarkerStyle(53); hist_ThrPyth_160_100->SetLineWidth(2); 
 
 	TH1F *hist_ThrPyth_240_000 = (TH1F*)input_240_wiISR->Get("hist_ThrPyth_000");
 	hist_ThrPyth_240_000->SetLineColor(kBlack); hist_ThrPyth_240_000->SetMarkerColor(kBlack); hist_ThrPyth_240_000->SetMarkerStyle(kStar); hist_ThrPyth_240_000->SetLineWidth(2); 
 	TH1F *hist_ThrPyth_240_100 = (TH1F*)input_240_woISR->Get("hist_ThrPyth_100");
-	hist_ThrPyth_240_100->SetLineColor(kRed+1); hist_ThrPyth_240_100->SetMarkerColor(kRed+1); hist_ThrPyth_240_100->SetMarkerStyle(kStar); hist_ThrPyth_240_100->SetLineWidth(2); 
+	hist_ThrPyth_240_100->SetLineColor(kRed+1); hist_ThrPyth_240_100->SetMarkerColor(kRed+1); hist_ThrPyth_240_100->SetMarkerStyle(53); hist_ThrPyth_240_100->SetLineWidth(2); 
 
 	TH1F *hist_ThrPyth_365_000 = (TH1F*)input_365_wiISR->Get("hist_ThrPyth_000");
 	hist_ThrPyth_365_000->SetLineColor(kBlack); hist_ThrPyth_365_000->SetMarkerColor(kBlack); hist_ThrPyth_365_000->SetMarkerStyle(kStar); hist_ThrPyth_365_000->SetLineWidth(2); 
 	TH1F *hist_ThrPyth_365_100 = (TH1F*)input_365_woISR->Get("hist_ThrPyth_100");
-	hist_ThrPyth_365_100->SetLineColor(kRed+1); hist_ThrPyth_365_100->SetMarkerColor(kRed+1); hist_ThrPyth_365_100->SetMarkerStyle(kStar); hist_ThrPyth_365_100->SetLineWidth(2); 
+	hist_ThrPyth_365_100->SetLineColor(kRed+1); hist_ThrPyth_365_100->SetMarkerColor(kRed+1); hist_ThrPyth_365_100->SetMarkerStyle(53); hist_ThrPyth_365_100->SetLineWidth(2); 
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 	TH1F *hist_CprPyth_912_000 = (TH1F*)input_912_wiISR->Get("hist_CprPyth_000");
 	hist_CprPyth_912_000->SetLineColor(kBlack); hist_CprPyth_912_000->SetMarkerColor(kBlack); hist_CprPyth_912_000->SetMarkerStyle(kStar); hist_CprPyth_912_000->SetLineWidth(2); 
 	TH1F *hist_CprPyth_912_100 = (TH1F*)input_912_woISR->Get("hist_CprPyth_100");
-	hist_CprPyth_912_100->SetLineColor(kRed+1); hist_CprPyth_912_100->SetMarkerColor(kRed+1); hist_CprPyth_912_100->SetMarkerStyle(kStar); hist_CprPyth_912_100->SetLineWidth(2); 
+	hist_CprPyth_912_100->SetLineColor(kRed+1); hist_CprPyth_912_100->SetMarkerColor(kRed+1); hist_CprPyth_912_100->SetMarkerStyle(53); hist_CprPyth_912_100->SetLineWidth(2); 
 
 	TH1F *hist_CprPyth_160_000 = (TH1F*)input_160_wiISR->Get("hist_CprPyth_000");
 	hist_CprPyth_160_000->SetLineColor(kBlack); hist_CprPyth_160_000->SetMarkerColor(kBlack); hist_CprPyth_160_000->SetMarkerStyle(kStar); hist_CprPyth_160_000->SetLineWidth(2); 	
 	TH1F *hist_CprPyth_160_100 = (TH1F*)input_160_woISR->Get("hist_CprPyth_100");
-	hist_CprPyth_160_100->SetLineColor(kRed+1); hist_CprPyth_160_100->SetMarkerColor(kRed+1); hist_CprPyth_160_100->SetMarkerStyle(kStar); hist_CprPyth_160_100->SetLineWidth(2); 
+	hist_CprPyth_160_100->SetLineColor(kRed+1); hist_CprPyth_160_100->SetMarkerColor(kRed+1); hist_CprPyth_160_100->SetMarkerStyle(53); hist_CprPyth_160_100->SetLineWidth(2); 
 
 	TH1F *hist_CprPyth_240_000 = (TH1F*)input_240_wiISR->Get("hist_CprPyth_000");
 	hist_CprPyth_240_000->SetLineColor(kBlack); hist_CprPyth_240_000->SetMarkerColor(kBlack); hist_CprPyth_240_000->SetMarkerStyle(kStar); hist_CprPyth_240_000->SetLineWidth(2); 
 	TH1F *hist_CprPyth_240_100 = (TH1F*)input_240_woISR->Get("hist_CprPyth_100");
-	hist_CprPyth_240_100->SetLineColor(kRed+1); hist_CprPyth_240_100->SetMarkerColor(kRed+1); hist_CprPyth_240_100->SetMarkerStyle(kStar); hist_CprPyth_240_100->SetLineWidth(2); 
+	hist_CprPyth_240_100->SetLineColor(kRed+1); hist_CprPyth_240_100->SetMarkerColor(kRed+1); hist_CprPyth_240_100->SetMarkerStyle(53); hist_CprPyth_240_100->SetLineWidth(2); 
 
 	TH1F *hist_CprPyth_365_000 = (TH1F*)input_365_wiISR->Get("hist_CprPyth_000");
 	hist_CprPyth_365_000->SetLineColor(kBlack); hist_CprPyth_365_000->SetMarkerColor(kBlack); hist_CprPyth_365_000->SetMarkerStyle(kStar); hist_CprPyth_365_000->SetLineWidth(2); 
 	TH1F *hist_CprPyth_365_100 = (TH1F*)input_365_woISR->Get("hist_CprPyth_100");
-	hist_CprPyth_365_100->SetLineColor(kRed+1); hist_CprPyth_365_100->SetMarkerColor(kRed+1); hist_CprPyth_365_100->SetMarkerStyle(kStar); hist_CprPyth_365_100->SetLineWidth(2); 	
+	hist_CprPyth_365_100->SetLineColor(kRed+1); hist_CprPyth_365_100->SetMarkerColor(kRed+1); hist_CprPyth_365_100->SetMarkerStyle(53); hist_CprPyth_365_100->SetLineWidth(2); 	
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -303,12 +303,12 @@ void ImpactofRad() {
 	// hist_CprPyth_365_000->GetYaxis()->SetTitle("#");
 
 	// Create canvas
-	TCanvas* cv2 = new TCanvas("cv2", "FCC-ee ISR Studies", 1000, 2600);
+	TCanvas* cv2 = new TCanvas("cv2", "FCC-ee ISR Studies", 950, 1600);
 
 	// Add legend
-	TLegend* lg2 = new TLegend(0.68, 0.87, 0.91, 0.94);
-	lg2->AddEntry(hist_ThrPyth_912_000, "ee(#gamma)#rightarrow#gamma*/Z", "L");
-	lg2->AddEntry(hist_ThrPyth_912_100, "ee#rightarrow#gamma*/Z", "L");
+	TLegend* lg2 = new TLegend(0.75, 0.85, 0.92, 0.95);
+	lg2->AddEntry(hist_ThrPyth_912_000, "ee(#gamma)#rightarrow#gamma/Z", "L");
+	lg2->AddEntry(hist_ThrPyth_912_100, "ee#rightarrow#gamma/Z", "L");
 	lg2->SetTextSize(0.035);
 
 	// Beautify
@@ -429,9 +429,9 @@ void ImpactofRad() {
 
 	// Set limits
 	hist_ThrPyth_912_000->GetYaxis()->SetRangeUser(1E-3,1E12);
-	hist_ThrPyth_912_000->GetXaxis()->SetRangeUser(0,0.4);
+	hist_ThrPyth_912_000->GetXaxis()->SetRangeUser(0,0.39);
 	hist_CprPyth_912_000->GetYaxis()->SetRangeUser(1E-3,1E12);
-	hist_CprPyth_912_000->GetXaxis()->SetRangeUser(0,1.0);	
+	hist_CprPyth_912_000->GetXaxis()->SetRangeUser(0,0.90);	
 
 	// Modify stat-box
 	gStyle->SetOptStat();

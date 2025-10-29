@@ -128,10 +128,10 @@ void ImpactofXi() {
 	// hist_ZetaInc_365->Scale(1.0/hist_ZetaInc_365->Integral("width"));
 
 	// Create canvas
-	TCanvas* cv3 = new TCanvas("cv3", "FCC-ee ISR Studies", 800, 700);
+	TCanvas* cv3 = new TCanvas("cv3", "FCC-ee ISR Studies", 800, 600);
 
 	// Add legend
-	TLegend *lg3 = new TLegend(0.77, 0.75, 0.95, 0.95);
+	TLegend *lg3 = new TLegend(0.80, 0.75, 0.95, 0.95);
 	lg3->AddEntry(hist_ZetaInc_912, "91.2 GeV", "P");
 	lg3->AddEntry(hist_ZetaInc_160, "160 GeV", "P");
 	lg3->AddEntry(hist_ZetaInc_240, "240 GeV", "P");
@@ -179,7 +179,7 @@ void ImpactofXi() {
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 	// Create canvas
-	TCanvas* cv5 = new TCanvas("cv5", "FCC-ee ISR Studies", 800, 700);
+	TCanvas* cv5 = new TCanvas("cv5", "FCC-ee ISR Studies", 800, 600);
 
 	// Import aleph
 	TDirectory *table_EXP_ALP_ZET = (TDirectory*)input_EXP_ALP->Get("Table 10");
@@ -217,7 +217,7 @@ void ImpactofXi() {
 	grph_ZetaSta_ExTAS->SetLineColor(kYellow+2); grph_ZetaSta_ExTAS->SetMarkerColor(kYellow+2); grph_ZetaSta_ExTAS->SetMarkerStyle(53); grph_ZetaSta_ExTAS->SetLineWidth(2); grph_ZetaSta_ExTAS->SetMarkerSize(1);
 
 	// Add legend
-	TLegend *lg4 = new TLegend(0.74, 0.18, 0.90, 0.40);
+	TLegend *lg4 = new TLegend(0.77, 0.18, 0.90, 0.40);
 	lg4->AddEntry(grph_ZetaSta_Pythi, "PYTHIA", "PL");
 	lg4->AddEntry(grph_ZetaSta_ExALP, "ALEPH", "PL");
 	lg4->AddEntry(grph_ZetaSta_ExLL3, "L3", "PL");

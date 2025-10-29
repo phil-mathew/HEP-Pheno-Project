@@ -38,134 +38,98 @@ void ImpactofHad() {
 // Reading ROOTS
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-	TFile* input_365_woCut = new TFile("5-CutData/cut_FCC365.root", "READ");
-	TFile* input_365_wiCut = new TFile("5-CutData/cut_FCC365_wiCut.root", "READ");
+	TFile *input_912 = new TFile("5-CutData/cut_FCC912.root", "READ");
+	TFile *input_160 = new TFile("5-CutData/cut_FCC160.root", "READ");
+	TFile *input_240 = new TFile("5-CutData/cut_FCC240.root", "READ");
+	TFile *input_365 = new TFile("5-CutData/cut_FCC365.root", "READ");
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////
 // Reading Pythia histograms from ROOT files
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////	
 
-	TH1F* hist_ThrPyth_al_365_woCut = (TH1F*)input_365_woCut->Get("hist_ThrPyth");
-	hist_ThrPyth_al_365_woCut->SetLineColor(kBlack); hist_ThrPyth_al_365_woCut->SetMarkerColor(kBlack); hist_ThrPyth_al_365_woCut->SetMarkerStyle(21); hist_ThrPyth_al_365_woCut->SetLineWidth(2); hist_ThrPyth_al_365_woCut->SetMarkerSize(1);
-	TH1F* hist_ThrPyth_Zq_365_woCut = (TH1F*)input_365_woCut->Get("hist_ThrPyth_Zq");
-	hist_ThrPyth_Zq_365_woCut->SetLineColor(kRed+2); hist_ThrPyth_Zq_365_woCut->SetMarkerColor(kRed+1); hist_ThrPyth_Zq_365_woCut->SetMarkerStyle(21); hist_ThrPyth_Zq_365_woCut->SetLineWidth(2); hist_ThrPyth_Zq_365_woCut->SetMarkerSize(1);
-	TH1F* hist_ThrPyth_WW_365_woCut = (TH1F*)input_365_woCut->Get("hist_ThrPyth_WW");
-	hist_ThrPyth_WW_365_woCut->SetLineColor(kGreen+2); hist_ThrPyth_WW_365_woCut->SetMarkerColor(kGreen+1); hist_ThrPyth_WW_365_woCut->SetMarkerStyle(21); hist_ThrPyth_WW_365_woCut->SetLineWidth(2); hist_ThrPyth_WW_365_woCut->SetMarkerSize(1);
-	TH1F* hist_ThrPyth_ZZ_365_woCut = (TH1F*)input_365_woCut->Get("hist_ThrPyth_ZZ");
-	hist_ThrPyth_ZZ_365_woCut->SetLineColor(kBlue+2); hist_ThrPyth_ZZ_365_woCut->SetMarkerColor(kBlue+1); hist_ThrPyth_ZZ_365_woCut->SetMarkerStyle(21); hist_ThrPyth_ZZ_365_woCut->SetLineWidth(2); hist_ThrPyth_ZZ_365_woCut->SetMarkerSize(1);
-	TH1F* hist_ThrPyth_tt_365_woCut = (TH1F*)input_365_woCut->Get("hist_ThrPyth_tt");
-	hist_ThrPyth_tt_365_woCut->SetLineColor(kYellow+2); hist_ThrPyth_tt_365_woCut->SetMarkerColor(kYellow+1); hist_ThrPyth_tt_365_woCut->SetMarkerStyle(21); hist_ThrPyth_tt_365_woCut->SetLineWidth(2); hist_ThrPyth_tt_365_woCut->SetMarkerSize(1);
-	TH1F* hist_ThrPyth_HZ_365_woCut = (TH1F*)input_365_woCut->Get("hist_ThrPyth_HZ");
-	hist_ThrPyth_HZ_365_woCut->SetLineColor(kMagenta+2); hist_ThrPyth_HZ_365_woCut->SetMarkerColor(kMagenta+1); hist_ThrPyth_HZ_365_woCut->SetMarkerStyle(21); hist_ThrPyth_HZ_365_woCut->SetLineWidth(2); hist_ThrPyth_HZ_365_woCut->SetMarkerSize(1);
-	TH1F* hist_ThrPyth_HW_365_woCut = (TH1F*)input_365_woCut->Get("hist_ThrPyth_HW");
-	hist_ThrPyth_HW_365_woCut->SetLineColor(kCyan+2); hist_ThrPyth_HW_365_woCut->SetMarkerColor(kCyan+1); hist_ThrPyth_HW_365_woCut->SetMarkerStyle(21); hist_ThrPyth_HW_365_woCut->SetLineWidth(2); hist_ThrPyth_HW_365_woCut->SetMarkerSize(1);
+	TH1F* hist_ThrPyth_al_365 = (TH1F*)input_365->Get("hist_ThrPyth");
+	hist_ThrPyth_al_365->SetLineColor(kBlack); hist_ThrPyth_al_365->SetMarkerColor(kBlack); hist_ThrPyth_al_365->SetMarkerStyle(21); hist_ThrPyth_al_365->SetLineWidth(2); hist_ThrPyth_al_365->SetMarkerSize(1);
+	TH1F* hist_ThrPyth_Zq_365 = (TH1F*)input_365->Get("hist_ThrPyth_Zq");
+	hist_ThrPyth_Zq_365->SetLineColor(kRed+2); hist_ThrPyth_Zq_365->SetMarkerColor(kRed+1); hist_ThrPyth_Zq_365->SetMarkerStyle(21); hist_ThrPyth_Zq_365->SetLineWidth(2); hist_ThrPyth_Zq_365->SetMarkerSize(1);
+	TH1F* hist_ThrPyth_WW_365 = (TH1F*)input_365->Get("hist_ThrPyth_WW");
+	hist_ThrPyth_WW_365->SetLineColor(kGreen+2); hist_ThrPyth_WW_365->SetMarkerColor(kGreen+1); hist_ThrPyth_WW_365->SetMarkerStyle(21); hist_ThrPyth_WW_365->SetLineWidth(2); hist_ThrPyth_WW_365->SetMarkerSize(1);
+	TH1F* hist_ThrPyth_ZZ_365 = (TH1F*)input_365->Get("hist_ThrPyth_ZZ");
+	hist_ThrPyth_ZZ_365->SetLineColor(kBlue+2); hist_ThrPyth_ZZ_365->SetMarkerColor(kBlue+1); hist_ThrPyth_ZZ_365->SetMarkerStyle(21); hist_ThrPyth_ZZ_365->SetLineWidth(2); hist_ThrPyth_ZZ_365->SetMarkerSize(1);
+	TH1F* hist_ThrPyth_tt_365 = (TH1F*)input_365->Get("hist_ThrPyth_tt");
+	hist_ThrPyth_tt_365->SetLineColor(kYellow+2); hist_ThrPyth_tt_365->SetMarkerColor(kYellow+1); hist_ThrPyth_tt_365->SetMarkerStyle(21); hist_ThrPyth_tt_365->SetLineWidth(2); hist_ThrPyth_tt_365->SetMarkerSize(1);
+	TH1F* hist_ThrPyth_HZ_365 = (TH1F*)input_365->Get("hist_ThrPyth_HZ");
+	hist_ThrPyth_HZ_365->SetLineColor(kMagenta+2); hist_ThrPyth_HZ_365->SetMarkerColor(kMagenta+1); hist_ThrPyth_HZ_365->SetMarkerStyle(21); hist_ThrPyth_HZ_365->SetLineWidth(2); hist_ThrPyth_HZ_365->SetMarkerSize(1);
+	TH1F* hist_ThrPyth_HW_365 = (TH1F*)input_365->Get("hist_ThrPyth_HW");
+	hist_ThrPyth_HW_365->SetLineColor(kCyan+2); hist_ThrPyth_HW_365->SetMarkerColor(kCyan+1); hist_ThrPyth_HW_365->SetMarkerStyle(21); hist_ThrPyth_HW_365->SetLineWidth(2); hist_ThrPyth_HW_365->SetMarkerSize(1);
 
-	TH1F* hist_CprPyth_al_365_woCut = (TH1F*)input_365_woCut->Get("hist_CprPyth");
-	hist_CprPyth_al_365_woCut->SetLineColor(kBlack); hist_CprPyth_al_365_woCut->SetMarkerColor(kBlack); hist_CprPyth_al_365_woCut->SetMarkerStyle(21); hist_CprPyth_al_365_woCut->SetLineWidth(2); hist_CprPyth_al_365_woCut->SetMarkerSize(1);
-	TH1F* hist_CprPyth_Zq_365_woCut = (TH1F*)input_365_woCut->Get("hist_CprPyth_Zq");
-	hist_CprPyth_Zq_365_woCut->SetLineColor(kRed+2); hist_CprPyth_Zq_365_woCut->SetMarkerColor(kRed+1); hist_CprPyth_Zq_365_woCut->SetMarkerStyle(21); hist_CprPyth_Zq_365_woCut->SetLineWidth(2); hist_CprPyth_Zq_365_woCut->SetMarkerSize(1);
-	TH1F* hist_CprPyth_WW_365_woCut = (TH1F*)input_365_woCut->Get("hist_CprPyth_WW");
-	hist_CprPyth_WW_365_woCut->SetLineColor(kGreen+2); hist_CprPyth_WW_365_woCut->SetMarkerColor(kGreen+1); hist_CprPyth_WW_365_woCut->SetMarkerStyle(21); hist_CprPyth_WW_365_woCut->SetLineWidth(2); hist_CprPyth_WW_365_woCut->SetMarkerSize(1);
-	TH1F* hist_CprPyth_ZZ_365_woCut = (TH1F*)input_365_woCut->Get("hist_CprPyth_ZZ");
-	hist_CprPyth_ZZ_365_woCut->SetLineColor(kBlue+2); hist_CprPyth_ZZ_365_woCut->SetMarkerColor(kBlue+1); hist_CprPyth_ZZ_365_woCut->SetMarkerStyle(21); hist_CprPyth_ZZ_365_woCut->SetLineWidth(2); hist_CprPyth_ZZ_365_woCut->SetMarkerSize(1);
-	TH1F* hist_CprPyth_tt_365_woCut = (TH1F*)input_365_woCut->Get("hist_CprPyth_tt");
-	hist_CprPyth_tt_365_woCut->SetLineColor(kYellow+2); hist_CprPyth_tt_365_woCut->SetMarkerColor(kYellow+1); hist_CprPyth_tt_365_woCut->SetMarkerStyle(21); hist_CprPyth_tt_365_woCut->SetLineWidth(2); hist_CprPyth_tt_365_woCut->SetMarkerSize(1);
-	TH1F* hist_CprPyth_HZ_365_woCut = (TH1F*)input_365_woCut->Get("hist_CprPyth_HZ");
-	hist_CprPyth_HZ_365_woCut->SetLineColor(kMagenta+2); hist_CprPyth_HZ_365_woCut->SetMarkerColor(kMagenta+1); hist_CprPyth_HZ_365_woCut->SetMarkerStyle(21); hist_CprPyth_HZ_365_woCut->SetLineWidth(2); hist_CprPyth_HZ_365_woCut->SetMarkerSize(1);
-	TH1F* hist_CprPyth_HW_365_woCut = (TH1F*)input_365_woCut->Get("hist_CprPyth_HW");
-	hist_CprPyth_HW_365_woCut->SetLineColor(kCyan+2); hist_CprPyth_HW_365_woCut->SetMarkerColor(kCyan+1); hist_CprPyth_HW_365_woCut->SetMarkerStyle(21); hist_CprPyth_HW_365_woCut->SetLineWidth(2); hist_CprPyth_HW_365_woCut->SetMarkerSize(1);
+	TH1F* hist_CprPyth_al_365 = (TH1F*)input_365->Get("hist_CprPyth");
+	hist_CprPyth_al_365->SetLineColor(kBlack); hist_CprPyth_al_365->SetMarkerColor(kBlack); hist_CprPyth_al_365->SetMarkerStyle(21); hist_CprPyth_al_365->SetLineWidth(2); hist_CprPyth_al_365->SetMarkerSize(1);
+	TH1F* hist_CprPyth_Zq_365 = (TH1F*)input_365->Get("hist_CprPyth_Zq");
+	hist_CprPyth_Zq_365->SetLineColor(kRed+2); hist_CprPyth_Zq_365->SetMarkerColor(kRed+1); hist_CprPyth_Zq_365->SetMarkerStyle(21); hist_CprPyth_Zq_365->SetLineWidth(2); hist_CprPyth_Zq_365->SetMarkerSize(1);
+	TH1F* hist_CprPyth_WW_365 = (TH1F*)input_365->Get("hist_CprPyth_WW");
+	hist_CprPyth_WW_365->SetLineColor(kGreen+2); hist_CprPyth_WW_365->SetMarkerColor(kGreen+1); hist_CprPyth_WW_365->SetMarkerStyle(21); hist_CprPyth_WW_365->SetLineWidth(2); hist_CprPyth_WW_365->SetMarkerSize(1);
+	TH1F* hist_CprPyth_ZZ_365 = (TH1F*)input_365->Get("hist_CprPyth_ZZ");
+	hist_CprPyth_ZZ_365->SetLineColor(kBlue+2); hist_CprPyth_ZZ_365->SetMarkerColor(kBlue+1); hist_CprPyth_ZZ_365->SetMarkerStyle(21); hist_CprPyth_ZZ_365->SetLineWidth(2); hist_CprPyth_ZZ_365->SetMarkerSize(1);
+	TH1F* hist_CprPyth_tt_365 = (TH1F*)input_365->Get("hist_CprPyth_tt");
+	hist_CprPyth_tt_365->SetLineColor(kYellow+2); hist_CprPyth_tt_365->SetMarkerColor(kYellow+1); hist_CprPyth_tt_365->SetMarkerStyle(21); hist_CprPyth_tt_365->SetLineWidth(2); hist_CprPyth_tt_365->SetMarkerSize(1);
+	TH1F* hist_CprPyth_HZ_365 = (TH1F*)input_365->Get("hist_CprPyth_HZ");
+	hist_CprPyth_HZ_365->SetLineColor(kMagenta+2); hist_CprPyth_HZ_365->SetMarkerColor(kMagenta+1); hist_CprPyth_HZ_365->SetMarkerStyle(21); hist_CprPyth_HZ_365->SetLineWidth(2); hist_CprPyth_HZ_365->SetMarkerSize(1);
+	TH1F* hist_CprPyth_HW_365 = (TH1F*)input_365->Get("hist_CprPyth_HW");
+	hist_CprPyth_HW_365->SetLineColor(kCyan+2); hist_CprPyth_HW_365->SetMarkerColor(kCyan+1); hist_CprPyth_HW_365->SetMarkerStyle(21); hist_CprPyth_HW_365->SetLineWidth(2); hist_CprPyth_HW_365->SetMarkerSize(1);
 
-/////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
-	TH1F* hist_ThrPyth_al_365_wiCut = (TH1F*)input_365_wiCut->Get("hist_ThrPyth");
-	hist_ThrPyth_al_365_wiCut->SetLineColor(kBlack); hist_ThrPyth_al_365_wiCut->SetMarkerColor(kBlack); hist_ThrPyth_al_365_wiCut->SetMarkerStyle(3); hist_ThrPyth_al_365_wiCut->SetLineWidth(2); hist_ThrPyth_al_365_wiCut->SetMarkerSize(1);
-	TH1F* hist_ThrPyth_Zq_365_wiCut = (TH1F*)input_365_wiCut->Get("hist_ThrPyth_Zq");
-	hist_ThrPyth_Zq_365_wiCut->SetLineColor(kRed+2); hist_ThrPyth_Zq_365_wiCut->SetMarkerColor(kRed+2); hist_ThrPyth_Zq_365_wiCut->SetMarkerStyle(3); hist_ThrPyth_Zq_365_wiCut->SetLineWidth(2); hist_ThrPyth_Zq_365_wiCut->SetMarkerSize(1);
-	TH1F* hist_ThrPyth_WW_365_wiCut = (TH1F*)input_365_wiCut->Get("hist_ThrPyth_WW");
-	hist_ThrPyth_WW_365_wiCut->SetLineColor(kGreen+2); hist_ThrPyth_WW_365_wiCut->SetMarkerColor(kGreen+2); hist_ThrPyth_WW_365_wiCut->SetMarkerStyle(3); hist_ThrPyth_WW_365_wiCut->SetLineWidth(2); hist_ThrPyth_WW_365_wiCut->SetMarkerSize(1);
-	TH1F* hist_ThrPyth_ZZ_365_wiCut = (TH1F*)input_365_wiCut->Get("hist_ThrPyth_ZZ");
-	hist_ThrPyth_ZZ_365_wiCut->SetLineColor(kBlue+2); hist_ThrPyth_ZZ_365_wiCut->SetMarkerColor(kBlue+2); hist_ThrPyth_ZZ_365_wiCut->SetMarkerStyle(3); hist_ThrPyth_ZZ_365_wiCut->SetLineWidth(2); hist_ThrPyth_ZZ_365_wiCut->SetMarkerSize(1);
-	TH1F* hist_ThrPyth_tt_365_wiCut = (TH1F*)input_365_wiCut->Get("hist_ThrPyth_tt");
-	hist_ThrPyth_tt_365_wiCut->SetLineColor(kYellow+2); hist_ThrPyth_tt_365_wiCut->SetMarkerColor(kYellow+2); hist_ThrPyth_tt_365_wiCut->SetMarkerStyle(3); hist_ThrPyth_tt_365_wiCut->SetLineWidth(2); hist_ThrPyth_tt_365_wiCut->SetMarkerSize(1);
-	TH1F* hist_ThrPyth_HZ_365_wiCut = (TH1F*)input_365_wiCut->Get("hist_ThrPyth_HZ");
-	hist_ThrPyth_HZ_365_wiCut->SetLineColor(kMagenta+2); hist_ThrPyth_HZ_365_wiCut->SetMarkerColor(kMagenta+2); hist_ThrPyth_HZ_365_wiCut->SetMarkerStyle(53); hist_ThrPyth_HZ_365_wiCut->SetLineWidth(2); hist_ThrPyth_HZ_365_wiCut->SetMarkerSize(1);
-	TH1F* hist_ThrPyth_HW_365_wiCut = (TH1F*)input_365_wiCut->Get("hist_ThrPyth_HW");
-	hist_ThrPyth_HW_365_wiCut->SetLineColor(kCyan+2); hist_ThrPyth_HW_365_wiCut->SetMarkerColor(kCyan+2); hist_ThrPyth_HW_365_wiCut->SetMarkerStyle(53); hist_ThrPyth_HW_365_wiCut->SetLineWidth(2); hist_ThrPyth_HW_365_wiCut->SetMarkerSize(1);
-
-	TH1F* hist_CprPyth_al_365_wiCut = (TH1F*)input_365_wiCut->Get("hist_CprPyth");
-	hist_CprPyth_al_365_wiCut->SetLineColor(kBlack); hist_CprPyth_al_365_wiCut->SetMarkerColor(kBlack); hist_CprPyth_al_365_wiCut->SetMarkerStyle(3); hist_CprPyth_al_365_wiCut->SetLineWidth(2); hist_CprPyth_al_365_wiCut->SetMarkerSize(1);
-	TH1F* hist_CprPyth_Zq_365_wiCut = (TH1F*)input_365_wiCut->Get("hist_CprPyth_Zq");
-	hist_CprPyth_Zq_365_wiCut->SetLineColor(kRed+2); hist_CprPyth_Zq_365_wiCut->SetMarkerColor(kRed+2); hist_CprPyth_Zq_365_wiCut->SetMarkerStyle(3); hist_CprPyth_Zq_365_wiCut->SetLineWidth(2); hist_CprPyth_Zq_365_wiCut->SetMarkerSize(1);
-	TH1F* hist_CprPyth_WW_365_wiCut = (TH1F*)input_365_wiCut->Get("hist_CprPyth_WW");
-	hist_CprPyth_WW_365_wiCut->SetLineColor(kGreen+2); hist_CprPyth_WW_365_wiCut->SetMarkerColor(kGreen+2); hist_CprPyth_WW_365_wiCut->SetMarkerStyle(3); hist_CprPyth_WW_365_wiCut->SetLineWidth(2); hist_CprPyth_WW_365_wiCut->SetMarkerSize(1);
-	TH1F* hist_CprPyth_ZZ_365_wiCut = (TH1F*)input_365_wiCut->Get("hist_CprPyth_ZZ");
-	hist_CprPyth_ZZ_365_wiCut->SetLineColor(kBlue+2); hist_CprPyth_ZZ_365_wiCut->SetMarkerColor(kBlue+2); hist_CprPyth_ZZ_365_wiCut->SetMarkerStyle(3); hist_CprPyth_ZZ_365_wiCut->SetLineWidth(2); hist_CprPyth_ZZ_365_wiCut->SetMarkerSize(1);
-	TH1F* hist_CprPyth_tt_365_wiCut = (TH1F*)input_365_wiCut->Get("hist_CprPyth_tt");
-	hist_CprPyth_tt_365_wiCut->SetLineColor(kYellow+2); hist_CprPyth_tt_365_wiCut->SetMarkerColor(kYellow+2); hist_CprPyth_tt_365_wiCut->SetMarkerStyle(3); hist_CprPyth_tt_365_wiCut->SetLineWidth(2); hist_CprPyth_tt_365_wiCut->SetMarkerSize(1);
-	TH1F* hist_CprPyth_HZ_365_wiCut = (TH1F*)input_365_wiCut->Get("hist_CprPyth_HZ");
-	hist_CprPyth_HZ_365_wiCut->SetLineColor(kMagenta+2); hist_CprPyth_HZ_365_wiCut->SetMarkerColor(kMagenta+2); hist_CprPyth_HZ_365_wiCut->SetMarkerStyle(53); hist_CprPyth_HZ_365_wiCut->SetLineWidth(2); hist_CprPyth_HZ_365_wiCut->SetMarkerSize(1);
-	TH1F* hist_CprPyth_HW_365_wiCut = (TH1F*)input_365_wiCut->Get("hist_CprPyth_HW");
-	hist_CprPyth_HW_365_wiCut->SetLineColor(kCyan+2); hist_CprPyth_HW_365_wiCut->SetMarkerColor(kCyan+2); hist_CprPyth_HW_365_wiCut->SetMarkerStyle(53); hist_CprPyth_HW_365_wiCut->SetLineWidth(2); hist_CprPyth_HW_365_wiCut->SetMarkerSize(1);
+	TH1F* hist_nHadron_al_365 = (TH1F*)input_365->Get("hist_nHadron");
+	hist_nHadron_al_365->SetLineColor(kBlack); hist_nHadron_al_365->SetMarkerColor(kBlack); hist_nHadron_al_365->SetMarkerStyle(21); hist_nHadron_al_365->SetLineWidth(2); hist_nHadron_al_365->SetMarkerSize(1);
+	TH1F* hist_nHadron_Zq_365 = (TH1F*)input_365->Get("hist_nHadron_Zq");
+	hist_nHadron_Zq_365->SetLineColor(kRed+2); hist_nHadron_Zq_365->SetMarkerColor(kRed+1); hist_nHadron_Zq_365->SetMarkerStyle(21); hist_nHadron_Zq_365->SetLineWidth(2); hist_nHadron_Zq_365->SetMarkerSize(1);
+	TH1F* hist_nHadron_WW_365 = (TH1F*)input_365->Get("hist_nHadron_WW");
+	hist_nHadron_WW_365->SetLineColor(kGreen+2); hist_nHadron_WW_365->SetMarkerColor(kGreen+1); hist_nHadron_WW_365->SetMarkerStyle(21); hist_nHadron_WW_365->SetLineWidth(2); hist_nHadron_WW_365->SetMarkerSize(1);
+	TH1F* hist_nHadron_ZZ_365 = (TH1F*)input_365->Get("hist_nHadron_ZZ");
+	hist_nHadron_ZZ_365->SetLineColor(kBlue+2); hist_nHadron_ZZ_365->SetMarkerColor(kBlue+1); hist_nHadron_ZZ_365->SetMarkerStyle(21); hist_nHadron_ZZ_365->SetLineWidth(2); hist_nHadron_ZZ_365->SetMarkerSize(1);
+	TH1F* hist_nHadron_tt_365 = (TH1F*)input_365->Get("hist_nHadron_tt");
+	hist_nHadron_tt_365->SetLineColor(kYellow+2); hist_nHadron_tt_365->SetMarkerColor(kYellow+1); hist_nHadron_tt_365->SetMarkerStyle(21); hist_nHadron_tt_365->SetLineWidth(2); hist_nHadron_tt_365->SetMarkerSize(1);
+	TH1F* hist_nHadron_HZ_365 = (TH1F*)input_365->Get("hist_nHadron_HZ");
+	hist_nHadron_HZ_365->SetLineColor(kMagenta+2); hist_nHadron_HZ_365->SetMarkerColor(kMagenta+1); hist_nHadron_HZ_365->SetMarkerStyle(21); hist_nHadron_HZ_365->SetLineWidth(2); hist_nHadron_HZ_365->SetMarkerSize(1);
+	TH1F* hist_nHadron_HW_365 = (TH1F*)input_365->Get("hist_nHadron_HW");
+	hist_nHadron_HW_365->SetLineColor(kCyan+2); hist_nHadron_HW_365->SetMarkerColor(kCyan+1); hist_nHadron_HW_365->SetMarkerStyle(21); hist_nHadron_HW_365->SetLineWidth(2); hist_nHadron_HW_365->SetMarkerSize(1);
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////
 // Disable histogram stats
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-	hist_ThrPyth_al_365_woCut->SetStats(kFALSE);
-	hist_ThrPyth_WW_365_woCut->SetStats(kFALSE);
-	hist_ThrPyth_ZZ_365_woCut->SetStats(kFALSE);
-	hist_ThrPyth_tt_365_woCut->SetStats(kFALSE);
-	hist_ThrPyth_HZ_365_woCut->SetStats(kFALSE);
-	hist_ThrPyth_HW_365_woCut->SetStats(kFALSE);
-	hist_CprPyth_al_365_woCut->SetStats(kFALSE);
-	hist_CprPyth_WW_365_woCut->SetStats(kFALSE);
-	hist_CprPyth_ZZ_365_woCut->SetStats(kFALSE);
-	hist_CprPyth_tt_365_woCut->SetStats(kFALSE);
-	hist_CprPyth_HZ_365_woCut->SetStats(kFALSE);
-	hist_CprPyth_HW_365_woCut->SetStats(kFALSE);
-
-	hist_ThrPyth_al_365_wiCut->SetStats(kFALSE);
-	hist_ThrPyth_WW_365_wiCut->SetStats(kFALSE);
-	hist_ThrPyth_ZZ_365_wiCut->SetStats(kFALSE);
-	hist_ThrPyth_tt_365_wiCut->SetStats(kFALSE);
-	hist_ThrPyth_HZ_365_wiCut->SetStats(kFALSE);
-	hist_ThrPyth_HW_365_wiCut->SetStats(kFALSE);
-	hist_CprPyth_al_365_wiCut->SetStats(kFALSE);
-	hist_CprPyth_WW_365_wiCut->SetStats(kFALSE);
-	hist_CprPyth_ZZ_365_wiCut->SetStats(kFALSE);
-	hist_CprPyth_tt_365_wiCut->SetStats(kFALSE);
-	hist_CprPyth_HZ_365_wiCut->SetStats(kFALSE);
-	hist_CprPyth_HW_365_wiCut->SetStats(kFALSE);
+	hist_ThrPyth_al_365->SetStats(kFALSE);
+	hist_ThrPyth_WW_365->SetStats(kFALSE);
+	hist_ThrPyth_ZZ_365->SetStats(kFALSE);
+	hist_ThrPyth_tt_365->SetStats(kFALSE);
+	hist_ThrPyth_HZ_365->SetStats(kFALSE);
+	hist_ThrPyth_HW_365->SetStats(kFALSE);
+	hist_CprPyth_al_365->SetStats(kFALSE);
+	hist_CprPyth_WW_365->SetStats(kFALSE);
+	hist_CprPyth_ZZ_365->SetStats(kFALSE);
+	hist_CprPyth_tt_365->SetStats(kFALSE);
+	hist_CprPyth_HZ_365->SetStats(kFALSE);
+	hist_CprPyth_HW_365->SetStats(kFALSE);
+	hist_nHadron_al_365->SetStats(kFALSE);
+	hist_nHadron_WW_365->SetStats(kFALSE);
+	hist_nHadron_ZZ_365->SetStats(kFALSE);
+	hist_nHadron_tt_365->SetStats(kFALSE);
+	hist_nHadron_HZ_365->SetStats(kFALSE);
+	hist_nHadron_HW_365->SetStats(kFALSE);
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////
 // Clear titles
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-	hist_ThrPyth_al_365_woCut->SetTitle("");
-	hist_CprPyth_al_365_woCut->SetTitle("");
-
-	hist_ThrPyth_al_365_wiCut->SetTitle("");
-	hist_CprPyth_al_365_wiCut->SetTitle("");
+	hist_ThrPyth_al_365->SetTitle("");
+	hist_CprPyth_al_365->SetTitle("");
+	hist_nHadron_al_365->SetTitle("");
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////
 // Edit text sizes
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-	hist_ThrPyth_al_365_woCut->GetXaxis()->SetLabelSize(0.04); hist_ThrPyth_al_365_woCut->GetYaxis()->SetLabelSize(0.04); hist_ThrPyth_al_365_woCut->GetYaxis()->SetTitleSize(0.04); hist_ThrPyth_al_365_woCut->GetXaxis()->SetTitleSize(0.04);
-	hist_CprPyth_al_365_woCut->GetXaxis()->SetLabelSize(0.04); hist_CprPyth_al_365_woCut->GetYaxis()->SetLabelSize(0.04); hist_CprPyth_al_365_woCut->GetYaxis()->SetTitleSize(0.04); hist_CprPyth_al_365_woCut->GetXaxis()->SetTitleSize(0.04); 
-
-	hist_ThrPyth_al_365_wiCut->GetXaxis()->SetLabelSize(0.04); hist_ThrPyth_al_365_wiCut->GetYaxis()->SetLabelSize(0.04); hist_ThrPyth_al_365_wiCut->GetYaxis()->SetTitleSize(0.04); hist_ThrPyth_al_365_wiCut->GetXaxis()->SetTitleSize(0.04);
-	hist_CprPyth_al_365_wiCut->GetXaxis()->SetLabelSize(0.04); hist_CprPyth_al_365_wiCut->GetYaxis()->SetLabelSize(0.04); hist_CprPyth_al_365_wiCut->GetYaxis()->SetTitleSize(0.04); hist_CprPyth_al_365_wiCut->GetXaxis()->SetTitleSize(0.04); 
-
-/////////////////////////////////////////////////////////////////////////////////////////////////////////////
-// Clear titles
-/////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
-	hist_ThrPyth_al_365_woCut->SetTitle("");
-	hist_CprPyth_al_365_woCut->SetTitle("");
-
-	hist_ThrPyth_al_365_wiCut->SetTitle("");
-	hist_CprPyth_al_365_wiCut->SetTitle("");
+	hist_ThrPyth_al_365->GetXaxis()->SetLabelSize(0.04); hist_ThrPyth_al_365->GetYaxis()->SetLabelSize(0.04); hist_ThrPyth_al_365->GetYaxis()->SetTitleSize(0.04); hist_ThrPyth_al_365->GetXaxis()->SetTitleSize(0.04);
+	hist_CprPyth_al_365->GetXaxis()->SetLabelSize(0.04); hist_CprPyth_al_365->GetYaxis()->SetLabelSize(0.04); hist_CprPyth_al_365->GetYaxis()->SetTitleSize(0.04); hist_CprPyth_al_365->GetXaxis()->SetTitleSize(0.04); 
+	hist_nHadron_al_365->GetXaxis()->SetLabelSize(0.04); hist_nHadron_al_365->GetYaxis()->SetLabelSize(0.04); hist_nHadron_al_365->GetYaxis()->SetTitleSize(0.04); hist_nHadron_al_365->GetXaxis()->SetTitleSize(0.04);
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////
 // Draw Plots
@@ -176,17 +140,17 @@ void ImpactofHad() {
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 	// Create canvas
-	TCanvas* cv2 = new TCanvas("cv2", "FCC-ee ISR Studies", 800, 1400);
+	TCanvas* cv2 = new TCanvas("cv2", "FCC-ee ISR Studies", 800, 2100);
 
 	// Add legend
 	TLegend* lg2 = new TLegend(0.78, 0.70, 0.92, 0.95);
-	lg2->AddEntry(hist_ThrPyth_al_365_woCut, "ee#rightarrowq#bar{q}", "P");
-	lg2->AddEntry(hist_ThrPyth_Zq_365_woCut, "ee#rightarrow#gamma/Z", "P");
-	lg2->AddEntry(hist_ThrPyth_ZZ_365_woCut, "ee#rightarrowZZ", "P");
-	lg2->AddEntry(hist_ThrPyth_WW_365_woCut, "ee#rightarrowWW", "P");
-	lg2->AddEntry(hist_ThrPyth_tt_365_woCut, "ee#rightarrowt#bar{t}", "P");
-	lg2->AddEntry(hist_ThrPyth_HZ_365_woCut, "ee#rightarrowZH", "P");
-	lg2->AddEntry(hist_ThrPyth_HW_365_woCut, "ee#rightarrow#nu#bar{#nu}H", "P");
+	lg2->AddEntry(hist_ThrPyth_al_365, "ee#rightarrowq#bar{q}", "P");
+	lg2->AddEntry(hist_ThrPyth_Zq_365, "ee#rightarrow#gamma/Z", "P");
+	lg2->AddEntry(hist_ThrPyth_ZZ_365, "ee#rightarrowZZ", "P");
+	lg2->AddEntry(hist_ThrPyth_WW_365, "ee#rightarrowWW", "P");
+	lg2->AddEntry(hist_ThrPyth_tt_365, "ee#rightarrowt#bar{t}", "P");
+	lg2->AddEntry(hist_ThrPyth_HZ_365, "ee#rightarrowZH", "P");
+	lg2->AddEntry(hist_ThrPyth_HW_365, "ee#rightarrow#nu#bar{#nu}H", "P");
 	lg2->SetTextSize(0.03);
 
 	// Beautify
@@ -196,8 +160,8 @@ void ImpactofHad() {
 	gStyle->SetTitleSize(0.06, "X");
 	gStyle->SetTitleSize(0.06, "Y");
 	cv2->SetMargin(0, 0, 0, 0); 
-	cv2->Divide(1,2);
-	for (int i = 1; i <= 2; i++) {
+	cv2->Divide(1,3);
+	for (int i = 1; i <= 3; i++) {
 		cv2->cd(i);
 		gPad->SetTopMargin(0.017);
 		gPad->SetBottomMargin(0.1);
@@ -207,75 +171,72 @@ void ImpactofHad() {
 		gPad->SetLogy();
 	}
 
-	hist_ThrPyth_al_365_woCut->GetYaxis()->SetTitle("#");
-	hist_CprPyth_al_365_woCut->GetYaxis()->SetTitle("#");
+	hist_ThrPyth_al_365->GetYaxis()->SetTitle("#");
+	hist_CprPyth_al_365->GetYaxis()->SetTitle("#");
+	hist_nHadron_al_365->GetYaxis()->SetTitle("#");
 
-	hist_ThrPyth_al_365_woCut->SetFillStyle(3001); hist_ThrPyth_al_365_woCut->SetFillColor(kBlack); 
-	hist_ThrPyth_Zq_365_woCut->SetFillStyle(3001); hist_ThrPyth_Zq_365_woCut->SetFillColor(kRed); 
-	hist_ThrPyth_WW_365_woCut->SetFillStyle(3001); hist_ThrPyth_WW_365_woCut->SetFillColor(kGreen); 
-	hist_ThrPyth_ZZ_365_woCut->SetFillStyle(3001); hist_ThrPyth_ZZ_365_woCut->SetFillColor(kBlue); 
-	hist_ThrPyth_tt_365_woCut->SetFillStyle(3001); hist_ThrPyth_tt_365_woCut->SetFillColor(kYellow); 
-	hist_ThrPyth_HZ_365_woCut->SetFillStyle(3001); hist_ThrPyth_HZ_365_woCut->SetFillColor(kMagenta+1); 
-	hist_ThrPyth_HW_365_woCut->SetFillStyle(3001); hist_ThrPyth_HW_365_woCut->SetFillColor(kCyan+1); 
+	hist_ThrPyth_al_365->SetFillStyle(3001); hist_ThrPyth_al_365->SetFillColor(kBlack); 
+	hist_ThrPyth_Zq_365->SetFillStyle(3001); hist_ThrPyth_Zq_365->SetFillColor(kRed); 
+	hist_ThrPyth_WW_365->SetFillStyle(3001); hist_ThrPyth_WW_365->SetFillColor(kGreen); 
+	hist_ThrPyth_ZZ_365->SetFillStyle(3001); hist_ThrPyth_ZZ_365->SetFillColor(kBlue); 
+	hist_ThrPyth_tt_365->SetFillStyle(3001); hist_ThrPyth_tt_365->SetFillColor(kYellow); 
+	hist_ThrPyth_HZ_365->SetFillStyle(3001); hist_ThrPyth_HZ_365->SetFillColor(kMagenta+1); 
+	hist_ThrPyth_HW_365->SetFillStyle(3001); hist_ThrPyth_HW_365->SetFillColor(kCyan+1); 
 
-	hist_CprPyth_al_365_woCut->SetFillStyle(3001); hist_CprPyth_al_365_woCut->SetFillColor(kBlack); 
-	hist_CprPyth_Zq_365_woCut->SetFillStyle(3001); hist_CprPyth_Zq_365_woCut->SetFillColor(kRed); 
-	hist_CprPyth_WW_365_woCut->SetFillStyle(3001); hist_CprPyth_WW_365_woCut->SetFillColor(kGreen); 
-	hist_CprPyth_ZZ_365_woCut->SetFillStyle(3001); hist_CprPyth_ZZ_365_woCut->SetFillColor(kBlue); 
-	hist_CprPyth_tt_365_woCut->SetFillStyle(3001); hist_CprPyth_tt_365_woCut->SetFillColor(kYellow); 
-	hist_CprPyth_HZ_365_woCut->SetFillStyle(3001); hist_CprPyth_HZ_365_woCut->SetFillColor(kMagenta+1); 
-	hist_CprPyth_HW_365_woCut->SetFillStyle(3001); hist_CprPyth_HW_365_woCut->SetFillColor(kCyan+1);
+	hist_CprPyth_al_365->SetFillStyle(3001); hist_CprPyth_al_365->SetFillColor(kBlack); 
+	hist_CprPyth_Zq_365->SetFillStyle(3001); hist_CprPyth_Zq_365->SetFillColor(kRed); 
+	hist_CprPyth_WW_365->SetFillStyle(3001); hist_CprPyth_WW_365->SetFillColor(kGreen); 
+	hist_CprPyth_ZZ_365->SetFillStyle(3001); hist_CprPyth_ZZ_365->SetFillColor(kBlue); 
+	hist_CprPyth_tt_365->SetFillStyle(3001); hist_CprPyth_tt_365->SetFillColor(kYellow); 
+	hist_CprPyth_HZ_365->SetFillStyle(3001); hist_CprPyth_HZ_365->SetFillColor(kMagenta+1); 
+	hist_CprPyth_HW_365->SetFillStyle(3001); hist_CprPyth_HW_365->SetFillColor(kCyan+1);
+
+	hist_nHadron_al_365->SetFillStyle(3001); hist_nHadron_al_365->SetFillColor(kBlack); 
+	hist_nHadron_Zq_365->SetFillStyle(3001); hist_nHadron_Zq_365->SetFillColor(kRed); 
+	hist_nHadron_WW_365->SetFillStyle(3001); hist_nHadron_WW_365->SetFillColor(kGreen); 
+	hist_nHadron_ZZ_365->SetFillStyle(3001); hist_nHadron_ZZ_365->SetFillColor(kBlue); 
+	hist_nHadron_tt_365->SetFillStyle(3001); hist_nHadron_tt_365->SetFillColor(kYellow); 
+	hist_nHadron_HZ_365->SetFillStyle(3001); hist_nHadron_HZ_365->SetFillColor(kMagenta+1); 
+	hist_nHadron_HW_365->SetFillStyle(3001); hist_nHadron_HW_365->SetFillColor(kCyan+1); 
 
 	// Draw
 	cv2->cd(1);
-	hist_ThrPyth_al_365_woCut->Draw("HIST");
-	hist_ThrPyth_Zq_365_woCut->Draw("HIST SAME");
-	hist_ThrPyth_WW_365_woCut->Draw("HIST SAME");
-	hist_ThrPyth_ZZ_365_woCut->Draw("HIST SAME");
-	hist_ThrPyth_tt_365_woCut->Draw("HIST SAME");
-	hist_ThrPyth_HZ_365_woCut->Draw("HIST SAME");
-	hist_ThrPyth_HW_365_woCut->Draw("HIST SAME");
+	hist_ThrPyth_al_365->Draw("HIST");
+	hist_ThrPyth_Zq_365->Draw("HIST SAME");
+	hist_ThrPyth_WW_365->Draw("HIST SAME");
+	hist_ThrPyth_ZZ_365->Draw("HIST SAME");
+	hist_ThrPyth_tt_365->Draw("HIST SAME");
+	hist_ThrPyth_HZ_365->Draw("HIST SAME");
+	hist_ThrPyth_HW_365->Draw("HIST SAME");
 	lg2->Draw("SAME");
 
 	cv2->cd(2);
-	hist_CprPyth_al_365_woCut->Draw("HIST");
-	hist_CprPyth_Zq_365_woCut->Draw("HIST SAME");
-	hist_CprPyth_WW_365_woCut->Draw("HIST SAME");
-	hist_CprPyth_ZZ_365_woCut->Draw("HIST SAME");
-	hist_CprPyth_tt_365_woCut->Draw("HIST SAME");
-	hist_CprPyth_HZ_365_woCut->Draw("HIST SAME");
-	hist_CprPyth_HW_365_woCut->Draw("HIST SAME");
+	hist_CprPyth_al_365->Draw("HIST");
+	hist_CprPyth_Zq_365->Draw("HIST SAME");
+	hist_CprPyth_WW_365->Draw("HIST SAME");
+	hist_CprPyth_ZZ_365->Draw("HIST SAME");
+	hist_CprPyth_tt_365->Draw("HIST SAME");
+	hist_CprPyth_HZ_365->Draw("HIST SAME");
+	hist_CprPyth_HW_365->Draw("HIST SAME");
 	lg2->Draw("SAME");
 
-	// cv2->cd(2);
-	// hist_ThrPyth_al_365_wiCut->Draw("HIST");
-	// hist_ThrPyth_Zq_365_wiCut->Draw("HIST SAME");
-	// hist_ThrPyth_WW_365_wiCut->Draw("HIST SAME");
-	// hist_ThrPyth_ZZ_365_wiCut->Draw("HIST SAME");
-	// hist_ThrPyth_tt_365_wiCut->Draw("HIST SAME");
-	// hist_ThrPyth_HZ_365_wiCut->Draw("HIST SAME");
-	// hist_ThrPyth_HW_365_wiCut->Draw("HIST SAME");
-	// lg2->Draw("SAME");
-
-	// cv2->cd(4);
-	// hist_CprPyth_al_365_wiCut->Draw("HIST");
-	// hist_CprPyth_Zq_365_wiCut->Draw("HIST SAME");
-	// hist_CprPyth_WW_365_wiCut->Draw("HIST SAME");
-	// hist_CprPyth_ZZ_365_wiCut->Draw("HIST SAME");
-	// hist_CprPyth_tt_365_wiCut->Draw("HIST SAME");
-	// hist_CprPyth_HZ_365_wiCut->Draw("HIST SAME");
-	// hist_CprPyth_HW_365_wiCut->Draw("HIST SAME");
-	// lg2->Draw("SAME");
+	cv2->cd(3);
+	hist_nHadron_al_365->Draw("HIST");
+	hist_nHadron_Zq_365->Draw("HIST SAME");
+	hist_nHadron_WW_365->Draw("HIST SAME");
+	hist_nHadron_ZZ_365->Draw("HIST SAME");
+	hist_nHadron_tt_365->Draw("HIST SAME");
+	hist_nHadron_HZ_365->Draw("HIST SAME");
+	hist_nHadron_HW_365->Draw("HIST SAME");
+	lg2->Draw("SAME");
 
 	// Set limits
-	hist_ThrPyth_al_365_woCut->GetYaxis()->SetRangeUser(1E0,1E6);
-	hist_ThrPyth_al_365_woCut->GetXaxis()->SetRangeUser(0,0.45);
-	// hist_ThrPyth_al_365_wiCut->GetYaxis()->SetRangeUser(1E0,1E5);
-	// hist_ThrPyth_al_365_wiCut->GetXaxis()->SetRangeUser(0,0.4);
-	hist_CprPyth_al_365_woCut->GetYaxis()->SetRangeUser(1E0,1E6);
-	hist_CprPyth_al_365_woCut->GetXaxis()->SetRangeUser(0,1.0);	
-	// hist_CprPyth_al_365_wiCut->GetYaxis()->SetRangeUser(1E0,1E5);
-	// hist_CprPyth_al_365_wiCut->GetXaxis()->SetRangeUser(0,1.0);	
+	hist_ThrPyth_al_365->GetYaxis()->SetRangeUser(1E0,1E6);
+	hist_ThrPyth_al_365->GetXaxis()->SetRangeUser(0,0.45);
+	hist_CprPyth_al_365->GetYaxis()->SetRangeUser(1E0,1E6);
+	hist_CprPyth_al_365->GetXaxis()->SetRangeUser(0,1.0);	
+	hist_nHadron_al_365->GetYaxis()->SetRangeUser(1E0,1E6);
+	hist_nHadron_al_365->GetXaxis()->SetRangeUser(0,120);
 
 	// Modify stat-box
 	gStyle->SetOptStat();

@@ -38,6 +38,21 @@ TGraphAsymmErrors* HistToGraph(const TH1* h, bool skipEmpty=false) {
     return g;
 }
 
+struct Mult3NLOCoeffs {
+    double r1, r2, r3;
+    double a1, a2, a3;
+};
+
+Mult3NLOCoeffs coeffs_for_nf(int nf) {
+    // From your table (screenshot): rows for nf=3,4,5
+    // r_i and a_i values
+    if (nf == 3) return {0.185, 0.426, 0.189, 0.280, -0.379, 0.209};
+    if (nf == 4) return {0.191, 0.468, 0.080, 0.297, -0.339, 0.162};
+    // default to nf = 5
+    return {0.198, 0.510, -0.041, 0.314, -0.301, 0.112};
+}
+
+
 // Code
 void ImpactofMults() {
 
@@ -160,71 +175,69 @@ void ImpactofMults() {
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-	// Create canvas
-	TCanvas* cv2 = new TCanvas("cv2", "FCC-ee ISR Studies", 800, 700);
+	// // Create canvas
+	// TCanvas* cv2 = new TCanvas("cv2", "FCC-ee ISR Studies", 800, 700);
 
-	// Add legend
-	TLegend* lg2 = new TLegend(0.75, 0.64, 0.92, 0.95);
-	lg2->AddEntry(hist_nHadron_365_al, "ee#rightarrowq#bar{q}", "P");
-	lg2->AddEntry(hist_nHadron_365_Zq, "ee#rightarrow#gamma/Z", "P");
-	lg2->AddEntry(hist_nHadron_365_ZZ, "ee#rightarrowZZ", "P");
-	lg2->AddEntry(hist_nHadron_365_WW, "ee#rightarrowWW", "P");
-	lg2->AddEntry(hist_nHadron_365_tt, "ee#rightarrowt#bar{t}", "P");
-	lg2->AddEntry(hist_nHadron_365_HZ, "ee#rightarrowZH", "P");
-	lg2->AddEntry(hist_nHadron_365_HW, "ee#rightarrow#nu#bar{#nu}H", "P");
-	lg2->SetTextSize(0.04);
+	// // Add legend
+	// TLegend* lg2 = new TLegend(0.75, 0.64, 0.92, 0.95);
+	// lg2->AddEntry(hist_nHadron_365_al, "ee#rightarrowq#bar{q}", "P");
+	// lg2->AddEntry(hist_nHadron_365_Zq, "ee#rightarrow#gamma/Z", "P");
+	// lg2->AddEntry(hist_nHadron_365_ZZ, "ee#rightarrowZZ", "P");
+	// lg2->AddEntry(hist_nHadron_365_WW, "ee#rightarrowWW", "P");
+	// lg2->AddEntry(hist_nHadron_365_tt, "ee#rightarrowt#bar{t}", "P");
+	// lg2->AddEntry(hist_nHadron_365_HZ, "ee#rightarrowZH", "P");
+	// lg2->AddEntry(hist_nHadron_365_HW, "ee#rightarrow#nu#bar{#nu}H", "P");
+	// lg2->SetTextSize(0.04);
 
-	// Beautify
-	gStyle->SetLabelSize(0.05, "X");
-	gStyle->SetLabelSize(0.05, "Y");
-	gStyle->SetTitleSize(0.06, "X");
-	gStyle->SetTitleSize(0.06, "Y");
-	cv2->SetMargin(0, 0, 0, 0); 
-	gPad->SetTopMargin(0.025);
-	gPad->SetBottomMargin(0.12);
-	gPad->SetLeftMargin(0.12);
-	gPad->SetRightMargin(0.04);
-	gPad->SetTickx(); gPad->SetTicky();
-	gPad->SetLogy();
+	// // Beautify
+	// gStyle->SetLabelSize(0.05, "X");
+	// gStyle->SetLabelSize(0.05, "Y");
+	// gStyle->SetTitleSize(0.06, "X");
+	// gStyle->SetTitleSize(0.06, "Y");
+	// cv2->SetMargin(0, 0, 0, 0); 
+	// gPad->SetTopMargin(0.025);
+	// gPad->SetBottomMargin(0.12);
+	// gPad->SetLeftMargin(0.12);
+	// gPad->SetRightMargin(0.04);
+	// gPad->SetTickx(); gPad->SetTicky();
+	// gPad->SetLogy();
 
-	// Beautify
-	hist_nHadron_365_al->GetXaxis()->SetLabelSize(0.05); hist_nHadron_365_al->GetXaxis()->SetTitleSize(0.05);
-	hist_nHadron_365_al->GetYaxis()->SetLabelSize(0.05); hist_nHadron_365_al->GetYaxis()->SetTitleSize(0.05);
-	hist_nHadron_365_al->SetTitle("");
-	hist_nHadron_365_al->GetYaxis()->SetTitle("#");
+	// // Beautify
+	// hist_nHadron_365_al->GetXaxis()->SetLabelSize(0.05); hist_nHadron_365_al->GetXaxis()->SetTitleSize(0.05);
+	// hist_nHadron_365_al->GetYaxis()->SetLabelSize(0.05); hist_nHadron_365_al->GetYaxis()->SetTitleSize(0.05);
+	// hist_nHadron_365_al->SetTitle("");
+	// hist_nHadron_365_al->GetYaxis()->SetTitle("#");
 
-	hist_nHadron_365_al->SetFillStyle(3001); hist_nHadron_365_al->SetFillColor(kBlack); 
-	hist_nHadron_365_Zq->SetFillStyle(3001); hist_nHadron_365_Zq->SetFillColor(kRed);
-	hist_nHadron_365_WW->SetFillStyle(3001); hist_nHadron_365_WW->SetFillColor(kGreen); 
-	hist_nHadron_365_ZZ->SetFillStyle(3001); hist_nHadron_365_ZZ->SetFillColor(kBlue); 
-	hist_nHadron_365_tt->SetFillStyle(3001); hist_nHadron_365_tt->SetFillColor(kYellow); 
-	hist_nHadron_365_HZ->SetFillStyle(3001); hist_nHadron_365_HZ->SetFillColor(kMagenta+1); 
-	hist_nHadron_365_HW->SetFillStyle(3001); hist_nHadron_365_HW->SetFillColor(kCyan+1); 
+	// hist_nHadron_365_al->SetFillStyle(3001); hist_nHadron_365_al->SetFillColor(kBlack); 
+	// hist_nHadron_365_Zq->SetFillStyle(3001); hist_nHadron_365_Zq->SetFillColor(kRed);
+	// hist_nHadron_365_WW->SetFillStyle(3001); hist_nHadron_365_WW->SetFillColor(kGreen); 
+	// hist_nHadron_365_ZZ->SetFillStyle(3001); hist_nHadron_365_ZZ->SetFillColor(kBlue); 
+	// hist_nHadron_365_tt->SetFillStyle(3001); hist_nHadron_365_tt->SetFillColor(kYellow); 
+	// hist_nHadron_365_HZ->SetFillStyle(3001); hist_nHadron_365_HZ->SetFillColor(kMagenta+1); 
+	// hist_nHadron_365_HW->SetFillStyle(3001); hist_nHadron_365_HW->SetFillColor(kCyan+1); 
 
-	// Draw
-	hist_nHadron_365_al->Draw("HIST");
-	hist_nHadron_365_Zq->Draw("HIST SAME");
-	hist_nHadron_365_WW->Draw("HIST SAME");
-	hist_nHadron_365_ZZ->Draw("HIST SAME");
-	hist_nHadron_365_tt->Draw("HIST SAME");
-	hist_nHadron_365_HZ->Draw("HIST SAME");
-	hist_nHadron_365_HW->Draw("HIST SAME");
+	// // Draw
+	// hist_nHadron_365_al->Draw("HIST");
+	// hist_nHadron_365_Zq->Draw("HIST SAME");
+	// hist_nHadron_365_WW->Draw("HIST SAME");
+	// hist_nHadron_365_ZZ->Draw("HIST SAME");
+	// hist_nHadron_365_tt->Draw("HIST SAME");
+	// hist_nHadron_365_HZ->Draw("HIST SAME");
+	// hist_nHadron_365_HW->Draw("HIST SAME");
 
-	lg2->Draw("SAME");
+	// lg2->Draw("SAME");
 
-	// Set limits
-	hist_nHadron_365_al->GetYaxis()->SetRangeUser(2,1E6);
-	hist_nHadron_365_al->GetXaxis()->SetRangeUser(0,120);
+	// // Set limits
+	// hist_nHadron_365_al->GetYaxis()->SetRangeUser(2,1E6);
+	// hist_nHadron_365_al->GetXaxis()->SetRangeUser(0,120);
 
-	// Modify stat-box
-	gStyle->SetOptStat();
-	// Update canvas
-	cv2->Modified();
+	// // Modify stat-box
+	// gStyle->SetOptStat();
+	// // Update canvas
+	// cv2->Modified();
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
-	// Create canvas
-	TCanvas* cv4 = new TCanvas("cv4", "FCC-ee ISR Studies", 800, 700);
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 	// Import aleph
 	TDirectory *table_EXP_ALP_NCH = (TDirectory*)input_EXP_ALP->Get("Table 1");
@@ -241,6 +254,8 @@ void ImpactofMults() {
 	grph_nHadAvg_ExLL3->SetPointError(ff, 0.0, 0.0, 0.11, 0.11);
 	grph_nHadAvg_ExLL3->Sort();
 
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
 	// AMY graph
 	double xbin_ZetaSta_ExAMY[8] = { 50.0, 52.0, 55.0, 56.0, 57.0, 60.0, 60.8, 61.4 };
 	double ybin_ZetaSta_ExAMY[8] = { 16.24, 16.74, 16.82, 17.27, 17.49, 17.85, 17.66, 17.61 };
@@ -248,6 +263,8 @@ void ImpactofMults() {
 	// Construct
 	auto grph_ZetaSta_ExAMY = new TGraphErrors(8, xbin_ZetaSta_ExAMY, ybin_ZetaSta_ExAMY, nullptr, yerr_ZetaSta_ExAMY);
 	grph_ZetaSta_ExAMY->SetLineColor(kGreen+2); grph_ZetaSta_ExAMY->SetMarkerColor(kGreen+2); grph_ZetaSta_ExAMY->SetMarkerStyle(53); grph_ZetaSta_ExAMY->SetLineWidth(2); grph_ZetaSta_ExAMY->SetMarkerSize(1);
+
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 	// TASSO graph
 	double xbin_ZetaSta_ExTAS[4] = { 14.0, 22.0, 34.8, 43.6 };
@@ -267,13 +284,66 @@ void ImpactofMults() {
 	auto grph_nHadAvg_Pythi = new TGraphErrors(4, xbin_nHadAvg_Pythi, ybin_nHadAvg_Pythi, nullptr, yerr_nHadAvg_Pythi);
 	grph_nHadAvg_Pythi->SetLineColor(kBlack); grph_nHadAvg_Pythi->SetMarkerColor(kBlack); grph_nHadAvg_Pythi->SetMarkerStyle(20); grph_nHadAvg_Pythi->SetLineWidth(2); grph_nHadAvg_Pythi->SetMarkerSize(1.5);
 
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+    // --- Theoretical curve (3NLO) ---
+    const int nPointsTh = 100;
+    double xTh[nPointsTh], yTh[nPointsTh];
+
+    // Model parameters
+    const double Q0 = 0.25;           
+    const int    Nf = 5;
+    const double Nc = 3.0;
+    const double CA = 3.0;
+    const double CF = (Nc*Nc - 1.0)/(2.0*Nc);
+    const double r0 = CA/CF;
+    const double beta0 = 11.0 - (2.0/3.0)*Nf;
+    const double beta1 = 102.0 - (38.0/3.0)*Nf;
+    const double c = std::sqrt(4.0 * Nc / beta0);
+
+    // Coefficients from Dremlin table
+    const auto Cn = coeffs_for_nf(Nf);
+    const double r1 = Cn.r1, r2 = Cn.r2, r3 = Cn.r3;
+    const double a1 = Cn.a1, a2 = Cn.a2, a3 = Cn.a3;
+
+	// Build the curve vs sqrt(s) from 10 to 400 GeV
+	for (int i = 0; i < nPointsTh; ++i) {
+		const double Ecm = 10.0 + i * (390.0/(nPointsTh-1)); // 10..400
+		xTh[i] = Ecm;
+
+		// y = ln(Q/Q0) with Q = sqrt(s) = Ecm
+		const double y = std::log(Ecm / (2*Q0));
+		// Guard very low y just in case
+		if (y <= 1e-6) { yTh[i] = 0.0; continue; }
+
+		yTh[i] = (1 / r0) * std::pow(y, -a1 * c * c) *
+				std::exp( 2.0 * c * std::sqrt(y) + (c / std::sqrt(y)) * ( r1 + 2.0 * a2 * c * c + (beta1/(beta0*beta0)) * (std::log(2.0*y) + 2.0) ) + (c*c / y) * ( a3*c*c + 0.5*r1*r1 + r2 - a1*(beta1/(beta0*beta0)) * (std::log(2.0*y) + 1.0) ) );
+	}
+
+    // Construct theory curve
+    auto grph_nHadAvg_QCD = new TGraph(nPointsTh, xTh, yTh);
+    grph_nHadAvg_QCD->SetLineWidth(3); grph_nHadAvg_QCD->SetLineStyle(7);
+
+    // Normalise theory to PYTHIA 
+    const double th_at_Z = grph_nHadAvg_QCD->Eval(91.2);
+    if (th_at_Z > 0) {
+        const double scale = grph_nHadAvg_Pythi->GetY()[0] / th_at_Z;
+        for (int i = 0; i < grph_nHadAvg_QCD->GetN(); ++i) grph_nHadAvg_QCD->GetY()[i] *= scale;            
+    }
+
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////
+	
+	// Create canvas
+	TCanvas* cv4 = new TCanvas("cv4", "FCC-ee ISR Studies", 800, 600);
+
 	// Add legend
-	TLegend *lg4 = new TLegend(0.74, 0.18, 0.90, 0.43);
-	lg4->AddEntry(grph_nHadAvg_Pythi, "PYTHIA", "PL");
-	lg4->AddEntry(grph_nHadAvg_ExALP, "ALEPH", "PL");
-	lg4->AddEntry(grph_nHadAvg_ExLL3, "L3", "PL");
-	lg4->AddEntry(grph_ZetaSta_ExAMY, "AMY", "PL");
-	lg4->AddEntry(grph_ZetaSta_ExTAS, "TASSO", "PL");
+	TLegend *lg4 = new TLegend(0.77, 0.18, 0.90, 0.50);
+	lg4->AddEntry(grph_nHadAvg_Pythi, "PYTHIA", "P");
+	lg4->AddEntry(grph_nHadAvg_ExALP, "ALEPH", "P");
+	lg4->AddEntry(grph_nHadAvg_ExLL3, "L3", "P");
+	lg4->AddEntry(grph_ZetaSta_ExAMY, "AMY", "P");
+	lg4->AddEntry(grph_ZetaSta_ExTAS, "TASSO", "P");
+	lg4->AddEntry(grph_nHadAvg_QCD, "3NLO", "L");
 	lg4->SetTextSize(0.04);
 
 	// Beautify
@@ -301,6 +371,7 @@ void ImpactofMults() {
 	grph_nHadAvg_ExLL3->Draw("PE SAME");
 	grph_ZetaSta_ExAMY->Draw("PE SAME");
 	grph_ZetaSta_ExTAS->Draw("PE SAME");
+	grph_nHadAvg_QCD->Draw("L SAME");
 	lg4->Draw("SAME");
 
 	// Set limits
