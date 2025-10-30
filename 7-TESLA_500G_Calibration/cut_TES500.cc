@@ -53,9 +53,9 @@ TH1F* ComputeKNOScaling(TH1F* inputHist, const std::string& outputName) {
     knoHist->GetYaxis()->SetTitle("P(N_{Ch}) x <N_{Ch}>");
     // Fill histogram
     for (int bin = 1; bin <= inputHist->GetNbinsX(); ++bin) {
-        double nCh = inputHist->GetXaxis()->GetBinCenter(bin);
+        double nHadCh = inputHist->GetXaxis()->GetBinCenter(bin);
         double binContent = inputHist->GetBinContent(bin);
-        double scaledNch = nCh / histNch;
+        double scaledNch = nHadCh / histNch;
         double scaledCon = inputHist->GetBinContent(bin)*histNch;
         double scaledErr = inputHist->GetBinError(bin)*histNch;
         knoHist->Fill(scaledNch, scaledCon);
@@ -186,31 +186,57 @@ void applyCuts( const std::string& inputFileName, const std::string& outputFileN
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-	TH1F *hist_ZetaInc = new TH1F("hist_ZetaInc", "Inclusive particle spectrum", 100, 0.0, 8.0);
-	hist_ZetaInc->GetXaxis()->SetTitle("#xi = ln(1/x_{p})"); hist_ZetaInc->GetYaxis()->SetTitle("(1/N) dN/d#xi");
+	TH1F *hist_ZetaAll = new TH1F("hist_ZetaAll", "Inclusive particle spectrum", 80, 0.0, 8.0);
+	hist_ZetaAll->GetXaxis()->SetTitle("#xi = ln(1/x_{p})"); hist_ZetaAll->GetYaxis()->SetTitle("1/#sigma d#sigma_{ch}/d#xi");
+
+	TH1F *hist_ZetaChg = new TH1F("hist_ZetaChg", "Inclusive particle spectrum", 80, 0.0, 8.0);
+	hist_ZetaChg->GetXaxis()->SetTitle("#xi = ln(1/x_{p})"); hist_ZetaChg->GetYaxis()->SetTitle("1/#sigma d#sigma_{ch}/d#xi");
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-	TH1F *hist_nHadron = new TH1F("hist_nHadron", "Charged Hadron Multiplicity", 60, 1, 121);
-	hist_nHadron->GetXaxis()->SetTitle("N_{Ch}"); hist_nHadron->GetYaxis()->SetTitle("P(N_{Ch})");
+	TH1F *hist_nHadAll = new TH1F("hist_nHadAll", "Hadron Multiplicity", 150, 1, 301);
+	hist_nHadAll->GetXaxis()->SetTitle("N_{Ch}"); hist_nHadAll->GetYaxis()->SetTitle("P(N_{Ch})");
 
-	TH1F *hist_nHadron_HZ = new TH1F("hist_nHadron_HZ", "Charged Hadron Multiplicity", 60, 1, 121);
-	hist_nHadron_HZ->GetXaxis()->SetTitle("N_{Ch}"); hist_nHadron_HZ->GetYaxis()->SetTitle("P(N_{Ch})");
+	TH1F *hist_nHadAll_HZ = new TH1F("hist_nHadAll_HZ", "Hadron Multiplicity", 150, 1, 301);
+	hist_nHadAll_HZ->GetXaxis()->SetTitle("N_{Ch}"); hist_nHadAll_HZ->GetYaxis()->SetTitle("P(N_{Ch})");
 
-	TH1F *hist_nHadron_HW = new TH1F("hist_nHadron_HW", "Charged Hadron Multiplicity", 60, 1, 121);
-	hist_nHadron_HW->GetXaxis()->SetTitle("N_{Ch}"); hist_nHadron_HW->GetYaxis()->SetTitle("P(N_{Ch})");
+	TH1F *hist_nHadAll_HW = new TH1F("hist_nHadAll_HW", "Hadron Multiplicity", 150, 1, 301);
+	hist_nHadAll_HW->GetXaxis()->SetTitle("N_{Ch}"); hist_nHadAll_HW->GetYaxis()->SetTitle("P(N_{Ch})");
 
-	TH1F *hist_nHadron_Zq = new TH1F("hist_nHadron_Zq", "Charged Hadron Multiplicity", 60, 1, 121);
-	hist_nHadron_Zq->GetXaxis()->SetTitle("N_{Ch}"); hist_nHadron_Zq->GetYaxis()->SetTitle("P(N_{Ch})");
+	TH1F *hist_nHadAll_Zq = new TH1F("hist_nHadAll_Zq", "Hadron Multiplicity", 150, 1, 301);
+	hist_nHadAll_Zq->GetXaxis()->SetTitle("N_{Ch}"); hist_nHadAll_Zq->GetYaxis()->SetTitle("P(N_{Ch})");
 
-	TH1F *hist_nHadron_ZZ = new TH1F("hist_nHadron_ZZ", "Charged Hadron Multiplicity", 60, 1, 121);
-	hist_nHadron_ZZ->GetXaxis()->SetTitle("N_{Ch}"); hist_nHadron_ZZ->GetYaxis()->SetTitle("P(N_{Ch})");
+	TH1F *hist_nHadAll_ZZ = new TH1F("hist_nHadAll_ZZ", "Hadron Multiplicity", 150, 1, 301);
+	hist_nHadAll_ZZ->GetXaxis()->SetTitle("N_{Ch}"); hist_nHadAll_ZZ->GetYaxis()->SetTitle("P(N_{Ch})");
 
-	TH1F *hist_nHadron_WW = new TH1F("hist_nHadron_WW", "Charged Hadron Multiplicity", 60, 1, 121);
-	hist_nHadron_WW->GetXaxis()->SetTitle("N_{Ch}"); hist_nHadron_WW->GetYaxis()->SetTitle("P(N_{Ch})");
+	TH1F *hist_nHadAll_WW = new TH1F("hist_nHadAll_WW", "Hadron Multiplicity", 150, 1, 301);
+	hist_nHadAll_WW->GetXaxis()->SetTitle("N_{Ch}"); hist_nHadAll_WW->GetYaxis()->SetTitle("P(N_{Ch})");
 
-	TH1F *hist_nHadron_tt = new TH1F("hist_nHadron_tt", "Charged Hadron Multiplicity", 60, 1, 121);
-	hist_nHadron_tt->GetXaxis()->SetTitle("N_{Ch}"); hist_nHadron_tt->GetYaxis()->SetTitle("P(N_{Ch})");
+	TH1F *hist_nHadAll_tt = new TH1F("hist_nHadAll_tt", "Hadron Multiplicity", 150, 1, 301);
+	hist_nHadAll_tt->GetXaxis()->SetTitle("N_{Ch}"); hist_nHadAll_tt->GetYaxis()->SetTitle("P(N_{Ch})");
+
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+	TH1F *hist_nHadChg = new TH1F("hist_nHadChg", "Charged Hadron Multiplicity", 150, 1, 301);
+	hist_nHadChg->GetXaxis()->SetTitle("N_{Ch}"); hist_nHadChg->GetYaxis()->SetTitle("P(N_{Ch})");
+
+	TH1F *hist_nHadChg_HZ = new TH1F("hist_nHadChg_HZ", "Charged Hadron Multiplicity", 150, 1, 301);
+	hist_nHadChg_HZ->GetXaxis()->SetTitle("N_{Ch}"); hist_nHadChg_HZ->GetYaxis()->SetTitle("P(N_{Ch})");
+
+	TH1F *hist_nHadChg_HW = new TH1F("hist_nHadChg_HW", "Charged Hadron Multiplicity", 150, 1, 301);
+	hist_nHadChg_HW->GetXaxis()->SetTitle("N_{Ch}"); hist_nHadChg_HW->GetYaxis()->SetTitle("P(N_{Ch})");
+
+	TH1F *hist_nHadChg_Zq = new TH1F("hist_nHadChg_Zq", "Charged Hadron Multiplicity", 150, 1, 301);
+	hist_nHadChg_Zq->GetXaxis()->SetTitle("N_{Ch}"); hist_nHadChg_Zq->GetYaxis()->SetTitle("P(N_{Ch})");
+
+	TH1F *hist_nHadChg_ZZ = new TH1F("hist_nHadChg_ZZ", "Charged Hadron Multiplicity", 150, 1, 301);
+	hist_nHadChg_ZZ->GetXaxis()->SetTitle("N_{Ch}"); hist_nHadChg_ZZ->GetYaxis()->SetTitle("P(N_{Ch})");
+
+	TH1F *hist_nHadChg_WW = new TH1F("hist_nHadChg_WW", "Charged Hadron Multiplicity", 150, 1, 301);
+	hist_nHadChg_WW->GetXaxis()->SetTitle("N_{Ch}"); hist_nHadChg_WW->GetYaxis()->SetTitle("P(N_{Ch})");
+
+	TH1F *hist_nHadChg_tt = new TH1F("hist_nHadChg_tt", "Charged Hadron Multiplicity", 150, 1, 301);
+	hist_nHadChg_tt->GetXaxis()->SetTitle("N_{Ch}"); hist_nHadChg_tt->GetYaxis()->SetTitle("P(N_{Ch})");
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////	
 
@@ -350,7 +376,7 @@ void applyCuts( const std::string& inputFileName, const std::string& outputFileN
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 	// Counters
-	int nCh=0, \
+	int nHadCh=0, nHadAl=0, \
 		nRad_wi_al=0, nRad_wi_Zq=0, nRad_wi_ZZ=0, nRad_wi_WW=0, nRad_wi_tt=0, nRad_wi_HZ=0, nRad_wi_HW=0, \
 		nRad_wo_al=0, nRad_wo_Zq=0, nRad_wo_ZZ=0, nRad_wo_WW=0, nRad_wo_tt=0, nRad_wo_HZ=0, nRad_wo_HW=0;
 	
@@ -358,36 +384,34 @@ void applyCuts( const std::string& inputFileName, const std::string& outputFileN
 	for(int iEvent = 0; iEvent < itree->GetEntries(); iEvent++ ) {
 		
 		itree->GetEntry(iEvent);	// Access		
-		nCh=0;						// Reset
+		nHadCh=0; nHadAl=0;			// Reset
 
 		// Run through particles
 		for(int jParts = 0; jParts < (*eveSiz)[0]; jParts++) {
 	
+			// Total multiplicity
+			nHadAl++;
 			// Charged multiplicity
-			if ((*parChg)[jParts]!=0) nCh++;
+			if ((*parChg)[jParts]!=0 && (*parPdg)[jParts]!=22) nHadCh++;
 
 			// Inclusive spectrums
-			if ((*eveCod)[0] == 221 && (*parChg)[jParts]!=0) {
+			if ((*eveCod)[0]==221 && (*parPdg)[jParts]!=22) {
+				
 				// Access momentums
 				double px = (*parPmx)[jParts], py = (*parPmy)[jParts], pz = (*parPmz)[jParts];
 				// Compute total momentum
 				double q = std::sqrt(px*px + py*py + pz*pz);
-				if ((*parChg)[jParts] != 0 && q > 0.0) {
-					// Compute scaled momentum
-					double xp = 2.0 * q / nEnerg;
-					// Sanity check
-					if (xp > 0.0) {
-						// Compute ξ
-						double zeta = std::log(1.0/xp);
-						// Fill ξ
-						hist_ZetaInc->Fill(zeta);
-					}
-				}		
+				// Compute scaled momentum
+				double xp = 2.0 * q / nEnerg;
+				// Fill total ξ
+				hist_ZetaAll->Fill(std::log(1.0/xp));
+				// Fill charged ξ
+				if ((*parChg)[jParts]!=0 ) hist_ZetaChg->Fill(std::log(1.0/xp));
+
 			}
 
 			// ISR photons
 			if ((*parPdg)[jParts]==22 && (*parSat)[jParts]==43) hist_EgwiISR->Fill((*parEto)[jParts]);
-
 			// Non-ISR photons
 			if ((*parPdg)[jParts]==22 && (*parSat)[jParts]!=43) hist_EgwoISR->Fill((*parEto)[jParts]);
 			
@@ -402,21 +426,20 @@ void applyCuts( const std::string& inputFileName, const std::string& outputFileN
 		hist_TaxPyth->Fill((*eveTax)[0]);
 		hist_SphPyth->Fill((*eveSph)[0]);
 		hist_SaxPyth->Fill((*eveSax)[0]);
-		hist_nHadron->Fill(nCh);
+		hist_nHadAll->Fill(nHadAl);
+		hist_nHadChg->Fill(nHadCh);
 		hist_NumbISR->Fill((*isrNum)[0]);
 		hist_EmaxISR->Fill((*isrMax)[0]);
 		
 		// Process cuts
 		if ((*eveCod)[0] == 221) {
 			hist_Esprime_Zq->Fill((*eveSpr)[0]);
-			hist_nHadron_Zq->Fill(nCh);
-
+			hist_nHadAll_Zq->Fill(nHadAl);
+			hist_nHadChg_Zq->Fill(nHadCh);
 			hist_ThrPyth_Zq->Fill((*eveThr)[0]); 
 			hist_CprPyth_Zq->Fill((*eveCpr)[0]);
-
 			hist_ThrPyth_000->Fill((*eveThr)[0]);
 			hist_CprPyth_000->Fill((*eveCpr)[0]);
-
 			hist_ThrPyth_TEO->Fill((*eveThr)[0]);
 			hist_CprPyth_TEO->Fill((*eveCpr)[0]);
 			hist_ThrPyth_EXP->Fill((*eveThr)[0]);
@@ -424,34 +447,36 @@ void applyCuts( const std::string& inputFileName, const std::string& outputFileN
 		}
 		if ((*eveCod)[0] == 231) {
 			hist_Esprime_ZZ->Fill((*eveSpr)[0]);
-			hist_nHadron_ZZ->Fill(nCh);
-
+			hist_nHadAll_ZZ->Fill(nHadAl);
+			hist_nHadChg_ZZ->Fill(nHadCh);
 			hist_CprPyth_ZZ->Fill((*eveCpr)[0]);
 			hist_ThrPyth_ZZ->Fill((*eveThr)[0]); 
 		}
 		if ((*eveCod)[0] == 233) {
 			hist_Esprime_WW->Fill((*eveSpr)[0]);
-			hist_nHadron_WW->Fill(nCh);
-
+			hist_nHadAll_WW->Fill(nHadAl);
+			hist_nHadChg_WW->Fill(nHadCh);
 			hist_CprPyth_WW->Fill((*eveCpr)[0]);
 			hist_ThrPyth_WW->Fill((*eveThr)[0]); 
 		}
 		if ((*eveCod)[0] == 604) {
 			hist_Esprime_tt->Fill((*eveSpr)[0]);
-			hist_nHadron_tt->Fill(nCh);
-
+			hist_nHadAll_tt->Fill(nHadAl);
+			hist_nHadChg_tt->Fill(nHadCh);
 			hist_CprPyth_tt->Fill((*eveCpr)[0]);
 			hist_ThrPyth_tt->Fill((*eveThr)[0]); 
 		}
 		if ((*eveCod)[0] == 904) {
 			hist_Esprime_HZ->Fill((*eveSpr)[0]);
-			hist_nHadron_HZ->Fill(nCh);
+			hist_nHadAll_HZ->Fill(nHadAl);
+			hist_nHadChg_HZ->Fill(nHadCh);
 			hist_ThrPyth_HZ->Fill((*eveThr)[0]);
 			hist_CprPyth_HZ->Fill((*eveCpr)[0]);
 		}
 		if ((*eveCod)[0] == 907) {
 			hist_Esprime_HW->Fill((*eveSpr)[0]);
-			hist_nHadron_HW->Fill(nCh);
+			hist_nHadAll_HW->Fill(nHadAl);
+			hist_nHadChg_HW->Fill(nHadCh);
 			hist_ThrPyth_HW->Fill((*eveThr)[0]);
 			hist_CprPyth_HW->Fill((*eveCpr)[0]);
 		}
@@ -514,17 +539,17 @@ void applyCuts( const std::string& inputFileName, const std::string& outputFileN
 // KNO scaling
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////	
 
-	TH1F* KNOO_nHadron = ComputeKNOScaling(hist_nHadron, "KNOO_nHadron");
-	TH1F* KNOO_nHadron_Zq = ComputeKNOScaling(hist_nHadron_Zq, "KNOO_nHadron_Zq");
-	TH1F* KNOO_nHadron_ZZ = ComputeKNOScaling(hist_nHadron_ZZ, "KNOO_nHadron_ZZ");
-	TH1F* KNOO_nHadron_WW = ComputeKNOScaling(hist_nHadron_WW, "KNOO_nHadron_WW");
-	TH1F* KNOO_nHadron_tt = ComputeKNOScaling(hist_nHadron_tt, "KNOO_nHadron_tt");
+	TH1F* KNOO_nHadron = ComputeKNOScaling(hist_nHadChg, "KNOO_nHadron");
+	TH1F* KNOO_nHadron_Zq = ComputeKNOScaling(hist_nHadChg_Zq, "KNOO_nHadron_Zq");
+	TH1F* KNOO_nHadron_ZZ = ComputeKNOScaling(hist_nHadChg_ZZ, "KNOO_nHadron_ZZ");
+	TH1F* KNOO_nHadron_WW = ComputeKNOScaling(hist_nHadChg_WW, "KNOO_nHadron_WW");
+	TH1F* KNOO_nHadron_tt = ComputeKNOScaling(hist_nHadChg_tt, "KNOO_nHadron_tt");
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////
 // Scalings
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-	hist_ZetaInc->Scale(1.0 / (1000000 * hist_ZetaInc->GetBinWidth(1)));
+	hist_ZetaChg->Scale(1.0 / (1000000 * hist_ZetaChg->GetBinWidth(1)));
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////
 // File closures
@@ -544,21 +569,21 @@ void applyCuts( const std::string& inputFileName, const std::string& outputFileN
 int main() {
 
 	// Extraction
-	// applyCuts("4-GenData/gen_FCC912.root", "5-CutData/cut_FCC912.root", 91.20);
-	// applyCuts("4-GenData/gen_FCC160.root", "5-CutData/cut_FCC160.root", 160.0);
-	// applyCuts("4-GenData/gen_FCC240.root", "5-CutData/cut_FCC240.root", 240.0);
-	// applyCuts("4-GenData/gen_FCC365.root", "5-CutData/cut_FCC365.root", 365.0);
+	applyCuts("4-GenData/gen_FCC912.root", "5-CutData/cut_FCC912.root", 91.20);
+	applyCuts("4-GenData/gen_FCC160.root", "5-CutData/cut_FCC160.root", 160.0);
+	applyCuts("4-GenData/gen_FCC240.root", "5-CutData/cut_FCC240.root", 240.0);
+	applyCuts("4-GenData/gen_FCC365.root", "5-CutData/cut_FCC365.root", 365.0);
 	// applyCuts("4-GenData/gen_FCC500.root", "5-CutData/cut_FCC500.root", 500.0);
 	
 	// Hadronic cuts
 	// applyCuts("4-GenData/gen_FCC365.root", "5-CutData/cut_FCC365_wiCut.root", 365.0);
 
 	// ISR
-	applyCuts("4-GenData/gen_FCC500_ISR.root", "5-CutData/cut_FCC500_ISR.root", 500.0);
-	applyCuts("4-GenData/gen_FCC365_ISR.root", "5-CutData/cut_FCC365_ISR.root", 365.0);
-	applyCuts("4-GenData/gen_FCC240_ISR.root", "5-CutData/cut_FCC240_ISR.root", 240.0);
-	applyCuts("4-GenData/gen_FCC160_ISR.root", "5-CutData/cut_FCC160_ISR.root", 160.0);
-	applyCuts("4-GenData/gen_FCC912_ISR.root", "5-CutData/cut_FCC912_ISR.root", 91.20);
+	// applyCuts("4-GenData/gen_FCC500_ISR.root", "5-CutData/cut_FCC500_ISR.root", 500.0);
+	// applyCuts("4-GenData/gen_FCC365_ISR.root", "5-CutData/cut_FCC365_ISR.root", 365.0);
+	// applyCuts("4-GenData/gen_FCC240_ISR.root", "5-CutData/cut_FCC240_ISR.root", 240.0);
+	// applyCuts("4-GenData/gen_FCC160_ISR.root", "5-CutData/cut_FCC160_ISR.root", 160.0);
+	// applyCuts("4-GenData/gen_FCC912_ISR.root", "5-CutData/cut_FCC912_ISR.root", 91.20);
 
 	// Calibration
 	// applyCuts("4-GenData/gen_FCC200.root", "5-CutData/cut_FCC200.root", 200.0);

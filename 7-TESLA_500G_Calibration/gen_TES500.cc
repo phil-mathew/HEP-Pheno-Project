@@ -143,9 +143,9 @@ void genEvents(const std::string &outputFileName, float nEnerg, int nEvent){
 	pythia.readString("Top:ffbar2ttbar(s:gmZ) = on");										// (604) ee'->tt'
 
 	// Suppress terminal text
-	pythia.readString("Print:quiet = on");													// print nothing
+	// pythia.readString("Print:quiet = on");													// print nothing
 	pythia.readString("Next:numberCount = 10000000");										// print #events
-	// pythia.readString("Next:numberShowEvent = 10");										// print #listings
+	pythia.readString("Next:numberShowEvent = 10");										// print #listings
 	
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////
 // Generate Pythia collisions
@@ -356,10 +356,10 @@ void genEvents(const std::string &outputFileName, float nEnerg, int nEvent){
 int main() {
 
 	// Call generator
-	genEvents("4-GenData/gen_FCC912.root", 91.20, 5E6);
-    genEvents("4-GenData/gen_FCC160.root", 160.0, 5E6);
-	genEvents("4-GenData/gen_FCC240.root", 240.0, 5E6);
-	genEvents("4-GenData/gen_FCC365.root", 365.0, 5E6);
+	// genEvents("4-GenData/gen_FCC912.root", 91.20, 5E6);
+    // genEvents("4-GenData/gen_FCC160.root", 160.0, 5E6);
+	// genEvents("4-GenData/gen_FCC240.root", 240.0, 5E6);
+	// genEvents("4-GenData/gen_FCC365.root", 365.0, 5E6);
 	// genEvents("4-GenData/gen_FCC500.root", 500.0, 1E6);
 
 	// ISR
