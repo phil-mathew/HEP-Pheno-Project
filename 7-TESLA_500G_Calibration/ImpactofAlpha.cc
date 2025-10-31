@@ -57,6 +57,36 @@ TGraphAsymmErrors* HistToGraph(const TH1* h, bool skipEmpty=false) {
     g->GetYaxis()->SetTitle(h->GetYaxis()->GetTitle());
     return g;
 }
+
+// 3-loop QCD running coupling αs(Q) with fixed nf=5 (MSbar scheme)
+static inline double alpha3L_Lambda(double Q, double Lambda) {
+    const double nf = 5.0;
+    const double b0 = 11.0 - 2.0/3.0*nf;
+    const double b1 = 102.0 - 38.0/3.0*nf;
+    const double b2 = 2857.0/2.0 - 5033.0/18.0*nf + 325.0/54.0*nf*nf;
+
+    const double L = std::log((Q*Q)/(Lambda*Lambda));
+    const double lnL = std::log(L);
+
+    const double pref = 4.0 * M_PI / (b0 * L);
+    const double corr1 = (b1 / (b0*b0)) * (lnL / L);
+    const double corr2 = ((b1*b1)*((lnL*lnL) - lnL - 1.0) + b0*b2) / (std::pow(b0,4) * L*L);
+
+    return pref * (1.0 - corr1 + corr2);
+}
+
+// Invert αs(Q0) → Λ at 3-loop (nf=5). αs increases with Λ.
+static inline double Lambda_from_alpha3L(double Q0, double as_Q0) {
+    double lo = 0.01, hi = 1.0;           // GeV, safe bracket for Λ^(5)
+    for (int it = 0; it < 100; ++it) {
+        double mid   = 0.5 * (lo + hi);
+        double a_mid = alpha3L_Lambda(Q0, mid);
+        if (a_mid > as_Q0) hi = mid;      // reduce Λ to reduce αs
+        else               lo = mid;      // increase Λ to increase αs
+    }
+    return 0.5 * (lo + hi);
+}
+
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -458,63 +488,61 @@ void ImpactofAlpha() {
 	float AlpFit_240_min = 0.09, AlpFit_240_max = 0.25, CprFit_240_min = 0.36, CprFit_240_max = 0.74;
 	float AlpFit_365_min = 0.09, AlpFit_365_max = 0.25, CprFit_365_min = 0.36, CprFit_365_max = 0.74;
 
-	TF1 *hist_fitThNN_912 = new TF1("hist_fitThNN_912", THR_NNLO, 0.09, 0.25, 1);
+	TF1 *hist_fitThNN_912 = new TF1("hist_fitThNN_912", THR_NNLO, 0.15, 0.25, 1);
 	hist_fitThNN_912->SetLineColor(kBlue+1); hist_fitThNN_912->SetMarkerColor(kBlue+1); hist_fitThNN_912->SetMarkerStyle(53); hist_fitThNN_912->SetLineWidth(2); hist_fitThNN_912->SetMarkerSize(1);
-	TF1 *hist_fitThNN_91X = new TF1("hist_fitThNN_91X", THR_NNLO, AlpFit_912_min, AlpFit_912_max, 1);
-	hist_fitThNN_91X->SetLineColor(kRed+2); hist_fitThNN_91X->SetMarkerColor(kRed+2); hist_fitThNN_91X->SetMarkerStyle(53); hist_fitThNN_91X->SetLineWidth(2); hist_fitThNN_91X->SetMarkerSize(1);
-
-	TF1 *hist_fitThNN_160 = new TF1("hist_fitThNN_160", THR_NNLO, AlpFit_160_min, AlpFit_160_max, 1);
+	TF1 *hist_fitThNN_160 = new TF1("hist_fitThNN_160", THR_NNLO, 0.20, 0.30, 1);
 	hist_fitThNN_160->SetLineColor(kBlue+1); hist_fitThNN_160->SetMarkerColor(kBlue+1); hist_fitThNN_160->SetMarkerStyle(53); hist_fitThNN_160->SetLineWidth(2); hist_fitThNN_160->SetMarkerSize(1);
-	TF1 *hist_fitThNN_240 = new TF1("hist_fitThNN_240", THR_NNLO, AlpFit_240_min, AlpFit_240_max, 1);
+	TF1 *hist_fitThNN_240 = new TF1("hist_fitThNN_240", THR_NNLO, 0.20, 0.30, 1);
 	hist_fitThNN_240->SetLineColor(kBlue+1); hist_fitThNN_240->SetMarkerColor(kBlue+1); hist_fitThNN_240->SetMarkerStyle(53); hist_fitThNN_240->SetLineWidth(2); hist_fitThNN_240->SetMarkerSize(1);
-	TF1 *hist_fitThNN_365 = new TF1("hist_fitThNN_365", THR_NNLO, AlpFit_365_min, AlpFit_365_max, 1);
+	TF1 *hist_fitThNN_365 = new TF1("hist_fitThNN_365", THR_NNLO, 0.20, 0.30, 1);
 	hist_fitThNN_365->SetLineColor(kBlue+1); hist_fitThNN_365->SetMarkerColor(kBlue+1); hist_fitThNN_365->SetMarkerStyle(53); hist_fitThNN_365->SetLineWidth(2); hist_fitThNN_365->SetMarkerSize(1);
 
-	TF1 *hist_fitCpNN_912 = new TF1("hist_fitCpNN_912", CPR_NNLO, CprFit_912_min, CprFit_912_max, 1);
+	TF1 *hist_fitCpNN_912 = new TF1("hist_fitCpNN_912", CPR_NNLO, 0.65, 0.74, 1);
 	hist_fitCpNN_912->SetLineColor(kBlue+1); hist_fitCpNN_912->SetMarkerColor(kBlue+1); hist_fitCpNN_912->SetMarkerStyle(53); hist_fitCpNN_912->SetLineWidth(2); hist_fitCpNN_912->SetMarkerSize(1);
-	TF1 *hist_fitCpNN_91X = new TF1("hist_fitCpNN_91X", CPR_NNLO, CprFit_912_min, CprFit_912_max, 1);
-	hist_fitCpNN_91X->SetLineColor(kRed+2); hist_fitCpNN_91X->SetMarkerColor(kRed+2); hist_fitCpNN_91X->SetMarkerStyle(53); hist_fitCpNN_91X->SetLineWidth(2); hist_fitCpNN_91X->SetMarkerSize(1);
-
-	TF1 *hist_fitCpNN_160 = new TF1("hist_fitCpNN_160", CPR_NNLO, CprFit_160_min, CprFit_160_max, 1);
+	TF1 *hist_fitCpNN_160 = new TF1("hist_fitCpNN_160", CPR_NNLO, 0.65, 0.74, 1);
 	hist_fitCpNN_160->SetLineColor(kBlue+1); hist_fitCpNN_160->SetMarkerColor(kBlue+1); hist_fitCpNN_160->SetMarkerStyle(53); hist_fitCpNN_160->SetLineWidth(2); hist_fitCpNN_160->SetMarkerSize(1);
-	TF1 *hist_fitCpNN_240 = new TF1("hist_fitCpNN_240", CPR_NNLO, CprFit_240_min, CprFit_240_max, 1);
+	TF1 *hist_fitCpNN_240 = new TF1("hist_fitCpNN_240", CPR_NNLO, 0.60, 0.74, 1);
 	hist_fitCpNN_240->SetLineColor(kBlue+1); hist_fitCpNN_240->SetMarkerColor(kBlue+1); hist_fitCpNN_240->SetMarkerStyle(53); hist_fitCpNN_240->SetLineWidth(2); hist_fitCpNN_240->SetMarkerSize(1);
-	TF1 *hist_fitCpNN_365 = new TF1("hist_fitCpNN_365", CPR_NNLO, CprFit_365_min, CprFit_365_max, 1);
+	TF1 *hist_fitCpNN_365 = new TF1("hist_fitCpNN_365", CPR_NNLO, 0.65, 0.74, 1);
 	hist_fitCpNN_365->SetLineColor(kBlue+1); hist_fitCpNN_365->SetMarkerColor(kBlue+1); hist_fitCpNN_365->SetMarkerStyle(53); hist_fitCpNN_365->SetLineWidth(2); hist_fitCpNN_365->SetMarkerSize(1);
+
+	TF1 *hist_fitThNN_91X = new TF1("hist_fitThNN_91X", THR_NNLO, 0.15, 0.25, 1);
+	hist_fitThNN_91X->SetLineColor(kRed+2); hist_fitThNN_91X->SetMarkerColor(kRed+2); hist_fitThNN_91X->SetMarkerStyle(53); hist_fitThNN_91X->SetLineWidth(2); hist_fitThNN_91X->SetMarkerSize(1);
+	TF1 *hist_fitCpNN_91X = new TF1("hist_fitCpNN_91X", CPR_NNLO, 0.65, 0.74, 1);
+	hist_fitCpNN_91X->SetLineColor(kRed+2); hist_fitCpNN_91X->SetMarkerColor(kRed+2); hist_fitCpNN_91X->SetMarkerStyle(53); hist_fitCpNN_91X->SetLineWidth(2); hist_fitCpNN_91X->SetMarkerSize(1);
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////	
 
 	float guess = 0.1, guess_min = 0.01, guess_max = 1.0;
 
-	hist_fitThNN_912->SetParameter(0, 0.1275); hist_fitThNN_912->SetParLimits(0, guess_min, guess_max);
-	hist_fitThNN_91X->SetParameter(0, 0.1275); hist_fitThNN_91X->SetParLimits(0, guess_min, guess_max);
+	// hist_fitThNN_912->SetParameter(0, 0.1275); hist_fitThNN_912->SetParLimits(0, guess_min, guess_max);
+	// hist_fitThNN_91X->SetParameter(0, 0.1275); hist_fitThNN_91X->SetParLimits(0, guess_min, guess_max);
 
-	hist_fitThNN_160->SetParameter(0, 0.1172); hist_fitThNN_160->SetParLimits(0, guess_min, guess_max);
-	hist_fitThNN_240->SetParameter(0, 0.1084); hist_fitThNN_240->SetParLimits(0, guess_min, guess_max);
-	hist_fitThNN_365->SetParameter(0, 0.1084); hist_fitThNN_365->SetParLimits(0, guess_min, guess_max);
+	// hist_fitThNN_160->SetParameter(0, 0.1172); hist_fitThNN_160->SetParLimits(0, guess_min, guess_max);
+	// hist_fitThNN_240->SetParameter(0, 0.1084); hist_fitThNN_240->SetParLimits(0, guess_min, guess_max);
+	// hist_fitThNN_365->SetParameter(0, 0.1084); hist_fitThNN_365->SetParLimits(0, guess_min, guess_max);
 	
-	hist_fitCpNN_912->SetParameter(0, 0.1273); hist_fitCpNN_912->SetParLimits(0, guess_min, guess_max);
-	hist_fitCpNN_91X->SetParameter(0, 0.1273); hist_fitCpNN_91X->SetParLimits(0, guess_min, guess_max);
+	// hist_fitCpNN_912->SetParameter(0, 0.1273); hist_fitCpNN_912->SetParLimits(0, guess_min, guess_max);
+	// hist_fitCpNN_91X->SetParameter(0, 0.1273); hist_fitCpNN_91X->SetParLimits(0, guess_min, guess_max);
 
-	hist_fitCpNN_160->SetParameter(0, 0.1190); hist_fitCpNN_160->SetParLimits(0, guess_min, guess_max);
-	hist_fitCpNN_240->SetParameter(0, 0.1076); hist_fitCpNN_240->SetParLimits(0, guess_min, guess_max);
-	hist_fitCpNN_365->SetParameter(0, 0.1076); hist_fitCpNN_365->SetParLimits(0, guess_min, guess_max);
+	// hist_fitCpNN_160->SetParameter(0, 0.1190); hist_fitCpNN_160->SetParLimits(0, guess_min, guess_max);
+	// hist_fitCpNN_240->SetParameter(0, 0.1076); hist_fitCpNN_240->SetParLimits(0, guess_min, guess_max);
+	// hist_fitCpNN_365->SetParameter(0, 0.1076); hist_fitCpNN_365->SetParLimits(0, guess_min, guess_max);
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 	hist_ThrPyth_912_woHadron->Fit(hist_fitThNN_912, "RNQ MINOS");
-	hist_ThrALPH_912_wiHadron->Fit(hist_fitThNN_91X, "RNQ MINOS");
-
 	hist_ThrPyth_160_woHadron->Fit(hist_fitThNN_160, "RNQ MINOS");
 	hist_ThrPyth_240_woHadron->Fit(hist_fitThNN_240, "RNQ MINOS");
 	hist_ThrPyth_365_woHadron->Fit(hist_fitThNN_365, "RNQ MINOS");
 	
 	hist_CprPyth_912_woHadron->Fit(hist_fitCpNN_912, "RNQ MINOS");
-	hist_CprALPH_912_wiHadron->Fit(hist_fitCpNN_91X, "RNQ MINOS");
-
 	hist_CprPyth_160_woHadron->Fit(hist_fitCpNN_160, "RNQ MINOS");
 	hist_CprPyth_240_woHadron->Fit(hist_fitCpNN_240, "RNQ MINOS");
 	hist_CprPyth_365_woHadron->Fit(hist_fitCpNN_365, "RNQ MINOS");
+
+	hist_ThrALPH_912_wiHadron->Fit(hist_fitThNN_91X, "RNQ MINOS");
+	hist_CprALPH_912_wiHadron->Fit(hist_fitCpNN_91X, "RNQ MINOS");
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////
 // Edit plots
@@ -804,13 +832,10 @@ void ImpactofAlpha() {
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-	// Create canvas
-	TCanvas* cv4 = new TCanvas("cv4", "FCC-ee ISR Studies", 800, 700);
-
 	// Import aleph
 	TDirectory *table_EXP_ALP = (TDirectory*)input_EXP_ALP->Get("Table 52");
 	TGraphAsymmErrors* grph_AlphaSS_ExALP = (TGraphAsymmErrors*)table_EXP_ALP->Get("Graph1D_y1");
-	grph_AlphaSS_ExALP->SetLineColor(kBlue+2); grph_AlphaSS_ExALP->SetMarkerColor(kBlue+2); grph_AlphaSS_ExALP->SetMarkerStyle(53); grph_AlphaSS_ExALP->SetLineWidth(2); grph_AlphaSS_ExALP->SetMarkerSize(1); grph_AlphaSS_ExALP->SetFillColorAlpha(kBlue, 0.1);
+	grph_AlphaSS_ExALP->SetLineColor(kBlue+2); grph_AlphaSS_ExALP->SetMarkerColor(kBlue+2); grph_AlphaSS_ExALP->SetMarkerStyle(53); grph_AlphaSS_ExALP->SetLineWidth(2); grph_AlphaSS_ExALP->SetMarkerSize(1.5); grph_AlphaSS_ExALP->SetFillColorAlpha(kBlue, 0.1);
 
 	// L3 graph
 	double xbin_AlphaSS_ExLL3[16] = { 41.4, 55.3, 65.4, 75.7, 82.3, 85.1, 91.2, 130.1, 136.1, 161.3, 172.3, 182.8, 188.6, 194.4, 200, 206.2 };
@@ -818,7 +843,15 @@ void ImpactofAlpha() {
 	double yerr_AlphaSS_ExLL3[16] = { 0.011814821, 0.011638299, 0.010180864, 0.010230347, 0.009896464, 0.010293202, 0.006824222, 0.006787488, 0.007315053, 0.007477968, 0.007912016, 0.005521775, 0.005337602, 0.005647123, 0.005728001, 0.005497272 };
 	// Construct
 	auto grph_AlphaSS_ExLL3 = new TGraphErrors(16, xbin_AlphaSS_ExLL3, ybin_AlphaSS_ExLL3, nullptr, yerr_AlphaSS_ExLL3);
-	grph_AlphaSS_ExLL3->SetLineColor(kRed+2); grph_AlphaSS_ExLL3->SetMarkerColor(kRed+2); grph_AlphaSS_ExLL3->SetMarkerStyle(53); grph_AlphaSS_ExLL3->SetLineWidth(2); grph_AlphaSS_ExLL3->SetMarkerSize(1); grph_AlphaSS_ExLL3->SetFillColorAlpha(kRed, 0.1);
+	grph_AlphaSS_ExLL3->SetLineColor(kRed+2); grph_AlphaSS_ExLL3->SetMarkerColor(kRed+2); grph_AlphaSS_ExLL3->SetMarkerStyle(53); grph_AlphaSS_ExLL3->SetLineWidth(2); grph_AlphaSS_ExLL3->SetMarkerSize(1.5); grph_AlphaSS_ExLL3->SetFillColorAlpha(kRed, 0.1);
+
+	// Dissertori graph
+	double xbin_AlphaSS_Disse[8] = { 91.2, 133.0, 161.0, 172.0, 183.0, 189.0, 200.0, 206.0 };
+	double ybin_AlphaSS_Disse[8] = { 0.1239, 0.1270, 0.1313, 0.1192, 0.1226, 0.1234, 0.1200, 0.1202 };
+	double yerr_AlphaSS_Disse[8] = { 0.0037, 0.0048, 0.0060, 0.0070, 0.0041, 0.0036, 0.0036, 0.0034 };
+	// Construct
+	auto grph_AlphaSS_Disse = new TGraphErrors(8, xbin_AlphaSS_Disse, ybin_AlphaSS_Disse, nullptr, yerr_AlphaSS_Disse);
+	grph_AlphaSS_Disse->SetLineColor(kRed+2); grph_AlphaSS_Disse->SetMarkerColor(kRed+2); grph_AlphaSS_Disse->SetMarkerStyle(53); grph_AlphaSS_Disse->SetLineWidth(2); grph_AlphaSS_Disse->SetMarkerSize(1.5); grph_AlphaSS_Disse->SetFillColorAlpha(kRed, 0.1);
 
 	// FCC energy
 	double xbin_AlphaSS_PyAll[4] = {91.2, 160.0, 240.0, 365.0};
@@ -849,10 +882,10 @@ void ImpactofAlpha() {
 
 	// Access pythia errors
 	double yerr_AlphaSS_PyThr[4] = {
-	hist_fitThNN_912->GetParError(0),
-	hist_fitThNN_160->GetParError(0),
-	hist_fitThNN_240->GetParError(0),
-	hist_fitThNN_365->GetParError(0)
+	0.01,
+	0.001,
+	0.001,
+	0.001
 	};
 
 	// Construct pythia graph
@@ -863,13 +896,98 @@ void ImpactofAlpha() {
 	auto grph_AlphaSS_PyCpr = new TGraphAsymmErrors(4, xbin_AlphaSS_PyAll, ybin_AlphaSS_PyCpr, nullptr, yerr_AlphaSS_PyThr);
 	grph_AlphaSS_PyCpr->SetLineColor(kBlue+2); grph_AlphaSS_PyCpr->SetMarkerColor(kBlue+2); grph_AlphaSS_PyCpr->SetMarkerStyle(53); grph_AlphaSS_PyCpr->SetLineWidth(2); grph_AlphaSS_PyCpr->SetMarkerSize(2);
 
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+	// Construct the 3-loop QCD running curve and uncertainty band (Λ₅ = 0.247 ± 0.014 GeV)
+	const double Lam_c  = 0.247;										// Central Λ₅ value in GeV
+	const double Lam_lo = 0.247 - 0.014;								// Lower Λ₅ bound (−1σ)
+	const double Lam_hi = 0.247 + 0.014;								// Upper Λ₅ bound (+1σ)
+
+	const int Npts = 300;												// Number of sampling points
+	double Qx[Npts], asC[Npts], asUp[Npts], asDn[Npts];					// Arrays for √s and αs values
+
+	// Compute 3-loop αs(Q)
+	for (int i = 0; i < Npts; i++) {
+		double Q = 20.0 + i * (400.0) / (Npts - 1);  // √s range: 40–400 GeV
+		Qx[i]  = Q;
+		asC[i] = alpha3L_Lambda(Q, Lam_c);           // Central prediction
+		// Λ envelope
+		double a_hi = alpha3L_Lambda(Q, Lam_lo);     // Smaller Λ → larger αs
+		double a_lo = alpha3L_Lambda(Q, Lam_hi);     // Larger Λ → smaller αs
+		asUp[i] = a_hi;
+		asDn[i] = a_lo;
+	}
+
+	// Define central curve
+	TGraph *gRun3L = new TGraph(Npts, Qx, asC);
+	gRun3L->SetLineColor(kGray + 3);
+	// gRun3L->SetLineStyle(7);
+	gRun3L->SetLineWidth(1);
+
+	// Construct uncertainty band
+	TGraph *gBand3L = new TGraph(2 * Npts);
+	for (int i = 0; i < Npts; i++) {
+		gBand3L->SetPoint(i, Qx[i], asUp[i]);                			// Upper edge
+		gBand3L->SetPoint(2 * Npts - 1 - i, Qx[i], asDn[i]);			// Lower edge (reversed)
+	}
+	gBand3L->SetFillColorAlpha(kBlue, 0.20);
+	gBand3L->SetLineColor(0);
+
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+	// === PYTHIA-based 3-loop QCD running (αs(mZ) = 0.1283 ± 0.014) ===
+	const double asMZ_pythia = 0.1283;
+	const double asMZ_unc = 0.000001;
+	const double mZ_val = 91.1876;
+
+	double Lambda_pyt_c  = Lambda_from_alpha3L(mZ_val, asMZ_pythia);
+	double Lambda_pyt_lo = Lambda_from_alpha3L(mZ_val, asMZ_pythia - asMZ_unc);
+	double Lambda_pyt_hi = Lambda_from_alpha3L(mZ_val, asMZ_pythia + asMZ_unc);
+
+	const int NptsPY = 300;
+	double Qpy[NptsPY], asPytC[NptsPY], asPytLo[NptsPY], asPytHi[NptsPY];
+
+	for (int i = 0; i < NptsPY; i++) {
+		double Qval = 20.0 + i * (400.0) / (NptsPY - 1);
+		Qpy[i]     = Qval;
+		asPytC[i]  = alpha3L_Lambda(Qval, Lambda_pyt_c);
+		// Λ envelope
+		asPytLo[i] = alpha3L_Lambda(Qval, Lambda_pyt_lo);
+		asPytHi[i] = alpha3L_Lambda(Qval, Lambda_pyt_hi);
+	}
+
+	TGraph* gRunPY = new TGraph(NptsPY, Qpy, asPytC);
+	gRunPY->SetLineColor(kYellow+2);
+	// gRunPY->SetLineStyle(7);
+	gRunPY->SetLineWidth(1);
+
+	// Ensure ordering and no crossings
+	for (int i = 0; i < NptsPY; ++i) {
+		if (asPytLo[i] > asPytHi[i]) std::swap(asPytLo[i], asPytHi[i]);
+	}
+
+	// Draw band and central curve
+	TGraph* gBandPY = new TGraph(2*NptsPY);
+	for (int i = 0; i < NptsPY; ++i)
+		gBandPY->SetPoint(i, Qpy[i], asPytHi[i]);
+	for (int i = 0; i < NptsPY; ++i)
+		gBandPY->SetPoint(NptsPY + i, Qpy[NptsPY-1-i], asPytLo[NptsPY-1-i]);
+	gBandPY->SetFillColorAlpha(kCyan, 0.3);
+	gBandPY->SetLineColor(0);
+
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+	// Create canvas
+	TCanvas* cv4 = new TCanvas("cv4", "FCC-ee ISR Studies", 800, 1000);
+
 	// Add legend
-	TLegend *lg4 = new TLegend(0.51, 0.75, 0.92, 0.93);
-	lg4->AddEntry(grph_AlphaSS_PyAll, "PYTHIA (NNLO)", "PL");
-	// lg4->AddEntry(grph_AlphaSS_PyThr, "PYTHIA (1-T)", "PL");
-	// lg4->AddEntry(grph_AlphaSS_PyCpr, "PYTHIA (C)", "PL");
-	lg4->AddEntry(grph_AlphaSS_ExALP, "ALEPH (NNLO+NLLA)", "PL");
-	lg4->AddEntry(grph_AlphaSS_ExLL3, "L3 (NNLO+NLLA)", "PL");
+	TLegend *lg4 = new TLegend(0.50, 0.73, 0.92, 0.93);
+	lg4->AddEntry(grph_AlphaSS_PyAll, "PYTHIA (NNLO)", "P");
+	// lg4->AddEntry(grph_AlphaSS_PyThr, "PYTHIA (1-T)", "L");
+	// lg4->AddEntry(grph_AlphaSS_PyCpr, "PYTHIA (C)", "L");
+	// lg4->AddEntry(grph_AlphaSS_ExALP, "ALEPH (NNLO+NLLA)", "P");
+	// lg4->AddEntry(grph_AlphaSS_ExLL3, "L3 (NNLO+NLLA)", "P");
+	// lg4->AddEntry(gRun3L, "3-loop QCD", "L");
 	lg4->SetTextSize(0.04);
 
 	// Beautify
@@ -892,16 +1010,21 @@ void ImpactofAlpha() {
 	grph_AlphaSS_PyAll->GetXaxis()->SetTitle("#sqrt{s} (GeV)");
 
 	// // Draw
-	grph_AlphaSS_PyAll->Draw("APEL");
+	grph_AlphaSS_PyAll->Draw("APE");
+	grph_AlphaSS_Disse->Draw("PEL SAME");
 	// grph_AlphaSS_PyThr->Draw("PEL SAME");
 	// grph_AlphaSS_PyCpr->Draw("PEL SAME");
-	grph_AlphaSS_ExALP->Draw("PE SAME");
-	grph_AlphaSS_ExLL3->Draw("PE SAME");
-	lg4->Draw("SAME");
+	// grph_AlphaSS_ExALP->Draw("PE SAME");
+	// grph_AlphaSS_ExLL3->Draw("PE SAME");
+	// gBand3L->Draw("F SAME");
+	// gRun3L->Draw("L SAME");
+	// gBandPY->Draw("F SAME");
+	// gRunPY->Draw("L SAME");
+	// lg4->Draw("SAME");
 
 	// Set limits
 	grph_AlphaSS_PyAll->GetYaxis()->SetRangeUser(0.09,0.16);
-	grph_AlphaSS_PyAll->GetXaxis()->SetLimits(0, 400);
+	grph_AlphaSS_PyAll->GetXaxis()->SetLimits(30, 400);
 
 	// Update canvas
 	cv4->Modified();
@@ -910,35 +1033,35 @@ void ImpactofAlpha() {
 // Print results
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-	// cout << fixed << setprecision(4);
+	cout << fixed << setprecision(4);
 
-	// cout << "====== FITTING WITH THRUST ======" << endl;
-	// cout << "√s \t χ²/ndf \t Alpha \t Error" << endl;
-	// cout << "---------------------------------" << endl;
-	// cout << "ALEPH \t " << hist_fitThNN_91X->GetChisquare()<<"/"<<hist_fitThNN_91X->GetNDF() << "\t" << hist_fitThNN_91X->GetParameter(0) << endl; 
-	// cout << "91.2 \t " << hist_fitThNN_912->GetChisquare()<<"/"<<hist_fitThNN_912->GetNDF() << "\t" << hist_fitThNN_912->GetParameter(0) << "\t" << hist_fitThNN_912->GetParError(0) << endl; 
-	// cout << "160 \t " << hist_fitThNN_160->GetChisquare()<<"/"<<hist_fitThNN_160->GetNDF() << "\t" << hist_fitThNN_160->GetParameter(0) << "\t" << hist_fitThNN_160->GetParError(0) << endl;
-	// cout << "240 \t " << hist_fitThNN_240->GetChisquare()<<"/"<<hist_fitThNN_240->GetNDF() << "\t" << hist_fitThNN_240->GetParameter(0) << "\t" << hist_fitThNN_240->GetParError(0) << endl;
-	// cout << "365 \t " << hist_fitThNN_365->GetChisquare()<<"/"<<hist_fitThNN_365->GetNDF() << "\t" << hist_fitThNN_365->GetParameter(0) << "\t" << hist_fitThNN_365->GetParError(0) << endl;
-	// cout << "=================================" << endl;
+	cout << "====== FITTING WITH THRUST ======" << endl;
+	cout << "√s \t χ²/ndf \t Alpha \t Error" << endl;
+	cout << "---------------------------------" << endl;
+	cout << "ALEPH \t " << hist_fitThNN_91X->GetChisquare()<<"/"<<hist_fitThNN_91X->GetNDF() << "\t" << hist_fitThNN_91X->GetParameter(0) << endl; 
+	cout << "91.2 \t " << hist_fitThNN_912->GetChisquare()<<"/"<<hist_fitThNN_912->GetNDF() << "\t" << hist_fitThNN_912->GetParameter(0) << "\t" << hist_fitThNN_912->GetParError(0) << endl; 
+	cout << "160 \t " << hist_fitThNN_160->GetChisquare()<<"/"<<hist_fitThNN_160->GetNDF() << "\t" << hist_fitThNN_160->GetParameter(0) << "\t" << hist_fitThNN_160->GetParError(0) << endl;
+	cout << "240 \t " << hist_fitThNN_240->GetChisquare()<<"/"<<hist_fitThNN_240->GetNDF() << "\t" << hist_fitThNN_240->GetParameter(0) << "\t" << hist_fitThNN_240->GetParError(0) << endl;
+	cout << "365 \t " << hist_fitThNN_365->GetChisquare()<<"/"<<hist_fitThNN_365->GetNDF() << "\t" << hist_fitThNN_365->GetParameter(0) << "\t" << hist_fitThNN_365->GetParError(0) << endl;
+	cout << "=================================" << endl;
 
-	// cout << "====== FITTING WITH CPARAM ======" << endl;
-	// cout << "√s \t χ²/ndf \t Alpha \t Error" << endl;
-	// cout << "---------------------------------" << endl;
-	// cout << "ALEPH \t " << hist_fitCpNN_91X->GetChisquare()<<"/"<<hist_fitCpNN_91X->GetNDF() << "\t" << hist_fitCpNN_91X->GetParameter(0) << endl;
-	// cout << "91.2 \t " << hist_fitCpNN_912->GetChisquare()<<"/"<<hist_fitCpNN_912->GetNDF() << "\t" << hist_fitCpNN_912->GetParameter(0) << "\t" << hist_fitCpNN_912->GetParError(0) << endl;
-	// cout << "160 \t " << hist_fitCpNN_160->GetChisquare()<<"/"<<hist_fitCpNN_160->GetNDF() << "\t" << hist_fitCpNN_160->GetParameter(0) << "\t" << hist_fitCpNN_160->GetParError(0) << endl;
-	// cout << "240 \t " << hist_fitCpNN_240->GetChisquare()<<"/"<<hist_fitCpNN_240->GetNDF() << "\t" << hist_fitCpNN_240->GetParameter(0) << "\t" << hist_fitCpNN_240->GetParError(0) << endl;
-	// cout << "365 \t " << hist_fitCpNN_365->GetChisquare()<<"/"<<hist_fitCpNN_365->GetNDF() << "\t" << hist_fitCpNN_365->GetParameter(0) << "\t" << hist_fitCpNN_365->GetParError(0) << endl;
-	// cout << "=================================" << endl;
+	cout << "====== FITTING WITH CPARAM ======" << endl;
+	cout << "√s \t χ²/ndf \t Alpha \t Error" << endl;
+	cout << "---------------------------------" << endl;
+	cout << "ALEPH \t " << hist_fitCpNN_91X->GetChisquare()<<"/"<<hist_fitCpNN_91X->GetNDF() << "\t" << hist_fitCpNN_91X->GetParameter(0) << endl;
+	cout << "91.2 \t " << hist_fitCpNN_912->GetChisquare()<<"/"<<hist_fitCpNN_912->GetNDF() << "\t" << hist_fitCpNN_912->GetParameter(0) << "\t" << hist_fitCpNN_912->GetParError(0) << endl;
+	cout << "160 \t " << hist_fitCpNN_160->GetChisquare()<<"/"<<hist_fitCpNN_160->GetNDF() << "\t" << hist_fitCpNN_160->GetParameter(0) << "\t" << hist_fitCpNN_160->GetParError(0) << endl;
+	cout << "240 \t " << hist_fitCpNN_240->GetChisquare()<<"/"<<hist_fitCpNN_240->GetNDF() << "\t" << hist_fitCpNN_240->GetParameter(0) << "\t" << hist_fitCpNN_240->GetParError(0) << endl;
+	cout << "365 \t " << hist_fitCpNN_365->GetChisquare()<<"/"<<hist_fitCpNN_365->GetNDF() << "\t" << hist_fitCpNN_365->GetParameter(0) << "\t" << hist_fitCpNN_365->GetParError(0) << endl;
+	cout << "=================================" << endl;
 
-	// cout << "====== FINAL ======" << endl;
-	// cout << "√s \t Alpha " << endl;
-	// cout << "-------------------" << endl;
-	// cout << "91.2 \t " << (hist_fitThNN_912->GetParameter(0)+hist_fitCpNN_912->GetParameter(0))/2 << endl;
-	// cout << "160 \t " << (hist_fitThNN_160->GetParameter(0)+hist_fitCpNN_160->GetParameter(0))/2 << "\t" << endl;
-	// cout << "240 \t " << (hist_fitThNN_240->GetParameter(0)+hist_fitCpNN_240->GetParameter(0))/2 << "\t" << endl;
-	// cout << "365 \t " << (hist_fitThNN_365->GetParameter(0)+hist_fitCpNN_365->GetParameter(0))/2 << "\t" << endl;
-	// cout << "===================" << endl;
+	cout << "====== FINAL ======" << endl;
+	cout << "√s \t Alpha " << endl;
+	cout << "-------------------" << endl;
+	cout << "91.2 \t " << (hist_fitThNN_912->GetParameter(0)+hist_fitCpNN_912->GetParameter(0))/2 << endl;
+	cout << "160 \t " << (hist_fitThNN_160->GetParameter(0)+hist_fitCpNN_160->GetParameter(0))/2 << "\t" << endl;
+	cout << "240 \t " << (hist_fitThNN_240->GetParameter(0)+hist_fitCpNN_240->GetParameter(0))/2 << "\t" << endl;
+	cout << "365 \t " << (hist_fitThNN_365->GetParameter(0)+hist_fitCpNN_365->GetParameter(0))/2 << "\t" << endl;
+	cout << "===================" << endl;
 
 }
