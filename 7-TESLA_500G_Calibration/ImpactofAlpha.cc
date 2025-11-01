@@ -880,6 +880,14 @@ void ImpactofAlpha() {
 	(hist_fitThNN_365->GetParameter(0)+hist_fitCpNN_365->GetParameter(0))/2
 	};
 
+	// Access pythia errors
+	double yerr_AlphaSS_PyAll[4] = {
+	hist_fitThNN_912->GetParError(0),
+	hist_fitThNN_160->GetParError(0),
+	hist_fitThNN_240->GetParError(0),
+	hist_fitThNN_365->GetParError(0)
+	};
+
 	// Access pythia bins
 	double ybin_AlphaSS_PyThr[4] = {
 	hist_fitThNN_912->GetParameter(0),
@@ -905,7 +913,7 @@ void ImpactofAlpha() {
 	};
 
 	// Construct pythia graph
-	auto grph_AlphaSS_PyAll = new TGraphAsymmErrors(4, xbin_AlphaSS_PyAll, ybin_AlphaSS_PyAll, nullptr, yerr_AlphaSS_PyThr);
+	auto grph_AlphaSS_PyAll = new TGraphAsymmErrors(4, xbin_AlphaSS_PyAll, ybin_AlphaSS_PyAll, nullptr, yerr_AlphaSS_PyAll);
 	grph_AlphaSS_PyAll->SetLineColor(kBlack); grph_AlphaSS_PyAll->SetMarkerColor(kBlack); grph_AlphaSS_PyAll->SetMarkerStyle(20); grph_AlphaSS_PyAll->SetLineWidth(2); grph_AlphaSS_PyAll->SetMarkerSize(1.5);
 	auto grph_AlphaSS_PyThr = new TGraphAsymmErrors(4, xbin_AlphaSS_PyAll, ybin_AlphaSS_PyThr, nullptr, yerr_AlphaSS_PyThr);
 	grph_AlphaSS_PyThr->SetLineColor(kRed+2); grph_AlphaSS_PyThr->SetMarkerColor(kRed+2); grph_AlphaSS_PyThr->SetMarkerStyle(53); grph_AlphaSS_PyThr->SetLineWidth(2); grph_AlphaSS_PyThr->SetMarkerSize(2);
@@ -994,7 +1002,7 @@ void ImpactofAlpha() {
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 	// Create canvas
-	TCanvas* cv4 = new TCanvas("cv4", "FCC-ee ISR Studies", 800, 1000);
+	TCanvas* cv4 = new TCanvas("cv4", "FCC-ee ISR Studies", 800, 600);
 
 	// Add legend
 	TLegend *lg4 = new TLegend(0.50, 0.73, 0.92, 0.93);
@@ -1031,7 +1039,7 @@ void ImpactofAlpha() {
 	// grph_AlphaSS_PyCpr->Draw("PEL SAME");
 	grph_AlphaSS_ExALP->Draw("PE SAME");
 	grph_AlphaSS_ExLL3->Draw("PE SAME");
-	grph_AlphaSS_Disse->Draw("PEL SAME");
+	// grph_AlphaSS_Disse->Draw("PEL SAME");
 	gBand3L->Draw("F SAME");
 	gRun3L->Draw("L SAME");
 	// gBandPY->Draw("F SAME");
@@ -1049,35 +1057,35 @@ void ImpactofAlpha() {
 // Print results
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-	// cout << fixed << setprecision(4);
+	cout << fixed << setprecision(4);
 
-	// cout << "====== FITTING WITH THRUST ======" << endl;
-	// cout << "√s \t χ²/ndf \t Alpha \t Error" << endl;
-	// cout << "---------------------------------" << endl;
-	// // cout << "ALEPH \t " << hist_fitThNN_91X->GetChisquare()<<"/"<<hist_fitThNN_91X->GetNDF() << "\t" << hist_fitThNN_91X->GetParameter(0) << endl; 
-	// cout << "91.2 \t " << hist_fitThNN_912->GetChisquare()<<"/"<<hist_fitThNN_912->GetNDF() << "\t" << hist_fitThNN_912->GetParameter(0) << "\t" << hist_fitThNN_912->GetParError(0) << endl; 
-	// cout << "160 \t " << hist_fitThNN_160->GetChisquare()<<"/"<<hist_fitThNN_160->GetNDF() << "\t" << hist_fitThNN_160->GetParameter(0) << "\t" << hist_fitThNN_160->GetParError(0) << endl;
-	// cout << "240 \t " << hist_fitThNN_240->GetChisquare()<<"/"<<hist_fitThNN_240->GetNDF() << "\t" << hist_fitThNN_240->GetParameter(0) << "\t" << hist_fitThNN_240->GetParError(0) << endl;
-	// cout << "365 \t " << hist_fitThNN_365->GetChisquare()<<"/"<<hist_fitThNN_365->GetNDF() << "\t" << hist_fitThNN_365->GetParameter(0) << "\t" << hist_fitThNN_365->GetParError(0) << endl;
-	// cout << "=================================" << endl;
+	cout << "====== FITTING WITH THRUST ======" << endl;
+	cout << "√s \t χ²/ndf \t Alpha \t Error" << endl;
+	cout << "---------------------------------" << endl;
+	// cout << "ALEPH \t " << hist_fitThNN_91X->GetChisquare()<<"/"<<hist_fitThNN_91X->GetNDF() << "\t" << hist_fitThNN_91X->GetParameter(0) << endl; 
+	cout << "91.2 \t " << hist_fitThNN_912->GetChisquare()<<"/"<<hist_fitThNN_912->GetNDF() << "\t" << hist_fitThNN_912->GetParameter(0) << "\t" << hist_fitThNN_912->GetParError(0) << endl; 
+	cout << "160 \t " << hist_fitThNN_160->GetChisquare()<<"/"<<hist_fitThNN_160->GetNDF() << "\t" << hist_fitThNN_160->GetParameter(0) << "\t" << hist_fitThNN_160->GetParError(0) << endl;
+	cout << "240 \t " << hist_fitThNN_240->GetChisquare()<<"/"<<hist_fitThNN_240->GetNDF() << "\t" << hist_fitThNN_240->GetParameter(0) << "\t" << hist_fitThNN_240->GetParError(0) << endl;
+	cout << "365 \t " << hist_fitThNN_365->GetChisquare()<<"/"<<hist_fitThNN_365->GetNDF() << "\t" << hist_fitThNN_365->GetParameter(0) << "\t" << hist_fitThNN_365->GetParError(0) << endl;
+	cout << "=================================" << endl;
 
-	// cout << "====== FITTING WITH CPARAM ======" << endl;
-	// cout << "√s \t χ²/ndf \t Alpha \t Error" << endl;
-	// cout << "---------------------------------" << endl;
-	// // cout << "ALEPH \t " << hist_fitCpNN_91X->GetChisquare()<<"/"<<hist_fitCpNN_91X->GetNDF() << "\t" << hist_fitCpNN_91X->GetParameter(0) << endl;
-	// cout << "91.2 \t " << hist_fitCpNN_912->GetChisquare()<<"/"<<hist_fitCpNN_912->GetNDF() << "\t" << hist_fitCpNN_912->GetParameter(0) << "\t" << hist_fitCpNN_912->GetParError(0) << endl;
-	// cout << "160 \t " << hist_fitCpNN_160->GetChisquare()<<"/"<<hist_fitCpNN_160->GetNDF() << "\t" << hist_fitCpNN_160->GetParameter(0) << "\t" << hist_fitCpNN_160->GetParError(0) << endl;
-	// cout << "240 \t " << hist_fitCpNN_240->GetChisquare()<<"/"<<hist_fitCpNN_240->GetNDF() << "\t" << hist_fitCpNN_240->GetParameter(0) << "\t" << hist_fitCpNN_240->GetParError(0) << endl;
-	// cout << "365 \t " << hist_fitCpNN_365->GetChisquare()<<"/"<<hist_fitCpNN_365->GetNDF() << "\t" << hist_fitCpNN_365->GetParameter(0) << "\t" << hist_fitCpNN_365->GetParError(0) << endl;
-	// cout << "=================================" << endl;
+	cout << "====== FITTING WITH CPARAM ======" << endl;
+	cout << "√s \t χ²/ndf \t Alpha \t Error" << endl;
+	cout << "---------------------------------" << endl;
+	// cout << "ALEPH \t " << hist_fitCpNN_91X->GetChisquare()<<"/"<<hist_fitCpNN_91X->GetNDF() << "\t" << hist_fitCpNN_91X->GetParameter(0) << endl;
+	cout << "91.2 \t " << hist_fitCpNN_912->GetChisquare()<<"/"<<hist_fitCpNN_912->GetNDF() << "\t" << hist_fitCpNN_912->GetParameter(0) << "\t" << hist_fitCpNN_912->GetParError(0) << endl;
+	cout << "160 \t " << hist_fitCpNN_160->GetChisquare()<<"/"<<hist_fitCpNN_160->GetNDF() << "\t" << hist_fitCpNN_160->GetParameter(0) << "\t" << hist_fitCpNN_160->GetParError(0) << endl;
+	cout << "240 \t " << hist_fitCpNN_240->GetChisquare()<<"/"<<hist_fitCpNN_240->GetNDF() << "\t" << hist_fitCpNN_240->GetParameter(0) << "\t" << hist_fitCpNN_240->GetParError(0) << endl;
+	cout << "365 \t " << hist_fitCpNN_365->GetChisquare()<<"/"<<hist_fitCpNN_365->GetNDF() << "\t" << hist_fitCpNN_365->GetParameter(0) << "\t" << hist_fitCpNN_365->GetParError(0) << endl;
+	cout << "=================================" << endl;
 
-	// cout << "====== FINAL ======" << endl;
-	// cout << "√s \t Alpha " << endl;
-	// cout << "-------------------" << endl;
-	// cout << "91.2 \t " << (hist_fitThNN_912->GetParameter(0)+hist_fitCpNN_912->GetParameter(0))/2 << endl;
-	// cout << "160 \t " << (hist_fitThNN_160->GetParameter(0)+hist_fitCpNN_160->GetParameter(0))/2 << "\t" << endl;
-	// cout << "240 \t " << (hist_fitThNN_240->GetParameter(0)+hist_fitCpNN_240->GetParameter(0))/2 << "\t" << endl;
-	// cout << "365 \t " << (hist_fitThNN_365->GetParameter(0)+hist_fitCpNN_365->GetParameter(0))/2 << "\t" << endl;
-	// cout << "===================" << endl;
+	cout << "====== FINAL ======" << endl;
+	cout << "√s \t Alpha " << endl;
+	cout << "-------------------" << endl;
+	cout << "91.2 \t " << (hist_fitThNN_912->GetParameter(0)+hist_fitCpNN_912->GetParameter(0))/2 << endl;
+	cout << "160 \t " << (hist_fitThNN_160->GetParameter(0)+hist_fitCpNN_160->GetParameter(0))/2 << "\t" << endl;
+	cout << "240 \t " << (hist_fitThNN_240->GetParameter(0)+hist_fitCpNN_240->GetParameter(0))/2 << "\t" << endl;
+	cout << "365 \t " << (hist_fitThNN_365->GetParameter(0)+hist_fitCpNN_365->GetParameter(0))/2 << "\t" << endl;
+	cout << "===================" << endl;
 
 }
