@@ -228,7 +228,7 @@ void ImpactofExp() {
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 	// Create canvas
-	TCanvas* cv1 = new TCanvas("cv1", "FCC-ee ISR Studies", 850, 1600);
+	TCanvas* cv1 = new TCanvas("cv1", "FCC-ee ISR Studies", 850, 1580);
 
 	// Add legend
 	TLegend *lg = new TLegend(0.75, 0.80, 0.92, 0.95);
@@ -255,6 +255,9 @@ void ImpactofExp() {
 		// gPad->SetGridx(); gPad->SetGridy();
 		gPad->SetLogy();
 	}
+
+	hist_ThrPyth_912->GetXaxis()->CenterTitle(); hist_ThrPyth_912->GetYaxis()->CenterTitle();
+	hist_CprPyth_912->GetXaxis()->CenterTitle(); hist_CprPyth_912->GetYaxis()->CenterTitle();
 
 	hist_ThrExAL_200->SetBinError(hist_ThrExAL_200->FindBin(0.25), 9E-2);
 	hist_ThrExAL_200->SetBinError(hist_ThrExAL_200->FindBin(0.30), 5E-2);

@@ -303,7 +303,7 @@ void ImpactofRad() {
 	// hist_CprPyth_365_000->GetYaxis()->SetTitle("#");
 
 	// Create canvas
-	TCanvas* cv2 = new TCanvas("cv2", "FCC-ee ISR Studies", 950, 1600);
+	TCanvas* cv2 = new TCanvas("cv2", "FCC-ee ISR Studies", 950, 1570);
 
 	// Add legend
 	TLegend* lg2 = new TLegend(0.75, 0.85, 0.92, 0.95);

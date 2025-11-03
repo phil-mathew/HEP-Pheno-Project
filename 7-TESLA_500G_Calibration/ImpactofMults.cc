@@ -308,7 +308,6 @@ void ImpactofMults() {
 	
     // Construct theory curve
     auto grph_nHadAvg_QCD = new TGraph(nPointsTh, xTh, yTh);
-    grph_nHadAvg_QCD->SetLineWidth(3); grph_nHadAvg_QCD->SetLineStyle(7);
 
 	cout << "K (Charged/Total) : " << hist_nHadChg_912_Zq->GetMean()/hist_nHadAll_912_Zq->GetMean() << endl;
 	cout << "K (Charged/Total) : " << hist_nHadChg_160_Zq->GetMean()/hist_nHadAll_160_Zq->GetMean() << endl;
