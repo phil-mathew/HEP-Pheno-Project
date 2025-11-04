@@ -38,6 +38,22 @@ TGraphAsymmErrors* HistToGraph(const TH1* h, bool skipEmpty=false) {
     return g;
 }
 
+Double_t DistortedGaussian(Double_t *x, Double_t *par) {
+    const double Nch   = par[0];		// normalisation
+    const double xibar = par[1];		// peak ξ*
+    const double sigma = par[2];		// width
+    const double s     = par[3];		// skewness
+    const double k     = par[4];		// kurtosis
+
+    if (sigma < 0.0) return 0.0;
+
+    const double delta = (x[0] - xibar) / sigma;
+    const double exponent = 0.125*k - 0.5*s*delta - 0.25*(2.0+k)*delta*delta + (1.0/6.0)*s*delta*delta*delta + (1.0/24.0)*k*delta*delta*delta*delta;
+    const double norm = Nch / (sigma * std::sqrt(2.0 * M_PI));
+
+    return norm * std::exp(exponent);
+}
+
 // Code
 void ImpactofXi() {
 
@@ -60,13 +76,13 @@ void ImpactofXi() {
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////	
 
 	TH1F *hist_ZetaChg_912 = (TH1F*)input_912->Get("hist_ZetaChg");
-	hist_ZetaChg_912->SetLineColor(kBlue+2); hist_ZetaChg_912->SetMarkerColor(kBlue+2); hist_ZetaChg_912->SetMarkerStyle(53); hist_ZetaChg_912->SetLineWidth(2); hist_ZetaChg_912->SetMarkerSize(1);
+	hist_ZetaChg_912->SetLineColor(kBlack); hist_ZetaChg_912->SetMarkerColor(kBlack); hist_ZetaChg_912->SetMarkerStyle(53); hist_ZetaChg_912->SetLineWidth(1); hist_ZetaChg_912->SetMarkerSize(1.5);
 	TH1F *hist_ZetaChg_160 = (TH1F*)input_160->Get("hist_ZetaChg");
-	hist_ZetaChg_160->SetLineColor(kRed+2); hist_ZetaChg_160->SetMarkerColor(kRed+2); hist_ZetaChg_160->SetMarkerStyle(53); hist_ZetaChg_160->SetLineWidth(2); hist_ZetaChg_160->SetMarkerSize(1);
+	hist_ZetaChg_160->SetLineColor(kBlack); hist_ZetaChg_160->SetMarkerColor(kBlack); hist_ZetaChg_160->SetMarkerStyle(54); hist_ZetaChg_160->SetLineWidth(1); hist_ZetaChg_160->SetMarkerSize(1);
 	TH1F *hist_ZetaChg_240 = (TH1F*)input_240->Get("hist_ZetaChg");
-	hist_ZetaChg_240->SetLineColor(kYellow+2); hist_ZetaChg_240->SetMarkerColor(kYellow+2); hist_ZetaChg_240->SetMarkerStyle(53); hist_ZetaChg_240->SetLineWidth(2); hist_ZetaChg_240->SetMarkerSize(1);
+	hist_ZetaChg_240->SetLineColor(kBlack); hist_ZetaChg_240->SetMarkerColor(kBlack); hist_ZetaChg_240->SetMarkerStyle(55); hist_ZetaChg_240->SetLineWidth(1); hist_ZetaChg_240->SetMarkerSize(1);
 	TH1F *hist_ZetaChg_365 = (TH1F*)input_365->Get("hist_ZetaChg");
-	hist_ZetaChg_365->SetLineColor(kGreen+2); hist_ZetaChg_365->SetMarkerColor(kGreen+2); hist_ZetaChg_365->SetMarkerStyle(53); hist_ZetaChg_365->SetLineWidth(2); hist_ZetaChg_365->SetMarkerSize(1);
+	hist_ZetaChg_365->SetLineColor(kBlack); hist_ZetaChg_365->SetMarkerColor(kBlack); hist_ZetaChg_365->SetMarkerStyle(59); hist_ZetaChg_365->SetLineWidth(1); hist_ZetaChg_365->SetMarkerSize(1.5);
 
 	TH1F *hist_ZetaAll_912 = (TH1F*)input_912->Get("hist_ZetaAll");
 	hist_ZetaAll_912->SetLineColor(kBlue+2); hist_ZetaAll_912->SetMarkerColor(kBlue+2); hist_ZetaAll_912->SetMarkerStyle(53); hist_ZetaAll_912->SetLineWidth(2); hist_ZetaAll_912->SetMarkerSize(1);
@@ -84,13 +100,6 @@ void ImpactofXi() {
 	TGraphAsymmErrors* grph_ZetaChg_044 = (TGraphAsymmErrors*)table_EXP_TAS->Get("Graph1D_y4");
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
-	cout << hist_ZetaChg_365->GetMean() << " " << hist_ZetaAll_365->GetMean() << " " << hist_ZetaAll_365->GetMean()/hist_ZetaChg_365->GetMean() << endl;
-	cout << hist_ZetaChg_240->GetMean() << " " << hist_ZetaAll_240->GetMean() << " " << hist_ZetaAll_240->GetMean()/hist_ZetaChg_240->GetMean() << endl;
-	cout << hist_ZetaChg_160->GetMean() << " " << hist_ZetaAll_160->GetMean() << " " << hist_ZetaAll_160->GetMean()/hist_ZetaChg_160->GetMean() << endl;
-	cout << hist_ZetaChg_912->GetMean() << " " << hist_ZetaAll_912->GetMean() << " " << hist_ZetaAll_912->GetMean()/hist_ZetaChg_912->GetMean() << endl;
-
-/////////////////////////////////////////////////////////////////////////////////////////////////////////////
 // Disable histogram stats
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -105,42 +114,36 @@ void ImpactofXi() {
 	hist_ZetaChg_240->Scale(1.0/50,"width");
 	hist_ZetaChg_365->Scale(1.0/50,"width");
 
-	hist_ZetaAll_912->Scale(1.0/50,"width");
-	hist_ZetaAll_160->Scale(1.0/50,"width");
-	hist_ZetaAll_240->Scale(1.0/50,"width");
-	hist_ZetaAll_365->Scale(1.0/50,"width");
+	TF1 *fits_ZetaChg_912 = new TF1("fits_ZetaChg_912", DistortedGaussian, 2.4, 4.6, 5);
+	fits_ZetaChg_912->SetParameters(hist_ZetaChg_912->Integral(), hist_ZetaChg_912->GetMean(), 0.6, 0.0, 0.0);			// Nch,ξ-bar,σ,s,k
+	fits_ZetaChg_912->SetLineColor(kRed+2); fits_ZetaChg_912->SetLineWidth(2); fits_ZetaChg_912->SetLineStyle(7); 
+	hist_ZetaChg_912->Fit(fits_ZetaChg_912, "RNQ MINOS");
 
-	cout << hist_ZetaChg_365->GetMean() << " " << hist_ZetaAll_365->GetMean() << " " << hist_ZetaAll_365->GetMean()/hist_ZetaChg_365->GetMean() << endl;
-	cout << hist_ZetaChg_240->GetMean() << " " << hist_ZetaAll_240->GetMean() << " " << hist_ZetaAll_240->GetMean()/hist_ZetaChg_240->GetMean() << endl;
-	cout << hist_ZetaChg_160->GetMean() << " " << hist_ZetaAll_160->GetMean() << " " << hist_ZetaAll_160->GetMean()/hist_ZetaChg_160->GetMean() << endl;
-	cout << hist_ZetaChg_912->GetMean() << " " << hist_ZetaAll_912->GetMean() << " " << hist_ZetaAll_912->GetMean()/hist_ZetaChg_912->GetMean() << endl;
+	TF1 *fits_ZetaChg_160 = new TF1("fits_ZetaChg_160", DistortedGaussian, 2.6, 5.4, 5);
+	fits_ZetaChg_160->SetParameters(hist_ZetaChg_160->Integral(), hist_ZetaChg_160->GetMean(), 0.6, 0.0, 0.0);
+	fits_ZetaChg_160->SetLineColor(kRed+2); fits_ZetaChg_160->SetLineWidth(2); fits_ZetaChg_160->SetLineStyle(7); 
+	hist_ZetaChg_160->Fit(fits_ZetaChg_160, "RNQ MINOS");
 
-	TF1 *hist_fitZeta_912 = new TF1("hist_fitZeta_912", "gaus", 2.6, 4.4);
-	hist_fitZeta_912->SetLineColor(kBlue+3); hist_fitZeta_912->SetLineWidth(2); hist_fitZeta_912->SetLineStyle(7);
-	hist_ZetaChg_912->Fit(hist_fitZeta_912, "RNQ MINOS");
+	TF1 *fits_ZetaChg_240 = new TF1("fits_ZetaChg_240", DistortedGaussian, 2.8, 5.6, 5);
+	fits_ZetaChg_240->SetParameters(hist_ZetaChg_240->Integral(), hist_ZetaChg_240->GetMean(), 0.6, 0.0, 0.0);
+	fits_ZetaChg_240->SetLineColor(kRed+2); fits_ZetaChg_240->SetLineWidth(2); fits_ZetaChg_240->SetLineStyle(7); 
+	hist_ZetaChg_240->Fit(fits_ZetaChg_240, "RNQ MINOS");
 
-	TF1 *hist_fitZeta_160 = new TF1("hist_fitZeta_160", "gaus", 3.0, 5.0);
-	hist_fitZeta_160->SetLineColor(kRed+3); hist_fitZeta_160->SetLineWidth(2); hist_fitZeta_160->SetLineStyle(7);
-	hist_ZetaChg_160->Fit(hist_fitZeta_160, "RNQ MINOS");
-
-	TF1 *hist_fitZeta_240 = new TF1("hist_fitZeta_240", "gaus", 3.2, 5.6);
-	hist_fitZeta_240->SetLineColor(kYellow+3); hist_fitZeta_240->SetLineWidth(2); hist_fitZeta_240->SetLineStyle(7);
-	hist_ZetaChg_240->Fit(hist_fitZeta_240, "RNQ MINOS");
-
-	TF1 *hist_fitZeta_365 = new TF1("hist_fitZeta_365", "gaus", 3.2, 6.2);
-	hist_fitZeta_365->SetLineColor(kGreen+3); hist_fitZeta_365->SetLineWidth(2); hist_fitZeta_365->SetLineStyle(7);
-	hist_ZetaChg_365->Fit(hist_fitZeta_365, "RNQ MINOS");
+	TF1 *fits_ZetaChg_365 = new TF1("fits_ZetaChg_365", DistortedGaussian, 3.0, 6.0, 5);
+	fits_ZetaChg_365->SetParameters(hist_ZetaChg_365->Integral(), hist_ZetaChg_365->GetMean(), 0.6, 0.0, 0.0);
+	fits_ZetaChg_365->SetLineColor(kRed+2); fits_ZetaChg_365->SetLineWidth(2); fits_ZetaChg_365->SetLineStyle(7); 
+	hist_ZetaChg_365->Fit(fits_ZetaChg_365, "RNQ MINOS");
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-	TF1 *hist_fitZeta_014 = new TF1("hist_fitZeta_014", "gaus", 1.0, 3.5);
-	grph_ZetaChg_014->Fit(hist_fitZeta_014, "RNQ MINUIT");
-	TF1 *hist_fitZeta_022 = new TF1("hist_fitZeta_022", "gaus", 1.0, 3.5);
-	grph_ZetaChg_022->Fit(hist_fitZeta_022, "RNQ MINOS");
-	TF1 *hist_fitZeta_035 = new TF1("hist_fitZeta_035", "gaus", 1.0, 3.5);
-	grph_ZetaChg_035->Fit(hist_fitZeta_035, "RNQ MINOS");
-	TF1 *hist_fitZeta_044 = new TF1("hist_fitZeta_044", "gaus", 1.0, 3.5);
-	grph_ZetaChg_044->Fit(hist_fitZeta_044, "RNQ MINOS");
+	TF1 *fits_ZetaChg_014 = new TF1("fits_ZetaChg_014", "gaus", 1.0, 3.5);
+	grph_ZetaChg_014->Fit(fits_ZetaChg_014, "RNQ MINUIT");
+	TF1 *fits_ZetaChg_022 = new TF1("fits_ZetaChg_022", "gaus", 1.0, 3.5);
+	grph_ZetaChg_022->Fit(fits_ZetaChg_022, "RNQ MINOS");
+	TF1 *fits_ZetaChg_035 = new TF1("fits_ZetaChg_035", "gaus", 1.0, 3.5);
+	grph_ZetaChg_035->Fit(fits_ZetaChg_035, "RNQ MINOS");
+	TF1 *fits_ZetaChg_044 = new TF1("fits_ZetaChg_044", "gaus", 1.0, 3.5);
+	grph_ZetaChg_044->Fit(fits_ZetaChg_044, "RNQ MINOS");
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////
 // Draw plots
@@ -151,14 +154,15 @@ void ImpactofXi() {
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 	// Create canvas
-	TCanvas* cv3 = new TCanvas("cv3", "FCC-ee ISR Studies", 800, 600);
+	TCanvas* cv3 = new TCanvas("cv3", "FCC-ee ISR Studies", 800, 700);
 
 	// Add legend
-	TLegend *lg3 = new TLegend(0.80, 0.75, 0.95, 0.95);
+	TLegend *lg3 = new TLegend(0.76, 0.70, 0.94, 0.93);
 	lg3->AddEntry(hist_ZetaChg_912, "91.2 GeV", "P");
 	lg3->AddEntry(hist_ZetaChg_160, "160 GeV", "P");
 	lg3->AddEntry(hist_ZetaChg_240, "240 GeV", "P");
 	lg3->AddEntry(hist_ZetaChg_365, "365 GeV", "P");
+	lg3->AddEntry(fits_ZetaChg_912, "DG Fit", "L");
 	lg3->SetTextSize(0.04);
 
 	// Beautify
@@ -168,14 +172,15 @@ void ImpactofXi() {
 	gStyle->SetTitleSize(0.06, "Y");
 	cv3->SetMargin(0, 0, 0, 0);
 	gPad->SetTopMargin(0.025);
-	gPad->SetBottomMargin(0.12);
-	gPad->SetLeftMargin(0.12);
+	gPad->SetBottomMargin(0.10);
+	gPad->SetLeftMargin(0.09);
 	gPad->SetRightMargin(0.02);
 	gPad->SetTickx(); gPad->SetTicky();
 
 	// Beautify
-	hist_ZetaChg_912->GetXaxis()->SetLabelSize(0.05); hist_ZetaChg_912->GetXaxis()->SetTitleSize(0.05);
-	hist_ZetaChg_912->GetYaxis()->SetLabelSize(0.05); hist_ZetaChg_912->GetYaxis()->SetTitleSize(0.05);
+	hist_ZetaChg_912->GetXaxis()->CenterTitle(); hist_ZetaChg_912->GetYaxis()->CenterTitle();
+	hist_ZetaChg_912->GetXaxis()->SetLabelSize(0.04); hist_ZetaChg_912->GetXaxis()->SetTitleSize(0.04);
+	hist_ZetaChg_912->GetYaxis()->SetLabelSize(0.04); hist_ZetaChg_912->GetYaxis()->SetTitleSize(0.04);
 	hist_ZetaChg_912->SetTitle("");
 	hist_ZetaChg_912->GetYaxis()->SetTitle("1/#sigma_{had} d#sigma_{ch}/d#xi");
 
@@ -184,10 +189,10 @@ void ImpactofXi() {
 	hist_ZetaChg_160->Draw("P SAME");
 	hist_ZetaChg_240->Draw("P SAME");
 	hist_ZetaChg_365->Draw("P SAME");
-	hist_fitZeta_912->Draw("SAME");
-	hist_fitZeta_160->Draw("SAME");
-	hist_fitZeta_240->Draw("SAME");
-	hist_fitZeta_365->Draw("SAME");
+	fits_ZetaChg_912->Draw("SAME");
+	fits_ZetaChg_160->Draw("SAME");
+	fits_ZetaChg_240->Draw("SAME");
+	fits_ZetaChg_365->Draw("SAME");
 	lg3->Draw("SAME");
 
 	// Set limits
@@ -200,20 +205,17 @@ void ImpactofXi() {
 	cv3->Modified();
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
-	// Create canvas
-	TCanvas* cv5 = new TCanvas("cv5", "FCC-ee ISR Studies", 800, 600);
-
+    
 	// Import aleph
 	TDirectory *table_EXP_ALP_ZET = (TDirectory*)input_EXP_ALP->Get("Table 10");
 
 	// Pythia graph
 	double xbin_ZetaAvg_Pythi[4] = { 91.2, 160.0, 240.0, 365.0 };
-	double ybin_ZetaAvg_Pythi[4] = { hist_fitZeta_912->GetParameter(1), hist_fitZeta_160->GetParameter(1), hist_fitZeta_240->GetParameter(1), hist_fitZeta_365->GetParameter(1)	};
-	double yerr_ZetaAvg_Pythi[4] = { hist_fitZeta_912->GetParError(1), hist_fitZeta_160->GetParError(1), hist_fitZeta_240->GetParError(1), hist_fitZeta_365->GetParError(1) };
+	double ybin_ZetaAvg_Pythi[4] = { fits_ZetaChg_912->GetMaximumX(0.0, 8.0), fits_ZetaChg_160->GetMaximumX(0.0, 8.0), fits_ZetaChg_240->GetMaximumX(0.0, 8.0), fits_ZetaChg_365->GetMaximumX(0.0, 8.0)	};
+	double yerr_ZetaAvg_Pythi[4] = { fits_ZetaChg_912->GetParError(1), fits_ZetaChg_160->GetParError(1), fits_ZetaChg_240->GetParError(1), fits_ZetaChg_365->GetParError(1) };
 	// Construct
 	auto grph_ZetaAvg_Pythi = new TGraphErrors(4, xbin_ZetaAvg_Pythi, ybin_ZetaAvg_Pythi, nullptr, yerr_ZetaAvg_Pythi);
-	grph_ZetaAvg_Pythi->SetLineColor(kBlack); grph_ZetaAvg_Pythi->SetMarkerColor(kBlack); grph_ZetaAvg_Pythi->SetMarkerStyle(20); grph_ZetaAvg_Pythi->SetLineWidth(2); grph_ZetaAvg_Pythi->SetMarkerSize(1);
+	grph_ZetaAvg_Pythi->SetLineColor(kBlack); grph_ZetaAvg_Pythi->SetMarkerColor(kBlack); grph_ZetaAvg_Pythi->SetMarkerStyle(20); grph_ZetaAvg_Pythi->SetLineWidth(2); grph_ZetaAvg_Pythi->SetMarkerSize(1.5);
 
 	// ALEPH graph
 	double xbin_ZetaAvg_ExALP[9] = { 91.2, 133, 161, 172, 183, 189, 196, 200, 206};
@@ -221,7 +223,7 @@ void ImpactofXi() {
 	double yerr_ZetaAvg_ExALP[9] = { 0.01603122, 0.035, 0.041677332, 0.053310412, 0.031890437, 0.026400758, 0.031144823, 0.031144823, 0.028319605 };
 	// Construct
 	auto grph_ZetaAvg_ExALP = new TGraphErrors(9, xbin_ZetaAvg_ExALP, ybin_ZetaAvg_ExALP, nullptr, yerr_ZetaAvg_ExALP);
-	grph_ZetaAvg_ExALP->SetLineColor(kBlue+2); grph_ZetaAvg_ExALP->SetMarkerColor(kBlue+2); grph_ZetaAvg_ExALP->SetMarkerStyle(53); grph_ZetaAvg_ExALP->SetLineWidth(2); grph_ZetaAvg_ExALP->SetMarkerSize(1);
+	grph_ZetaAvg_ExALP->SetLineColor(kBlue+2); grph_ZetaAvg_ExALP->SetMarkerColor(kBlue+2); grph_ZetaAvg_ExALP->SetMarkerStyle(54); grph_ZetaAvg_ExALP->SetLineWidth(2); grph_ZetaAvg_ExALP->SetMarkerSize(1.5);
 
 	// L3 graph
 	double xbin_ZetaAvg_ExLL3[10] = { 91.2, 130.1, 136.1, 161.3, 172.3, 182.8, 188.6, 194.4, 200.2, 206.2};
@@ -229,50 +231,94 @@ void ImpactofXi() {
 	double yerr_ZetaAvg_ExLL3[10] = { 0.02236068, 0.058309519, 0.070710678, 0.064031242, 0.070710678, 0.04472136, 0.031622777, 0.036055513, 0.04472136, 0.031622777 };
 	// Construct
 	auto grph_ZetaAvg_ExLL3 = new TGraphErrors(10, xbin_ZetaAvg_ExLL3, ybin_ZetaAvg_ExLL3, nullptr, yerr_ZetaAvg_ExLL3);
-	grph_ZetaAvg_ExLL3->SetLineColor(kRed+2); grph_ZetaAvg_ExLL3->SetMarkerColor(kRed+2); grph_ZetaAvg_ExLL3->SetMarkerStyle(53); grph_ZetaAvg_ExLL3->SetLineWidth(2); grph_ZetaAvg_ExLL3->SetMarkerSize(1);
+	grph_ZetaAvg_ExLL3->SetLineColor(kRed+2); grph_ZetaAvg_ExLL3->SetMarkerColor(kRed+2); grph_ZetaAvg_ExLL3->SetMarkerStyle(53); grph_ZetaAvg_ExLL3->SetLineWidth(2); grph_ZetaAvg_ExLL3->SetMarkerSize(1.5);
 
 	// TASSO graph
 	double xbin_ZetaAvg_ExTAS[4] = { 14.0, 22.0, 35.0, 44.0 };
-	double ybin_ZetaAvg_ExTAS[4] = { hist_fitZeta_014->GetParameter(1), hist_fitZeta_022->GetParameter(1), hist_fitZeta_035->GetParameter(1), hist_fitZeta_044->GetParameter(1)	};
-	double yerr_ZetaAvg_ExTAS[4] = { hist_fitZeta_014->GetParError(1), hist_fitZeta_022->GetParError(1), hist_fitZeta_035->GetParError(1), hist_fitZeta_044->GetParError(1) };
+	double ybin_ZetaAvg_ExTAS[4] = { fits_ZetaChg_014->GetParameter(1), fits_ZetaChg_022->GetParameter(1), fits_ZetaChg_035->GetParameter(1), fits_ZetaChg_044->GetParameter(1)	};
+	double yerr_ZetaAvg_ExTAS[4] = { fits_ZetaChg_014->GetParError(1), fits_ZetaChg_022->GetParError(1), fits_ZetaChg_035->GetParError(1), fits_ZetaChg_044->GetParError(1) };
 	// Construct
 	auto grph_ZetaAvg_ExTAS = new TGraphErrors(4, xbin_ZetaAvg_ExTAS, ybin_ZetaAvg_ExTAS, nullptr, yerr_ZetaAvg_ExTAS);
-	grph_ZetaAvg_ExTAS->SetLineColor(kYellow+2); grph_ZetaAvg_ExTAS->SetMarkerColor(kYellow+2); grph_ZetaAvg_ExTAS->SetMarkerStyle(53); grph_ZetaAvg_ExTAS->SetLineWidth(2); grph_ZetaAvg_ExTAS->SetMarkerSize(1);
+	grph_ZetaAvg_ExTAS->SetLineColor(kYellow+2); grph_ZetaAvg_ExTAS->SetMarkerColor(kYellow+2); grph_ZetaAvg_ExTAS->SetMarkerStyle(55); grph_ZetaAvg_ExTAS->SetLineWidth(2); grph_ZetaAvg_ExTAS->SetMarkerSize(1.5);
+
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 	// QCD constants
-	const double Nc = 3.0;
-	const double nf = 5.0;
-	const double Q0 = 0.25;
-	const double a = 11.0*Nc/3.0 + 2.0*nf/(3.0*Nc*Nc);
-	const double b = 11.0*Nc/3.0 - 2.0*nf/3.0;
-	const double c = (a*a)/(16.0*Nc*b);
+	const double Nc     = 3.0;
+	const double nf     = 5.0;
+	const double Q0_lo  = 0.22;
+	const double Q0_c   = 0.235;
+	const double Q0_hi  = 0.25;
+	const double a      = 11.0*Nc/3.0 + 2.0*nf/(3.0*Nc*Nc);
+	const double b      = 11.0*Nc/3.0 - 2.0*nf/3.0;
+	const double c      = (a*a)/(16.0*Nc*b);
 
 	// Compute points
 	const int npts = 200;
-	double E_theory[npts], Xi_theory[npts];
+	double E_theory[npts], Xi_c[npts], Xi_lo[npts], Xi_hi[npts];
 
 	for (int i=0; i<npts; ++i) {
 		double Ecm = 10.0 + i*(400.0-10.0)/(npts-1);
-		double y = log(Ecm / (2.0 * Q0));
-		double XiStar = y * (0.5 + sqrt(c / y) - (c / y));
 		E_theory[i] = Ecm;
-		Xi_theory[i] = XiStar;
+
+		double y_lo = log(Ecm / (2.0 * Q0_lo));
+		double y_c  = log(Ecm / (2.0 * Q0_c));
+		double y_hi = log(Ecm / (2.0 * Q0_hi));
+
+		Xi_lo[i] = y_lo * (0.5 + sqrt(c / y_lo) - (c / y_lo));
+		Xi_c[i]  = y_c  * (0.5 + sqrt(c / y_c)  - (c / y_c));
+		Xi_hi[i] = y_hi * (0.5 + sqrt(c / y_hi) - (c / y_hi));
 	}
 
-	// Make theory graph
-	TGraph* grph_ZetaAvg_QCD = new TGraph(npts, E_theory, Xi_theory);
-	grph_ZetaAvg_QCD->SetLineStyle(2); grph_ZetaAvg_QCD->SetLineWidth(3);
+	// Optional overall fudge (you had 0.98 before)
+	const double fudge = 0.98;
+	for (int i = 0; i < npts; ++i) {
+		Xi_lo[i] *= fudge;
+		Xi_c[i]  *= fudge;
+		Xi_hi[i] *= fudge;
+	}
 
-	for (int i = 0; i < grph_ZetaAvg_QCD->GetN(); ++i) grph_ZetaAvg_QCD->GetY()[i] *= 0.98;
+	// Central MLLA curve (Λ = 235 MeV)
+	TGraph* grph_ZetaAvg_QCD = new TGraph(npts, E_theory, Xi_c);
+	// grph_ZetaAvg_QCD->SetLineStyle(2); grph_ZetaAvg_QCD->SetLineWidth(3);
 
-	// Normalise theory to PYTHIA 
+	// Normalise central theory curve to PYTHIA at the Z pole
 	const double th_at_Z = grph_ZetaAvg_QCD->Eval(91.2);
-	const double scale = grph_ZetaAvg_Pythi->GetY()[0] / th_at_Z;
-	cout << scale << endl;
-	for (int i = 0; i < grph_ZetaAvg_QCD->GetN(); ++i) grph_ZetaAvg_QCD->GetY()[i] *= scale;
+	const double scale   = grph_ZetaAvg_Pythi->GetY()[0] / th_at_Z;
+	cout << "K_LPHD : " << scale << endl;
+
+	// Apply same scale to all three curves
+	for (int i = 0; i < grph_ZetaAvg_QCD->GetN(); ++i) {
+		grph_ZetaAvg_QCD->GetY()[i] *= scale;  // central 235 MeV
+		Xi_lo[i] *= scale;                     // 220 MeV
+		Xi_hi[i] *= scale;                     // 250 MeV
+	}
+
+	// Build asymmetric band around the central curve (235 MeV)
+	double Xi_band_c[npts], Xi_eyl[npts], Xi_eyh[npts];
+	for (int i = 0; i < npts; ++i) {
+		double y_c   = grph_ZetaAvg_QCD->GetY()[i];
+		double y_lo  = Xi_lo[i];
+		double y_hi  = Xi_hi[i];
+
+		Xi_band_c[i] = y_c;                    // central = Λ = 235 MeV
+		Xi_eyl[i]    = fabs(y_c - y_lo);       // down to Λ = 220 MeV
+		Xi_eyh[i]    = fabs(y_hi - y_c);       // up to Λ = 250 MeV
+	}
+
+	auto grph_ZetaAvg_QCD_band =
+		new TGraphAsymmErrors(npts, E_theory, Xi_band_c, nullptr, nullptr, Xi_eyl, Xi_eyh);
+	grph_ZetaAvg_QCD_band->SetFillColorAlpha(kGray, 0.3);
+	grph_ZetaAvg_QCD_band->SetLineColor(kGray);
+	grph_ZetaAvg_QCD_band->SetLineWidth(0);
+
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+	// Create canvas
+	TCanvas* cv5 = new TCanvas("cv5", "FCC-ee ISR Studies", 800, 850);
 
 	// Add legend
-	TLegend *lg4 = new TLegend(0.77, 0.18, 0.90, 0.40);
+	TLegend *lg4 = new TLegend(0.72, 0.16, 0.90, 0.35);
 	lg4->AddEntry(grph_ZetaAvg_Pythi, "PYTHIA", "P");
 	lg4->AddEntry(grph_ZetaAvg_ExALP, "ALEPH", "P");
 	lg4->AddEntry(grph_ZetaAvg_ExLL3, "L3", "P");
@@ -287,24 +333,27 @@ void ImpactofXi() {
 	gStyle->SetTitleSize(0.06, "Y");
 	cv5->SetMargin(0, 0, 0, 0);
 	gPad->SetTopMargin(0.025);
-	gPad->SetBottomMargin(0.12);
-	gPad->SetLeftMargin(0.14);
+	gPad->SetBottomMargin(0.09);
+	gPad->SetLeftMargin(0.12);
 	gPad->SetRightMargin(0.05);
 	gPad->SetTickx(); gPad->SetTicky();
 
 	// Beautify
-	grph_ZetaAvg_Pythi->GetXaxis()->SetLabelSize(0.05); grph_ZetaAvg_Pythi->GetXaxis()->SetTitleSize(0.05);
-	grph_ZetaAvg_Pythi->GetYaxis()->SetLabelSize(0.05); grph_ZetaAvg_Pythi->GetYaxis()->SetTitleSize(0.05);
+	grph_ZetaAvg_Pythi->GetXaxis()->CenterTitle(); grph_ZetaAvg_Pythi->GetYaxis()->CenterTitle();
+	grph_ZetaAvg_Pythi->GetXaxis()->SetLabelSize(0.04); grph_ZetaAvg_Pythi->GetXaxis()->SetTitleSize(0.04);
+	grph_ZetaAvg_Pythi->GetYaxis()->SetLabelSize(0.04); grph_ZetaAvg_Pythi->GetYaxis()->SetTitleSize(0.04);
 	grph_ZetaAvg_Pythi->SetTitle("");
 	grph_ZetaAvg_Pythi->GetYaxis()->SetTitle("#xi*");
 	grph_ZetaAvg_Pythi->GetXaxis()->SetTitle("#sqrt{s} (GeV)");
 
 	// Draw
 	grph_ZetaAvg_Pythi->Draw("AP");
+	grph_ZetaAvg_QCD_band->Draw("3 SAME");
+	grph_ZetaAvg_QCD->Draw("L SAME");
+	grph_ZetaAvg_Pythi->Draw("P SAME");
 	grph_ZetaAvg_ExALP->Draw("PE SAME");
 	grph_ZetaAvg_ExLL3->Draw("PE SAME");
 	grph_ZetaAvg_ExTAS->Draw("PE SAME");
-	grph_ZetaAvg_QCD->Draw("L SAME");
 	lg4->Draw("SAME");
 
 	// Set limits
@@ -318,15 +367,15 @@ void ImpactofXi() {
 // Print results
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-	// cout << fixed << setprecision(4);
+	cout << fixed << setprecision(4);
 
-	// cout << "====== FITTING WITH THRUST ======" << endl;
-	// cout << "√s \t χ²/ndf \t Xi* \t Error" << endl;
-	// cout << "---------------------------------" << endl;
-	// cout << "91.2 \t " << hist_fitZeta_912->GetChisquare()<<"/"<<hist_fitZeta_912->GetNDF() << "\t" << hist_fitZeta_912->GetParameter(1) << "\t" << hist_fitZeta_912->GetParError(0) << endl; 
-	// cout << "160 \t " << hist_fitZeta_160->GetChisquare()<<"/"<<hist_fitZeta_160->GetNDF() << "\t" << hist_fitZeta_160->GetParameter(1) << "\t" << hist_fitZeta_160->GetParError(0) << endl;
-	// cout << "240 \t " << hist_fitZeta_240->GetChisquare()<<"/"<<hist_fitZeta_240->GetNDF() << "\t" << hist_fitZeta_240->GetParameter(1) << "\t" << hist_fitZeta_240->GetParError(0) << endl;
-	// cout << "365 \t " << hist_fitZeta_365->GetChisquare()<<"/"<<hist_fitZeta_365->GetNDF() << "\t" << hist_fitZeta_365->GetParameter(1) << "\t" << hist_fitZeta_365->GetParError(0) << endl;
-	// cout << "=================================" << endl;
+	cout << "====== FITTING WITH THRUST ======" << endl;
+	cout << "√s \t χ²/ndf \t Xi* \t Error" << endl;
+	cout << "---------------------------------" << endl;
+	cout << "91.2 \t " << fits_ZetaChg_912->GetChisquare()<<"/"<<fits_ZetaChg_912->GetNDF() << "\t" << fits_ZetaChg_912->GetMaximumX(0.0, 8.0) << "\t" << fits_ZetaChg_912->GetParError(0) << endl; 
+	cout << "160 \t " << fits_ZetaChg_160->GetChisquare()<<"/"<<fits_ZetaChg_160->GetNDF() << "\t" << fits_ZetaChg_160->GetMaximumX(0.0, 8.0) << "\t" << fits_ZetaChg_160->GetParError(0) << endl;
+	cout << "240 \t " << fits_ZetaChg_240->GetChisquare()<<"/"<<fits_ZetaChg_240->GetNDF() << "\t" << fits_ZetaChg_240->GetMaximumX(0.0, 8.0) << "\t" << fits_ZetaChg_240->GetParError(0) << endl;
+	cout << "365 \t " << fits_ZetaChg_365->GetChisquare()<<"/"<<fits_ZetaChg_365->GetNDF() << "\t" << fits_ZetaChg_365->GetMaximumX(0.0, 8.0) << "\t" << fits_ZetaChg_365->GetParError(0) << endl;
+	cout << "=================================" << endl;
 
 }

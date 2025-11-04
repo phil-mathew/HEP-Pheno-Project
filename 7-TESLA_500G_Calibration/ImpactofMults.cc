@@ -134,105 +134,17 @@ void ImpactofMults() {
 	gStyle->SetCanvasPreferGL(true);
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
-	// // Create canvas
-	// TCanvas* cv2 = new TCanvas("cv2", "FCC-ee ISR Studies", 800, 1600);
-
-	// // Add legend
-	// TLegend* lg2 = new TLegend(0.77, 0.70, 0.92, 0.95);
-	// lg2->AddEntry(hist_nHadChg_365_al, "ee#rightarrowq#bar{q}", "P");
-	// lg2->AddEntry(hist_nHadChg_365_Zq, "ee#rightarrow#gamma/Z", "P");
-	// lg2->AddEntry(hist_nHadChg_365_ZZ, "ee#rightarrowZZ", "P");
-	// lg2->AddEntry(hist_nHadChg_365_WW, "ee#rightarrowWW", "P");
-	// lg2->AddEntry(hist_nHadChg_365_tt, "ee#rightarrowt#bar{t}", "P");
-	// lg2->AddEntry(hist_nHadChg_365_HZ, "ee#rightarrowZH", "P");
-	// lg2->AddEntry(hist_nHadChg_365_HW, "ee#rightarrow#nu#bar{#nu}H", "P");
-	// lg2->SetTextSize(0.03);
-
-	// // Beautify
-	// gStyle->SetErrorX(0.000000001);
-	// gStyle->SetLabelSize(0.05, "X");
-	// gStyle->SetLabelSize(0.05, "Y");
-	// gStyle->SetTitleSize(0.06, "X");
-	// gStyle->SetTitleSize(0.06, "Y");
-	// cv2->SetMargin(0, 0, 0, 0); 
-	// cv2->Divide(1,2);
-	// for (int i = 1; i <= 3; i++) {
-	// 	cv2->cd(i);
-	// 	gPad->SetTopMargin(0.017);
-	// 	gPad->SetBottomMargin(0.1);
-	// 	gPad->SetLeftMargin(0.10);
-	// 	gPad->SetRightMargin(0.04);
-	// 	gPad->SetTickx(); gPad->SetTicky();
-	// 	gPad->SetLogy();
-	// }
-
-	// hist_nHadChg_365_al->SetTitle("");
-	// hist_nHadChg_365_al->GetYaxis()->SetTitle("N_{events}");
-	// hist_nHadChg_365_al->SetFillStyle(3001); hist_nHadChg_365_al->SetFillColor(kBlack); 
-	// hist_nHadChg_365_Zq->SetFillStyle(3001); hist_nHadChg_365_Zq->SetFillColor(kRed); 
-	// hist_nHadChg_365_WW->SetFillStyle(3001); hist_nHadChg_365_WW->SetFillColor(kGreen); 
-	// hist_nHadChg_365_ZZ->SetFillStyle(3001); hist_nHadChg_365_ZZ->SetFillColor(kBlue); 
-	// hist_nHadChg_365_tt->SetFillStyle(3001); hist_nHadChg_365_tt->SetFillColor(kYellow); 
-	// hist_nHadChg_365_HZ->SetFillStyle(3001); hist_nHadChg_365_HZ->SetFillColor(kMagenta+1); 
-	// hist_nHadChg_365_HW->SetFillStyle(3001); hist_nHadChg_365_HW->SetFillColor(kCyan+1); 
-
-	// // Draw
-	// cv2->cd(1);
-	// hist_nHadChg_365_al->Draw("HIST");
-	// hist_nHadChg_365_Zq->Draw("HIST SAME");
-	// hist_nHadChg_365_WW->Draw("HIST SAME");
-	// hist_nHadChg_365_ZZ->Draw("HIST SAME");
-	// hist_nHadChg_365_tt->Draw("HIST SAME");
-	// hist_nHadChg_365_HZ->Draw("HIST SAME");
-	// hist_nHadChg_365_HW->Draw("HIST SAME");
-	// lg2->Draw("SAME");
-
-	// hist_nHadAll_365_al->SetTitle("");
-	// hist_nHadAll_365_al->GetYaxis()->SetTitle("N_{events}");
-	// hist_nHadAll_365_al->GetXaxis()->SetTitle("N_{had}");
-	// hist_nHadAll_365_al->SetFillStyle(3001); hist_nHadAll_365_al->SetFillColor(kBlack); 
-	// hist_nHadAll_365_Zq->SetFillStyle(3001); hist_nHadAll_365_Zq->SetFillColor(kRed); 
-	// hist_nHadAll_365_WW->SetFillStyle(3001); hist_nHadAll_365_WW->SetFillColor(kGreen); 
-	// hist_nHadAll_365_ZZ->SetFillStyle(3001); hist_nHadAll_365_ZZ->SetFillColor(kBlue); 
-	// hist_nHadAll_365_tt->SetFillStyle(3001); hist_nHadAll_365_tt->SetFillColor(kYellow); 
-	// hist_nHadAll_365_HZ->SetFillStyle(3001); hist_nHadAll_365_HZ->SetFillColor(kMagenta+1); 
-	// hist_nHadAll_365_HW->SetFillStyle(3001); hist_nHadAll_365_HW->SetFillColor(kCyan+1); 
-
-	// // Draw
-	// cv2->cd(2);
-	// hist_nHadAll_365_al->Draw("HIST");
-	// hist_nHadAll_365_Zq->Draw("HIST SAME");
-	// hist_nHadAll_365_WW->Draw("HIST SAME");
-	// hist_nHadAll_365_ZZ->Draw("HIST SAME");
-	// hist_nHadAll_365_tt->Draw("HIST SAME");
-	// hist_nHadAll_365_HZ->Draw("HIST SAME");
-	// hist_nHadAll_365_HW->Draw("HIST SAME");
-	// lg2->Draw("SAME");
-
-	// // Set limits
-	// hist_nHadChg_365_al->GetYaxis()->SetRangeUser(1E0,1E6);
-	// hist_nHadChg_365_al->GetXaxis()->SetRangeUser(0,130);
-	// hist_nHadAll_365_al->GetYaxis()->SetRangeUser(1E0,1E6);
-	// hist_nHadAll_365_al->GetXaxis()->SetRangeUser(0,260);
-
-	// // Modify stat-box
-	// gStyle->SetOptStat();
-	// // Update canvas
-	// cv2->Modified();
-
-/////////////////////////////////////////////////////////////////////////////////////////////////////////////
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 	// Import aleph
 	TDirectory *table_EXP_ALP_NCH = (TDirectory*)input_EXP_ALP->Get("Table 1");
 	TGraphAsymmErrors* grph_nHadAvg_ExALP = (TGraphAsymmErrors*)table_EXP_ALP_NCH->Get("Graph1D_y1");
-	grph_nHadAvg_ExALP->SetLineColor(kBlue+2); grph_nHadAvg_ExALP->SetMarkerColor(kBlue+2); grph_nHadAvg_ExALP->SetMarkerStyle(53); grph_nHadAvg_ExALP->SetLineWidth(2); grph_nHadAvg_ExALP->SetMarkerSize(2);
+	grph_nHadAvg_ExALP->SetLineColor(kBlue+2); grph_nHadAvg_ExALP->SetMarkerColor(kBlue+2); grph_nHadAvg_ExALP->SetMarkerStyle(54); grph_nHadAvg_ExALP->SetLineWidth(2); grph_nHadAvg_ExALP->SetMarkerSize(1.5);
 	
 	// Import l3
 	TDirectory *table_EXP_LL3_NCH = (TDirectory*)input_EXP_LL3->Get("Table 64");
 	TGraphAsymmErrors* grph_nHadAvg_ExLL3 = (TGraphAsymmErrors*)table_EXP_LL3_NCH->Get("Graph1D_y1");
-	grph_nHadAvg_ExLL3->SetLineColor(kRed+2); grph_nHadAvg_ExLL3->SetMarkerColor(kRed+2); grph_nHadAvg_ExLL3->SetMarkerStyle(53); grph_nHadAvg_ExLL3->SetLineWidth(2); grph_nHadAvg_ExLL3->SetMarkerSize(2);
+	grph_nHadAvg_ExLL3->SetLineColor(kRed+2); grph_nHadAvg_ExLL3->SetMarkerColor(kRed+2); grph_nHadAvg_ExLL3->SetMarkerStyle(53); grph_nHadAvg_ExLL3->SetLineWidth(2); grph_nHadAvg_ExLL3->SetMarkerSize(1.5);
 	// Add z-pole 
 	int ff = grph_nHadAvg_ExLL3->GetN();
 	grph_nHadAvg_ExLL3->SetPoint(ff, 91.2, 20.46);
@@ -247,7 +159,7 @@ void ImpactofMults() {
 	double yerr_nHadAvg_ExAMY[8] = { 0.41, 0.19, 0.22, 0.16, 0.19, 0.23, 0.23, 0.21 };
 	// Construct
 	auto grph_nHadAvg_ExAMY = new TGraphErrors(8, xbin_nHadAvg_ExAMY, ybin_nHadAvg_ExAMY, nullptr, yerr_nHadAvg_ExAMY);
-	grph_nHadAvg_ExAMY->SetLineColor(kGreen+2); grph_nHadAvg_ExAMY->SetMarkerColor(kGreen+2); grph_nHadAvg_ExAMY->SetMarkerStyle(53); grph_nHadAvg_ExAMY->SetLineWidth(2); grph_nHadAvg_ExAMY->SetMarkerSize(2);
+	grph_nHadAvg_ExAMY->SetLineColor(kGreen+3); grph_nHadAvg_ExAMY->SetMarkerColor(kGreen+3); grph_nHadAvg_ExAMY->SetMarkerStyle(59); grph_nHadAvg_ExAMY->SetLineWidth(2); grph_nHadAvg_ExAMY->SetMarkerSize(2);
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -257,7 +169,7 @@ void ImpactofMults() {
 	double yerr_nHadAvg_ExTAS[4] = { 0.414366987, 0.466904701, 0.460434577, 0.47381431 };
 	// Construct
 	auto grph_nHadAvg_ExTAS = new TGraphErrors(4, xbin_nHadAvg_ExTAS, ybin_nHadAvg_ExTAS, nullptr, yerr_nHadAvg_ExTAS);
-	grph_nHadAvg_ExTAS->SetLineColor(kYellow+2); grph_nHadAvg_ExTAS->SetMarkerColor(kYellow+2); grph_nHadAvg_ExTAS->SetMarkerStyle(53); grph_nHadAvg_ExTAS->SetLineWidth(2); grph_nHadAvg_ExTAS->SetMarkerSize(2);
+	grph_nHadAvg_ExTAS->SetLineColor(kYellow+2); grph_nHadAvg_ExTAS->SetMarkerColor(kYellow+2); grph_nHadAvg_ExTAS->SetMarkerStyle(55); grph_nHadAvg_ExTAS->SetLineWidth(2); grph_nHadAvg_ExTAS->SetMarkerSize(1.5);
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -269,7 +181,7 @@ void ImpactofMults() {
 	double yerr_nHadAvg_Pythi[4] = { hist_nHadChg_912_Zq->GetMeanError(), hist_nHadChg_160_Zq->GetMeanError(), hist_nHadChg_240_Zq->GetMeanError(), hist_nHadChg_365_Zq->GetMeanError()	};
 	// Construct pythia graph
 	auto grph_nHadAvg_Pythi = new TGraphErrors(4, xbin_nHadAvg_Pythi, ybin_nHadAvg_Pythi, nullptr, yerr_nHadAvg_Pythi);
-	grph_nHadAvg_Pythi->SetLineColor(kBlack); grph_nHadAvg_Pythi->SetMarkerColor(kBlack); grph_nHadAvg_Pythi->SetMarkerStyle(20); grph_nHadAvg_Pythi->SetLineWidth(2); grph_nHadAvg_Pythi->SetMarkerSize(2);
+	grph_nHadAvg_Pythi->SetLineColor(kBlack); grph_nHadAvg_Pythi->SetMarkerColor(kBlack); grph_nHadAvg_Pythi->SetMarkerStyle(20); grph_nHadAvg_Pythi->SetLineWidth(2); grph_nHadAvg_Pythi->SetMarkerSize(1.5);
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -364,16 +276,16 @@ void ImpactofMults() {
 	}
 
 	// Style and draw band
-	grph_band->SetFillColorAlpha(kBlue+1, 0.05);
+	grph_band->SetFillColorAlpha(kGray, 0.3);
 	grph_band->SetLineColor(0);
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////
 	
 	// Create canvas
-	TCanvas* cv4 = new TCanvas("cv4", "FCC-ee ISR Studies", 800, 1200);
+	TCanvas* cv4 = new TCanvas("cv4", "FCC-ee ISR Studies", 800, 850);
 
 	// Add legend
-	TLegend *lg4 = new TLegend(0.72, 0.15, 0.90, 0.34);
+	TLegend *lg4 = new TLegend(0.72, 0.15, 0.90, 0.40);
 	lg4->AddEntry(grph_nHadAvg_Pythi, "PYTHIA", "P");
 	lg4->AddEntry(grph_nHadAvg_ExALP, "ALEPH", "P");
 	lg4->AddEntry(grph_nHadAvg_ExLL3, "L3", "P");
@@ -389,27 +301,28 @@ void ImpactofMults() {
 	gStyle->SetTitleSize(0.06, "Y");
 	cv4->SetMargin(0, 0, 0, 0);
 	gPad->SetTopMargin(0.025);
-	gPad->SetBottomMargin(0.10);
-	gPad->SetLeftMargin(0.13);
-	gPad->SetRightMargin(0.04);
+	gPad->SetBottomMargin(0.09);
+	gPad->SetLeftMargin(0.12);
+	gPad->SetRightMargin(0.05);
 	gPad->SetTickx(); gPad->SetTicky();
 
 	// Beautify
 	grph_nHadAvg_Pythi->GetXaxis()->CenterTitle(); grph_nHadAvg_Pythi->GetYaxis()->CenterTitle();
-	grph_nHadAvg_Pythi->GetXaxis()->SetLabelSize(0.05); grph_nHadAvg_Pythi->GetXaxis()->SetTitleSize(0.05);
-	grph_nHadAvg_Pythi->GetYaxis()->SetLabelSize(0.05); grph_nHadAvg_Pythi->GetYaxis()->SetTitleSize(0.05);
+	grph_nHadAvg_Pythi->GetXaxis()->SetLabelSize(0.04); grph_nHadAvg_Pythi->GetXaxis()->SetTitleSize(0.04);
+	grph_nHadAvg_Pythi->GetYaxis()->SetLabelSize(0.04); grph_nHadAvg_Pythi->GetYaxis()->SetTitleSize(0.04);
 	grph_nHadAvg_Pythi->SetTitle("");
 	grph_nHadAvg_Pythi->GetYaxis()->SetTitle("<N_{ch}>");
 	grph_nHadAvg_Pythi->GetXaxis()->SetTitle("#sqrt{s} (GeV)");
 
 	// Draw
 	grph_nHadAvg_Pythi->Draw("AP");
+	grph_nHadAvg_QCD->Draw("L SAME");
+	grph_band->Draw("F SAME");
+	grph_nHadAvg_Pythi->Draw("P SAME");
 	grph_nHadAvg_ExALP->Draw("PE SAME");
 	grph_nHadAvg_ExLL3->Draw("PE SAME");
 	grph_nHadAvg_ExAMY->Draw("PE SAME");
 	grph_nHadAvg_ExTAS->Draw("PE SAME");
-	grph_nHadAvg_QCD->Draw("L SAME");
-	grph_band->Draw("F SAME");
 	lg4->Draw("SAME");
 
 	// Set limits
