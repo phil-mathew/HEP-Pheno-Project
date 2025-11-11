@@ -58,7 +58,7 @@ TGraphAsymmErrors* HistToGraph(const TH1* h, bool skipEmpty=false) {
     return g;
 }
 
-// 3-loop QCD running coupling αs(Q) with fixed nf=5 (MSbar scheme)
+// 3-loop QCD running
 static inline double alpha3L_Lambda(double Q, double Lambda) {
     const double nf = 5.0;
     const double b0 = 11.0 - 2.0/3.0*nf;
@@ -73,18 +73,6 @@ static inline double alpha3L_Lambda(double Q, double Lambda) {
     const double corr2 = ((b1*b1)*((lnL*lnL) - lnL - 1.0) + b0*b2) / (std::pow(b0,4) * L*L);
 
     return pref * (1.0 - corr1 + corr2);
-}
-
-// Invert αs(Q0) → Λ at 3-loop (nf=5). αs increases with Λ.
-static inline double Lambda_from_alpha3L(double Q0, double as_Q0) {
-    double lo = 0.01, hi = 1.0;           // GeV, safe bracket for Λ^(5)
-    for (int it = 0; it < 100; ++it) {
-        double mid   = 0.5 * (lo + hi);
-        double a_mid = alpha3L_Lambda(Q0, mid);
-        if (a_mid > as_Q0) hi = mid;      // reduce Λ to reduce αs
-        else               lo = mid;      // increase Λ to increase αs
-    }
-    return 0.5 * (lo + hi);
 }
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -144,188 +132,151 @@ std::vector<std::array<double,4>> Theory_THR = {
 
 // C-parameter [Bins, LO, NLO, NNLO]
 std::vector<std::array<double,4>> Theory_CPR = {
-    {0.005, 35.3270, -2151.0000, 30600.0000},
-    {0.015, 27.9630,  -475.1000, -30400.0000},
-    {0.025, 25.1240,  -145.1000, -21500.0000},
-    {0.035, 23.2690,    13.0000, -14800.0000},
-    {0.045, 21.8870,   109.1000, -11200.0000},
-    {0.055, 20.7740,   171.0000,  -7600.0000},
-    {0.065, 19.8310,   215.0000,  -5300.0000},
-    {0.075, 19.0420,   244.0000,  -2700.0000},
-    {0.085, 18.3400,   267.0000,  -1500.0000},
-    {0.095, 17.7100,   283.0000,   -750.0000},
-    {0.105, 17.1520,   295.0000,   1600.0000},
-    {0.115, 16.6370,   306.0000,   1400.0000},
-    {0.125, 16.1540,   310.0000,   1700.0000},
-    {0.135, 15.7130,   318.0000,   3300.0000},
-    {0.145, 15.3120,   321.0000,   3600.0000},
-    {0.155, 14.9330,   323.0000,   4300.0000},
-    {0.165, 14.5720,   324.0000,   4200.0000},
-    {0.175, 14.2280,   326.0000,   4800.0000},
-    {0.185, 13.9150,   324.1000,   5400.0000},
-    {0.195, 13.6090,   322.7000,   4400.0000},
-    {0.205, 13.3210,   324.2000,   5500.0000},
-    {0.215, 13.0390,   321.4000,   5800.0000},
-    {0.225, 12.7790,   320.8000,   5900.0000},
-    {0.235, 12.5240,   318.4000,   6200.0000},
-    {0.245, 12.2810,   317.9000,   6700.0000},
-    {0.255, 12.0460,   315.6000,   6300.0000},
-    {0.265, 11.8230,   311.3000,   6200.0000},
-    {0.275, 11.6080,   307.9000,   6600.0000},
-    {0.285, 11.3920,   307.8000,   5900.0000},
-    {0.295, 11.1970,   302.9000,   6800.0000},
-    {0.305, 11.0000,   300.8000,   6500.0000},
-    {0.315, 10.8120,   298.0000,   6800.0000},
-    {0.325, 10.6270,   296.4000,   6500.0000},
-    {0.335, 10.4510,   290.8000,   6300.0000},
-    {0.345, 10.2730,   289.7000,   6100.0000},
-    {0.355, 10.1100,   285.6000,   6200.0000},
-    {0.365,  9.9460,   284.3000,   6400.0000},
-    {0.375,  9.7870,   280.4000,   7000.0000},
-    {0.385,  9.6280,   275.2000,   6500.0000},
-    {0.395,  9.4840,   273.2000,   6100.0000},
-    {0.405,  9.3321,   271.1000,   6200.0000},
-    {0.415,  9.1900,   268.5000,   7000.0000},
-    {0.425,  9.0490,   263.6000,   5800.0000},
-    {0.435,  8.9140,   261.6000,   6100.0000},
-    {0.445,  8.7791,   258.0000,   6200.0000},
-    {0.455,  8.6450,   255.5000,   6000.0000},
-    {0.465,  8.5180,   251.8000,   6500.0000},
-    {0.475,  8.3920,   249.1000,   5600.0000},
-    {0.485,  8.2690,   246.5000,   5900.0000},
-    {0.495,  8.1520,   241.5000,   5800.0000},
-    {0.505,  8.0330,   241.7000,   5800.0000},
-    {0.515,  7.9180,   237.6000,   5500.0000},
-    {0.525,  7.8040,   232.6000,   6100.0000},
-    {0.535,  7.6910,   231.2000,   5000.0000},
-    {0.545,  7.5890,   228.5000,   5500.0000},
-    {0.555,  7.4760,   224.7000,   5700.0000},
-    {0.565,  7.3770,   224.7000,   5700.0000},
-    {0.575,  7.2710,   219.0000,   5600.0000},
-    {0.585,  7.1720,   218.0000,   5400.0000},
-    {0.595,  7.0730,   214.3000,   5200.0000},
-    {0.605,  6.9760,   210.5000,   4900.0000},
-    {0.615,  6.8800,   208.4000,   5200.0000},
-    {0.625,  6.7880,   204.6000,   4600.0000},
-    {0.635,  6.6920,   202.5000,   5100.0000},
-    {0.645,  6.6000,   200.9000,   5100.0000},
-    {0.655,  6.5150,   197.7000,   4400.0000},
-    {0.665,  6.4260,   194.7000,   5000.0000},
-    {0.675,  6.3370,   192.4000,   4700.0000},
-    {0.685,  6.2530,   189.2000,   5100.0000},
-    {0.695,  6.1710,   187.7000,   4500.0000},
-    {0.705,  6.0874,   184.0000,   4300.0000},
-    {0.715,  6.0103,   182.6000,   3900.0000},
-    {0.725,  5.9266,   180.0000,   4400.0000},
-    {0.735,  5.8474,   177.5000,   4300.0000},
-    {0.745,  5.7695,   174.5000,   3200.0000},
-    {0.755,  0.0000,   601.1000,  12700.0000},
-    {0.765,  0.0000,   277.1000,  13800.0000},
-    {0.775,  0.0000,   190.5000,   9990.0000},
-    {0.785,  0.0000,   142.4600,   7600.0000},
-    {0.795,  0.0000,   111.2400,   6170.0000},
-    {0.805,  0.0000,    88.9500,   4650.0000},
-    {0.815,  0.0000,    72.2800,   3490.0000},
-    {0.825,  0.0000,    59.1300,   3020.0000},
-    {0.835,  0.0000,    48.7600,   1930.0000},
-    {0.845,  0.0000,    40.3700,   1930.0000},
-    {0.855,  0.0000,    33.3600,    820.0000},
-    {0.865,  0.0000,    27.5400,   1260.0000},
-    {0.875,  0.0000,    22.7000,    940.0000},
-    {0.885,  0.0000,    18.5600,    680.0000},
-    {0.895,  0.0000,    15.0600,    590.0000},
-    {0.905,  0.0000,    12.1200,    457.0000},
-    {0.915,  0.0000,     9.5870,    350.0000},
-    {0.925,  0.0000,     7.4580,    219.0000},
-    {0.935,  0.0000,     5.6450,     10.0000},
-    {0.945,  0.0000,     4.1250,    101.9000},
-    {0.955,  0.0000,     2.8750,     25.9000},
-    {0.965,  0.0000,     1.8350,     22.6000},
-    {0.975,  0.0000,     1.0080,      3.9000},
-    {0.985,  0.0000,     0.3990,     -0.4886},
-    {0.995,  0.0000,     0.0188,     -0.1443}
+    {0.005, 35.3270, -2151.0000, 30600.0000},  {0.015, 27.9630,  -475.1000, -30400.0000},
+    {0.025, 25.1240,  -145.1000, -21500.0000}, {0.035, 23.2690,    13.0000, -14800.0000},
+    {0.045, 21.8870,   109.1000, -11200.0000}, {0.055, 20.7740,   171.0000,  -7600.0000},
+    {0.065, 19.8310,   215.0000,  -5300.0000}, {0.075, 19.0420,   244.0000,  -2700.0000},
+    {0.085, 18.3400,   267.0000,  -1500.0000}, {0.095, 17.7100,   283.0000,   -750.0000},
+    {0.105, 17.1520,   295.0000,   1600.0000}, {0.115, 16.6370,   306.0000,   1400.0000},
+    {0.125, 16.1540,   310.0000,   1700.0000}, {0.135, 15.7130,   318.0000,   3300.0000},
+    {0.145, 15.3120,   321.0000,   3600.0000}, {0.155, 14.9330,   323.0000,   4300.0000},
+    {0.165, 14.5720,   324.0000,   4200.0000}, {0.175, 14.2280,   326.0000,   4800.0000},
+    {0.185, 13.9150,   324.1000,   5400.0000}, {0.195, 13.6090,   322.7000,   4400.0000},
+    {0.205, 13.3210,   324.2000,   5500.0000}, {0.215, 13.0390,   321.4000,   5800.0000},
+    {0.225, 12.7790,   320.8000,   5900.0000}, {0.235, 12.5240,   318.4000,   6200.0000},
+    {0.245, 12.2810,   317.9000,   6700.0000}, {0.255, 12.0460,   315.6000,   6300.0000},
+    {0.265, 11.8230,   311.3000,   6200.0000}, {0.275, 11.6080,   307.9000,   6600.0000},
+    {0.285, 11.3920,   307.8000,   5900.0000}, {0.295, 11.1970,   302.9000,   6800.0000},
+    {0.305, 11.0000,   300.8000,   6500.0000}, {0.315, 10.8120,   298.0000,   6800.0000},
+    {0.325, 10.6270,   296.4000,   6500.0000}, {0.335, 10.4510,   290.8000,   6300.0000},
+    {0.345, 10.2730,   289.7000,   6100.0000}, {0.355, 10.1100,   285.6000,   6200.0000},
+    {0.365,  9.9460,   284.3000,   6400.0000}, {0.375,  9.7870,   280.4000,   7000.0000},
+    {0.385,  9.6280,   275.2000,   6500.0000}, {0.395,  9.4840,   273.2000,   6100.0000},
+    {0.405,  9.3321,   271.1000,   6200.0000}, {0.415,  9.1900,   268.5000,   7000.0000},
+    {0.425,  9.0490,   263.6000,   5800.0000}, {0.435,  8.9140,   261.6000,   6100.0000},
+    {0.445,  8.7791,   258.0000,   6200.0000}, {0.455,  8.6450,   255.5000,   6000.0000},
+    {0.465,  8.5180,   251.8000,   6500.0000}, {0.475,  8.3920,   249.1000,   5600.0000},
+    {0.485,  8.2690,   246.5000,   5900.0000}, {0.495,  8.1520,   241.5000,   5800.0000},
+    {0.505,  8.0330,   241.7000,   5800.0000}, {0.515,  7.9180,   237.6000,   5500.0000},
+    {0.525,  7.8040,   232.6000,   6100.0000}, {0.535,  7.6910,   231.2000,   5000.0000},
+    {0.545,  7.5890,   228.5000,   5500.0000}, {0.555,  7.4760,   224.7000,   5700.0000},
+    {0.565,  7.3770,   224.7000,   5700.0000}, {0.575,  7.2710,   219.0000,   5600.0000},
+    {0.585,  7.1720,   218.0000,   5400.0000}, {0.595,  7.0730,   214.3000,   5200.0000},
+    {0.605,  6.9760,   210.5000,   4900.0000}, {0.615,  6.8800,   208.4000,   5200.0000},
+    {0.625,  6.7880,   204.6000,   4600.0000}, {0.635,  6.6920,   202.5000,   5100.0000},
+    {0.645,  6.6000,   200.9000,   5100.0000}, {0.655,  6.5150,   197.7000,   4400.0000},
+    {0.665,  6.4260,   194.7000,   5000.0000}, {0.675,  6.3370,   192.4000,   4700.0000},
+    {0.685,  6.2530,   189.2000,   5100.0000}, {0.695,  6.1710,   187.7000,   4500.0000},
+    {0.705,  6.0874,   184.0000,   4300.0000}, {0.715,  6.0103,   182.6000,   3900.0000},
+    {0.725,  5.9266,   180.0000,   4400.0000}, {0.735,  5.8474,   177.5000,   4300.0000},
+    {0.745,  5.7695,   174.5000,   3200.0000}, {0.755,  0.0000,   601.1000,  12700.0000},
+    {0.765,  0.0000,   277.1000,  13800.0000}, {0.775,  0.0000,   190.5000,   9990.0000},
+    {0.785,  0.0000,   142.4600,   7600.0000}, {0.795,  0.0000,   111.2400,   6170.0000},
+    {0.805,  0.0000,    88.9500,   4650.0000}, {0.815,  0.0000,    72.2800,   3490.0000},
+    {0.825,  0.0000,    59.1300,   3020.0000}, {0.835,  0.0000,    48.7600,   1930.0000},
+    {0.845,  0.0000,    40.3700,   1930.0000}, {0.855,  0.0000,    33.3600,    820.0000},
+    {0.865,  0.0000,    27.5400,   1260.0000}, {0.875,  0.0000,    22.7000,    940.0000},
+    {0.885,  0.0000,    18.5600,    680.0000}, {0.895,  0.0000,    15.0600,    590.0000},
+    {0.905,  0.0000,    12.1200,    457.0000}, {0.915,  0.0000,     9.5870,    350.0000},
+    {0.925,  0.0000,     7.4580,    219.0000}, {0.935,  0.0000,     5.6450,     10.0000},
+    {0.945,  0.0000,     4.1250,    101.9000}, {0.955,  0.0000,     2.8750,     25.9000},
+    {0.965,  0.0000,     1.8350,     22.6000}, {0.975,  0.0000,     1.0080,      3.9000},
+    {0.985,  0.0000,     0.3990,     -0.4886}, {0.995,  0.0000,     0.0188,     -0.1443}
 };
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 // Fit functions
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
+// qcd factors
 double Nc = 3.0; double Nf = 5.0;
+
+// unbarred conversions
+double At = 3.0*(Nc*Nc-1.0)/(4.0*Nc);
+double Bt = (Nc*Nc-1.0)/(8.0*Nc) * ( (243.0/4.0 - 44.0*1.202)*Nc + 3.0/(4.0*Nc) + (8.0*1.202 - 11.0)*Nf );
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 double THR_NNLO(double *x, double *par) {
-   
-	double tau   = x[0];
-    double alphaS = par[0];
-    double asbar  = alphaS / (2 * TMath::Pi());
 
-    // unbarred
-    double At = 3.0*(Nc*Nc-1.0)/(4.0*Nc);
-    double Bt = (Nc*Nc-1.0)/(8.0*Nc) * ( (243.0/4.0 - 44.0*1.202)*Nc + 3.0/(4.0*Nc) + (8.0*1.202 - 11.0)*Nf );
+	// fit bin call
+	double tau = x[0];
+	// fit variable
+	double alphaS = par[0];
 
-	// Run through bins
-    for (const auto &row : Theory_THR) {
-        
-		// bin vector
-		double bin = row[0];
-        
-		// Check proximity
-		if (std::fabs(tau - bin) < 0.005) {
+	// number of bins
+	const int nBins = Theory_THR.size();
+	// first theory bin
+	const double firstBin = Theory_THR[0][0];
+	// second theory bin
+	const double secndBin = Theory_THR[1][0];
+	// bin width
+	const double step = secndBin - firstBin;
 
-			// extract
-			double A = row[1], B = row[2], C = row[3];
-			
-			// barred
-            double AA = A;
-            double BB = B - At*A;
-            double CC = C - At*B - (Bt - At*At)*A;
+	// find nearest bin
+	int idx = int( (tau - firstBin)/step + 0.5 );
+	if (idx < 0) idx = 0;
+	if (idx >= nBins) idx = nBins - 1;
 
-			// construct
-            double val = asbar*AA + asbar*asbar*BB + asbar*asbar*asbar*CC;
+	// selected bin index
+	const auto &row = Theory_THR[idx];
+	double bin	= row[0];
+	double A	= row[1];
+	double B	= row[2];
+	double C	= row[3];
 
-			// normalise
-			return val / bin;
-        }
-    }
-    return 0.0;
+	// barred
+	double AA = A;
+	double BB = B - At*A;
+	double CC = C - At*B - (Bt - At*At)*A;
+
+	// construct
+	double asbar = alphaS / (2 * TMath::Pi());
+	double val = asbar*AA + asbar*asbar*BB + asbar*asbar*asbar*CC;
+
+	// normalise
+	return val / bin;
 }
 
 double CPR_NNLO(double *x, double *par) {
    
-	double tau   = x[0];
-    double alphaS = par[0];
-    double asbar  = alphaS / (2 * TMath::Pi());
+	// fit bin call
+	double tau = x[0];
+	// fit variable
+	double alphaS = par[0];
 
-    // unbarred
-    double At = 3.0*(Nc*Nc-1.0)/(4.0*Nc);
-    double Bt = (Nc*Nc-1.0)/(8.0*Nc) * ( (243.0/4.0 - 44.0*1.202)*Nc + 3.0/(4.0*Nc) + (8.0*1.202 - 11.0)*Nf );
+	// number of bins
+	const int nBins = Theory_CPR.size();
+	// first theory bin
+	const double firstBin = Theory_CPR[0][0];
+	// second theory bin
+	const double secndBin = Theory_CPR[1][0];
+	// bin width
+	const double step = secndBin - firstBin;
 
-	// Run through bins
-    for (const auto &row : Theory_CPR) {
-        
-		// bin vector
-		double bin = row[0];
-        
-		// Check proximity
-		if (std::fabs(tau - bin) < 0.005) {
+	// find nearest bin
+	int idx = int( (tau - firstBin)/step + 0.5 );
+	if (idx < 0) idx = 0;
+	if (idx >= nBins) idx = nBins - 1;
 
-			// extract
-			double A = row[1], B = row[2], C = row[3];
-			
-			// barred
-            double AA = A;
-            double BB = B - At*A;
-            double CC = C - At*B - (Bt - At*At)*A;
+	// selected bin index
+	const auto &row = Theory_CPR[idx];
+	double bin	= row[0];
+	double A	= row[1];
+	double B	= row[2];
+	double C	= row[3];
 
-			// construct
-            double val = asbar*AA + asbar*asbar*BB + asbar*asbar*asbar*CC;
+	// barred
+	double AA = A;
+	double BB = B - At*A;
+	double CC = C - At*B - (Bt - At*At)*A;
 
-			// normalise
-			return val / bin;
-        }
-    }
-    return 0.0;
+	// construct
+	double asbar = alphaS / (2 * TMath::Pi());
+	double val = asbar*AA + asbar*asbar*BB + asbar*asbar*asbar*CC;
+
+	// normalise
+	return val / bin;
 }
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -648,15 +599,15 @@ void ImpactofAlpha() {
 	// 	gPad->SetLogy();
 	// }
 
-	// hist_ThrPyth_912_woHadron->SetLineColor(kBlack); hist_ThrPyth_912_woHadron->SetMarkerColor(kBlack); hist_ThrPyth_912_woHadron->SetMarkerStyle(kStar); hist_ThrPyth_912_woHadron->SetLineWidth(2); hist_ThrPyth_912_woHadron->SetMarkerSize(2);
-	// hist_ThrPyth_160_woHadron->SetLineColor(kBlack); hist_ThrPyth_160_woHadron->SetMarkerColor(kBlack); hist_ThrPyth_160_woHadron->SetMarkerStyle(kStar); hist_ThrPyth_160_woHadron->SetLineWidth(2); hist_ThrPyth_160_woHadron->SetMarkerSize(2);
-	// hist_ThrPyth_240_woHadron->SetLineColor(kBlack); hist_ThrPyth_240_woHadron->SetMarkerColor(kBlack); hist_ThrPyth_240_woHadron->SetMarkerStyle(kStar); hist_ThrPyth_240_woHadron->SetLineWidth(2); hist_ThrPyth_240_woHadron->SetMarkerSize(2);
-	// hist_ThrPyth_365_woHadron->SetLineColor(kBlack); hist_ThrPyth_365_woHadron->SetMarkerColor(kBlack); hist_ThrPyth_365_woHadron->SetMarkerStyle(kStar); hist_ThrPyth_365_woHadron->SetLineWidth(2); hist_ThrPyth_365_woHadron->SetMarkerSize(2);
+	// hist_ThrPyth_912_woHadron->SetLineColor(kBlack); hist_ThrPyth_912_woHadron->SetMarkerColor(kBlack); hist_ThrPyth_912_woHadron->SetMarkerStyle(53); hist_ThrPyth_912_woHadron->SetLineWidth(2); hist_ThrPyth_912_woHadron->SetMarkerSize(1.1);
+	// hist_ThrPyth_160_woHadron->SetLineColor(kBlack); hist_ThrPyth_160_woHadron->SetMarkerColor(kBlack); hist_ThrPyth_160_woHadron->SetMarkerStyle(53); hist_ThrPyth_160_woHadron->SetLineWidth(2); hist_ThrPyth_160_woHadron->SetMarkerSize(1.1);
+	// hist_ThrPyth_240_woHadron->SetLineColor(kBlack); hist_ThrPyth_240_woHadron->SetMarkerColor(kBlack); hist_ThrPyth_240_woHadron->SetMarkerStyle(53); hist_ThrPyth_240_woHadron->SetLineWidth(2); hist_ThrPyth_240_woHadron->SetMarkerSize(1.1);
+	// hist_ThrPyth_365_woHadron->SetLineColor(kBlack); hist_ThrPyth_365_woHadron->SetMarkerColor(kBlack); hist_ThrPyth_365_woHadron->SetMarkerStyle(53); hist_ThrPyth_365_woHadron->SetLineWidth(2); hist_ThrPyth_365_woHadron->SetMarkerSize(1.1);
 
-	// hist_CprPyth_912_woHadron->SetLineColor(kBlack); hist_CprPyth_912_woHadron->SetMarkerColor(kBlack); hist_CprPyth_912_woHadron->SetMarkerStyle(kStar); hist_CprPyth_912_woHadron->SetLineWidth(2); hist_CprPyth_912_woHadron->SetMarkerSize(1.5);
-	// hist_CprPyth_160_woHadron->SetLineColor(kBlack); hist_CprPyth_160_woHadron->SetMarkerColor(kBlack); hist_CprPyth_160_woHadron->SetMarkerStyle(kStar); hist_CprPyth_160_woHadron->SetLineWidth(2); hist_CprPyth_160_woHadron->SetMarkerSize(1.5);
-	// hist_CprPyth_240_woHadron->SetLineColor(kBlack); hist_CprPyth_240_woHadron->SetMarkerColor(kBlack); hist_CprPyth_240_woHadron->SetMarkerStyle(kStar); hist_CprPyth_240_woHadron->SetLineWidth(2); hist_CprPyth_240_woHadron->SetMarkerSize(1.5);
-	// hist_CprPyth_365_woHadron->SetLineColor(kBlack); hist_CprPyth_365_woHadron->SetMarkerColor(kBlack); hist_CprPyth_365_woHadron->SetMarkerStyle(kStar); hist_CprPyth_365_woHadron->SetLineWidth(2); hist_CprPyth_365_woHadron->SetMarkerSize(1.5);
+	// hist_CprPyth_912_woHadron->SetLineColor(kBlack); hist_CprPyth_912_woHadron->SetMarkerColor(kBlack); hist_CprPyth_912_woHadron->SetMarkerStyle(53); hist_CprPyth_912_woHadron->SetLineWidth(2); hist_CprPyth_912_woHadron->SetMarkerSize(1.1);
+	// hist_CprPyth_160_woHadron->SetLineColor(kBlack); hist_CprPyth_160_woHadron->SetMarkerColor(kBlack); hist_CprPyth_160_woHadron->SetMarkerStyle(53); hist_CprPyth_160_woHadron->SetLineWidth(2); hist_CprPyth_160_woHadron->SetMarkerSize(1.1);
+	// hist_CprPyth_240_woHadron->SetLineColor(kBlack); hist_CprPyth_240_woHadron->SetMarkerColor(kBlack); hist_CprPyth_240_woHadron->SetMarkerStyle(53); hist_CprPyth_240_woHadron->SetLineWidth(2); hist_CprPyth_240_woHadron->SetMarkerSize(1.1);
+	// hist_CprPyth_365_woHadron->SetLineColor(kBlack); hist_CprPyth_365_woHadron->SetMarkerColor(kBlack); hist_CprPyth_365_woHadron->SetMarkerStyle(53); hist_CprPyth_365_woHadron->SetLineWidth(2); hist_CprPyth_365_woHadron->SetMarkerSize(1.1);
 
 	// hist_ThrPyth_912_woHadron->GetXaxis()->CenterTitle(); hist_ThrPyth_912_woHadron->GetYaxis()->CenterTitle();
 	// hist_CprPyth_912_woHadron->GetXaxis()->CenterTitle(); hist_CprPyth_912_woHadron->GetYaxis()->CenterTitle();
@@ -827,48 +778,6 @@ void ImpactofAlpha() {
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-	// === PYTHIA-based 3-loop QCD running (αs(mZ) = 0.1283 ± 0.014) ===
-	const double asMZ_pythia = 0.1283;
-	const double asMZ_unc = 0.000001;
-	const double mZ_val = 91.1876;
-
-	double Lambda_pyt_c  = Lambda_from_alpha3L(mZ_val, asMZ_pythia);
-	double Lambda_pyt_lo = Lambda_from_alpha3L(mZ_val, asMZ_pythia - asMZ_unc);
-	double Lambda_pyt_hi = Lambda_from_alpha3L(mZ_val, asMZ_pythia + asMZ_unc);
-
-	const int NptsPY = 300;
-	double Qpy[NptsPY], asPytC[NptsPY], asPytLo[NptsPY], asPytHi[NptsPY];
-
-	for (int i = 0; i < NptsPY; i++) {
-		double Qval = 20.0 + i * (400.0) / (NptsPY - 1);
-		Qpy[i]     = Qval;
-		asPytC[i]  = alpha3L_Lambda(Qval, Lambda_pyt_c);
-		// Λ envelope
-		asPytLo[i] = alpha3L_Lambda(Qval, Lambda_pyt_lo);
-		asPytHi[i] = alpha3L_Lambda(Qval, Lambda_pyt_hi);
-	}
-
-	TGraph* gRunPY = new TGraph(NptsPY, Qpy, asPytC);
-	gRunPY->SetLineColor(kYellow+2);
-	// gRunPY->SetLineStyle(7);
-	gRunPY->SetLineWidth(1);
-
-	// Ensure ordering and no crossings
-	for (int i = 0; i < NptsPY; ++i) {
-		if (asPytLo[i] > asPytHi[i]) std::swap(asPytLo[i], asPytHi[i]);
-	}
-
-	// Draw band and central curve
-	TGraph* gBandPY = new TGraph(2*NptsPY);
-	for (int i = 0; i < NptsPY; ++i)
-		gBandPY->SetPoint(i, Qpy[i], asPytHi[i]);
-	for (int i = 0; i < NptsPY; ++i)
-		gBandPY->SetPoint(NptsPY + i, Qpy[NptsPY-1-i], asPytLo[NptsPY-1-i]);
-	gBandPY->SetFillColorAlpha(kGray, 0.3);
-	gBandPY->SetLineColor(0);
-
-/////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
 	// Create canvas
 	TCanvas* cv4 = new TCanvas("cv4", "FCC-ee ISR Studies", 800, 1190);
 
@@ -911,8 +820,6 @@ void ImpactofAlpha() {
 	grph_AlphaSS_ExALP->Draw("PE SAME");
 	grph_AlphaSS_ExLL3->Draw("PE SAME");
 	// grph_AlphaSS_Disse->Draw("PEL SAME");
-	// gBandPY->Draw("F SAME");
-	// gRunPY->Draw("L SAME");
 	lg4->Draw("SAME");
 
 	// Set limits
