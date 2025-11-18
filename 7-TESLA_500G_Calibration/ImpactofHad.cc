@@ -115,6 +115,9 @@ void ImpactofHad() {
 	hist_nHadChg_HZ_365->SetStats(kFALSE);
 	hist_nHadChg_HW_365->SetStats(kFALSE);
 
+	hist_ThrPyth_Zq_365->SetStats(kFALSE);
+	hist_CprPyth_Zq_365->SetStats(kFALSE);
+
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////
 // Clear titles
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -122,6 +125,9 @@ void ImpactofHad() {
 	hist_ThrPyth_al_365->SetTitle("");
 	hist_CprPyth_al_365->SetTitle("");
 	hist_nHadChg_al_365->SetTitle("");
+
+	hist_ThrPyth_Zq_365->SetTitle("");
+	hist_CprPyth_Zq_365->SetTitle("");
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////
 // Edit text sizes
@@ -242,5 +248,5 @@ void ImpactofHad() {
 	gStyle->SetOptStat();
 	// Update canvas
 	cv2->Modified();
-
+	
 }

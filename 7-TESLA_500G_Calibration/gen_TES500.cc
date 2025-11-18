@@ -288,7 +288,7 @@ void genEvents(const std::string &outputFileName, float nEnerg, int nEvent){
 				cMatrix.Zero();  // start all elements at 0
 
 				// Build the linearized momentum tensor
-				//    Θ_ij = (1 / Σ|p|) Σ_k (p_{k,i} p_{k,j} / |p_k|)
+				// Θ_ij = (1 / Σ|p|) Σ_k (p_{k,i} p_{k,j} / |p_k|)
 				for (const auto& p : particles) {
 					TVector3 pi(p.px(), p.py(), p.pz());
 					double p_abs = pi.Mag();
@@ -315,7 +315,7 @@ void genEvents(const std::string &outputFileName, float nEnerg, int nEvent){
 					double lambda1 = eigenVals[0];
 					double lambda2 = eigenVals[1];
 					double lambda3 = eigenVals[2];
-
+					
 					// Compute the C-parameter:
 					//   C = 3 * (λ1λ2 + λ2λ3 + λ3λ1)
 					double C = 3.0 * (lambda1 * lambda2 + lambda2 * lambda3 + lambda3 * lambda1);

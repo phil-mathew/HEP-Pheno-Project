@@ -58,7 +58,7 @@ TGraphAsymmErrors* HistToGraph(const TH1* h, bool skipEmpty=false) {
     return g;
 }
 
-// 3-loop QCD running
+// 3-loop QCD function
 static inline double alpha3L_Lambda(double Q, double Lambda) {
     const double nf = 5.0;
     const double b0 = 11.0 - 2.0/3.0*nf;
@@ -744,37 +744,36 @@ void ImpactofAlpha() {
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-	// Construct the 3-loop QCD running curve and uncertainty band (Λ₅ = 0.247 ± 0.014 GeV)
-	const double Lam_c  = 0.247;										// Central Λ₅ value in GeV
-	const double Lam_lo = 0.247 - 0.014;								// Lower Λ₅ bound (−1σ)
-	const double Lam_hi = 0.247 + 0.014;								// Upper Λ₅ bound (+1σ)
+	// Scale
+	const double Lam_c  = 0.247;							// Central val
+	const double Lam_lo = 0.247 - 0.014;					// Lower bound
+	const double Lam_hi = 0.247 + 0.014;					// Upper bound
 
-	const int Npts = 300;												// Number of sampling points
-	double Qx[Npts], asC[Npts], asUp[Npts], asDn[Npts];					// Arrays for √s and αs values
+	const int Npts = 300;									// Sampling points
+	double Qx[Npts], asC[Npts], asUp[Npts], asDn[Npts];		// Arrays
 
-	// Compute 3-loop αs(Q)
+	// Run through samples
 	for (int i = 0; i < Npts; i++) {
-		double Q = 20.0 + i * (400.0) / (Npts - 1);  // √s range: 40–400 GeV
+		double Q = 20.0 + i * (400.0) / (Npts - 1);  		// √s = 40 to 400 GeV
 		Qx[i]  = Q;
-		asC[i] = alpha3L_Lambda(Q, Lam_c);           // Central prediction
-		// Λ envelope
-		double a_hi = alpha3L_Lambda(Q, Lam_lo);     // Smaller Λ → larger αs
-		double a_lo = alpha3L_Lambda(Q, Lam_hi);     // Larger Λ → smaller αs
+		asC[i] = alpha3L_Lambda(Q, Lam_c);           		// Central value
+		double a_hi = alpha3L_Lambda(Q, Lam_lo);     		// Smaller Λ → larger αs
+		double a_lo = alpha3L_Lambda(Q, Lam_hi);     		// Larger Λ → smaller αs
 		asUp[i] = a_hi;
 		asDn[i] = a_lo;
 	}
 
-	// Define central curve
+	// Central curve
 	TGraph *gRun3L = new TGraph(Npts, Qx, asC);
 
-	// Construct uncertainty band
-	TGraph *gBand3L = new TGraph(2 * Npts);
+	// Uncertainty band
+	TGraph *gBand3L = new TGraph(2*Npts);					// 2* for top and bottom
+	// Run through samples
 	for (int i = 0; i < Npts; i++) {
-		gBand3L->SetPoint(i, Qx[i], asUp[i]);                			// Upper edge
-		gBand3L->SetPoint(2 * Npts - 1 - i, Qx[i], asDn[i]);			// Lower edge (reversed)
+		gBand3L->SetPoint(i, Qx[i], asUp[i]);				// Upper line (left-right)
+		gBand3L->SetPoint(2*Npts-1-i, Qx[i], asDn[i]);		// Lower line (right-left)
 	}
-	gBand3L->SetFillColorAlpha(kGray, 0.50);
-	gBand3L->SetLineColor(0);
+	gBand3L->SetFillColorAlpha(kGray, 0.50);				// Fill colour, opacity
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
