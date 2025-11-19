@@ -405,3 +405,39 @@ int main(){
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 }
+
+// // Search ISR photon
+// if (pythia.event[jParts].isFinal() && pythia.event[jParts].id()==22 && pythia.event[jParts].e()>5) {
+	
+// 	// Run through particles to compare
+// 	for(int isrcount=0; isrcount<pythia.event.size(); isrcount++) {
+
+// 		// Check energy of compared particle
+// 		if (pythia.event[isrcount].isFinal() && pythia.event[isrcount].e()>0.250) {
+
+// 			// Neglect itself
+// 			if ( isrcount==jParts ) continue;
+
+// 			// Compute ΔR
+// 			float deltaEta = pythia.event[isrcount].eta()-pythia.event[jParts].eta();
+// 			float deltaPhi = pythia.event[isrcount].phi()-pythia.event[jParts].phi();
+// 			float deltaR = sqrt( deltaEta*deltaEta + deltaPhi*deltaPhi ) * 180/M_PI;
+			
+// 			// cout << pythia.event[jParts].e() << "\t" << pythia.event[isrcount].e() << "\t" << deltaR << endl;
+			
+// 			// Check isolated
+// 			if ( deltaR<15.0 ) {
+// 				isrcheck = false;
+// 				break;
+// 			}
+			
+// 		}
+// 	}
+
+// 	// ISR photon found!
+// 	if (isrcheck==true) {
+// 		// cout << "ISR photon found at: " << jParts << endl;
+// 		sigISR+=pythia.event[jParts].e();
+// 	}
+
+// }	

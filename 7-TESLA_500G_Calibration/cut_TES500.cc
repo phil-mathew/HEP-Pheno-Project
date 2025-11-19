@@ -82,11 +82,10 @@ void applyCuts( const std::string& inputFileName, const std::string& outputFileN
 
 	// Intialise vecs
 	vector<int> *eveNum=nullptr, *eveSiz=nullptr, *eveCod=nullptr, *parNum=nullptr, *parPdg=nullptr, \
-	 *parSat=nullptr, *parChg=nullptr, *isrNum=nullptr, *eveNjy=nullptr;
+	 *parSat=nullptr, *parChg=nullptr, *isrNum=nullptr;
 	vector<float> *eveThr=nullptr, *eveTax=nullptr, *eveSph=nullptr, *eveSax=nullptr, *eveSpr=nullptr, \
 	 *sigmaT=nullptr, *parEto=nullptr, *parEtt=nullptr, *parPmx=nullptr, *parPmy=nullptr, *parPmz=nullptr, \
-	 *eveYcu=nullptr, *eveY23=nullptr, *eveY34=nullptr, \
-	 *isrMax=nullptr, *eveCpr=nullptr, *eveHjm=nullptr, *eveBto=nullptr, *eveBwi=nullptr;
+	 *isrMax=nullptr, *eveCpr=nullptr, *eveMH1=nullptr, *eveMH2=nullptr;
 
 	// Set branches
 	itree->SetBranchAddress("sigmaT", &sigmaT);											// Total sigma
@@ -99,6 +98,8 @@ void applyCuts( const std::string& inputFileName, const std::string& outputFileN
 	itree->SetBranchAddress("eveThr", &eveThr);											// Event thrust
 	itree->SetBranchAddress("eveTax", &eveTax);											// Event thraxis
 	itree->SetBranchAddress("eveCpr", &eveCpr);  										// Event C-param
+	itree->SetBranchAddress("eveMH1", &eveMH1);											// Event MH1
+	itree->SetBranchAddress("eveMH2", &eveMH2);											// Event MH2
 	itree->SetBranchAddress("isrNum", &isrNum);											// ISR γ number
 	itree->SetBranchAddress("isrMax", &isrMax);											// ISR γ energy
 	itree->SetBranchAddress("parNum", &parNum);											// Parts number
@@ -410,7 +411,53 @@ void applyCuts( const std::string& inputFileName, const std::string& outputFileN
 
 	TH1F *hist_SaxPyth_ZZ = new TH1F("hist_SaxPyth_ZZ", "Sphericity axis", 100, -1., 1.);
 	hist_SaxPyth_ZZ->GetXaxis()->SetTitle("cosΘ_{Sphericity}"); hist_SaxPyth_ZZ->GetYaxis()->SetTitle("#");
+
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////
 	
+	TH1F *hist_MH1Pyth = new TH1F("hist_MH1Pyth", "Thrust Hemisphere Mass", 300, 1, 301);
+	hist_MH1Pyth->GetXaxis()->SetTitle("m_{H1}"); hist_MH1Pyth->GetYaxis()->SetTitle("#");
+
+	TH1F *hist_MH1Pyth_HZ = new TH1F("hist_MH1Pyth_HZ", "Thrust Hemisphere Mass", 300, 1, 301);
+	hist_MH1Pyth_HZ->GetXaxis()->SetTitle("m_{H1}"); hist_MH1Pyth_HZ->GetYaxis()->SetTitle("#");
+
+	TH1F *hist_MH1Pyth_HW = new TH1F("hist_MH1Pyth_HW", "Thrust Hemisphere Mass", 300, 1, 301);
+	hist_MH1Pyth_HW->GetXaxis()->SetTitle("m_{H1}"); hist_MH1Pyth_HW->GetYaxis()->SetTitle("#");
+
+	TH1F *hist_MH1Pyth_Zq = new TH1F("hist_MH1Pyth_Zq", "Thrust Hemisphere Mass", 300, 1, 301);
+	hist_MH1Pyth_Zq->GetXaxis()->SetTitle("m_{H1}"); hist_MH1Pyth_Zq->GetYaxis()->SetTitle("#");
+
+	TH1F *hist_MH1Pyth_tt = new TH1F("hist_MH1Pyth_tt", "Thrust Hemisphere Mass", 300, 1, 301);
+	hist_MH1Pyth_tt->GetXaxis()->SetTitle("m_{H1}"); hist_MH1Pyth_tt->GetYaxis()->SetTitle("#");
+
+	TH1F *hist_MH1Pyth_WW = new TH1F("hist_MH1Pyth_WW", "Thrust Hemisphere Mass", 300, 1, 301);
+	hist_MH1Pyth_WW->GetXaxis()->SetTitle("m_{H1}"); hist_MH1Pyth_WW->GetYaxis()->SetTitle("#");
+
+	TH1F *hist_MH1Pyth_ZZ = new TH1F("hist_MH1Pyth_ZZ", "Thrust Hemisphere Mass", 300, 1, 301);
+	hist_MH1Pyth_ZZ->GetXaxis()->SetTitle("m_{H1}"); hist_MH1Pyth_ZZ->GetYaxis()->SetTitle("#");
+
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////
+	
+	TH1F *hist_MH2Pyth = new TH1F("hist_MH2Pyth", "Thrust Hemisphere Mass", 300, 1, 301);
+	hist_MH2Pyth->GetXaxis()->SetTitle("m_{H2}"); hist_MH2Pyth->GetYaxis()->SetTitle("#");
+
+	TH1F *hist_MH2Pyth_HZ = new TH1F("hist_MH2Pyth_HZ", "Thrust Hemisphere Mass", 300, 1, 301);
+	hist_MH2Pyth_HZ->GetXaxis()->SetTitle("m_{H2}"); hist_MH2Pyth_HZ->GetYaxis()->SetTitle("#");
+
+	TH1F *hist_MH2Pyth_HW = new TH1F("hist_MH2Pyth_HW", "Thrust Hemisphere Mass", 300, 1, 301);
+	hist_MH2Pyth_HW->GetXaxis()->SetTitle("m_{H2}"); hist_MH2Pyth_HW->GetYaxis()->SetTitle("#");
+
+	TH1F *hist_MH2Pyth_Zq = new TH1F("hist_MH2Pyth_Zq", "Thrust Hemisphere Mass", 300, 1, 301);
+	hist_MH2Pyth_Zq->GetXaxis()->SetTitle("m_{H2}"); hist_MH2Pyth_Zq->GetYaxis()->SetTitle("#");
+
+	TH1F *hist_MH2Pyth_tt = new TH1F("hist_MH2Pyth_tt", "Thrust Hemisphere Mass", 300, 1, 301);
+	hist_MH2Pyth_tt->GetXaxis()->SetTitle("m_{H2}"); hist_MH2Pyth_tt->GetYaxis()->SetTitle("#");
+
+	TH1F *hist_MH2Pyth_WW = new TH1F("hist_MH2Pyth_WW", "Thrust Hemisphere Mass", 300, 1, 301);
+	hist_MH2Pyth_WW->GetXaxis()->SetTitle("m_{H2}"); hist_MH2Pyth_WW->GetYaxis()->SetTitle("#");
+
+	TH1F *hist_MH2Pyth_ZZ = new TH1F("hist_MH2Pyth_ZZ", "Thrust Hemisphere Mass", 300, 1, 301);
+	hist_MH2Pyth_ZZ->GetXaxis()->SetTitle("m_{H2}"); hist_MH2Pyth_ZZ->GetYaxis()->SetTitle("#");
+
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////
 // Perform cuts, Populate histograms
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -425,6 +472,9 @@ void applyCuts( const std::string& inputFileName, const std::string& outputFileN
 		
 		itree->GetEntry(iEvent);	// Access		
 		nHadCh=0; nHadAl=0;			// Reset
+
+		// Print check
+		cout << "Event " << iEvent << endl;
 
 		// Run through particles
 		for(int jParts = 0; jParts < (*eveSiz)[0]; jParts++) {
@@ -470,6 +520,8 @@ void applyCuts( const std::string& inputFileName, const std::string& outputFileN
 		hist_nHadChg->Fill(nHadCh);
 		hist_NumbISR->Fill((*isrNum)[0]);
 		hist_EmaxISR->Fill((*isrMax)[0]);
+		hist_MH1Pyth->Fill((*eveMH1)[0]);
+		hist_MH2Pyth->Fill((*eveMH2)[0]);
 		
 		// Process cuts
 		if ((*eveCod)[0] == 221) {
@@ -486,6 +538,8 @@ void applyCuts( const std::string& inputFileName, const std::string& outputFileN
 			hist_CprPyth_TEO->Fill((*eveCpr)[0]);
 			hist_ThrPyth_EXP->Fill((*eveThr)[0]);
 			hist_CprPyth_EXP->Fill((*eveCpr)[0]);
+			hist_MH1Pyth_Zq->Fill((*eveMH1)[0]);
+			hist_MH2Pyth_Zq->Fill((*eveMH2)[0]);
 		}
 		if ((*eveCod)[0] == 231) {
 			hist_Esprime_ZZ->Fill((*eveSpr)[0]);
@@ -495,6 +549,8 @@ void applyCuts( const std::string& inputFileName, const std::string& outputFileN
 			hist_ThrPyth_ZZ->Fill((*eveThr)[0]);
 			hist_TaxPyth_ZZ->Fill((*eveTax)[0]); 
 			hist_SaxPyth_ZZ->Fill((*eveSax)[0]); 
+			hist_MH1Pyth_ZZ->Fill((*eveMH1)[0]);
+			hist_MH2Pyth_ZZ->Fill((*eveMH2)[0]);
 		}
 		if ((*eveCod)[0] == 233) {
 			hist_Esprime_WW->Fill((*eveSpr)[0]);
@@ -504,6 +560,8 @@ void applyCuts( const std::string& inputFileName, const std::string& outputFileN
 			hist_ThrPyth_WW->Fill((*eveThr)[0]); 
 			hist_TaxPyth_WW->Fill((*eveTax)[0]); 
 			hist_SaxPyth_WW->Fill((*eveSax)[0]); 
+			hist_MH1Pyth_WW->Fill((*eveMH1)[0]);
+			hist_MH2Pyth_WW->Fill((*eveMH2)[0]);
 		}
 		if ((*eveCod)[0] == 604) {
 			hist_Esprime_tt->Fill((*eveSpr)[0]);
@@ -513,6 +571,8 @@ void applyCuts( const std::string& inputFileName, const std::string& outputFileN
 			hist_ThrPyth_tt->Fill((*eveThr)[0]); 
 			hist_TaxPyth_tt->Fill((*eveTax)[0]); 
 			hist_SaxPyth_tt->Fill((*eveSax)[0]); 
+			hist_MH1Pyth_tt->Fill((*eveMH1)[0]);
+			hist_MH2Pyth_tt->Fill((*eveMH2)[0]);
 		}
 		if ((*eveCod)[0] == 904) {
 			hist_Esprime_HZ->Fill((*eveSpr)[0]);
@@ -522,6 +582,8 @@ void applyCuts( const std::string& inputFileName, const std::string& outputFileN
 			hist_CprPyth_HZ->Fill((*eveCpr)[0]);
 			hist_TaxPyth_HZ->Fill((*eveTax)[0]); 
 			hist_SaxPyth_HZ->Fill((*eveSax)[0]); 
+			hist_MH1Pyth_HZ->Fill((*eveMH1)[0]);
+			hist_MH2Pyth_HZ->Fill((*eveMH2)[0]);
 		}
 		if ((*eveCod)[0] == 907) {
 			hist_Esprime_HW->Fill((*eveSpr)[0]);
@@ -531,6 +593,8 @@ void applyCuts( const std::string& inputFileName, const std::string& outputFileN
 			hist_CprPyth_HW->Fill((*eveCpr)[0]);
 			hist_TaxPyth_HW->Fill((*eveTax)[0]); 
 			hist_SaxPyth_HW->Fill((*eveSax)[0]); 
+			hist_MH1Pyth_HW->Fill((*eveMH1)[0]);
+			hist_MH2Pyth_HW->Fill((*eveMH2)[0]);
 		}
 	
 		// LEP cut on √s'
@@ -621,10 +685,10 @@ void applyCuts( const std::string& inputFileName, const std::string& outputFileN
 int main() {
 
 	// Extraction
-	applyCuts("4-GenData/gen_FCC912.root", "5-CutData/cut_FCC912.root", 91.20);
-	applyCuts("4-GenData/gen_FCC160.root", "5-CutData/cut_FCC160.root", 160.0);
+	// applyCuts("4-GenData/gen_FCC912.root", "5-CutData/cut_FCC912.root", 91.20);
+	// applyCuts("4-GenData/gen_FCC160.root", "5-CutData/cut_FCC160.root", 160.0);
 	applyCuts("4-GenData/gen_FCC240.root", "5-CutData/cut_FCC240.root", 240.0);
-	applyCuts("4-GenData/gen_FCC365.root", "5-CutData/cut_FCC365.root", 365.0);
+	// applyCuts("4-GenData/gen_FCC365.root", "5-CutData/cut_FCC365.root", 365.0);
 	// applyCuts("4-GenData/gen_FCC500.root", "5-CutData/cut_FCC500.root", 500.0);
 	
 	// Hadronic cuts

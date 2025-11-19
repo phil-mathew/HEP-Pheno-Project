@@ -56,16 +56,14 @@ void genEvents(const std::string &outputFileName, float nEnerg, int nEvent){
 	// Define tree
 	TTree *tree = new TTree("tree_raw", "Raw Pythia data");
 	tree->SetAutoSave(0);
-
+	
 	// Intialise vecs
-	vector<int> eveNum, eveSiz, eveCod, isrNum, parNum, parPdg, parChg, parSat, eveNjy;
-	vector<float> eveSph, eveSax, eveThr, eveTax, eveSpr, isrMax, \
-					eveCpr, eveHjm, eveBto, eveBwi, sigmaT, \
-					eveYcu, eveY23, eveY34, \
-					parEto, parEtt, parPmx, parPmy, parPmz;
+	vector<int> eveNum, eveSiz, eveCod, isrNum, parNum, parPdg, parChg, parSat;
+	vector<float> eveSph, eveSax, eveThr, eveTax, eveSpr, isrMax, eveCpr, sigmaT, \
+					eveMH1, eveMH2, parEto, parEtt, parPmx, parPmy, parPmz;
 
 	// Define branches
-	tree->Branch("sigmaT", "vector<float>", &sigmaT);										// Total sigma
+	tree->Branch("sigmaT", "vector<float>", &sigmaT); 										// Total sigma
 	tree->Branch("eveNum", "vector<int>", &eveNum);											// Event number
 	tree->Branch("eveSiz", "vector<int>", &eveSiz);											// Event size
 	tree->Branch("eveCod", "vector<int>", &eveCod);											// Event process
@@ -75,13 +73,8 @@ void genEvents(const std::string &outputFileName, float nEnerg, int nEvent){
 	tree->Branch("eveThr", "vector<float>", &eveThr);										// Event thrust
 	tree->Branch("eveTax", "vector<float>", &eveTax);										// Event thraxis
 	tree->Branch("eveCpr", "vector<float>", &eveCpr);  										// Event C-param
-	tree->Branch("eveHjm", "vector<float>", &eveHjm);  										// Event rho
-	tree->Branch("eveBto", "vector<float>", &eveBto);										// Event BTotal
-	tree->Branch("eveBwi", "vector<float>", &eveBwi);										// Event Bwide
-	tree->Branch("eveYcu", "vector<float>", &eveYcu); 										// Event ycut
-	tree->Branch("eveNjy", "vector<int>", &eveNjy);											// Event Njets(ycut)
-	tree->Branch("eveY23", "vector<float>", &eveY23);										// Event y23
-	tree->Branch("eveY34", "vector<float>", &eveY34);										// Event y34
+	tree->Branch("eveMH1", "vector<float>", &eveMH1);										// Event MH1
+	tree->Branch("eveMH2", "vector<float>", &eveMH2);										// Event MH2
 	tree->Branch("isrNum", "vector<int>", &isrNum);											// ISR γ number
 	tree->Branch("isrMax", "vector<float>", &isrMax);										// ISR γ energy
 	tree->Branch("parNum", "vector<int>", &parNum);											// Parts number
@@ -93,6 +86,33 @@ void genEvents(const std::string &outputFileName, float nEnerg, int nEvent){
 	tree->Branch("parPmx", "vector<float>", &parPmx);										// Parts mom-x
 	tree->Branch("parPmy", "vector<float>", &parPmy);										// Parts mom-y
 	tree->Branch("parPmz", "vector<float>", &parPmz);										// Parts mom-z
+
+	// Prevent memory corruptions
+	tree->SetMaxTreeSize(200LL * 1024 * 1024 * 1024); // 200GB
+	const int BASKET = 128000; // 128kB
+	tree->GetBranch("sigmaT")->SetBasketSize(BASKET);
+	tree->GetBranch("eveNum")->SetBasketSize(BASKET);
+	tree->GetBranch("eveSiz")->SetBasketSize(BASKET);
+	tree->GetBranch("eveCod")->SetBasketSize(BASKET);
+	tree->GetBranch("eveSpr")->SetBasketSize(BASKET);
+	tree->GetBranch("eveSph")->SetBasketSize(BASKET);
+	tree->GetBranch("eveSax")->SetBasketSize(BASKET);
+	tree->GetBranch("eveThr")->SetBasketSize(BASKET);
+	tree->GetBranch("eveTax")->SetBasketSize(BASKET);
+	tree->GetBranch("eveCpr")->SetBasketSize(BASKET);
+	tree->GetBranch("eveMH1")->SetBasketSize(BASKET);
+	tree->GetBranch("eveMH2")->SetBasketSize(BASKET);
+	tree->GetBranch("isrNum")->SetBasketSize(BASKET);
+	tree->GetBranch("isrMax")->SetBasketSize(BASKET);
+	tree->GetBranch("parNum")->SetBasketSize(BASKET);
+	tree->GetBranch("parSat")->SetBasketSize(BASKET);
+	tree->GetBranch("parPdg")->SetBasketSize(BASKET);
+	tree->GetBranch("parChg")->SetBasketSize(BASKET);
+	tree->GetBranch("parEto")->SetBasketSize(BASKET);
+	tree->GetBranch("parEtt")->SetBasketSize(BASKET);
+	tree->GetBranch("parPmx")->SetBasketSize(BASKET);
+	tree->GetBranch("parPmy")->SetBasketSize(BASKET);
+	tree->GetBranch("parPmz")->SetBasketSize(BASKET);
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////
 // Define Pythia params
@@ -143,9 +163,9 @@ void genEvents(const std::string &outputFileName, float nEnerg, int nEvent){
 	pythia.readString("Top:ffbar2ttbar(s:gmZ) = on");										// (604) ee'->tt'
 
 	// Suppress terminal text
-	// pythia.readString("Print:quiet = on");													// print nothing
-	pythia.readString("Next:numberCount = 10000000");										// print #events
-	pythia.readString("Next:numberShowEvent = 10");										// print #listings
+	pythia.readString("Print:quiet = on");													// print nothing
+	// pythia.readString("Next:numberCount = 1000000");										// print #events
+	// pythia.readString("Next:numberShowEvent = 10");										// print #listings
 	
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////
 // Generate Pythia collisions
@@ -184,9 +204,8 @@ void genEvents(const std::string &outputFileName, float nEnerg, int nEvent){
 		event_fch.clear();
 		eveNum.clear(); sigmaT.clear();
 		eveSpr.clear(); eveThr.clear(); eveTax.clear(); eveSiz.clear();
-		eveCpr.clear(); eveHjm.clear(); eveBto.clear(); eveBwi.clear();
-		eveCod.clear(); eveSph.clear(); eveSax.clear();
-		eveYcu.clear(); eveNjy.clear(); eveY23.clear(); eveY34.clear();
+		eveCpr.clear(); eveCod.clear(); eveSph.clear(); eveSax.clear();
+		eveMH1.clear(); eveMH2.clear();
 		// Reset ISR vectors
 		isrNum.clear(); isrEng.clear(); isrMax.clear();
 		// Reset part vectors
@@ -201,7 +220,7 @@ void genEvents(const std::string &outputFileName, float nEnerg, int nEvent){
 			if (pythia.event[jParts].isFinal()) {
 		
 				sigmaE+=pythia.event[jParts].e();											// Sum final energies
-				nCh++;																		// Count FC particles
+				nCh++;																		// Count final parts
 				eveNum.push_back(iEvent);													// Add event number
 				parNum.push_back(jParts);													// Add particle number
 				parSat.push_back(pythia.event[jParts].status());							// Add particle status
@@ -261,69 +280,78 @@ void genEvents(const std::string &outputFileName, float nEnerg, int nEvent){
 		}
 
 		// Store thrust data
-		if (nCh!=0) if (thr.analyze(event_fch)) {
+		if (nCh!=0) {
 		
 			////////////////////////// COMPUTING THRUST ///////////////////////////////////////////////////////
+			if (thr.analyze(event_fch)) {
 				eveThr.push_back(1.0-thr.thrust());			// Add event thrust
 				eveTax.push_back(thr.eventAxis(1).pz());	// Add event thrθ
-
+			}
+			////////////////////////// COMPUTING HEMI-MASS ///////////////////////////////////////////////////////
+			// Get thrust axis
+			Vec4 nT = thr.eventAxis(1);
+			// Hemisphere momentum vectors
+			Vec4 pH1(0.,0.,0.,0.), pH2(0.,0.,0.,0.);
+			// Run through particles
+			for (int i = 0; i < event_fch.size(); ++i) {
+				Vec4 p4 = event_fch[i].p();
+				double proj = nT.px()*p4.px() + nT.py()*p4.py() + nT.pz()*p4.pz();
+				if (proj >= 0) pH1 += p4;
+				else           pH2 += p4;
+			}
+			// Compute mass and fill vectors
+			eveMH1.push_back( pH1.mCalc() ); eveMH2.push_back( pH2.mCalc() );
 			////////////////////////// COMPUTING SPHERICITY ///////////////////////////////////////////////////////
-			if (nCh!=0) if (sph.analyze(event_fch)) {
+			if (sph.analyze(event_fch)) {
 				eveSph.push_back(sph.sphericity());			// Add event spheric
 				eveSax.push_back(sph.eventAxis(1).pz());	// Add event sphθ
 			}
-
 			////////////////////////// COMPUTING C-PARAMETER /////////////////////////////////////////////////////
-			if (nCh != 0) {
-				
-				// Collect 4-momenta of all charged final-state particles into a vector
-				vector<Vec4> particles;
-				for (int i = 0; i < event_fch.size(); ++i) {
-					particles.emplace_back(event_fch[i].p());
-				}
+			// Collect 4-momenta
+			vector<Vec4> particles;
+			for (int i = 0; i < event_fch.size(); ++i) {
+				particles.emplace_back(event_fch[i].p());
+			}
 
-				// Normalization factor (sum of |p|) and the 3×3 linearized momentum tensor
-				double norm = 0.0;
-				TMatrixD cMatrix(3,3);
-				cMatrix.Zero();  // start all elements at 0
+			// Normalization factor (sum of |p|) and the 3×3 linearized momentum tensor
+			double norm = 0.0;
+			TMatrixD cMatrix(3,3);
+			cMatrix.Zero();  // start all elements at 0
 
-				// Build the linearized momentum tensor
-				// Θ_ij = (1 / Σ|p|) Σ_k (p_{k,i} p_{k,j} / |p_k|)
-				for (const auto& p : particles) {
-					TVector3 pi(p.px(), p.py(), p.pz());
-					double p_abs = pi.Mag();
-					if (p_abs > 0) {
-						norm += p_abs;  // accumulate total |p|
+			// Build the linearized momentum tensor
+			// Θ_ij = (1 / Σ|p|) Σ_k (p_{k,i} p_{k,j} / |p_k|)
+			for (const auto& p : particles) {
+				TVector3 pi(p.px(), p.py(), p.pz());
+				double p_abs = pi.Mag();
+				if (p_abs > 0) {
+					norm += p_abs;  // accumulate total |p|
 
-						// Outer product of momentum direction, weighted by |p|
-						for (int i = 0; i < 3; ++i) {
-							for (int j = 0; j < 3; ++j) {
-								cMatrix(i, j) += (pi[i] * pi[j]) / p_abs;
-							}
+					// Outer product of momentum direction, weighted by |p|
+					for (int i = 0; i < 3; ++i) {
+						for (int j = 0; j < 3; ++j) {
+							cMatrix(i, j) += (pi[i] * pi[j]) / p_abs;
 						}
 					}
 				}
+			}
 
-				// Only continue if we had any particles
-				if (norm > 0) {
-					// Normalize the tensor by total momentum sum
-					cMatrix *= (1.0 / norm);
+			// Check particles
+			if (norm > 0) {
+				// Normalize the tensor by total momentum sum
+				cMatrix *= (1.0 / norm);
 
-					// Diagonalize the matrix to get eigenvalues (λ1 ≥ λ2 ≥ λ3)
-					TMatrixDEigen eig(cMatrix);
-					TVectorD eigenVals = eig.GetEigenValuesRe();
-					double lambda1 = eigenVals[0];
-					double lambda2 = eigenVals[1];
-					double lambda3 = eigenVals[2];
-					
-					// Compute the C-parameter:
-					//   C = 3 * (λ1λ2 + λ2λ3 + λ3λ1)
-					double C = 3.0 * (lambda1 * lambda2 + lambda2 * lambda3 + lambda3 * lambda1);
+				// Diagonalize the matrix to get eigenvalues (λ1 ≥ λ2 ≥ λ3)
+				TMatrixDEigen eig(cMatrix);
+				TVectorD eigenVals = eig.GetEigenValuesRe();
+				double lambda1 = eigenVals[0];
+				double lambda2 = eigenVals[1];
+				double lambda3 = eigenVals[2];
+				
+				// Compute C = 3 * (λ1λ2 + λ2λ3 + λ3λ1)
+				double C = 3.0 * (lambda1 * lambda2 + lambda2 * lambda3 + lambda3 * lambda1);
 
-					// Store result for this event
-					eveCpr.push_back(C);
-				}
-
+				// Store result for this event
+				eveCpr.push_back(C);
 			}
 		}
 		
@@ -359,7 +387,7 @@ int main() {
 	// genEvents("4-GenData/gen_FCC912.root", 91.20, 5E6);
     // genEvents("4-GenData/gen_FCC160.root", 160.0, 5E6);
 	// genEvents("4-GenData/gen_FCC240.root", 240.0, 5E6);
-	// genEvents("4-GenData/gen_FCC365.root", 365.0, 5E6);
+	genEvents("4-GenData/gen_FCC365.root", 365.0, 5E6);
 	// genEvents("4-GenData/gen_FCC500.root", 500.0, 1E6);
 
 	// ISR
@@ -382,73 +410,9 @@ int main() {
 	// genEvents("4-GenData/gen_FCC200.root", 200.0, 1E6);
 
 	// Test
-	genEvents("4-GenData/gen_FCCtest.root", 500, 1);
+	// genEvents("4-GenData/gen_FCCtest.root", 500, 100);
 
 	// Terminate
     return 0;
 
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-// // Search ISR photon
-// if (pythia.event[jParts].isFinal() && pythia.event[jParts].id()==22 && pythia.event[jParts].e()>5) {
-	
-// 	// Run through particles to compare
-// 	for(int isrcount=0; isrcount<pythia.event.size(); isrcount++) {
-
-// 		// Check energy of compared particle
-// 		if (pythia.event[isrcount].isFinal() && pythia.event[isrcount].e()>0.250) {
-
-// 			// Neglect itself
-// 			if ( isrcount==jParts ) continue;
-
-// 			// Compute ΔR
-// 			float deltaEta = pythia.event[isrcount].eta()-pythia.event[jParts].eta();
-// 			float deltaPhi = pythia.event[isrcount].phi()-pythia.event[jParts].phi();
-// 			float deltaR = sqrt( deltaEta*deltaEta + deltaPhi*deltaPhi ) * 180/M_PI;
-			
-// 			// cout << pythia.event[jParts].e() << "\t" << pythia.event[isrcount].e() << "\t" << deltaR << endl;
-			
-// 			// Check isolated
-// 			if ( deltaR<15.0 ) {
-// 				isrcheck = false;
-// 				break;
-// 			}
-			
-// 		}
-// 	}
-
-// 	// ISR photon found!
-// 	if (isrcheck==true) {
-// 		// cout << "ISR photon found at: " << jParts << endl;
-// 		sigISR+=pythia.event[jParts].e();
-// 	}
-
-// }			
