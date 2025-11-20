@@ -716,10 +716,10 @@ int main() {
 	// applyCuts("4-GenData/gen_FCC912.root", "5-CutData/cut_FCC912.root", 91.20);
 	
 	// Parton-level
-	// applyCuts("4-GenData/gen_FCC912_woHadron.root", "5-CutData/cut_FCC912_woHadron.root", 91.20);
-	// applyCuts("4-GenData/gen_FCC160_woHadron.root", "5-CutData/cut_FCC160_woHadron.root", 160.0);
-	// applyCuts("4-GenData/gen_FCC240_woHadron.root", "5-CutData/cut_FCC240_woHadron.root", 240.0);
-	// applyCuts("4-GenData/gen_FCC365_woHadron.root", "5-CutData/cut_FCC365_woHadron.root", 365.0);
+	applyCuts("4-GenData/gen_FCC912_woHadron.root", "5-CutData/cut_FCC912_woHadron.root", 91.20);
+	applyCuts("4-GenData/gen_FCC160_woHadron.root", "5-CutData/cut_FCC160_woHadron.root", 160.0);
+	applyCuts("4-GenData/gen_FCC240_woHadron.root", "5-CutData/cut_FCC240_woHadron.root", 240.0);
+	applyCuts("4-GenData/gen_FCC365_woHadron.root", "5-CutData/cut_FCC365_woHadron.root", 365.0);
 
 	// Old
 	// applyCuts("gen_LEP912_wiR.root", "cut_LEP912_wiR.root", 91.0);

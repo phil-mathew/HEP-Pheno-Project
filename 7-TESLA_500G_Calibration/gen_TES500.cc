@@ -134,9 +134,7 @@ void genEvents(const std::string &outputFileName, float nEnerg, int nEvent){
 	pythia.readString("PDF:lepton = off");													// ISR toggle
 	
 	// Hadronisation
-	// pythia.readString("HadronLevel:all = off");
-	// pythia.readString("HadronLevel:Hadronize = off");
-	// pythia.readString("HadronLevel:Decay = off");
+	pythia.readString("HadronLevel:all = off");
 
 	// Z processes
 	pythia.readString("WeakZ0:gmZmode = 0");												// allow γ* or Z channels
@@ -183,13 +181,6 @@ void genEvents(const std::string &outputFileName, float nEnerg, int nEvent){
 
 	// Define eve-vec
 	event_fch.init();
-
-	// Define jet grid
-	const std::vector<double> YCUT_GRID = {
-		1e-4, 1.5e-4, 2.2e-4, 3.2e-4, 4.6e-4,
-		6.8e-4, 1e-3, 1.5e-3, 2.2e-3, 3.2e-3,
-		4.6e-3, 6.8e-3, 1e-2, 2e-2, 5e-2
-	};
 	
 	// Run through events
 	for (int iEvent=0; iEvent<nEvent; iEvent++ ) {
@@ -387,7 +378,7 @@ int main() {
 	// genEvents("4-GenData/gen_FCC912.root", 91.20, 5E6);
     // genEvents("4-GenData/gen_FCC160.root", 160.0, 5E6);
 	// genEvents("4-GenData/gen_FCC240.root", 240.0, 5E6);
-	genEvents("4-GenData/gen_FCC365.root", 365.0, 5E6);
+	// genEvents("4-GenData/gen_FCC365.root", 365.0, 5E6);
 	// genEvents("4-GenData/gen_FCC500.root", 500.0, 1E6);
 
 	// ISR
@@ -398,10 +389,10 @@ int main() {
 	// genEvents("4-GenData/gen_FCC500_ISR.root", 500.0, 1E6);
 
 	// Parton-level
-	// genEvents("4-GenData/gen_FCC912_woHadron.root", 91.20, 1E6);
-    // genEvents("4-GenData/gen_FCC160_woHadron.root", 160.0, 1E6);
-	// genEvents("4-GenData/gen_FCC240_woHadron.root", 240.0, 1E6);
-	// genEvents("4-GenData/gen_FCC365_woHadron.root", 365.0, 1E6);
+	genEvents("4-GenData/gen_FCC912_woHadron.root", 91.20, 5E6);
+    genEvents("4-GenData/gen_FCC160_woHadron.root", 160.0, 5E6);
+	genEvents("4-GenData/gen_FCC240_woHadron.root", 240.0, 5E6);
+	genEvents("4-GenData/gen_FCC365_woHadron.root", 365.0, 5E6);
 	// genEvents("4-GenData/gen_FCC500_woHadron.root", 500.0, 1E3);
 
 	// Experimental
