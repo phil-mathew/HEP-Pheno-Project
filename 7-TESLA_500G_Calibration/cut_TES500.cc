@@ -476,163 +476,168 @@ void applyCuts( const std::string& inputFileName, const std::string& outputFileN
 		// Print check
 		cout << "Event " << iEvent << endl;
 
-		// Run through particles
-		for(int jParts = 0; jParts < (*eveSiz)[0]; jParts++) {
-	
-			// Total multiplicity
-			nHadAl++;
-			// Charged multiplicity
-			if ((*parChg)[jParts]!=0 && (*parPdg)[jParts]!=22) nHadCh++;
+		// Hadronic cut
+		// if ((*eveMH1)[0]>130 || (*eveMH1)[0]<60) {		// Cut on Hemisphere mass
+		if (fabs((*eveTax)[0])>0.85) {					// Cut on Thrust axis
+		// if (iEvent>=0) {									// No cut
 
-			// Inclusive spectrums
-			if ((*eveCod)[0]==221 && (*parPdg)[jParts]!=22) {
-				
-				// Access momentums
-				double px = (*parPmx)[jParts], py = (*parPmy)[jParts], pz = (*parPmz)[jParts];
-				// Compute total momentum
-				double q = std::sqrt(px*px + py*py + pz*pz);
-				// Compute scaled momentum
-				double xp = 2.0 * q / nEnerg;
-				// Fill total ξ
-				hist_ZetaAll->Fill(std::log(1.0/xp));
-				// Fill charged ξ
-				if ((*parChg)[jParts]!=0 ) hist_ZetaChg->Fill(std::log(1.0/xp));
-
-			}
-
-			// ISR photons
-			if ((*parPdg)[jParts]==22 && (*parSat)[jParts]==43) hist_EgwiISR->Fill((*parEto)[jParts]);
-			// Non-ISR photons
-			if ((*parPdg)[jParts]==22 && (*parSat)[jParts]!=43) hist_EgwoISR->Fill((*parEto)[jParts]);
-			
-		}
-
-		////////////////////////// COMPUTING EVENT SHAPES VARS //////////////////////////////////////////////
-
-		// No cut on √s' or process
-		hist_Esprime_al->Fill((*eveSpr)[0]);
-		hist_CprPyth->Fill((*eveCpr)[0]);
-		hist_ThrPyth->Fill((*eveThr)[0]);
-		hist_TaxPyth->Fill((*eveTax)[0]);
-		hist_SphPyth->Fill((*eveSph)[0]);
-		hist_SaxPyth->Fill((*eveSax)[0]);
-		hist_nHadAll->Fill(nHadAl);
-		hist_nHadChg->Fill(nHadCh);
-		hist_NumbISR->Fill((*isrNum)[0]);
-		hist_EmaxISR->Fill((*isrMax)[0]);
-		hist_MH1Pyth->Fill((*eveMH1)[0]);
-		hist_MH2Pyth->Fill((*eveMH2)[0]);
+			// Run through particles
+			for(int jParts = 0; jParts < (*eveSiz)[0]; jParts++) {
 		
-		// Process cuts
-		if ((*eveCod)[0] == 221) {
-			hist_Esprime_Zq->Fill((*eveSpr)[0]);
-			hist_nHadAll_Zq->Fill(nHadAl);
-			hist_nHadChg_Zq->Fill(nHadCh);
-			hist_ThrPyth_Zq->Fill((*eveThr)[0]);
-			hist_TaxPyth_Zq->Fill((*eveTax)[0]); 
-			hist_SaxPyth_Zq->Fill((*eveSax)[0]); 
-			hist_CprPyth_Zq->Fill((*eveCpr)[0]);
-			hist_ThrPyth_000->Fill((*eveThr)[0]);
-			hist_CprPyth_000->Fill((*eveCpr)[0]);
-			hist_ThrPyth_TEO->Fill((*eveThr)[0]);
-			hist_CprPyth_TEO->Fill((*eveCpr)[0]);
-			hist_ThrPyth_EXP->Fill((*eveThr)[0]);
-			hist_CprPyth_EXP->Fill((*eveCpr)[0]);
-			hist_MH1Pyth_Zq->Fill((*eveMH1)[0]);
-			hist_MH2Pyth_Zq->Fill((*eveMH2)[0]);
-		}
-		if ((*eveCod)[0] == 231) {
-			hist_Esprime_ZZ->Fill((*eveSpr)[0]);
-			hist_nHadAll_ZZ->Fill(nHadAl);
-			hist_nHadChg_ZZ->Fill(nHadCh);
-			hist_CprPyth_ZZ->Fill((*eveCpr)[0]);
-			hist_ThrPyth_ZZ->Fill((*eveThr)[0]);
-			hist_TaxPyth_ZZ->Fill((*eveTax)[0]); 
-			hist_SaxPyth_ZZ->Fill((*eveSax)[0]); 
-			hist_MH1Pyth_ZZ->Fill((*eveMH1)[0]);
-			hist_MH2Pyth_ZZ->Fill((*eveMH2)[0]);
-		}
-		if ((*eveCod)[0] == 233) {
-			hist_Esprime_WW->Fill((*eveSpr)[0]);
-			hist_nHadAll_WW->Fill(nHadAl);
-			hist_nHadChg_WW->Fill(nHadCh);
-			hist_CprPyth_WW->Fill((*eveCpr)[0]);
-			hist_ThrPyth_WW->Fill((*eveThr)[0]); 
-			hist_TaxPyth_WW->Fill((*eveTax)[0]); 
-			hist_SaxPyth_WW->Fill((*eveSax)[0]); 
-			hist_MH1Pyth_WW->Fill((*eveMH1)[0]);
-			hist_MH2Pyth_WW->Fill((*eveMH2)[0]);
-		}
-		if ((*eveCod)[0] == 604) {
-			hist_Esprime_tt->Fill((*eveSpr)[0]);
-			hist_nHadAll_tt->Fill(nHadAl);
-			hist_nHadChg_tt->Fill(nHadCh);
-			hist_CprPyth_tt->Fill((*eveCpr)[0]);
-			hist_ThrPyth_tt->Fill((*eveThr)[0]); 
-			hist_TaxPyth_tt->Fill((*eveTax)[0]); 
-			hist_SaxPyth_tt->Fill((*eveSax)[0]); 
-			hist_MH1Pyth_tt->Fill((*eveMH1)[0]);
-			hist_MH2Pyth_tt->Fill((*eveMH2)[0]);
-		}
-		if ((*eveCod)[0] == 904) {
-			hist_Esprime_HZ->Fill((*eveSpr)[0]);
-			hist_nHadAll_HZ->Fill(nHadAl);
-			hist_nHadChg_HZ->Fill(nHadCh);
-			hist_ThrPyth_HZ->Fill((*eveThr)[0]);
-			hist_CprPyth_HZ->Fill((*eveCpr)[0]);
-			hist_TaxPyth_HZ->Fill((*eveTax)[0]); 
-			hist_SaxPyth_HZ->Fill((*eveSax)[0]); 
-			hist_MH1Pyth_HZ->Fill((*eveMH1)[0]);
-			hist_MH2Pyth_HZ->Fill((*eveMH2)[0]);
-		}
-		if ((*eveCod)[0] == 907) {
-			hist_Esprime_HW->Fill((*eveSpr)[0]);
-			hist_nHadAll_HW->Fill(nHadAl);
-			hist_nHadChg_HW->Fill(nHadCh);
-			hist_ThrPyth_HW->Fill((*eveThr)[0]);
-			hist_CprPyth_HW->Fill((*eveCpr)[0]);
-			hist_TaxPyth_HW->Fill((*eveTax)[0]); 
-			hist_SaxPyth_HW->Fill((*eveSax)[0]); 
-			hist_MH1Pyth_HW->Fill((*eveMH1)[0]);
-			hist_MH2Pyth_HW->Fill((*eveMH2)[0]);
-		}
-	
-		// LEP cut on √s'
-		if ((*eveSpr)[0] >= nEnerg*0.85 && (*eveCod)[0] == 221) {
-			hist_ThrPyth_085->Fill((*eveThr)[0]);
-			hist_CprPyth_085->Fill((*eveCpr)[0]);
-		}
+				// Total multiplicity
+				nHadAl++;
+				// Charged multiplicity
+				if ((*parChg)[jParts]!=0 && (*parPdg)[jParts]!=22) nHadCh++;
 
-		// Only ISR events
-		if ((*eveSpr)[0] < nEnerg*1.00 && (*eveCod)[0] == 221) {
-			hist_ThrPyth_ISR->Fill((*eveThr)[0]);
-			hist_CprPyth_ISR->Fill((*eveCpr)[0]);
-		}
+				// Inclusive spectrums
+				if ((*eveCod)[0]==221 && (*parPdg)[jParts]!=22) {
+					
+					// Access momentums
+					double px = (*parPmx)[jParts], py = (*parPmy)[jParts], pz = (*parPmz)[jParts];
+					// Compute total momentum
+					double q = std::sqrt(px*px + py*py + pz*pz);
+					// Compute scaled momentum
+					double xp = 2.0 * q / nEnerg;
+					// Fill total ξ
+					hist_ZetaAll->Fill(std::log(1.0/xp));
+					// Fill charged ξ
+					if ((*parChg)[jParts]!=0 ) hist_ZetaChg->Fill(std::log(1.0/xp));
 
-		// Full cut on √s'
-		if ((*eveSpr)[0] >= nEnerg*1.00) {
-			nRad_wo_al++;
-			if ((*eveCod)[0] == 221) {
-				nRad_wo_Zq++;
-				hist_ThrPyth_100->Fill((*eveThr)[0]);
-				hist_CprPyth_100->Fill((*eveCpr)[0]);
+				}
+
+				// ISR photons
+				if ((*parPdg)[jParts]==22 && (*parSat)[jParts]==43) hist_EgwiISR->Fill((*parEto)[jParts]);
+				// Non-ISR photons
+				if ((*parPdg)[jParts]==22 && (*parSat)[jParts]!=43) hist_EgwoISR->Fill((*parEto)[jParts]);
+				
 			}
-			if ((*eveCod)[0] == 231) nRad_wo_ZZ++;
-			if ((*eveCod)[0] == 233) nRad_wo_WW++;
-			if ((*eveCod)[0] == 604) nRad_wo_tt++;
-			if ((*eveCod)[0] == 904) nRad_wo_HZ++;
-			if ((*eveCod)[0] == 907) nRad_wo_HW++;
-		}
-		else {
-			nRad_wi_al++;
-			if ((*eveCod)[0] == 221) nRad_wi_Zq++;
-			if ((*eveCod)[0] == 231) nRad_wi_ZZ++;
-			if ((*eveCod)[0] == 233) nRad_wi_WW++;
-			if ((*eveCod)[0] == 604) nRad_wi_tt++;
-			if ((*eveCod)[0] == 904) nRad_wi_HZ++;
-			if ((*eveCod)[0] == 907) nRad_wi_HW++;
-		}
 
+			////////////////////////// COMPUTING EVENT SHAPES VARS //////////////////////////////////////////////
+
+			// No cut on √s' or process
+			hist_Esprime_al->Fill((*eveSpr)[0]);
+			hist_CprPyth->Fill((*eveCpr)[0]);
+			hist_ThrPyth->Fill((*eveThr)[0]);
+			hist_TaxPyth->Fill((*eveTax)[0]);
+			hist_SphPyth->Fill((*eveSph)[0]);
+			hist_SaxPyth->Fill((*eveSax)[0]);
+			hist_nHadAll->Fill(nHadAl);
+			hist_nHadChg->Fill(nHadCh);
+			hist_NumbISR->Fill((*isrNum)[0]);
+			hist_EmaxISR->Fill((*isrMax)[0]);
+			hist_MH1Pyth->Fill((*eveMH1)[0]);
+			hist_MH2Pyth->Fill((*eveMH2)[0]);
+			
+			// Process cuts
+			if ((*eveCod)[0] == 221) {
+				hist_Esprime_Zq->Fill((*eveSpr)[0]);
+				hist_nHadAll_Zq->Fill(nHadAl);
+				hist_nHadChg_Zq->Fill(nHadCh);
+				hist_ThrPyth_Zq->Fill((*eveThr)[0]);
+				hist_TaxPyth_Zq->Fill((*eveTax)[0]); 
+				hist_SaxPyth_Zq->Fill((*eveSax)[0]); 
+				hist_CprPyth_Zq->Fill((*eveCpr)[0]);
+				hist_ThrPyth_000->Fill((*eveThr)[0]);
+				hist_CprPyth_000->Fill((*eveCpr)[0]);
+				hist_ThrPyth_TEO->Fill((*eveThr)[0]);
+				hist_CprPyth_TEO->Fill((*eveCpr)[0]);
+				hist_ThrPyth_EXP->Fill((*eveThr)[0]);
+				hist_CprPyth_EXP->Fill((*eveCpr)[0]);
+				hist_MH1Pyth_Zq->Fill((*eveMH1)[0]);
+				hist_MH2Pyth_Zq->Fill((*eveMH2)[0]);
+			}
+			if ((*eveCod)[0] == 231) {
+				hist_Esprime_ZZ->Fill((*eveSpr)[0]);
+				hist_nHadAll_ZZ->Fill(nHadAl);
+				hist_nHadChg_ZZ->Fill(nHadCh);
+				hist_CprPyth_ZZ->Fill((*eveCpr)[0]);
+				hist_ThrPyth_ZZ->Fill((*eveThr)[0]);
+				hist_TaxPyth_ZZ->Fill((*eveTax)[0]); 
+				hist_SaxPyth_ZZ->Fill((*eveSax)[0]); 
+				hist_MH1Pyth_ZZ->Fill((*eveMH1)[0]);
+				hist_MH2Pyth_ZZ->Fill((*eveMH2)[0]);
+			}
+			if ((*eveCod)[0] == 233) {
+				hist_Esprime_WW->Fill((*eveSpr)[0]);
+				hist_nHadAll_WW->Fill(nHadAl);
+				hist_nHadChg_WW->Fill(nHadCh);
+				hist_CprPyth_WW->Fill((*eveCpr)[0]);
+				hist_ThrPyth_WW->Fill((*eveThr)[0]); 
+				hist_TaxPyth_WW->Fill((*eveTax)[0]); 
+				hist_SaxPyth_WW->Fill((*eveSax)[0]); 
+				hist_MH1Pyth_WW->Fill((*eveMH1)[0]);
+				hist_MH2Pyth_WW->Fill((*eveMH2)[0]);
+			}
+			if ((*eveCod)[0] == 604) {
+				hist_Esprime_tt->Fill((*eveSpr)[0]);
+				hist_nHadAll_tt->Fill(nHadAl);
+				hist_nHadChg_tt->Fill(nHadCh);
+				hist_CprPyth_tt->Fill((*eveCpr)[0]);
+				hist_ThrPyth_tt->Fill((*eveThr)[0]); 
+				hist_TaxPyth_tt->Fill((*eveTax)[0]); 
+				hist_SaxPyth_tt->Fill((*eveSax)[0]); 
+				hist_MH1Pyth_tt->Fill((*eveMH1)[0]);
+				hist_MH2Pyth_tt->Fill((*eveMH2)[0]);
+			}
+			if ((*eveCod)[0] == 904) {
+				hist_Esprime_HZ->Fill((*eveSpr)[0]);
+				hist_nHadAll_HZ->Fill(nHadAl);
+				hist_nHadChg_HZ->Fill(nHadCh);
+				hist_ThrPyth_HZ->Fill((*eveThr)[0]);
+				hist_CprPyth_HZ->Fill((*eveCpr)[0]);
+				hist_TaxPyth_HZ->Fill((*eveTax)[0]); 
+				hist_SaxPyth_HZ->Fill((*eveSax)[0]); 
+				hist_MH1Pyth_HZ->Fill((*eveMH1)[0]);
+				hist_MH2Pyth_HZ->Fill((*eveMH2)[0]);
+			}
+			if ((*eveCod)[0] == 907) {
+				hist_Esprime_HW->Fill((*eveSpr)[0]);
+				hist_nHadAll_HW->Fill(nHadAl);
+				hist_nHadChg_HW->Fill(nHadCh);
+				hist_ThrPyth_HW->Fill((*eveThr)[0]);
+				hist_CprPyth_HW->Fill((*eveCpr)[0]);
+				hist_TaxPyth_HW->Fill((*eveTax)[0]); 
+				hist_SaxPyth_HW->Fill((*eveSax)[0]); 
+				hist_MH1Pyth_HW->Fill((*eveMH1)[0]);
+				hist_MH2Pyth_HW->Fill((*eveMH2)[0]);
+			}
+		
+			// LEP cut on √s'
+			if ((*eveSpr)[0] >= nEnerg*0.85 && (*eveCod)[0] == 221) {
+				hist_ThrPyth_085->Fill((*eveThr)[0]);
+				hist_CprPyth_085->Fill((*eveCpr)[0]);
+			}
+
+			// Only ISR events
+			if ((*eveSpr)[0] < nEnerg*1.00 && (*eveCod)[0] == 221) {
+				hist_ThrPyth_ISR->Fill((*eveThr)[0]);
+				hist_CprPyth_ISR->Fill((*eveCpr)[0]);
+			}
+
+			// Full cut on √s'
+			if ((*eveSpr)[0] >= nEnerg*1.00) {
+				nRad_wo_al++;
+				if ((*eveCod)[0] == 221) {
+					nRad_wo_Zq++;
+					hist_ThrPyth_100->Fill((*eveThr)[0]);
+					hist_CprPyth_100->Fill((*eveCpr)[0]);
+				}
+				if ((*eveCod)[0] == 231) nRad_wo_ZZ++;
+				if ((*eveCod)[0] == 233) nRad_wo_WW++;
+				if ((*eveCod)[0] == 604) nRad_wo_tt++;
+				if ((*eveCod)[0] == 904) nRad_wo_HZ++;
+				if ((*eveCod)[0] == 907) nRad_wo_HW++;
+			}
+			else {
+				nRad_wi_al++;
+				if ((*eveCod)[0] == 221) nRad_wi_Zq++;
+				if ((*eveCod)[0] == 231) nRad_wi_ZZ++;
+				if ((*eveCod)[0] == 233) nRad_wi_WW++;
+				if ((*eveCod)[0] == 604) nRad_wi_tt++;
+				if ((*eveCod)[0] == 904) nRad_wi_HZ++;
+				if ((*eveCod)[0] == 907) nRad_wi_HW++;
+			}
+		}
 	}
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -692,7 +697,10 @@ int main() {
 	// applyCuts("4-GenData/gen_FCC500.root", "5-CutData/cut_FCC500.root", 500.0);
 	
 	// Hadronic cuts
-	// applyCuts("4-GenData/gen_FCC365.root", "5-CutData/cut_FCC365_wiCut.root", 365.0);
+	// applyCuts("4-GenData/gen_FCC240.root", "5-CutData/cut_FCC240_wiCut_Tax.root", 240.0);
+	// applyCuts("4-GenData/gen_FCC365.root", "5-CutData/cut_FCC365_wiCut_Tax.root", 365.0);
+	// applyCuts("4-GenData/gen_FCC240.root", "5-CutData/cut_FCC240_wiCut_MH.root", 240.0);
+	// applyCuts("4-GenData/gen_FCC365.root", "5-CutData/cut_FCC365_wiCut_MH.root", 365.0);
 
 	// ISR
 	// applyCuts("4-GenData/gen_FCC500_ISR.root", "5-CutData/cut_FCC500_ISR.root", 500.0);
@@ -719,6 +727,7 @@ int main() {
 	// applyCuts("gen_TES50t_noR.root", "cut_TES50t_noR.root", 500.0);
 	// applyCuts("gen_TES50t_noR_noH.root", "cut_TES50t_noR_noH.root", 500.0);
 	// applyCuts("gen_TES500_noR.root", "cut_TES500_noR.root", 500.0);
+	// applyCuts("4-GenData/gen_FCC365.root", "5-CutData/cut_FCC365_wiCut.root", 365.0);
 
 	// Test
 	// applyCuts("4-GenData/gen_FCCtest.root", "5-CutData/cut_FCCtest.root", 500.0);
