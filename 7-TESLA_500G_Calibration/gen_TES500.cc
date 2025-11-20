@@ -86,7 +86,7 @@ void genEvents(const std::string &outputFileName, float nEnerg, int nEvent){
 	tree->Branch("parPmx", "vector<float>", &parPmx);										// Parts mom-x
 	tree->Branch("parPmy", "vector<float>", &parPmy);										// Parts mom-y
 	tree->Branch("parPmz", "vector<float>", &parPmz);										// Parts mom-z
-
+	
 	// Prevent memory corruptions
 	tree->SetMaxTreeSize(200LL * 1024 * 1024 * 1024); // 200GB
 	const int BASKET = 128000; // 128kB

@@ -687,7 +687,7 @@ int main() {
 	// Extraction
 	// applyCuts("4-GenData/gen_FCC912.root", "5-CutData/cut_FCC912.root", 91.20);
 	// applyCuts("4-GenData/gen_FCC160.root", "5-CutData/cut_FCC160.root", 160.0);
-	applyCuts("4-GenData/gen_FCC240.root", "5-CutData/cut_FCC240.root", 240.0);
+	// applyCuts("4-GenData/gen_FCC240.root", "5-CutData/cut_FCC240.root", 240.0);
 	// applyCuts("4-GenData/gen_FCC365.root", "5-CutData/cut_FCC365.root", 365.0);
 	// applyCuts("4-GenData/gen_FCC500.root", "5-CutData/cut_FCC500.root", 500.0);
 	
