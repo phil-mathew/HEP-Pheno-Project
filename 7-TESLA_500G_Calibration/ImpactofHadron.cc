@@ -116,43 +116,43 @@ void ImpactofHadron()
 // Compute hadronisation correction factor
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-	TH1F *hist_ThrCorr_912 = (TH1F*)hist_ThrPyth_912_woHadron->Clone("hist_ThrCorr_912");
+	TH1F *hist_ThrCorr_912 = (TH1F*)hist_ThrPyth_912_wiHadron->Clone("hist_ThrCorr_912");
 	hist_ThrCorr_912->SetLineColor(kYellow+2); hist_ThrCorr_912->SetMarkerColor(kYellow+2); hist_ThrCorr_912->SetMarkerStyle(kStar); hist_ThrCorr_912->SetLineStyle(1); hist_ThrCorr_912->SetLineWidth(2); hist_ThrCorr_912->SetMarkerSize(1);
 
-	TH1F *hist_ThrCorr_160 = (TH1F*)hist_ThrPyth_160_woHadron->Clone("hist_ThrCorr_160");
+	TH1F *hist_ThrCorr_160 = (TH1F*)hist_ThrPyth_160_wiHadron->Clone("hist_ThrCorr_160");
 	hist_ThrCorr_160->SetLineColor(kBlue+2); hist_ThrCorr_160->SetMarkerColor(kBlue+2); hist_ThrCorr_160->SetMarkerStyle(kStar); hist_ThrCorr_160->SetLineStyle(1); hist_ThrCorr_160->SetLineWidth(2); hist_ThrCorr_160->SetMarkerSize(1);
 
-	TH1F *hist_ThrCorr_240 = (TH1F*)hist_ThrPyth_240_woHadron->Clone("hist_ThrCorr_240");
+	TH1F *hist_ThrCorr_240 = (TH1F*)hist_ThrPyth_240_wiHadron->Clone("hist_ThrCorr_240");
 	hist_ThrCorr_240->SetLineColor(kRed+2); hist_ThrCorr_240->SetMarkerColor(kRed+2); hist_ThrCorr_240->SetMarkerStyle(kStar); hist_ThrCorr_240->SetLineStyle(1); hist_ThrCorr_240->SetLineWidth(2); hist_ThrCorr_240->SetMarkerSize(1);
 
-	TH1F *hist_ThrCorr_365 = (TH1F*)hist_ThrPyth_365_woHadron->Clone("hist_ThrCorr_365");
+	TH1F *hist_ThrCorr_365 = (TH1F*)hist_ThrPyth_365_wiHadron->Clone("hist_ThrCorr_365");
 	hist_ThrCorr_365->SetLineColor(kGreen+2); hist_ThrCorr_365->SetMarkerColor(kGreen+2); hist_ThrCorr_365->SetMarkerStyle(kStar); hist_ThrCorr_365->SetLineStyle(1); hist_ThrCorr_365->SetLineWidth(2); hist_ThrCorr_365->SetMarkerSize(1);
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-	TH1F *hist_CprCorr_912 = (TH1F*)hist_CprPyth_912_woHadron->Clone("hist_CprCorr_912");
+	TH1F *hist_CprCorr_912 = (TH1F*)hist_CprPyth_912_wiHadron->Clone("hist_CprCorr_912");
 	hist_CprCorr_912->SetLineColor(kYellow+2); hist_CprCorr_912->SetMarkerColor(kYellow+2); hist_CprCorr_912->SetMarkerStyle(kStar); hist_CprCorr_912->SetLineStyle(1); hist_CprCorr_912->SetLineWidth(2); hist_CprCorr_912->SetMarkerSize(1);
 
-	TH1F *hist_CprCorr_160 = (TH1F*)hist_CprPyth_160_woHadron->Clone("hist_CprCorr_160");
+	TH1F *hist_CprCorr_160 = (TH1F*)hist_CprPyth_160_wiHadron->Clone("hist_CprCorr_160");
 	hist_CprCorr_160->SetLineColor(kBlue+2); hist_CprCorr_160->SetMarkerColor(kBlue+2); hist_CprCorr_160->SetMarkerStyle(kStar); hist_CprCorr_160->SetLineStyle(1); hist_CprCorr_160->SetLineWidth(2); hist_CprCorr_160->SetMarkerSize(1);
 
-	TH1F *hist_CprCorr_240 = (TH1F*)hist_CprPyth_240_woHadron->Clone("hist_CprCorr_240");
+	TH1F *hist_CprCorr_240 = (TH1F*)hist_CprPyth_240_wiHadron->Clone("hist_CprCorr_240");
 	hist_CprCorr_240->SetLineColor(kRed+2); hist_CprCorr_240->SetMarkerColor(kRed+2); hist_CprCorr_240->SetMarkerStyle(kStar); hist_CprCorr_240->SetLineStyle(1); hist_CprCorr_240->SetLineWidth(2); hist_CprCorr_240->SetMarkerSize(1);
 
-	TH1F *hist_CprCorr_365 = (TH1F*)hist_CprPyth_365_woHadron->Clone("hist_CprCorr_365");
+	TH1F *hist_CprCorr_365 = (TH1F*)hist_CprPyth_365_wiHadron->Clone("hist_CprCorr_365");
 	hist_CprCorr_365->SetLineColor(kGreen+2); hist_CprCorr_365->SetMarkerColor(kGreen+2); hist_CprCorr_365->SetMarkerStyle(kStar); hist_CprCorr_365->SetLineStyle(1); hist_CprCorr_365->SetLineWidth(2); hist_CprCorr_365->SetMarkerSize(1);
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-	hist_ThrCorr_912->Divide(hist_ThrPyth_912_wiHadron);
-	hist_ThrCorr_160->Divide(hist_ThrPyth_160_wiHadron);
-	hist_ThrCorr_240->Divide(hist_ThrPyth_240_wiHadron);
-	hist_ThrCorr_365->Divide(hist_ThrPyth_365_wiHadron);
+	hist_ThrCorr_912->Divide(hist_ThrPyth_912_woHadron);
+	hist_ThrCorr_160->Divide(hist_ThrPyth_160_woHadron);
+	hist_ThrCorr_240->Divide(hist_ThrPyth_240_woHadron);
+	hist_ThrCorr_365->Divide(hist_ThrPyth_365_woHadron);
 
-	hist_CprCorr_912->Divide(hist_CprPyth_912_wiHadron);
-	hist_CprCorr_160->Divide(hist_CprPyth_160_wiHadron);
-	hist_CprCorr_240->Divide(hist_CprPyth_240_wiHadron);
-	hist_CprCorr_365->Divide(hist_CprPyth_365_wiHadron);
+	hist_CprCorr_912->Divide(hist_CprPyth_912_woHadron);
+	hist_CprCorr_160->Divide(hist_CprPyth_160_woHadron);
+	hist_CprCorr_240->Divide(hist_CprPyth_240_woHadron);
+	hist_CprCorr_365->Divide(hist_CprPyth_365_woHadron);
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////
 // Edit plots
@@ -221,23 +221,23 @@ void ImpactofHadron()
 	cv->cd(1);
 	// hist_ThrPyth_912_wiHadron->Draw("HIST");
 	// hist_ThrPyth_912_woHadron->Draw("HIST SAME");
-	hist_ThrCorr_912->Draw("HIST");
-	hist_ThrCorr_160->Draw("HIST SAME");
-	hist_ThrCorr_240->Draw("HIST SAME");
-	hist_ThrCorr_365->Draw("HIST SAME");
+	hist_ThrCorr_912->Draw("HIST C");
+	hist_ThrCorr_160->Draw("HIST C SAME");
+	hist_ThrCorr_240->Draw("HIST C SAME");
+	hist_ThrCorr_365->Draw("HIST C SAME");
 	lg1->Draw("SAME");
 
 	cv->cd(2);
-	hist_CprCorr_912->Draw("HIST");
-	hist_CprCorr_160->Draw("HIST SAME");
-	hist_CprCorr_240->Draw("HIST SAME");
-	hist_CprCorr_365->Draw("HIST SAME");
+	hist_CprCorr_912->Draw("HIST C");
+	hist_CprCorr_160->Draw("HIST C SAME");
+	hist_CprCorr_240->Draw("HIST C SAME");
+	hist_CprCorr_365->Draw("HIST C SAME");
 	lg1->Draw("SAME");
 
 	// Set limits
-	hist_ThrCorr_912->GetYaxis()->SetRangeUser(0.4,1.3);
+	hist_ThrCorr_912->GetYaxis()->SetRangeUser(0,3.0);
 	hist_ThrCorr_912->GetXaxis()->SetRangeUser(0,0.4);
-	hist_CprCorr_912->GetYaxis()->SetRangeUser(0.4,1.3);
+	hist_CprCorr_912->GetYaxis()->SetRangeUser(0,3.0);
 	hist_CprCorr_912->GetXaxis()->SetRangeUser(0,1.0);
 
 	// Modify stat-box
