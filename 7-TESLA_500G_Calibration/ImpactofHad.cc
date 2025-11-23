@@ -177,6 +177,10 @@ void ImpactofHad() {
 		gPad->SetLogy();
 	}
 
+	hist_ThrPyth_al_365->GetXaxis()->CenterTitle(); hist_ThrPyth_al_365->GetYaxis()->CenterTitle();
+	hist_CprPyth_al_365->GetXaxis()->CenterTitle(); hist_CprPyth_al_365->GetYaxis()->CenterTitle();
+	hist_nHadChg_al_365->GetXaxis()->CenterTitle(); hist_nHadChg_al_365->GetYaxis()->CenterTitle();
+
 	hist_ThrPyth_al_365->GetYaxis()->SetTitle("N_{events}");
 	hist_CprPyth_al_365->GetYaxis()->SetTitle("N_{events}");
 	hist_nHadChg_al_365->GetYaxis()->SetTitle("N_{events}");
