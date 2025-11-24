@@ -292,136 +292,14 @@ void ImpactofRad() {
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-	// Create canvas
-	TCanvas* cv2 = new TCanvas("cv2", "FCC-ee ISR Studies", 950, 1570);
-
-	// Add legend
-	TLegend* lg2 = new TLegend(0.75, 0.85, 0.92, 0.95);
-	lg2->AddEntry(hist_ThrPyth_912_000, "ee(#gamma)#rightarrow#gamma/Z", "L");
-	lg2->AddEntry(hist_ThrPyth_912_100, "ee#rightarrow#gamma/Z", "L");
-	lg2->SetTextSize(0.035);
-
-	// Beautify
-	gStyle->SetErrorX(0.000000001);
-	gStyle->SetLabelSize(0.05, "X");
-	gStyle->SetLabelSize(0.05, "Y");
-	gStyle->SetTitleSize(0.06, "X");
-	gStyle->SetTitleSize(0.06, "Y");
-	cv2->SetMargin(0, 0, 0, 0); 
-	cv2->Divide(1,2);
-	for (int i = 1; i <= 2; i++) {
-		cv2->cd(i);
-		gPad->SetTopMargin(0.02);
-		gPad->SetBottomMargin(0.08);
-		gPad->SetLeftMargin(0.13);
-		gPad->SetRightMargin(0.04);
-		gPad->SetTickx(); gPad->SetTicky();
-		gPad->SetLogy();
-	}	
-
-	hist_ThrPyth_912_000->GetXaxis()->CenterTitle(); hist_ThrPyth_912_000->GetYaxis()->CenterTitle();
-	hist_CprPyth_912_000->GetXaxis()->CenterTitle(); hist_CprPyth_912_000->GetYaxis()->CenterTitle();
-
-	hist_ThrPyth_912_100->Rebin(8);
-	hist_ThrPyth_160_100->Rebin(8);
-	hist_ThrPyth_240_100->Rebin(8);
-	hist_ThrPyth_365_100->Rebin(8);
-
-	hist_CprPyth_912_100->Rebin(8);
-	hist_CprPyth_160_100->Rebin(8);
-	hist_CprPyth_240_100->Rebin(8);
-	hist_CprPyth_365_100->Rebin(8);	
-	
-	hist_ThrPyth_912_000->Rebin(8);
-	hist_ThrPyth_160_000->Rebin(8);
-	hist_ThrPyth_240_000->Rebin(8);
-	hist_ThrPyth_365_000->Rebin(8);
-
-	hist_CprPyth_912_000->Rebin(8);
-	hist_CprPyth_160_000->Rebin(8);
-	hist_CprPyth_240_000->Rebin(8);
-	hist_CprPyth_365_000->Rebin(8);
-
-	hist_ThrPyth_912_000->SetLineStyle(9);
-	hist_ThrPyth_160_000->SetLineStyle(9);
-	hist_ThrPyth_240_000->SetLineStyle(9);
-	hist_ThrPyth_365_000->SetLineStyle(9);
-	hist_CprPyth_912_000->SetLineStyle(9);
-	hist_CprPyth_160_000->SetLineStyle(9);
-	hist_CprPyth_240_000->SetLineStyle(9);
-	hist_CprPyth_365_000->SetLineStyle(9);
-
-	// Draw
-	cv2->cd(1);
-	hist_ThrPyth_912_000->Draw("HIST");
-	hist_ThrPyth_912_100->Draw("HIST SAME");
-
-	hist_ThrPyth_160_000->Scale(1E3);
-	hist_ThrPyth_160_000->Draw("HIST SAME");
-	hist_ThrPyth_160_100->Scale(1E3);
-	hist_ThrPyth_160_100->Draw("HIST SAME");
-	
-	hist_ThrPyth_240_000->Scale(1E6);
-	hist_ThrPyth_240_000->Draw("HIST SAME");
-	hist_ThrPyth_240_100->Scale(1E6);
-	hist_ThrPyth_240_100->Draw("HIST SAME");
-
-	hist_ThrPyth_365_000->Scale(1E9);
-	hist_ThrPyth_365_000->Draw("HIST SAME");
-	hist_ThrPyth_365_100->Scale(1E9);
-	hist_ThrPyth_365_100->Draw("HIST SAME");
-
-	lg2->Draw("SAME");	
-
-	cv2->cd(2);
-	hist_CprPyth_912_000->Draw("HIST");
-	hist_CprPyth_912_100->Draw("HIST SAME");
-
-	hist_CprPyth_160_000->Scale(1E3);
-	hist_CprPyth_160_000->Draw("HIST SAME");
-	hist_CprPyth_160_100->Scale(1E3);
-	hist_CprPyth_160_100->Draw("HIST SAME");
-	
-	hist_CprPyth_240_000->Scale(1E6);
-	hist_CprPyth_240_000->Draw("HIST SAME");
-	hist_CprPyth_240_100->Scale(1E6);
-	hist_CprPyth_240_100->Draw("HIST SAME");
-
-	hist_CprPyth_365_000->Scale(1E9);
-	hist_CprPyth_365_000->Draw("HIST SAME");
-	hist_CprPyth_365_100->Scale(1E9);
-	hist_CprPyth_365_100->Draw("HIST SAME");
-
-	lg2->Draw("SAME");	
-
-	// Set limits
-	hist_ThrPyth_912_000->GetYaxis()->SetRangeUser(1E-3,1E12);
-	hist_ThrPyth_912_000->GetXaxis()->SetRangeUser(0,0.39);
-	hist_CprPyth_912_000->GetYaxis()->SetRangeUser(1E-3,1E12);
-	hist_CprPyth_912_000->GetXaxis()->SetRangeUser(0,1);	
-
-	// Modify stat-box
-	gStyle->SetOptStat();
-	// Update canvas
-	cv2->Modified();	
-
-/////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
-	// hist_Esprime_365->GetYaxis()->SetTitle("N_{events}");
-
 	// // Create canvas
-	// TCanvas* cv3 = new TCanvas("cv3", "FCC-ee ISR Studies", 1000, 800);
+	// TCanvas* cv2 = new TCanvas("cv2", "FCC-ee ISR Studies", 950, 1570);
 
 	// // Add legend
-	// TLegend* lg3 = new TLegend(0.13, 0.70, 0.25, 0.95);
-	// lg3->AddEntry(hist_Esprime_365, "ee#rightarrowq#bar{q}", "P");
-	// lg3->AddEntry(hist_Esprime_Zq_365, "ee#rightarrow#gamma*/Z", "P");
-	// lg3->AddEntry(hist_Esprime_WW_365, "ee#rightarrowWW", "P");
-	// lg3->AddEntry(hist_Esprime_ZZ_365, "ee#rightarrowZZ", "P");
-	// lg3->AddEntry(hist_Esprime_tt_365, "ee#rightarrowt#bar{t}", "P");
-	// lg3->AddEntry(hist_Esprime_HZ_365, "ee#rightarrowZH", "P");
-	// lg3->AddEntry(hist_Esprime_HW_365, "ee#rightarrow#nu#bar{#nu}H", "P");
-	// lg3->SetTextSize(0.03);
+	// TLegend* lg2 = new TLegend(0.75, 0.85, 0.92, 0.95);
+	// lg2->AddEntry(hist_ThrPyth_912_000, "ee(#gamma)#rightarrow#gamma/Z", "L");
+	// lg2->AddEntry(hist_ThrPyth_912_100, "ee#rightarrow#gamma/Z", "L");
+	// lg2->SetTextSize(0.035);
 
 	// // Beautify
 	// gStyle->SetErrorX(0.000000001);
@@ -429,48 +307,170 @@ void ImpactofRad() {
 	// gStyle->SetLabelSize(0.05, "Y");
 	// gStyle->SetTitleSize(0.06, "X");
 	// gStyle->SetTitleSize(0.06, "Y");
-	// cv3->SetMargin(0, 0, 0, 0); 
-	// gPad->SetTopMargin(0.025);
-	// gPad->SetBottomMargin(0.10);
-	// gPad->SetLeftMargin(0.10);
-	// gPad->SetRightMargin(0.01);
-	// gPad->SetTickx(); gPad->SetTicky();
-	// gPad->SetLogy();
+	// cv2->SetMargin(0, 0, 0, 0); 
+	// cv2->Divide(1,2);
+	// for (int i = 1; i <= 2; i++) {
+	// 	cv2->cd(i);
+	// 	gPad->SetTopMargin(0.02);
+	// 	gPad->SetBottomMargin(0.08);
+	// 	gPad->SetLeftMargin(0.13);
+	// 	gPad->SetRightMargin(0.04);
+	// 	gPad->SetTickx(); gPad->SetTicky();
+	// 	gPad->SetLogy();
+	// }	
 
-	// hist_Esprime_365->SetFillStyle(3001); hist_Esprime_365->SetFillColor(kBlack); 
-	// hist_Esprime_Zq_365->SetFillStyle(3001); hist_Esprime_Zq_365->SetFillColor(kRed); 
-	// hist_Esprime_WW_365->SetFillStyle(3001); hist_Esprime_WW_365->SetFillColor(kGreen); 
-	// hist_Esprime_ZZ_365->SetFillStyle(3001); hist_Esprime_ZZ_365->SetFillColor(kBlue); 
-	// hist_Esprime_tt_365->SetFillStyle(3001); hist_Esprime_tt_365->SetFillColor(kYellow); 
-	// hist_Esprime_HZ_365->SetFillStyle(3001); hist_Esprime_HZ_365->SetFillColor(kMagenta+1); 
-	// hist_Esprime_HW_365->SetFillStyle(3001); hist_Esprime_HW_365->SetFillColor(kCyan+1); 
+	// hist_ThrPyth_912_000->GetXaxis()->CenterTitle(); hist_ThrPyth_912_000->GetYaxis()->CenterTitle();
+	// hist_CprPyth_912_000->GetXaxis()->CenterTitle(); hist_CprPyth_912_000->GetYaxis()->CenterTitle();
 
-	// hist_Esprime_365->Rebin(2);
-	// hist_Esprime_Zq_365->Rebin(2);
-	// hist_Esprime_WW_365->Rebin(2);
-	// hist_Esprime_ZZ_365->Rebin(2);
-	// hist_Esprime_tt_365->Rebin(2);
-	// hist_Esprime_HZ_365->Rebin(2);
-	// hist_Esprime_HW_365->Rebin(2);
+	// hist_ThrPyth_912_100->Rebin(2);
+	// hist_ThrPyth_160_100->Rebin(2);
+	// hist_ThrPyth_240_100->Rebin(2);
+	// hist_ThrPyth_365_100->Rebin(2);
 
-	// hist_Esprime_365->GetXaxis()->CenterTitle(); hist_Esprime_365->GetYaxis()->CenterTitle();
+	// hist_CprPyth_912_100->Rebin(2);
+	// hist_CprPyth_160_100->Rebin(2);
+	// hist_CprPyth_240_100->Rebin(2);
+	// hist_CprPyth_365_100->Rebin(2);	
+	
+	// hist_ThrPyth_912_000->Rebin(2);
+	// hist_ThrPyth_160_000->Rebin(2);
+	// hist_ThrPyth_240_000->Rebin(2);
+	// hist_ThrPyth_365_000->Rebin(2);
 
-	// hist_Esprime_365->Draw("HIST");
-	// hist_Esprime_Zq_365->Draw("HIST SAME");
-	// hist_Esprime_WW_365->Draw("HIST SAME");
-	// hist_Esprime_ZZ_365->Draw("HIST SAME");
-	// hist_Esprime_tt_365->Draw("HIST SAME");
-	// hist_Esprime_HZ_365->Draw("HIST SAME");
-	// hist_Esprime_HW_365->Draw("HIST SAME");
-	// lg3->Draw("SAME");
+	// hist_CprPyth_912_000->Rebin(2);
+	// hist_CprPyth_160_000->Rebin(2);
+	// hist_CprPyth_240_000->Rebin(2);
+	// hist_CprPyth_365_000->Rebin(2);
+
+	// hist_ThrPyth_912_000->SetLineStyle(9);
+	// hist_ThrPyth_160_000->SetLineStyle(9);
+	// hist_ThrPyth_240_000->SetLineStyle(9);
+	// hist_ThrPyth_365_000->SetLineStyle(9);
+	// hist_CprPyth_912_000->SetLineStyle(9);
+	// hist_CprPyth_160_000->SetLineStyle(9);
+	// hist_CprPyth_240_000->SetLineStyle(9);
+	// hist_CprPyth_365_000->SetLineStyle(9);
+
+	// // Draw
+	// cv2->cd(1);
+	// hist_ThrPyth_912_000->Draw("HIST");
+	// hist_ThrPyth_912_100->Draw("HIST SAME");
+
+	// hist_ThrPyth_160_000->Scale(1E3);
+	// hist_ThrPyth_160_000->Draw("HIST SAME");
+	// hist_ThrPyth_160_100->Scale(1E3);
+	// hist_ThrPyth_160_100->Draw("HIST SAME");
+	
+	// hist_ThrPyth_240_000->Scale(1E6);
+	// hist_ThrPyth_240_000->Draw("HIST SAME");
+	// hist_ThrPyth_240_100->Scale(1E6);
+	// hist_ThrPyth_240_100->Draw("HIST SAME");
+
+	// hist_ThrPyth_365_000->Scale(1E9);
+	// hist_ThrPyth_365_000->Draw("HIST SAME");
+	// hist_ThrPyth_365_100->Scale(1E9);
+	// hist_ThrPyth_365_100->Draw("HIST SAME");
+
+	// lg2->Draw("SAME");	
+
+	// cv2->cd(2);
+	// hist_CprPyth_912_000->Draw("HIST");
+	// hist_CprPyth_912_100->Draw("HIST SAME");
+
+	// hist_CprPyth_160_000->Scale(1E3);
+	// hist_CprPyth_160_000->Draw("HIST SAME");
+	// hist_CprPyth_160_100->Scale(1E3);
+	// hist_CprPyth_160_100->Draw("HIST SAME");
+	
+	// hist_CprPyth_240_000->Scale(1E6);
+	// hist_CprPyth_240_000->Draw("HIST SAME");
+	// hist_CprPyth_240_100->Scale(1E6);
+	// hist_CprPyth_240_100->Draw("HIST SAME");
+
+	// hist_CprPyth_365_000->Scale(1E9);
+	// hist_CprPyth_365_000->Draw("HIST SAME");
+	// hist_CprPyth_365_100->Scale(1E9);
+	// hist_CprPyth_365_100->Draw("HIST SAME");
+
+	// lg2->Draw("SAME");	
 
 	// // Set limits
-	// hist_Esprime_365->GetYaxis()->SetRangeUser(1E0,1E7);
-	// hist_Esprime_365->GetXaxis()->SetRangeUser(0,425);
+	// hist_ThrPyth_912_000->GetYaxis()->SetRangeUser(1E-3,1E12);
+	// hist_ThrPyth_912_000->GetXaxis()->SetRangeUser(0,0.39);
+	// hist_CprPyth_912_000->GetYaxis()->SetRangeUser(1E-3,1E12);
+	// hist_CprPyth_912_000->GetXaxis()->SetRangeUser(0,1);	
 
 	// // Modify stat-box
 	// gStyle->SetOptStat();
 	// // Update canvas
-	// cv3->Modified();
+	// cv2->Modified();	
+
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+	hist_Esprime_365->GetYaxis()->SetTitle("N_{events}");
+
+	// Create canvas
+	TCanvas* cv3 = new TCanvas("cv3", "FCC-ee ISR Studies", 1000, 800);
+
+	// Add legend
+	TLegend* lg3 = new TLegend(0.13, 0.70, 0.25, 0.95);
+	lg3->AddEntry(hist_Esprime_365, "ee#rightarrowq#bar{q}", "P");
+	lg3->AddEntry(hist_Esprime_Zq_365, "ee#rightarrow#gamma*/Z", "P");
+	lg3->AddEntry(hist_Esprime_WW_365, "ee#rightarrowWW", "P");
+	lg3->AddEntry(hist_Esprime_ZZ_365, "ee#rightarrowZZ", "P");
+	lg3->AddEntry(hist_Esprime_tt_365, "ee#rightarrowt#bar{t}", "P");
+	lg3->AddEntry(hist_Esprime_HZ_365, "ee#rightarrowZH", "P");
+	lg3->AddEntry(hist_Esprime_HW_365, "ee#rightarrow#nu#bar{#nu}H", "P");
+	lg3->SetTextSize(0.03);
+
+	// Beautify
+	gStyle->SetErrorX(0.000000001);
+	gStyle->SetLabelSize(0.05, "X");
+	gStyle->SetLabelSize(0.05, "Y");
+	gStyle->SetTitleSize(0.06, "X");
+	gStyle->SetTitleSize(0.06, "Y");
+	cv3->SetMargin(0, 0, 0, 0); 
+	gPad->SetTopMargin(0.025);
+	gPad->SetBottomMargin(0.10);
+	gPad->SetLeftMargin(0.10);
+	gPad->SetRightMargin(0.01);
+	gPad->SetTickx(); gPad->SetTicky();
+	gPad->SetLogy();
+
+	hist_Esprime_365->SetFillStyle(3001); hist_Esprime_365->SetFillColor(kBlack); 
+	hist_Esprime_Zq_365->SetFillStyle(3001); hist_Esprime_Zq_365->SetFillColor(kRed); 
+	hist_Esprime_WW_365->SetFillStyle(3001); hist_Esprime_WW_365->SetFillColor(kGreen); 
+	hist_Esprime_ZZ_365->SetFillStyle(3001); hist_Esprime_ZZ_365->SetFillColor(kBlue); 
+	hist_Esprime_tt_365->SetFillStyle(3001); hist_Esprime_tt_365->SetFillColor(kYellow); 
+	hist_Esprime_HZ_365->SetFillStyle(3001); hist_Esprime_HZ_365->SetFillColor(kMagenta+1); 
+	hist_Esprime_HW_365->SetFillStyle(3001); hist_Esprime_HW_365->SetFillColor(kCyan+1); 
+
+	hist_Esprime_365->Rebin(2);
+	hist_Esprime_Zq_365->Rebin(2);
+	hist_Esprime_WW_365->Rebin(2);
+	hist_Esprime_ZZ_365->Rebin(2);
+	hist_Esprime_tt_365->Rebin(2);
+	hist_Esprime_HZ_365->Rebin(2);
+	hist_Esprime_HW_365->Rebin(2);
+
+	hist_Esprime_365->GetXaxis()->CenterTitle(); hist_Esprime_365->GetYaxis()->CenterTitle();
+
+	hist_Esprime_365->Draw("HIST");
+	hist_Esprime_Zq_365->Draw("HIST SAME");
+	hist_Esprime_WW_365->Draw("HIST SAME");
+	hist_Esprime_ZZ_365->Draw("HIST SAME");
+	hist_Esprime_tt_365->Draw("HIST SAME");
+	hist_Esprime_HZ_365->Draw("HIST SAME");
+	hist_Esprime_HW_365->Draw("HIST SAME");
+	lg3->Draw("SAME");
+
+	// Set limits
+	hist_Esprime_365->GetYaxis()->SetRangeUser(1E0,1E7);
+	hist_Esprime_365->GetXaxis()->SetRangeUser(0,425);
+
+	// Modify stat-box
+	gStyle->SetOptStat();
+	// Update canvas
+	cv3->Modified();
 
 }

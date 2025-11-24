@@ -131,10 +131,10 @@ void genEvents(const std::string &outputFileName, float nEnerg, int nEvent){
 	pythia.readString("Beams:idA = 11"); 													// beam energy
 	pythia.readString("Beams:idB = -11"); 													// beam energy
 	pythia.settings.parm("Beams:eCM", nEnerg);												// c-om energy
-	pythia.readString("PDF:lepton = off");													// ISR toggle
+	// pythia.readString("PDF:lepton = off");													// ISR toggle
 	
 	// Hadronisation
-	pythia.readString("HadronLevel:all = off");
+	// pythia.readString("HadronLevel:all = off");
 
 	// Z processes
 	pythia.readString("WeakZ0:gmZmode = 0");												// allow γ* or Z channels
@@ -382,17 +382,17 @@ int main() {
 	// genEvents("4-GenData/gen_FCC500.root", 500.0, 1E6);
 
 	// ISR
-	// genEvents("4-GenData/gen_FCC912_ISR.root", 91.20, 1E6);
-    // genEvents("4-GenData/gen_FCC160_ISR.root", 160.0, 1E6);
-	// genEvents("4-GenData/gen_FCC240_ISR.root", 240.0, 1E6);
-	// genEvents("4-GenData/gen_FCC365_ISR.root", 365.0, 1E6);
+	// genEvents("4-GenData/gen_FCC912_ISR.root", 91.20, 5E6);
+    // genEvents("4-GenData/gen_FCC160_ISR.root", 160.0, 5E6);
+	// genEvents("4-GenData/gen_FCC240_ISR.root", 240.0, 5E6);
+	// genEvents("4-GenData/gen_FCC365_ISR.root", 365.0, 5E6);
 	// genEvents("4-GenData/gen_FCC500_ISR.root", 500.0, 1E6);
 
 	// Parton-level
-	genEvents("4-GenData/gen_FCC912_woHadron.root", 91.20, 5E6);
-    genEvents("4-GenData/gen_FCC160_woHadron.root", 160.0, 5E6);
-	genEvents("4-GenData/gen_FCC240_woHadron.root", 240.0, 5E6);
-	genEvents("4-GenData/gen_FCC365_woHadron.root", 365.0, 5E6);
+	// genEvents("4-GenData/gen_FCC912_woHadron.root", 91.20, 5E6);
+    // genEvents("4-GenData/gen_FCC160_woHadron.root", 160.0, 5E6);
+	// genEvents("4-GenData/gen_FCC240_woHadron.root", 240.0, 5E6);
+	// genEvents("4-GenData/gen_FCC365_woHadron.root", 365.0, 5E6);
 	// genEvents("4-GenData/gen_FCC500_woHadron.root", 500.0, 1E3);
 
 	// Experimental

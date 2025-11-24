@@ -465,7 +465,8 @@ void applyCuts( const std::string& inputFileName, const std::string& outputFileN
 	// Counters
 	int nHadCh=0, nHadAl=0, \
 		nRad_wi_al=0, nRad_wi_Zq=0, nRad_wi_ZZ=0, nRad_wi_WW=0, nRad_wi_tt=0, nRad_wi_HZ=0, nRad_wi_HW=0, \
-		nRad_wo_al=0, nRad_wo_Zq=0, nRad_wo_ZZ=0, nRad_wo_WW=0, nRad_wo_tt=0, nRad_wo_HZ=0, nRad_wo_HW=0;
+		nRad_wo_al=0, nRad_wo_Zq=0, nRad_wo_ZZ=0, nRad_wo_WW=0, nRad_wo_tt=0, nRad_wo_HZ=0, nRad_wo_HW=0, \
+		nRad_100=0, nRad_095=0, nRad_090=0, nRad_085=0;
 	
 	// Run through events
 	for(int iEvent = 0; iEvent < itree->GetEntries(); iEvent++ ) {
@@ -474,12 +475,12 @@ void applyCuts( const std::string& inputFileName, const std::string& outputFileN
 		nHadCh=0; nHadAl=0;			// Reset
 
 		// Print check
-		cout << "Event " << iEvent << endl;
+		// cout << "Event " << iEvent << endl;
 
 		// Hadronic cut
 		// if ((*eveMH1)[0]>130 || (*eveMH1)[0]<60) {		// Cut on Hemisphere mass
-		if (fabs((*eveTax)[0])>0.85) {					// Cut on Thrust axis
-		// if (iEvent>=0) {									// No cut
+		// if (fabs((*eveTax)[0])>0.85) {					// Cut on Thrust axis
+		if (iEvent>=0) {									// No cut
 
 			// Run through particles
 			for(int jParts = 0; jParts < (*eveSiz)[0]; jParts++) {
@@ -608,14 +609,14 @@ void applyCuts( const std::string& inputFileName, const std::string& outputFileN
 				hist_CprPyth_085->Fill((*eveCpr)[0]);
 			}
 
-			// Only ISR events
-			if ((*eveSpr)[0] < nEnerg*1.00 && (*eveCod)[0] == 221) {
-				hist_ThrPyth_ISR->Fill((*eveThr)[0]);
-				hist_CprPyth_ISR->Fill((*eveCpr)[0]);
-			}
+			// Partial cuts on √s'
+			if ((*eveSpr)[0] > nEnerg*0.95 && (*eveCod)[0] == 221) nRad_095++;
+			if ((*eveSpr)[0] > nEnerg*0.90 && (*eveCod)[0] == 221) nRad_090++;
+			if ((*eveSpr)[0] > nEnerg*0.85 && (*eveCod)[0] == 221) nRad_085++;
 
 			// Full cut on √s'
 			if ((*eveSpr)[0] >= nEnerg*1.00) {
+				nRad_100++;
 				nRad_wo_al++;
 				if ((*eveCod)[0] == 221) {
 					nRad_wo_Zq++;
@@ -637,6 +638,12 @@ void applyCuts( const std::string& inputFileName, const std::string& outputFileN
 				if ((*eveCod)[0] == 904) nRad_wi_HZ++;
 				if ((*eveCod)[0] == 907) nRad_wi_HW++;
 			}
+
+			// Only ISR events
+			if ((*eveSpr)[0] < nEnerg*1.00 && (*eveCod)[0] == 221) {
+				hist_ThrPyth_ISR->Fill((*eveThr)[0]);
+				hist_CprPyth_ISR->Fill((*eveCpr)[0]);
+			}
 		}
 	}
 
@@ -654,6 +661,10 @@ void applyCuts( const std::string& inputFileName, const std::string& outputFileN
 	cout << "tt = " << nRad_wo_tt << " : " << nRad_wi_tt << " : " << nRad_wo_tt+nRad_wi_tt << endl;
 	cout << "HZ = " << nRad_wo_HZ << " : " << nRad_wi_HZ << " : " << nRad_wo_HZ+nRad_wi_HZ << endl;
 	cout << "HW = " << nRad_wo_HW << " : " << nRad_wi_HW << " : " << nRad_wo_HW+nRad_wi_HW << endl;
+	cout << "----------------------------------------" << endl;
+	cout << "1.00:0.95:0.90:0.85 at " << nEnerg << " GeV " << endl;
+	cout << "----------------------------------------" << endl;
+	cout << nRad_100 << " : " << nRad_095 << " : " << nRad_090 << " : " << nRad_085 << endl;
 	cout << "----------------------------------------" << endl;
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -716,10 +727,10 @@ int main() {
 	// applyCuts("4-GenData/gen_FCC912.root", "5-CutData/cut_FCC912.root", 91.20);
 	
 	// Parton-level
-	applyCuts("4-GenData/gen_FCC912_woHadron.root", "5-CutData/cut_FCC912_woHadron.root", 91.20);
-	applyCuts("4-GenData/gen_FCC160_woHadron.root", "5-CutData/cut_FCC160_woHadron.root", 160.0);
-	applyCuts("4-GenData/gen_FCC240_woHadron.root", "5-CutData/cut_FCC240_woHadron.root", 240.0);
-	applyCuts("4-GenData/gen_FCC365_woHadron.root", "5-CutData/cut_FCC365_woHadron.root", 365.0);
+	// applyCuts("4-GenData/gen_FCC912_woHadron.root", "5-CutData/cut_FCC912_woHadron.root", 91.20);
+	// applyCuts("4-GenData/gen_FCC160_woHadron.root", "5-CutData/cut_FCC160_woHadron.root", 160.0);
+	// applyCuts("4-GenData/gen_FCC240_woHadron.root", "5-CutData/cut_FCC240_woHadron.root", 240.0);
+	// applyCuts("4-GenData/gen_FCC365_woHadron.root", "5-CutData/cut_FCC365_woHadron.root", 365.0);
 
 	// Old
 	// applyCuts("gen_LEP912_wiR.root", "cut_LEP912_wiR.root", 91.0);
