@@ -188,7 +188,7 @@ void ImpactofCutTax()
 	hist_TaxPyth_al_912->Rebin(2);
 
 	// Draw
-	cv5->cd(1);
+	cv5->cd(4);
 	hist_TaxPyth_al_912->Draw("HIST");
 	lg5->Draw("SAME");
 
@@ -197,7 +197,7 @@ void ImpactofCutTax()
 	hist_TaxPyth_WW_160->Rebin(2);
 	hist_TaxPyth_ZZ_160->Rebin(2);
 
-	cv5->cd(2);
+	cv5->cd(3);
 	hist_TaxPyth_al_160->Draw("HIST");
 	hist_TaxPyth_Zq_160->Draw("HIST SAME");
 	hist_TaxPyth_WW_160->Draw("HIST SAME");
@@ -211,7 +211,7 @@ void ImpactofCutTax()
 	hist_TaxPyth_HZ_240->Rebin(2);
 	hist_TaxPyth_HW_240->Rebin(2);
 
-	cv5->cd(3);
+	cv5->cd(2);
 	hist_TaxPyth_al_240->Draw("HIST");
 	hist_TaxPyth_Zq_240->Draw("HIST SAME");
 	hist_TaxPyth_WW_240->Draw("HIST SAME");
@@ -227,7 +227,7 @@ void ImpactofCutTax()
 	hist_TaxPyth_HZ_365->Rebin(2);
 	hist_TaxPyth_HW_365->Rebin(2);
 
-	cv5->cd(4);
+	cv5->cd(1);
 	hist_TaxPyth_al_365->Draw("HIST");
 	hist_TaxPyth_Zq_365->Draw("HIST SAME");
 	hist_TaxPyth_WW_365->Draw("HIST SAME");

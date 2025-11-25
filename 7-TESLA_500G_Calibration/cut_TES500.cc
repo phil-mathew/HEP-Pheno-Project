@@ -149,6 +149,12 @@ void applyCuts( const std::string& inputFileName, const std::string& outputFileN
 	TH1F *hist_ThrPyth_085 = new TH1F("hist_ThrPyth_085", "Inverse Thrust", 200, 0, 0.45);
 	hist_ThrPyth_085->GetXaxis()->SetTitle("(1-T)"); hist_ThrPyth_085->GetYaxis()->SetTitle("1/#sigma_{had} d#sigma/d(1-T)");
 
+	TH1F *hist_ThrPyth_090 = new TH1F("hist_ThrPyth_090", "Inverse Thrust", 200, 0, 0.45);
+	hist_ThrPyth_090->GetXaxis()->SetTitle("(1-T)"); hist_ThrPyth_090->GetYaxis()->SetTitle("1/#sigma_{had} d#sigma/d(1-T)");
+
+	TH1F *hist_ThrPyth_095 = new TH1F("hist_ThrPyth_095", "Inverse Thrust", 200, 0, 0.45);
+	hist_ThrPyth_095->GetXaxis()->SetTitle("(1-T)"); hist_ThrPyth_095->GetYaxis()->SetTitle("1/#sigma_{had} d#sigma/d(1-T)");
+
 	TH1F *hist_ThrPyth_100 = new TH1F("hist_ThrPyth_100", "Inverse Thrust", 200, 0, 0.45);
 	hist_ThrPyth_100->GetXaxis()->SetTitle("(1-T)"); hist_ThrPyth_100->GetYaxis()->SetTitle("1/#sigma_{had} d#sigma/d(1-T)");
 
@@ -162,6 +168,12 @@ void applyCuts( const std::string& inputFileName, const std::string& outputFileN
 
 	TH1F *hist_CprPyth_085 = new TH1F("hist_CprPyth_085", "C-parameter", 200, 0, 1.0);
 	hist_CprPyth_085->GetXaxis()->SetTitle("(C)"); hist_CprPyth_085->GetYaxis()->SetTitle("1/#sigma_{had} d#sigma/d(C)");
+
+	TH1F *hist_CprPyth_090 = new TH1F("hist_CprPyth_090", "Inverse Thrust", 200, 0, 0.45);
+	hist_CprPyth_090->GetXaxis()->SetTitle("(1-T)"); hist_CprPyth_090->GetYaxis()->SetTitle("1/#sigma_{had} d#sigma/d(1-T)");
+
+	TH1F *hist_CprPyth_095 = new TH1F("hist_CprPyth_095", "Inverse Thrust", 200, 0, 0.45);
+	hist_CprPyth_095->GetXaxis()->SetTitle("(1-T)"); hist_CprPyth_095->GetYaxis()->SetTitle("1/#sigma_{had} d#sigma/d(1-T)");
 
 	TH1F *hist_CprPyth_100 = new TH1F("hist_CprPyth_100", "C-parameter", 200, 0, 1.0);
 	hist_CprPyth_100->GetXaxis()->SetTitle("(C)"); hist_CprPyth_100->GetYaxis()->SetTitle("1/#sigma_{had} d#sigma/d(C)");
@@ -603,22 +615,26 @@ void applyCuts( const std::string& inputFileName, const std::string& outputFileN
 				hist_MH2Pyth_HW->Fill((*eveMH2)[0]);
 			}
 		
-			// LEP cut on √s'
+			// Cuts on √s'
+			if ((*eveSpr)[0] >= nEnerg*0.95 && (*eveCod)[0] == 221) {
+				nRad_095++;
+				hist_ThrPyth_095->Fill((*eveThr)[0]);
+				hist_CprPyth_095->Fill((*eveCpr)[0]);
+			}
+			if ((*eveSpr)[0] >= nEnerg*0.90 && (*eveCod)[0] == 221) {
+				nRad_090++;
+				hist_ThrPyth_090->Fill((*eveThr)[0]);
+				hist_CprPyth_090->Fill((*eveCpr)[0]);
+			}
 			if ((*eveSpr)[0] >= nEnerg*0.85 && (*eveCod)[0] == 221) {
+				nRad_085++;
 				hist_ThrPyth_085->Fill((*eveThr)[0]);
 				hist_CprPyth_085->Fill((*eveCpr)[0]);
 			}
-
-			// Partial cuts on √s'
-			if ((*eveSpr)[0] > nEnerg*0.95 && (*eveCod)[0] == 221) nRad_095++;
-			if ((*eveSpr)[0] > nEnerg*0.90 && (*eveCod)[0] == 221) nRad_090++;
-			if ((*eveSpr)[0] > nEnerg*0.85 && (*eveCod)[0] == 221) nRad_085++;
-
-			// Full cut on √s'
 			if ((*eveSpr)[0] >= nEnerg*1.00) {
-				nRad_100++;
 				nRad_wo_al++;
 				if ((*eveCod)[0] == 221) {
+					nRad_100++;
 					nRad_wo_Zq++;
 					hist_ThrPyth_100->Fill((*eveThr)[0]);
 					hist_CprPyth_100->Fill((*eveCpr)[0]);
@@ -638,8 +654,7 @@ void applyCuts( const std::string& inputFileName, const std::string& outputFileN
 				if ((*eveCod)[0] == 904) nRad_wi_HZ++;
 				if ((*eveCod)[0] == 907) nRad_wi_HW++;
 			}
-
-			// Only ISR events
+			// Reverse cut
 			if ((*eveSpr)[0] < nEnerg*1.00 && (*eveCod)[0] == 221) {
 				hist_ThrPyth_ISR->Fill((*eveThr)[0]);
 				hist_CprPyth_ISR->Fill((*eveCpr)[0]);
@@ -715,10 +730,10 @@ int main() {
 
 	// ISR
 	// applyCuts("4-GenData/gen_FCC500_ISR.root", "5-CutData/cut_FCC500_ISR.root", 500.0);
-	// applyCuts("4-GenData/gen_FCC365_ISR.root", "5-CutData/cut_FCC365_ISR.root", 365.0);
-	// applyCuts("4-GenData/gen_FCC240_ISR.root", "5-CutData/cut_FCC240_ISR.root", 240.0);
-	// applyCuts("4-GenData/gen_FCC160_ISR.root", "5-CutData/cut_FCC160_ISR.root", 160.0);
-	// applyCuts("4-GenData/gen_FCC912_ISR.root", "5-CutData/cut_FCC912_ISR.root", 91.20);
+	applyCuts("4-GenData/gen_FCC365_ISR.root", "5-CutData/cut_FCC365_ISR.root", 365.0);
+	applyCuts("4-GenData/gen_FCC240_ISR.root", "5-CutData/cut_FCC240_ISR.root", 240.0);
+	applyCuts("4-GenData/gen_FCC160_ISR.root", "5-CutData/cut_FCC160_ISR.root", 160.0);
+	applyCuts("4-GenData/gen_FCC912_ISR.root", "5-CutData/cut_FCC912_ISR.root", 91.20);
 
 	// Calibration
 	// applyCuts("4-GenData/gen_FCC200.root", "5-CutData/cut_FCC200.root", 200.0);

@@ -38,7 +38,7 @@ void ImpactofHad() {
 // Reading ROOTS
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-	TFile *input = new TFile("5-CutData/cut_FCC912.root", "READ");
+	TFile *input = new TFile("5-CutData/cut_FCC365.root", "READ");
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////
 // Reading Pythia histograms from ROOT files
@@ -145,17 +145,6 @@ void ImpactofHad() {
 	// Create canvas
 	TCanvas* cv2 = new TCanvas("cv2", "FCC-ee ISR Studies", 800, 2100);
 
-	// Add legend
-	TLegend* lg2 = new TLegend(0.78, 0.70, 0.92, 0.95);
-	lg2->AddEntry(hist_ThrPyth_al, "ee#rightarrowq#bar{q}", "P");
-	lg2->AddEntry(hist_ThrPyth_Zq, "ee#rightarrow#gamma/Z", "P");
-	lg2->AddEntry(hist_ThrPyth_ZZ, "ee#rightarrowZZ", "P");
-	lg2->AddEntry(hist_ThrPyth_WW, "ee#rightarrowWW", "P");
-	lg2->AddEntry(hist_ThrPyth_tt, "ee#rightarrowt#bar{t}", "P");
-	lg2->AddEntry(hist_ThrPyth_HZ, "ee#rightarrowZH", "P");
-	lg2->AddEntry(hist_ThrPyth_HW, "ee#rightarrow#nu#bar{#nu}H", "P");
-	lg2->SetTextSize(0.03);
-
 	// Beautify
 	gStyle->SetErrorX(0.000000001);
 	gStyle->SetLabelSize(0.05, "X");
@@ -224,41 +213,198 @@ void ImpactofHad() {
 
 	// Draw
 	cv2->cd(1);
+	hist_ThrPyth_al->SetFillColor(10);
+	hist_ThrPyth_al->SetFillStyle(1001);
 	hist_ThrPyth_al->Draw("HIST");
+	auto h1 = (TH1F*)hist_ThrPyth_al->Clone("h1");
+	h1->SetFillColor(kWhite);
+	h1->SetFillStyle(3005);
+	h1->Draw("HIST SAME");
+
+	hist_ThrPyth_Zq->SetFillColor(10);
+	hist_ThrPyth_Zq->SetFillStyle(1001);
 	hist_ThrPyth_Zq->Draw("HIST SAME");
+	auto h2 = (TH1F*)hist_ThrPyth_Zq->Clone("h2");
+	h2->SetFillColor(kRed+1);
+	h2->SetFillStyle(3344);
+	h2->Draw("HIST SAME");
+
+	hist_ThrPyth_WW->SetFillColor(10);
+	hist_ThrPyth_WW->SetFillStyle(1001);
 	hist_ThrPyth_WW->Draw("HIST SAME");
+	auto h3 = (TH1F*)hist_ThrPyth_WW->Clone("h3");
+	h3->SetFillColor(kGreen+2);
+	h3->SetFillStyle(3305);
+	h3->Draw("HIST SAME");
+
+	hist_ThrPyth_ZZ->SetFillColor(10);
+	hist_ThrPyth_ZZ->SetFillStyle(1001);
 	hist_ThrPyth_ZZ->Draw("HIST SAME");
+	auto h4 = (TH1F*)hist_ThrPyth_ZZ->Clone("h4");
+	h4->SetFillColor(kBlue+2);
+	h4->SetFillStyle(3395);
+	h4->Draw("HIST SAME");
+
+	hist_ThrPyth_tt->SetFillColor(10);
+	hist_ThrPyth_tt->SetFillStyle(1001);
 	hist_ThrPyth_tt->Draw("HIST SAME");
+	auto h5 = (TH1F*)hist_ThrPyth_tt->Clone("h5");
+	h5->SetFillColor(kYellow+2);
+	h5->SetFillStyle(3345);
+	h5->Draw("HIST SAME");
+
+	hist_ThrPyth_HZ->SetFillColor(10);
+	hist_ThrPyth_HZ->SetFillStyle(1001);
 	hist_ThrPyth_HZ->Draw("HIST SAME");
+	auto h6 = (TH1F*)hist_ThrPyth_HZ->Clone("h6");
+	h6->SetFillColor(kMagenta+1);
+	h6->SetFillStyle(3354);
+	h6->Draw("HIST SAME");
+
+	hist_ThrPyth_HW->SetFillColor(10);
+	hist_ThrPyth_HW->SetFillStyle(1001);
 	hist_ThrPyth_HW->Draw("HIST SAME");
+	auto h7 = (TH1F*)hist_ThrPyth_HW->Clone("h7");
+	h7->SetFillColor(kCyan+2);
+	h7->SetFillStyle(3409);
+	h7->Draw("HIST SAME");
+
+	// Add legend
+	TLegend* lg2 = new TLegend(0.78, 0.70, 0.92, 0.95);
+	lg2->AddEntry(h1, "ee#rightarrowq#bar{q}", "F");
+	lg2->AddEntry(h2, "ee#rightarrow#gamma*/Z", "F");
+	lg2->AddEntry(h3, "ee#rightarrowWW", "F");
+	lg2->AddEntry(h4, "ee#rightarrowZZ", "F");
+	lg2->AddEntry(h5, "ee#rightarrowt#bar{t}", "F");
+	lg2->AddEntry(h6, "ee#rightarrowZH", "F");
+	lg2->AddEntry(h7, "ee#rightarrow#nu#bar{#nu}H", "F");
+	lg2->SetTextSize(0.03);
 	lg2->Draw("SAME");
 
 	cv2->cd(2);
+	hist_CprPyth_al->SetFillColor(10);
+	hist_CprPyth_al->SetFillStyle(1001);
 	hist_CprPyth_al->Draw("HIST");
+	auto h11 = (TH1F*)hist_CprPyth_al->Clone("h11");
+	h11->SetFillColor(kWhite);
+	h11->SetFillStyle(3005);
+	h11->Draw("HIST SAME");
+
+	hist_CprPyth_Zq->SetFillColor(10);
+	hist_CprPyth_Zq->SetFillStyle(1001);
 	hist_CprPyth_Zq->Draw("HIST SAME");
+	auto h21 = (TH1F*)hist_CprPyth_Zq->Clone("h21");
+	h21->SetFillColor(kRed+1);
+	h21->SetFillStyle(3344);
+	h21->Draw("HIST SAME");
+
+	hist_CprPyth_WW->SetFillColor(10);
+	hist_CprPyth_WW->SetFillStyle(1001);
 	hist_CprPyth_WW->Draw("HIST SAME");
+	auto h31 = (TH1F*)hist_CprPyth_WW->Clone("h31");
+	h31->SetFillColor(kGreen+2);
+	h31->SetFillStyle(3305);
+	h31->Draw("HIST SAME");
+
+	hist_CprPyth_ZZ->SetFillColor(10);
+	hist_CprPyth_ZZ->SetFillStyle(1001);
 	hist_CprPyth_ZZ->Draw("HIST SAME");
+	auto h41 = (TH1F*)hist_CprPyth_ZZ->Clone("h41");
+	h41->SetFillColor(kBlue+2);
+	h41->SetFillStyle(3395);
+	h41->Draw("HIST SAME");
+
+	hist_CprPyth_tt->SetFillColor(10);
+	hist_CprPyth_tt->SetFillStyle(1001);
 	hist_CprPyth_tt->Draw("HIST SAME");
+	auto h51 = (TH1F*)hist_CprPyth_tt->Clone("h51");
+	h51->SetFillColor(kYellow+2);
+	h51->SetFillStyle(3345);
+	h51->Draw("HIST SAME");
+
+	hist_CprPyth_HZ->SetFillColor(10);
+	hist_CprPyth_HZ->SetFillStyle(1001);
 	hist_CprPyth_HZ->Draw("HIST SAME");
+	auto h61 = (TH1F*)hist_CprPyth_HZ->Clone("h61");
+	h61->SetFillColor(kMagenta+1);
+	h61->SetFillStyle(3354);
+	h61->Draw("HIST SAME");
+
+	hist_CprPyth_HW->SetFillColor(10);
+	hist_CprPyth_HW->SetFillStyle(1001);
 	hist_CprPyth_HW->Draw("HIST SAME");
+	auto h71 = (TH1F*)hist_CprPyth_HW->Clone("h71");
+	h71->SetFillColor(kCyan+2);
+	h71->SetFillStyle(3409);
+	h71->Draw("HIST SAME");
+
 	lg2->Draw("SAME");
 
 	cv2->cd(3);
+	hist_nHadChg_al->SetFillColor(10);
+	hist_nHadChg_al->SetFillStyle(1001);
 	hist_nHadChg_al->Draw("HIST");
+	auto h12 = (TH1F*)hist_nHadChg_al->Clone("h12");
+	h12->SetFillColor(kWhite);
+	h12->SetFillStyle(3005);
+	h12->Draw("HIST SAME");
+
+	hist_nHadChg_Zq->SetFillColor(10);
+	hist_nHadChg_Zq->SetFillStyle(1001);
 	hist_nHadChg_Zq->Draw("HIST SAME");
+	auto h22 = (TH1F*)hist_nHadChg_Zq->Clone("h22");
+	h22->SetFillColor(kRed+1);
+	h22->SetFillStyle(3344);
+	h22->Draw("HIST SAME");
+
+	hist_nHadChg_WW->SetFillColor(10);
+	hist_nHadChg_WW->SetFillStyle(1001);
 	hist_nHadChg_WW->Draw("HIST SAME");
+	auto h32 = (TH1F*)hist_nHadChg_WW->Clone("h32");
+	h32->SetFillColor(kGreen+2);
+	h32->SetFillStyle(3305);
+	h32->Draw("HIST SAME");
+
+	hist_nHadChg_ZZ->SetFillColor(10);
+	hist_nHadChg_ZZ->SetFillStyle(1001);
 	hist_nHadChg_ZZ->Draw("HIST SAME");
+	auto h42 = (TH1F*)hist_nHadChg_ZZ->Clone("h42");
+	h42->SetFillColor(kBlue+2);
+	h42->SetFillStyle(3395);
+	h42->Draw("HIST SAME");
+
+	hist_nHadChg_tt->SetFillColor(10);
+	hist_nHadChg_tt->SetFillStyle(1001);
 	hist_nHadChg_tt->Draw("HIST SAME");
+	auto h52 = (TH1F*)hist_nHadChg_tt->Clone("h52");
+	h52->SetFillColor(kYellow+2);
+	h52->SetFillStyle(3345);
+	h52->Draw("HIST SAME");
+
+	hist_nHadChg_HZ->SetFillColor(10);
+	hist_nHadChg_HZ->SetFillStyle(1001);
 	hist_nHadChg_HZ->Draw("HIST SAME");
+	auto h62 = (TH1F*)hist_nHadChg_HZ->Clone("h62");
+	h62->SetFillColor(kMagenta+1);
+	h62->SetFillStyle(3354);
+	h62->Draw("HIST SAME");
+
+	hist_nHadChg_HW->SetFillColor(10);
+	hist_nHadChg_HW->SetFillStyle(1001);
 	hist_nHadChg_HW->Draw("HIST SAME");
+	auto h72 = (TH1F*)hist_nHadChg_HW->Clone("h72");
+	h72->SetFillColor(kCyan+2);
+	h72->SetFillStyle(3409);
+	h72->Draw("HIST SAME");
+
 	lg2->Draw("SAME");
 
 	// Set limits
-	hist_ThrPyth_al->GetYaxis()->SetRangeUser(1E0,1E6);
+	hist_ThrPyth_al->GetYaxis()->SetRangeUser(1E0,1E7);
 	hist_ThrPyth_al->GetXaxis()->SetRangeUser(0,0.45);
-	hist_CprPyth_al->GetYaxis()->SetRangeUser(1E0,1E6);
+	hist_CprPyth_al->GetYaxis()->SetRangeUser(1E0,1E7);
 	hist_CprPyth_al->GetXaxis()->SetRangeUser(0,1.0);	
-	hist_nHadChg_al->GetYaxis()->SetRangeUser(1E0,1E6);
+	hist_nHadChg_al->GetYaxis()->SetRangeUser(1E0,1E7);
 	hist_nHadChg_al->GetXaxis()->SetRangeUser(0,120);
 
 	// Modify stat-box
