@@ -573,100 +573,101 @@ void ImpactofAlpha() {
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-	// // Create canvas
-	// TCanvas* cv5 = new TCanvas("cv5", "FCC-ee ISR Studies", 900, 900);
+	// Create canvas
+	TCanvas* cv5 = new TCanvas("cv5", "FCC-ee ISR Studies", 900, 2300);
 
-	// TLegend* lg5 = new TLegend(0.73, 0.82, 0.92, 0.93);
-	// lg5->AddEntry(hist_ThrPyth_912_woHadron, "PYTHIA", "P");
-	// lg5->AddEntry(hist_fitThNN_912, "NNLO", "L");
-	// lg5->SetTextSize(0.04);	
+	TLegend* lg5 = new TLegend(0.73, 0.85, 0.92, 0.93);
+	lg5->AddEntry(hist_ThrPyth_912_woHadron, "PYTHIA", "P");
+	lg5->AddEntry(hist_fitThNN_912, "NNLO", "L");
+	lg5->SetTextSize(0.04);	
 
-	// // Beautify
-	// gStyle->SetErrorX(0.000000001);
-	// gStyle->SetLabelSize(0.05, "X");
-	// gStyle->SetLabelSize(0.05, "Y");
-	// gStyle->SetTitleSize(0.06, "X");
-	// gStyle->SetTitleSize(0.06, "Y");
-	// cv5->SetMargin(0, 0, 0, 0); 
-	// cv5->Divide(1,2);
-	// for (int i = 1; i <= 2; i++) {
-	// 	cv5->cd(i);
-	// 	gPad->SetTopMargin(0.025);
-	// 	gPad->SetBottomMargin(0.07);
-	// 	gPad->SetLeftMargin(0.12);
-	// 	gPad->SetRightMargin(0.04);
-	// 	gPad->SetTickx(); gPad->SetTicky();
-	// 	gPad->SetLogy();
-	// }
+	// Beautify
+	gStyle->SetErrorX(0.000000001);
+	gStyle->SetLabelSize(0.05, "X");
+	gStyle->SetLabelSize(0.05, "Y");
+	gStyle->SetTitleSize(0.06, "X");
+	gStyle->SetTitleSize(0.06, "Y");
+	cv5->SetMargin(0, 0, 0, 0); 
+	cv5->Divide(1,2);
+	for (int i = 1; i <= 2; i++) {
+		cv5->cd(i);
+		gPad->SetTopMargin(0.025);
+		gPad->SetBottomMargin(0.07);
+		gPad->SetLeftMargin(0.12);
+		gPad->SetRightMargin(0.04);
+		gPad->SetTickx(); gPad->SetTicky();
+		gPad->SetLogy();
+	}
 
-	// hist_ThrPyth_912_woHadron->SetLineColor(kBlack); hist_ThrPyth_912_woHadron->SetMarkerColor(kBlack); hist_ThrPyth_912_woHadron->SetMarkerStyle(53); hist_ThrPyth_912_woHadron->SetLineWidth(2); hist_ThrPyth_912_woHadron->SetMarkerSize(1.1);
-	// hist_ThrPyth_160_woHadron->SetLineColor(kBlack); hist_ThrPyth_160_woHadron->SetMarkerColor(kBlack); hist_ThrPyth_160_woHadron->SetMarkerStyle(53); hist_ThrPyth_160_woHadron->SetLineWidth(2); hist_ThrPyth_160_woHadron->SetMarkerSize(1.1);
-	// hist_ThrPyth_240_woHadron->SetLineColor(kBlack); hist_ThrPyth_240_woHadron->SetMarkerColor(kBlack); hist_ThrPyth_240_woHadron->SetMarkerStyle(53); hist_ThrPyth_240_woHadron->SetLineWidth(2); hist_ThrPyth_240_woHadron->SetMarkerSize(1.1);
-	// hist_ThrPyth_365_woHadron->SetLineColor(kBlack); hist_ThrPyth_365_woHadron->SetMarkerColor(kBlack); hist_ThrPyth_365_woHadron->SetMarkerStyle(53); hist_ThrPyth_365_woHadron->SetLineWidth(2); hist_ThrPyth_365_woHadron->SetMarkerSize(1.1);
+	hist_ThrPyth_912_woHadron->SetLineColor(kBlack); hist_ThrPyth_912_woHadron->SetMarkerColor(kBlack); hist_ThrPyth_912_woHadron->SetMarkerStyle(2); hist_ThrPyth_912_woHadron->SetLineWidth(2); hist_ThrPyth_912_woHadron->SetMarkerSize(1);
+	hist_ThrPyth_160_woHadron->SetLineColor(kBlack); hist_ThrPyth_160_woHadron->SetMarkerColor(kBlack); hist_ThrPyth_160_woHadron->SetMarkerStyle(2); hist_ThrPyth_160_woHadron->SetLineWidth(2); hist_ThrPyth_160_woHadron->SetMarkerSize(1);
+	hist_ThrPyth_240_woHadron->SetLineColor(kBlack); hist_ThrPyth_240_woHadron->SetMarkerColor(kBlack); hist_ThrPyth_240_woHadron->SetMarkerStyle(2); hist_ThrPyth_240_woHadron->SetLineWidth(2); hist_ThrPyth_240_woHadron->SetMarkerSize(1);
+	hist_ThrPyth_365_woHadron->SetLineColor(kBlack); hist_ThrPyth_365_woHadron->SetMarkerColor(kBlack); hist_ThrPyth_365_woHadron->SetMarkerStyle(2); hist_ThrPyth_365_woHadron->SetLineWidth(2); hist_ThrPyth_365_woHadron->SetMarkerSize(1);
 
-	// hist_CprPyth_912_woHadron->SetLineColor(kBlack); hist_CprPyth_912_woHadron->SetMarkerColor(kBlack); hist_CprPyth_912_woHadron->SetMarkerStyle(53); hist_CprPyth_912_woHadron->SetLineWidth(2); hist_CprPyth_912_woHadron->SetMarkerSize(1.1);
-	// hist_CprPyth_160_woHadron->SetLineColor(kBlack); hist_CprPyth_160_woHadron->SetMarkerColor(kBlack); hist_CprPyth_160_woHadron->SetMarkerStyle(53); hist_CprPyth_160_woHadron->SetLineWidth(2); hist_CprPyth_160_woHadron->SetMarkerSize(1.1);
-	// hist_CprPyth_240_woHadron->SetLineColor(kBlack); hist_CprPyth_240_woHadron->SetMarkerColor(kBlack); hist_CprPyth_240_woHadron->SetMarkerStyle(53); hist_CprPyth_240_woHadron->SetLineWidth(2); hist_CprPyth_240_woHadron->SetMarkerSize(1.1);
-	// hist_CprPyth_365_woHadron->SetLineColor(kBlack); hist_CprPyth_365_woHadron->SetMarkerColor(kBlack); hist_CprPyth_365_woHadron->SetMarkerStyle(53); hist_CprPyth_365_woHadron->SetLineWidth(2); hist_CprPyth_365_woHadron->SetMarkerSize(1.1);
+	hist_CprPyth_912_woHadron->SetLineColor(kBlack); hist_CprPyth_912_woHadron->SetMarkerColor(kBlack); hist_CprPyth_912_woHadron->SetMarkerStyle(2); hist_CprPyth_912_woHadron->SetLineWidth(2); hist_CprPyth_912_woHadron->SetMarkerSize(1);
+	hist_CprPyth_160_woHadron->SetLineColor(kBlack); hist_CprPyth_160_woHadron->SetMarkerColor(kBlack); hist_CprPyth_160_woHadron->SetMarkerStyle(2); hist_CprPyth_160_woHadron->SetLineWidth(2); hist_CprPyth_160_woHadron->SetMarkerSize(1);
+	hist_CprPyth_240_woHadron->SetLineColor(kBlack); hist_CprPyth_240_woHadron->SetMarkerColor(kBlack); hist_CprPyth_240_woHadron->SetMarkerStyle(2); hist_CprPyth_240_woHadron->SetLineWidth(2); hist_CprPyth_240_woHadron->SetMarkerSize(1);
+	hist_CprPyth_365_woHadron->SetLineColor(kBlack); hist_CprPyth_365_woHadron->SetMarkerColor(kBlack); hist_CprPyth_365_woHadron->SetMarkerStyle(2); hist_CprPyth_365_woHadron->SetLineWidth(2); hist_CprPyth_365_woHadron->SetMarkerSize(1);
 
-	// hist_ThrPyth_912_woHadron->GetXaxis()->CenterTitle(); hist_ThrPyth_912_woHadron->GetYaxis()->CenterTitle();
-	// hist_CprPyth_912_woHadron->GetXaxis()->CenterTitle(); hist_CprPyth_912_woHadron->GetYaxis()->CenterTitle();
+	hist_ThrPyth_912_woHadron->GetXaxis()->CenterTitle(); hist_ThrPyth_912_woHadron->GetYaxis()->CenterTitle();
+	hist_CprPyth_912_woHadron->GetXaxis()->CenterTitle(); hist_CprPyth_912_woHadron->GetYaxis()->CenterTitle();
 
-	// // Draw
-	// cv5->cd(1);
+	// Draw
+	cv5->cd(1);
 
-	// hist_ThrPyth_912_woHadron->Draw("P");
-	// hist_fitThNN_912->Draw("HIST C SAME");
+	hist_ThrPyth_912_woHadron->Draw("P");
+	hist_fitThNN_912->Draw("HIST C SAME");
 	
-	// hist_ThrPyth_160_woHadron->Scale(1E3);
-	// hist_ThrPyth_160_woHadron->Draw("P SAME");
-	// hist_fitThNN_160->Scale(1E3);
-	// hist_fitThNN_160->Draw("HIST C SAME");
+	hist_ThrPyth_160_woHadron->Scale(1E3);
+	hist_ThrPyth_160_woHadron->Draw("P SAME");
+	hist_fitThNN_160->Scale(1E3);
+	hist_fitThNN_160->Draw("HIST C SAME");
 
-	// hist_ThrPyth_240_woHadron->Scale(1E6);
-	// hist_ThrPyth_240_woHadron->Draw("P SAME");
-	// hist_fitThNN_240->Scale(1E6);
-	// hist_fitThNN_240->Draw("HIST C SAME");
+	hist_ThrPyth_240_woHadron->Scale(1E6);
+	hist_ThrPyth_240_woHadron->Draw("P SAME");
+	hist_fitThNN_240->Scale(1E6);
+	hist_fitThNN_240->Draw("HIST C SAME");
 
-	// hist_ThrPyth_365_woHadron->Scale(1E9);
-	// hist_ThrPyth_365_woHadron->Draw("P SAME");
-	// hist_fitThNN_365->Scale(1E9);
-	// hist_fitThNN_365->Draw("HIST C SAME");
+	hist_ThrPyth_365_woHadron->Scale(1E9);
+	hist_ThrPyth_365_woHadron->Draw("P SAME");
+	hist_fitThNN_365->Scale(1E9);
+	hist_fitThNN_365->Draw("HIST C SAME");
 
-	// lg5->Draw("SAME");	
+	lg5->Draw("SAME");	
 
-	// cv5->cd(2);
+	cv5->cd(2);
 
-	// hist_CprPyth_912_woHadron->Draw("P");
-	// hist_fitCpNN_912->Draw("HIST C SAME");
+	hist_CprPyth_912_woHadron->Draw("P");
+	hist_fitCpNN_912->Draw("HIST C SAME");
 
-	// hist_CprPyth_160_woHadron->Scale(1E3);
-	// hist_CprPyth_160_woHadron->Draw("P SAME");
-	// hist_fitCpNN_160->Scale(1E3);
-	// hist_fitCpNN_160->Draw("HIST C SAME");
+	hist_CprPyth_160_woHadron->Scale(1E3);
+	hist_CprPyth_160_woHadron->Draw("P SAME");
+	hist_fitCpNN_160->Scale(1E3);
+	hist_fitCpNN_160->Draw("HIST C SAME");
 
-	// hist_CprPyth_240_woHadron->Scale(1E6);
-	// hist_CprPyth_240_woHadron->Draw("P SAME");
-	// hist_fitCpNN_240->Scale(1E6);
-	// hist_fitCpNN_240->Draw("HIST C SAME");
+	hist_CprPyth_240_woHadron->Scale(1E6);
+	hist_CprPyth_240_woHadron->Draw("P SAME");
+	hist_fitCpNN_240->Scale(1E6);
+	hist_fitCpNN_240->Draw("HIST C SAME");
 
-	// hist_CprPyth_365_woHadron->Scale(1E9);
-	// hist_CprPyth_365_woHadron->Draw("P SAME");
-	// hist_fitCpNN_365->Scale(1E9);
-	// hist_fitCpNN_365->Draw("HIST C SAME");
+	hist_CprPyth_365_woHadron->Scale(1E9);
+	hist_CprPyth_365_woHadron->Draw("P SAME");
+	hist_fitCpNN_365->Scale(1E9);
+	hist_fitCpNN_365->Draw("HIST C SAME");
 
-	// lg5->Draw("SAME");	
+	lg5->Draw("SAME");	
 
-	// // Set limits
-	// hist_ThrPyth_912_woHadron->GetYaxis()->SetRangeUser(1E-3,1E12);
-	// hist_ThrPyth_912_woHadron->GetXaxis()->SetRangeUser(0,0.39);
-	// hist_CprPyth_912_woHadron->GetYaxis()->SetRangeUser(1E-3,1E12);
-	// hist_CprPyth_912_woHadron->GetXaxis()->SetRangeUser(0,0.90);
+	// Set limits
+	hist_ThrPyth_912_woHadron->GetYaxis()->SetRangeUser(1E-3,1E12);
+	hist_ThrPyth_912_woHadron->GetXaxis()->SetRangeUser(0,0.39);
+	hist_CprPyth_912_woHadron->GetYaxis()->SetRangeUser(1E-3,1E12);
+	hist_CprPyth_912_woHadron->GetXaxis()->SetRangeUser(0,0.90);
 
-	// // Modify stat-box
-	// gStyle->SetOptStat();
-	// // Update canvas
-	// cv5->Modified();
+	// Modify stat-box
+	gStyle->SetOptStat();
+	// Update canvas
+	cv5->Modified();
+	gPad->RedrawAxis();
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -777,90 +778,91 @@ void ImpactofAlpha() {
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-	// Create canvas
-	TCanvas* cv4 = new TCanvas("cv4", "FCC-ee ISR Studies", 800, 1190);
+	// // Create canvas
+	// TCanvas* cv4 = new TCanvas("cv4", "FCC-ee ISR Studies", 800, 1190);
 
-	// Add legend
-	TLegend *lg4 = new TLegend(0.43, 0.75, 0.92, 0.93);
-	lg4->AddEntry(grph_AlphaSS_PyAll, "PYTHIA (NNLO)", "P");
-	// lg4->AddEntry(grph_AlphaSS_PyThr, "PYTHIA (1-T)", "L");
-	// lg4->AddEntry(grph_AlphaSS_PyCpr, "PYTHIA (C)", "L");
-	lg4->AddEntry(grph_AlphaSS_ExALP, "ALEPH (NNLO+NLLA)", "P");
-	lg4->AddEntry(grph_AlphaSS_ExLL3, "L3 (NNLO+NLLA)", "P");
-	lg4->AddEntry(gRun3L, "QCD (3-loop)", "L");
-	lg4->SetTextSize(0.04);
+	// // Add legend
+	// TLegend *lg4 = new TLegend(0.43, 0.75, 0.92, 0.93);
+	// lg4->AddEntry(grph_AlphaSS_PyAll, "PYTHIA (NNLO)", "P");
+	// // lg4->AddEntry(grph_AlphaSS_PyThr, "PYTHIA (1-T)", "L");
+	// // lg4->AddEntry(grph_AlphaSS_PyCpr, "PYTHIA (C)", "L");
+	// lg4->AddEntry(grph_AlphaSS_ExALP, "ALEPH (NNLO+NLLA)", "P");
+	// lg4->AddEntry(grph_AlphaSS_ExLL3, "L3 (NNLO+NLLA)", "P");
+	// lg4->AddEntry(gRun3L, "QCD (3-loop)", "L");
+	// lg4->SetTextSize(0.04);
 
-	// Beautify
-	gStyle->SetLabelSize(0.05, "X");
-	gStyle->SetLabelSize(0.05, "Y");
-	gStyle->SetTitleSize(0.06, "X");
-	gStyle->SetTitleSize(0.06, "Y");
-	cv4->SetMargin(0, 0, 0, 0);
-	gPad->SetTopMargin(0.025);
-	gPad->SetBottomMargin(0.08);
-	gPad->SetLeftMargin(0.15);
-	gPad->SetRightMargin(0.04);
-	gPad->SetTickx(); gPad->SetTicky();
+	// // Beautify
+	// gStyle->SetLabelSize(0.05, "X");
+	// gStyle->SetLabelSize(0.05, "Y");
+	// gStyle->SetTitleSize(0.06, "X");
+	// gStyle->SetTitleSize(0.06, "Y");
+	// cv4->SetMargin(0, 0, 0, 0);
+	// gPad->SetTopMargin(0.025);
+	// gPad->SetBottomMargin(0.08);
+	// gPad->SetLeftMargin(0.15);
+	// gPad->SetRightMargin(0.04);
+	// gPad->SetTickx(); gPad->SetTicky();
 
-	// Beautify
-	grph_AlphaSS_PyAll->GetXaxis()->CenterTitle(); grph_AlphaSS_PyAll->GetYaxis()->CenterTitle();
-	grph_AlphaSS_PyAll->GetXaxis()->SetLabelSize(0.04); grph_AlphaSS_PyAll->GetXaxis()->SetTitleSize(0.04);
-	grph_AlphaSS_PyAll->GetYaxis()->SetLabelSize(0.04); grph_AlphaSS_PyAll->GetYaxis()->SetTitleSize(0.04);
-	grph_AlphaSS_PyAll->SetTitle("");
-	grph_AlphaSS_PyAll->GetYaxis()->SetTitle("#alpha_{S}(#sqrt{s})");
-	grph_AlphaSS_PyAll->GetXaxis()->SetTitle("#sqrt{s} (GeV)");
+	// // Beautify
+	// grph_AlphaSS_PyAll->GetXaxis()->CenterTitle(); grph_AlphaSS_PyAll->GetYaxis()->CenterTitle();
+	// grph_AlphaSS_PyAll->GetXaxis()->SetLabelSize(0.04); grph_AlphaSS_PyAll->GetXaxis()->SetTitleSize(0.04);
+	// grph_AlphaSS_PyAll->GetYaxis()->SetLabelSize(0.04); grph_AlphaSS_PyAll->GetYaxis()->SetTitleSize(0.04);
+	// grph_AlphaSS_PyAll->SetTitle("");
+	// grph_AlphaSS_PyAll->GetYaxis()->SetTitle("#alpha_{S}(#sqrt{s})");
+	// grph_AlphaSS_PyAll->GetXaxis()->SetTitle("#sqrt{s} (GeV)");
 
-	// // Draw
-	grph_AlphaSS_PyAll->Draw("APE");
-	// grph_AlphaSS_PyThr->Draw("PEL SAME");
-	// grph_AlphaSS_PyCpr->Draw("PEL SAME");
-	gBand3L->Draw("F SAME");
-	gRun3L->Draw("L SAME");
-	grph_AlphaSS_ExALP->Draw("PE SAME");
-	grph_AlphaSS_ExLL3->Draw("PE SAME");
-	// grph_AlphaSS_Disse->Draw("PEL SAME");
-	lg4->Draw("SAME");
+	// // // Draw
+	// grph_AlphaSS_PyAll->Draw("APE");
+	// // grph_AlphaSS_PyThr->Draw("PEL SAME");
+	// // grph_AlphaSS_PyCpr->Draw("PEL SAME");
+	// gBand3L->Draw("F SAME");
+	// gRun3L->Draw("L SAME");
+	// grph_AlphaSS_ExALP->Draw("PE SAME");
+	// grph_AlphaSS_ExLL3->Draw("PE SAME");
+	// // grph_AlphaSS_Disse->Draw("PEL SAME");
+	// lg4->Draw("SAME");
 
-	// Set limits
-	grph_AlphaSS_PyAll->GetYaxis()->SetRangeUser(0.09,0.16);
-	grph_AlphaSS_PyAll->GetXaxis()->SetLimits(30, 400);
+	// // Set limits
+	// grph_AlphaSS_PyAll->GetYaxis()->SetRangeUser(0.09,0.16);
+	// grph_AlphaSS_PyAll->GetXaxis()->SetLimits(30, 400);
 
-	// Update canvas
-	cv4->Modified();
+	// // Update canvas
+	// cv4->Modified();
+	// gPad->RedrawAxis();
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////
 // Print results
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-	cout << fixed << setprecision(4);
+	// cout << fixed << setprecision(4);
 
-	cout << "====== FITTING WITH THRUST ======" << endl;
-	cout << "√s \t χ²/ndf \t Alpha \t Error" << endl;
-	cout << "---------------------------------" << endl;
-	// cout << "ALEPH \t " << fits_fitThNN_91X->GetChisquare()<<"/"<<fits_fitThNN_91X->GetNDF() << "\t" << fits_fitThNN_91X->GetParameter(0) << endl; 
-	cout << "91.2 \t " << fits_fitThNN_912->GetChisquare()<<"/"<<fits_fitThNN_912->GetNDF() << "\t" << fits_fitThNN_912->GetParameter(0) << "\t" << fits_fitThNN_912->GetParError(0) << endl; 
-	cout << "160 \t " << fits_fitThNN_160->GetChisquare()<<"/"<<fits_fitThNN_160->GetNDF() << "\t" << fits_fitThNN_160->GetParameter(0) << "\t" << fits_fitThNN_160->GetParError(0) << endl;
-	cout << "240 \t " << fits_fitThNN_240->GetChisquare()<<"/"<<fits_fitThNN_240->GetNDF() << "\t" << fits_fitThNN_240->GetParameter(0) << "\t" << fits_fitThNN_240->GetParError(0) << endl;
-	cout << "365 \t " << fits_fitThNN_365->GetChisquare()<<"/"<<fits_fitThNN_365->GetNDF() << "\t" << fits_fitThNN_365->GetParameter(0) << "\t" << fits_fitThNN_365->GetParError(0) << endl;
-	cout << "=================================" << endl;
+	// cout << "====== FITTING WITH THRUST ======" << endl;
+	// cout << "√s \t χ²/ndf \t Alpha \t Error" << endl;
+	// cout << "---------------------------------" << endl;
+	// // cout << "ALEPH \t " << fits_fitThNN_91X->GetChisquare()<<"/"<<fits_fitThNN_91X->GetNDF() << "\t" << fits_fitThNN_91X->GetParameter(0) << endl; 
+	// cout << "91.2 \t " << fits_fitThNN_912->GetChisquare()<<"/"<<fits_fitThNN_912->GetNDF() << "\t" << fits_fitThNN_912->GetParameter(0) << "\t" << fits_fitThNN_912->GetParError(0) << endl; 
+	// cout << "160 \t " << fits_fitThNN_160->GetChisquare()<<"/"<<fits_fitThNN_160->GetNDF() << "\t" << fits_fitThNN_160->GetParameter(0) << "\t" << fits_fitThNN_160->GetParError(0) << endl;
+	// cout << "240 \t " << fits_fitThNN_240->GetChisquare()<<"/"<<fits_fitThNN_240->GetNDF() << "\t" << fits_fitThNN_240->GetParameter(0) << "\t" << fits_fitThNN_240->GetParError(0) << endl;
+	// cout << "365 \t " << fits_fitThNN_365->GetChisquare()<<"/"<<fits_fitThNN_365->GetNDF() << "\t" << fits_fitThNN_365->GetParameter(0) << "\t" << fits_fitThNN_365->GetParError(0) << endl;
+	// cout << "=================================" << endl;
 
-	cout << "====== FITTING WITH CPARAM ======" << endl;
-	cout << "√s \t χ²/ndf \t Alpha \t Error" << endl;
-	cout << "---------------------------------" << endl;
-	// cout << "ALEPH \t " << fits_fitCpNN_91X->GetChisquare()<<"/"<<fits_fitCpNN_91X->GetNDF() << "\t" << fits_fitCpNN_91X->GetParameter(0) << endl;
-	cout << "91.2 \t " << fits_fitCpNN_912->GetChisquare()<<"/"<<fits_fitCpNN_912->GetNDF() << "\t" << fits_fitCpNN_912->GetParameter(0) << "\t" << fits_fitCpNN_912->GetParError(0) << endl;
-	cout << "160 \t " << fits_fitCpNN_160->GetChisquare()<<"/"<<fits_fitCpNN_160->GetNDF() << "\t" << fits_fitCpNN_160->GetParameter(0) << "\t" << fits_fitCpNN_160->GetParError(0) << endl;
-	cout << "240 \t " << fits_fitCpNN_240->GetChisquare()<<"/"<<fits_fitCpNN_240->GetNDF() << "\t" << fits_fitCpNN_240->GetParameter(0) << "\t" << fits_fitCpNN_240->GetParError(0) << endl;
-	cout << "365 \t " << fits_fitCpNN_365->GetChisquare()<<"/"<<fits_fitCpNN_365->GetNDF() << "\t" << fits_fitCpNN_365->GetParameter(0) << "\t" << fits_fitCpNN_365->GetParError(0) << endl;
-	cout << "=================================" << endl;
+	// cout << "====== FITTING WITH CPARAM ======" << endl;
+	// cout << "√s \t χ²/ndf \t Alpha \t Error" << endl;
+	// cout << "---------------------------------" << endl;
+	// // cout << "ALEPH \t " << fits_fitCpNN_91X->GetChisquare()<<"/"<<fits_fitCpNN_91X->GetNDF() << "\t" << fits_fitCpNN_91X->GetParameter(0) << endl;
+	// cout << "91.2 \t " << fits_fitCpNN_912->GetChisquare()<<"/"<<fits_fitCpNN_912->GetNDF() << "\t" << fits_fitCpNN_912->GetParameter(0) << "\t" << fits_fitCpNN_912->GetParError(0) << endl;
+	// cout << "160 \t " << fits_fitCpNN_160->GetChisquare()<<"/"<<fits_fitCpNN_160->GetNDF() << "\t" << fits_fitCpNN_160->GetParameter(0) << "\t" << fits_fitCpNN_160->GetParError(0) << endl;
+	// cout << "240 \t " << fits_fitCpNN_240->GetChisquare()<<"/"<<fits_fitCpNN_240->GetNDF() << "\t" << fits_fitCpNN_240->GetParameter(0) << "\t" << fits_fitCpNN_240->GetParError(0) << endl;
+	// cout << "365 \t " << fits_fitCpNN_365->GetChisquare()<<"/"<<fits_fitCpNN_365->GetNDF() << "\t" << fits_fitCpNN_365->GetParameter(0) << "\t" << fits_fitCpNN_365->GetParError(0) << endl;
+	// cout << "=================================" << endl;
 
-	cout << "====== FINAL ======" << endl;
-	cout << "√s \t Alpha " << endl;
-	cout << "-------------------" << endl;
-	cout << "91.2 \t " << (fits_fitThNN_912->GetParameter(0)+fits_fitCpNN_912->GetParameter(0))/2 << endl;
-	cout << "160 \t " << (fits_fitThNN_160->GetParameter(0)+fits_fitCpNN_160->GetParameter(0))/2 << "\t" << endl;
-	cout << "240 \t " << (fits_fitThNN_240->GetParameter(0)+fits_fitCpNN_240->GetParameter(0))/2 << "\t" << endl;
-	cout << "365 \t " << (fits_fitThNN_365->GetParameter(0)+fits_fitCpNN_365->GetParameter(0))/2 << "\t" << endl;
-	cout << "===================" << endl;
+	// cout << "====== FINAL ======" << endl;
+	// cout << "√s \t Alpha " << endl;
+	// cout << "-------------------" << endl;
+	// cout << "91.2 \t " << (fits_fitThNN_912->GetParameter(0)+fits_fitCpNN_912->GetParameter(0))/2 << endl;
+	// cout << "160 \t " << (fits_fitThNN_160->GetParameter(0)+fits_fitCpNN_160->GetParameter(0))/2 << "\t" << endl;
+	// cout << "240 \t " << (fits_fitThNN_240->GetParameter(0)+fits_fitCpNN_240->GetParameter(0))/2 << "\t" << endl;
+	// cout << "365 \t " << (fits_fitThNN_365->GetParameter(0)+fits_fitCpNN_365->GetParameter(0))/2 << "\t" << endl;
+	// cout << "===================" << endl;
 
 }

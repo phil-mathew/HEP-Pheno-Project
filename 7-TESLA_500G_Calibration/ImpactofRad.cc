@@ -31,6 +31,15 @@
 // Header
 using namespace std;
 
+void redrawBorder()
+{
+   gPad->Update();
+   gPad->RedrawAxis();
+   TLine l;
+   l.DrawLine(gPad->GetUxmin(), gPad->GetUymax(), gPad->GetUxmax(), gPad->GetUymax());
+   l.DrawLine(gPad->GetUxmax(), gPad->GetUymin(), gPad->GetUxmax(), gPad->GetUymax());
+}
+
 // Code
 void ImpactofRad() {
 
@@ -404,6 +413,7 @@ void ImpactofRad() {
 	// gStyle->SetOptStat();
 	// // Update canvas
 	// cv2->Modified();	
+	// gPad->RedrawAxis();
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -512,5 +522,6 @@ void ImpactofRad() {
 	gStyle->SetOptStat();
 	// Update canvas
 	cv3->Modified();
+	gPad->RedrawAxis();
 
 }

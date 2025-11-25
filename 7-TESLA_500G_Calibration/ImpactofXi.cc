@@ -116,22 +116,22 @@ void ImpactofXi() {
 
 	TF1 *fits_ZetaChg_912 = new TF1("fits_ZetaChg_912", DistortedGaussian, 2.4, 4.6, 5);
 	fits_ZetaChg_912->SetParameters(hist_ZetaChg_912->Integral(), hist_ZetaChg_912->GetMean(), 0.6, 0.0, 0.0);			// Nch,ξ-bar,σ,s,k
-	fits_ZetaChg_912->SetLineColor(kRed+2); fits_ZetaChg_912->SetLineWidth(2); fits_ZetaChg_912->SetLineStyle(7); 
+	fits_ZetaChg_912->SetLineColor(kRed+2); fits_ZetaChg_912->SetLineWidth(3); fits_ZetaChg_912->SetLineStyle(7); 
 	hist_ZetaChg_912->Fit(fits_ZetaChg_912, "RNQ MINOS");
 
 	TF1 *fits_ZetaChg_160 = new TF1("fits_ZetaChg_160", DistortedGaussian, 2.6, 5.4, 5);
 	fits_ZetaChg_160->SetParameters(hist_ZetaChg_160->Integral(), hist_ZetaChg_160->GetMean(), 0.6, 0.0, 0.0);
-	fits_ZetaChg_160->SetLineColor(kRed+2); fits_ZetaChg_160->SetLineWidth(2); fits_ZetaChg_160->SetLineStyle(7); 
+	fits_ZetaChg_160->SetLineColor(kRed+2); fits_ZetaChg_160->SetLineWidth(3); fits_ZetaChg_160->SetLineStyle(7); 
 	hist_ZetaChg_160->Fit(fits_ZetaChg_160, "RNQ MINOS");
 
 	TF1 *fits_ZetaChg_240 = new TF1("fits_ZetaChg_240", DistortedGaussian, 2.8, 5.6, 5);
 	fits_ZetaChg_240->SetParameters(hist_ZetaChg_240->Integral(), hist_ZetaChg_240->GetMean(), 0.6, 0.0, 0.0);
-	fits_ZetaChg_240->SetLineColor(kRed+2); fits_ZetaChg_240->SetLineWidth(2); fits_ZetaChg_240->SetLineStyle(7); 
+	fits_ZetaChg_240->SetLineColor(kRed+2); fits_ZetaChg_240->SetLineWidth(3); fits_ZetaChg_240->SetLineStyle(7); 
 	hist_ZetaChg_240->Fit(fits_ZetaChg_240, "RNQ MINOS");
 
 	TF1 *fits_ZetaChg_365 = new TF1("fits_ZetaChg_365", DistortedGaussian, 3.0, 6.0, 5);
 	fits_ZetaChg_365->SetParameters(hist_ZetaChg_365->Integral(), hist_ZetaChg_365->GetMean(), 0.6, 0.0, 0.0);
-	fits_ZetaChg_365->SetLineColor(kRed+2); fits_ZetaChg_365->SetLineWidth(2); fits_ZetaChg_365->SetLineStyle(7); 
+	fits_ZetaChg_365->SetLineColor(kRed+2); fits_ZetaChg_365->SetLineWidth(3); fits_ZetaChg_365->SetLineStyle(7); 
 	hist_ZetaChg_365->Fit(fits_ZetaChg_365, "RNQ MINOS");
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -308,9 +308,9 @@ void ImpactofXi() {
 
 	auto grph_ZetaAvg_QCD_band =
 		new TGraphAsymmErrors(npts, E_theory, Xi_band_c, nullptr, nullptr, Xi_eyl, Xi_eyh);
-	grph_ZetaAvg_QCD_band->SetFillColorAlpha(kGray, 0.3);
-	grph_ZetaAvg_QCD_band->SetLineColor(kGray);
-	grph_ZetaAvg_QCD_band->SetLineWidth(0);
+	grph_ZetaAvg_QCD_band->SetFillColorAlpha(kBlack, 0.1);
+	grph_ZetaAvg_QCD_band->SetLineColor(kBlack);
+	grph_ZetaAvg_QCD->SetLineWidth(2);
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////
 

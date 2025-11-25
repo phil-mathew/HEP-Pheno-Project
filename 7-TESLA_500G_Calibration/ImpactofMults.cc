@@ -276,8 +276,10 @@ void ImpactofMults() {
 	}
 
 	// Style and draw band
-	grph_band->SetFillColorAlpha(kGray, 0.3);
-	grph_band->SetLineColor(0);
+	grph_band->SetFillColorAlpha(kBlack, 0.1);
+	// grph_band->SetLineColor(0);
+	// grph_nHadAvg_QCD->SetLineColor(kBlack);
+	grph_nHadAvg_QCD->SetLineWidth(2);
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////
 	

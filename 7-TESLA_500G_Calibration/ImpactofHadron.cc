@@ -174,15 +174,15 @@ void ImpactofHadron()
 	hist_CprCorr_912->GetXaxis()->SetLabelSize(0.04); hist_CprCorr_912->GetYaxis()->SetLabelSize(0.04); 
 	hist_CprCorr_912->GetXaxis()->SetTitleSize(0.04); hist_CprCorr_912->GetYaxis()->SetTitleSize(0.04); 
 
-	hist_ThrCorr_912->SetTitle(";(1-T);Hadronisation Correction");
-	hist_CprCorr_912->SetTitle(";C;Hadronisation Correction");
+	hist_ThrCorr_912->SetTitle(";(1-T);Hadronisation Correction (Hadron/Parton)");
+	hist_CprCorr_912->SetTitle(";C;Hadronisation Correction (Hadron/Parton)");
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////
 // Draw plots
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 	// Add legend
-	TLegend *lg1 = new TLegend(0.45, 0.75, 0.61, 0.95);
+	TLegend *lg1 = new TLegend(0.42, 0.78, 0.66, 0.95);
 	lg1->AddEntry(hist_ThrCorr_912, "#sqrt{s} = 91.2 GeV", "L");
 	lg1->AddEntry(hist_ThrCorr_160, "#sqrt{s} = 160 GeV", "L");
 	lg1->AddEntry(hist_ThrCorr_240, "#sqrt{s} = 240 GeV", "L");
@@ -190,7 +190,7 @@ void ImpactofHadron()
 	lg1->SetTextSize(0.03);
 
 	// Create canvas
-	TCanvas* cv = new TCanvas("cv", "FCC-ee Studies", 900, 1200);
+	TCanvas* cv = new TCanvas("cv", "FCC-ee Studies", 900, 1700);
 
 	// Beautify
 	gStyle->SetErrorX(0.000000001);
@@ -204,7 +204,7 @@ void ImpactofHadron()
 		cv->cd(i);
 		gPad->SetTopMargin(0.015);
 		gPad->SetBottomMargin(0.08);
-		gPad->SetLeftMargin(0.09);
+		gPad->SetLeftMargin(0.11);
 		gPad->SetRightMargin(0.02);
 		gPad->SetTickx(); gPad->SetTicky();
 	}
@@ -229,7 +229,7 @@ void ImpactofHadron()
 
 	// Set limits
 	hist_ThrCorr_912->GetYaxis()->SetRangeUser(0,3.0);
-	hist_ThrCorr_912->GetXaxis()->SetRangeUser(0,0.4);
+	hist_ThrCorr_912->GetXaxis()->SetRangeUser(0,0.40);
 	hist_CprCorr_912->GetYaxis()->SetRangeUser(0,3.0);
 	hist_CprCorr_912->GetXaxis()->SetRangeUser(0,1.0);
 
