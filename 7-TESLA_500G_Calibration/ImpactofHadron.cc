@@ -117,30 +117,30 @@ void ImpactofHadron()
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 	TH1F *hist_ThrCorr_912 = (TH1F*)hist_ThrPyth_912_wiHadron->Clone("hist_ThrCorr_912");
-	hist_ThrCorr_912->SetLineColor(kYellow+2); hist_ThrCorr_912->SetMarkerColor(kYellow+2); hist_ThrCorr_912->SetMarkerStyle(kStar); hist_ThrCorr_912->SetLineStyle(1); hist_ThrCorr_912->SetLineWidth(3); hist_ThrCorr_912->SetMarkerSize(1);
+	hist_ThrCorr_912->SetLineColor(kYellow+2); hist_ThrCorr_912->SetMarkerColor(kYellow+2); hist_ThrCorr_912->SetMarkerStyle(kStar); hist_ThrCorr_912->SetLineStyle(7); hist_ThrCorr_912->SetLineWidth(4); hist_ThrCorr_912->SetMarkerSize(1);
 
 	TH1F *hist_ThrCorr_160 = (TH1F*)hist_ThrPyth_160_wiHadron->Clone("hist_ThrCorr_160");
-	hist_ThrCorr_160->SetLineColor(kBlue+2); hist_ThrCorr_160->SetMarkerColor(kBlue+2); hist_ThrCorr_160->SetMarkerStyle(kStar); hist_ThrCorr_160->SetLineStyle(1); hist_ThrCorr_160->SetLineWidth(3); hist_ThrCorr_160->SetMarkerSize(1);
+	hist_ThrCorr_160->SetLineColor(kBlue+2); hist_ThrCorr_160->SetMarkerColor(kBlue+2); hist_ThrCorr_160->SetMarkerStyle(kStar); hist_ThrCorr_160->SetLineStyle(5); hist_ThrCorr_160->SetLineWidth(4); hist_ThrCorr_160->SetMarkerSize(1);
 
 	TH1F *hist_ThrCorr_240 = (TH1F*)hist_ThrPyth_240_wiHadron->Clone("hist_ThrCorr_240");
-	hist_ThrCorr_240->SetLineColor(kRed+2); hist_ThrCorr_240->SetMarkerColor(kRed+2); hist_ThrCorr_240->SetMarkerStyle(kStar); hist_ThrCorr_240->SetLineStyle(1); hist_ThrCorr_240->SetLineWidth(3); hist_ThrCorr_240->SetMarkerSize(1);
+	hist_ThrCorr_240->SetLineColor(kRed+2); hist_ThrCorr_240->SetMarkerColor(kRed+2); hist_ThrCorr_240->SetMarkerStyle(kStar); hist_ThrCorr_240->SetLineStyle(9); hist_ThrCorr_240->SetLineWidth(4); hist_ThrCorr_240->SetMarkerSize(1);
 
 	TH1F *hist_ThrCorr_365 = (TH1F*)hist_ThrPyth_365_wiHadron->Clone("hist_ThrCorr_365");
-	hist_ThrCorr_365->SetLineColor(kGreen+2); hist_ThrCorr_365->SetMarkerColor(kGreen+2); hist_ThrCorr_365->SetMarkerStyle(kStar); hist_ThrCorr_365->SetLineStyle(1); hist_ThrCorr_365->SetLineWidth(3); hist_ThrCorr_365->SetMarkerSize(1);
+	hist_ThrCorr_365->SetLineColor(kGreen+2); hist_ThrCorr_365->SetMarkerColor(kGreen+2); hist_ThrCorr_365->SetMarkerStyle(kStar); hist_ThrCorr_365->SetLineStyle(10); hist_ThrCorr_365->SetLineWidth(4); hist_ThrCorr_365->SetMarkerSize(1);
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 	TH1F *hist_CprCorr_912 = (TH1F*)hist_CprPyth_912_wiHadron->Clone("hist_CprCorr_912");
-	hist_CprCorr_912->SetLineColor(kYellow+2); hist_CprCorr_912->SetMarkerColor(kYellow+2); hist_CprCorr_912->SetMarkerStyle(kStar); hist_CprCorr_912->SetLineStyle(1); hist_CprCorr_912->SetLineWidth(3); hist_CprCorr_912->SetMarkerSize(1);
+	hist_CprCorr_912->SetLineColor(kYellow+2); hist_CprCorr_912->SetMarkerColor(kYellow+2); hist_CprCorr_912->SetMarkerStyle(kStar); hist_CprCorr_912->SetLineStyle(7); hist_CprCorr_912->SetLineWidth(4); hist_CprCorr_912->SetMarkerSize(1);
 
 	TH1F *hist_CprCorr_160 = (TH1F*)hist_CprPyth_160_wiHadron->Clone("hist_CprCorr_160");
-	hist_CprCorr_160->SetLineColor(kBlue+2); hist_CprCorr_160->SetMarkerColor(kBlue+2); hist_CprCorr_160->SetMarkerStyle(kStar); hist_CprCorr_160->SetLineStyle(1); hist_CprCorr_160->SetLineWidth(3); hist_CprCorr_160->SetMarkerSize(1);
+	hist_CprCorr_160->SetLineColor(kBlue+2); hist_CprCorr_160->SetMarkerColor(kBlue+2); hist_CprCorr_160->SetMarkerStyle(kStar); hist_CprCorr_160->SetLineStyle(5); hist_CprCorr_160->SetLineWidth(4); hist_CprCorr_160->SetMarkerSize(1);
 
 	TH1F *hist_CprCorr_240 = (TH1F*)hist_CprPyth_240_wiHadron->Clone("hist_CprCorr_240");
-	hist_CprCorr_240->SetLineColor(kRed+2); hist_CprCorr_240->SetMarkerColor(kRed+2); hist_CprCorr_240->SetMarkerStyle(kStar); hist_CprCorr_240->SetLineStyle(1); hist_CprCorr_240->SetLineWidth(3); hist_CprCorr_240->SetMarkerSize(1);
+	hist_CprCorr_240->SetLineColor(kRed+2); hist_CprCorr_240->SetMarkerColor(kRed+2); hist_CprCorr_240->SetMarkerStyle(kStar); hist_CprCorr_240->SetLineStyle(9); hist_CprCorr_240->SetLineWidth(4); hist_CprCorr_240->SetMarkerSize(1);
 
 	TH1F *hist_CprCorr_365 = (TH1F*)hist_CprPyth_365_wiHadron->Clone("hist_CprCorr_365");
-	hist_CprCorr_365->SetLineColor(kGreen+2); hist_CprCorr_365->SetMarkerColor(kGreen+2); hist_CprCorr_365->SetMarkerStyle(kStar); hist_CprCorr_365->SetLineStyle(1); hist_CprCorr_365->SetLineWidth(3); hist_CprCorr_365->SetMarkerSize(1);
+	hist_CprCorr_365->SetLineColor(kGreen+2); hist_CprCorr_365->SetMarkerColor(kGreen+2); hist_CprCorr_365->SetMarkerStyle(kStar); hist_CprCorr_365->SetLineStyle(10); hist_CprCorr_365->SetLineWidth(4); hist_CprCorr_365->SetMarkerSize(1);
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
