@@ -38,7 +38,7 @@ void ImpactofHad() {
 // Reading ROOTS
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-	TFile *input = new TFile("5-CutData/cut_FCC365.root", "READ");
+	TFile *input = new TFile("5-CutData/cut_FCC912.root", "READ");
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////
 // Reading Pythia histograms from ROOT files
@@ -270,7 +270,7 @@ void ImpactofHad() {
 	h7->Draw("HIST SAME");
 
 	// Add legend
-	TLegend* lg2 = new TLegend(0.78, 0.70, 0.92, 0.95);
+	TLegend* lg2 = new TLegend(0.80, 0.70, 0.93, 0.95);
 	lg2->AddEntry(h1, "ee#rightarrowq#bar{q}", "F");
 	lg2->AddEntry(h2, "ee#rightarrow#gamma*/Z", "F");
 	lg2->AddEntry(h3, "ee#rightarrowWW", "F");
@@ -280,6 +280,7 @@ void ImpactofHad() {
 	lg2->AddEntry(h7, "ee#rightarrow#nu#bar{#nu}H", "F");
 	lg2->SetTextSize(0.03);
 	lg2->Draw("SAME");
+	gPad->RedrawAxis();
 
 	cv2->cd(2);
 	hist_CprPyth_al->SetFillColor(10);
@@ -339,6 +340,7 @@ void ImpactofHad() {
 	h71->Draw("HIST SAME");
 
 	lg2->Draw("SAME");
+	gPad->RedrawAxis();
 
 	cv2->cd(3);
 	hist_nHadChg_al->SetFillColor(10);
@@ -398,6 +400,7 @@ void ImpactofHad() {
 	h72->Draw("HIST SAME");
 
 	lg2->Draw("SAME");
+	gPad->RedrawAxis();
 
 	// Set limits
 	hist_ThrPyth_al->GetYaxis()->SetRangeUser(1E0,1E7);
@@ -411,5 +414,6 @@ void ImpactofHad() {
 	gStyle->SetOptStat();
 	// Update canvas
 	cv2->Modified();
+	
 	
 }

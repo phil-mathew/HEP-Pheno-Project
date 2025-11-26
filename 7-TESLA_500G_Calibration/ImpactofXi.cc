@@ -76,13 +76,13 @@ void ImpactofXi() {
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////	
 
 	TH1F *hist_ZetaChg_912 = (TH1F*)input_912->Get("hist_ZetaChg");
-	hist_ZetaChg_912->SetLineColor(kBlack); hist_ZetaChg_912->SetMarkerColor(kBlack); hist_ZetaChg_912->SetMarkerStyle(53); hist_ZetaChg_912->SetLineWidth(1); hist_ZetaChg_912->SetMarkerSize(1.5);
+	hist_ZetaChg_912->SetLineColor(kBlack); hist_ZetaChg_912->SetMarkerColor(kBlack); hist_ZetaChg_912->SetMarkerStyle(53); hist_ZetaChg_912->SetLineWidth(1); hist_ZetaChg_912->SetMarkerSize(1);
 	TH1F *hist_ZetaChg_160 = (TH1F*)input_160->Get("hist_ZetaChg");
-	hist_ZetaChg_160->SetLineColor(kBlack); hist_ZetaChg_160->SetMarkerColor(kBlack); hist_ZetaChg_160->SetMarkerStyle(54); hist_ZetaChg_160->SetLineWidth(1); hist_ZetaChg_160->SetMarkerSize(1);
+	hist_ZetaChg_160->SetLineColor(kBlack); hist_ZetaChg_160->SetMarkerColor(kBlack); hist_ZetaChg_160->SetMarkerStyle(2); hist_ZetaChg_160->SetLineWidth(1); hist_ZetaChg_160->SetMarkerSize(1);
 	TH1F *hist_ZetaChg_240 = (TH1F*)input_240->Get("hist_ZetaChg");
-	hist_ZetaChg_240->SetLineColor(kBlack); hist_ZetaChg_240->SetMarkerColor(kBlack); hist_ZetaChg_240->SetMarkerStyle(55); hist_ZetaChg_240->SetLineWidth(1); hist_ZetaChg_240->SetMarkerSize(1);
+	hist_ZetaChg_240->SetLineColor(kBlack); hist_ZetaChg_240->SetMarkerColor(kBlack); hist_ZetaChg_240->SetMarkerStyle(3); hist_ZetaChg_240->SetLineWidth(1); hist_ZetaChg_240->SetMarkerSize(1);
 	TH1F *hist_ZetaChg_365 = (TH1F*)input_365->Get("hist_ZetaChg");
-	hist_ZetaChg_365->SetLineColor(kBlack); hist_ZetaChg_365->SetMarkerColor(kBlack); hist_ZetaChg_365->SetMarkerStyle(59); hist_ZetaChg_365->SetLineWidth(1); hist_ZetaChg_365->SetMarkerSize(1.5);
+	hist_ZetaChg_365->SetLineColor(kBlack); hist_ZetaChg_365->SetMarkerColor(kBlack); hist_ZetaChg_365->SetMarkerStyle(5); hist_ZetaChg_365->SetLineWidth(1); hist_ZetaChg_365->SetMarkerSize(1);
 
 	TH1F *hist_ZetaAll_912 = (TH1F*)input_912->Get("hist_ZetaAll");
 	hist_ZetaAll_912->SetLineColor(kBlue+2); hist_ZetaAll_912->SetMarkerColor(kBlue+2); hist_ZetaAll_912->SetMarkerStyle(53); hist_ZetaAll_912->SetLineWidth(2); hist_ZetaAll_912->SetMarkerSize(1);
@@ -314,54 +314,54 @@ void ImpactofXi() {
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-	// Create canvas
-	TCanvas* cv5 = new TCanvas("cv5", "FCC-ee ISR Studies", 800, 850);
+	// // Create canvas
+	// TCanvas* cv5 = new TCanvas("cv5", "FCC-ee ISR Studies", 800, 850);
 
-	// Add legend
-	TLegend *lg4 = new TLegend(0.72, 0.16, 0.90, 0.35);
-	lg4->AddEntry(grph_ZetaAvg_Pythi, "PYTHIA", "P");
-	lg4->AddEntry(grph_ZetaAvg_ExALP, "ALEPH", "P");
-	lg4->AddEntry(grph_ZetaAvg_ExLL3, "L3", "P");
-	lg4->AddEntry(grph_ZetaAvg_ExTAS, "TASSO", "P");
-	lg4->AddEntry(grph_ZetaAvg_QCD, "MLLA", "L");
-	lg4->SetTextSize(0.04);
+	// // Add legend
+	// TLegend *lg4 = new TLegend(0.72, 0.16, 0.90, 0.35);
+	// lg4->AddEntry(grph_ZetaAvg_Pythi, "PYTHIA", "P");
+	// lg4->AddEntry(grph_ZetaAvg_ExALP, "ALEPH", "P");
+	// lg4->AddEntry(grph_ZetaAvg_ExLL3, "L3", "P");
+	// lg4->AddEntry(grph_ZetaAvg_ExTAS, "TASSO", "P");
+	// lg4->AddEntry(grph_ZetaAvg_QCD, "MLLA", "L");
+	// lg4->SetTextSize(0.04);
 
-	// Beautify
-	gStyle->SetLabelSize(0.05, "X");
-	gStyle->SetLabelSize(0.05, "Y");
-	gStyle->SetTitleSize(0.06, "X");
-	gStyle->SetTitleSize(0.06, "Y");
-	cv5->SetMargin(0, 0, 0, 0);
-	gPad->SetTopMargin(0.025);
-	gPad->SetBottomMargin(0.09);
-	gPad->SetLeftMargin(0.12);
-	gPad->SetRightMargin(0.05);
-	gPad->SetTickx(); gPad->SetTicky();
+	// // Beautify
+	// gStyle->SetLabelSize(0.05, "X");
+	// gStyle->SetLabelSize(0.05, "Y");
+	// gStyle->SetTitleSize(0.06, "X");
+	// gStyle->SetTitleSize(0.06, "Y");
+	// cv5->SetMargin(0, 0, 0, 0);
+	// gPad->SetTopMargin(0.025);
+	// gPad->SetBottomMargin(0.09);
+	// gPad->SetLeftMargin(0.12);
+	// gPad->SetRightMargin(0.05);
+	// gPad->SetTickx(); gPad->SetTicky();
 
-	// Beautify
-	grph_ZetaAvg_Pythi->GetXaxis()->CenterTitle(); grph_ZetaAvg_Pythi->GetYaxis()->CenterTitle();
-	grph_ZetaAvg_Pythi->GetXaxis()->SetLabelSize(0.04); grph_ZetaAvg_Pythi->GetXaxis()->SetTitleSize(0.04);
-	grph_ZetaAvg_Pythi->GetYaxis()->SetLabelSize(0.04); grph_ZetaAvg_Pythi->GetYaxis()->SetTitleSize(0.04);
-	grph_ZetaAvg_Pythi->SetTitle("");
-	grph_ZetaAvg_Pythi->GetYaxis()->SetTitle("#xi*");
-	grph_ZetaAvg_Pythi->GetXaxis()->SetTitle("#sqrt{s} (GeV)");
+	// // Beautify
+	// grph_ZetaAvg_Pythi->GetXaxis()->CenterTitle(); grph_ZetaAvg_Pythi->GetYaxis()->CenterTitle();
+	// grph_ZetaAvg_Pythi->GetXaxis()->SetLabelSize(0.04); grph_ZetaAvg_Pythi->GetXaxis()->SetTitleSize(0.04);
+	// grph_ZetaAvg_Pythi->GetYaxis()->SetLabelSize(0.04); grph_ZetaAvg_Pythi->GetYaxis()->SetTitleSize(0.04);
+	// grph_ZetaAvg_Pythi->SetTitle("");
+	// grph_ZetaAvg_Pythi->GetYaxis()->SetTitle("#xi*");
+	// grph_ZetaAvg_Pythi->GetXaxis()->SetTitle("#sqrt{s} (GeV)");
 
-	// Draw
-	grph_ZetaAvg_Pythi->Draw("AP");
-	grph_ZetaAvg_QCD_band->Draw("3 SAME");
-	grph_ZetaAvg_QCD->Draw("L SAME");
-	grph_ZetaAvg_Pythi->Draw("P SAME");
-	grph_ZetaAvg_ExALP->Draw("PE SAME");
-	grph_ZetaAvg_ExLL3->Draw("PE SAME");
-	grph_ZetaAvg_ExTAS->Draw("PE SAME");
-	lg4->Draw("SAME");
+	// // Draw
+	// grph_ZetaAvg_Pythi->Draw("AP");
+	// grph_ZetaAvg_QCD_band->Draw("3 SAME");
+	// grph_ZetaAvg_QCD->Draw("L SAME");
+	// grph_ZetaAvg_Pythi->Draw("P SAME");
+	// grph_ZetaAvg_ExALP->Draw("PE SAME");
+	// grph_ZetaAvg_ExLL3->Draw("PE SAME");
+	// grph_ZetaAvg_ExTAS->Draw("PE SAME");
+	// lg4->Draw("SAME");
 
-	// Set limits
-	grph_ZetaAvg_Pythi->GetYaxis()->SetRangeUser(2,5);
-	grph_ZetaAvg_Pythi->GetXaxis()->SetLimits(0, 400);
+	// // Set limits
+	// grph_ZetaAvg_Pythi->GetYaxis()->SetRangeUser(2,5);
+	// grph_ZetaAvg_Pythi->GetXaxis()->SetLimits(0, 400);
 
-	// Update canvas
-	cv5->Modified();
+	// // Update canvas
+	// cv5->Modified();
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////
 // Print results
