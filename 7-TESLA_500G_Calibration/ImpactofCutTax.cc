@@ -140,6 +140,9 @@ void ImpactofCutTax()
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 	gStyle->SetCanvasPreferGL(true);
+	gStyle->SetTextFont(42);
+	gStyle->SetLabelFont(42, "XYZ");
+	gStyle->SetTitleFont(42, "XYZ");
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -179,6 +182,11 @@ void ImpactofCutTax()
 	hist_TaxPyth_al_160->GetYaxis()->SetTitle("N_{events}");
 	hist_TaxPyth_al_240->GetYaxis()->SetTitle("N_{events}");
 	hist_TaxPyth_al_365->GetYaxis()->SetTitle("N_{events}");
+
+	hist_TaxPyth_al_912->GetXaxis()->SetTitle("cos#Theta_{Thrust}");
+	hist_TaxPyth_al_160->GetXaxis()->SetTitle("cos#Theta_{Thrust}");
+	hist_TaxPyth_al_240->GetXaxis()->SetTitle("cos#Theta_{Thrust}");
+	hist_TaxPyth_al_365->GetXaxis()->SetTitle("cos#Theta_{Thrust}");
 
 	hist_TaxPyth_al_912->GetXaxis()->CenterTitle(); hist_TaxPyth_al_912->GetYaxis()->CenterTitle();
 	hist_TaxPyth_al_160->GetXaxis()->CenterTitle(); hist_TaxPyth_al_160->GetYaxis()->CenterTitle();

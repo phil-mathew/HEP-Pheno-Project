@@ -228,7 +228,7 @@ void ImpactofExp() {
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 	// Create canvas
-	TCanvas* cv1 = new TCanvas("cv1", "FCC-ee ISR Studies", 900, 2280);
+	TCanvas* cv1 = new TCanvas("cv1", "FCC-ee ISR Studies", 900, 2260);
 
 	// Add legend
 	TLegend *lg = new TLegend(0.72, 0.84, 0.92, 0.95);

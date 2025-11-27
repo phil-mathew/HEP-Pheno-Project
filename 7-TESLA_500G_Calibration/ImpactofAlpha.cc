@@ -574,7 +574,7 @@ void ImpactofAlpha() {
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 	// Create canvas
-	TCanvas* cv5 = new TCanvas("cv5", "FCC-ee ISR Studies", 800, 1800);
+	TCanvas* cv5 = new TCanvas("cv5", "FCC-ee ISR Studies", 800, 2050);
 
 	TLegend* lg5 = new TLegend(0.73, 0.85, 0.92, 0.93);
 	lg5->AddEntry(hist_ThrPyth_912_woHadron, "PYTHIA", "P");
