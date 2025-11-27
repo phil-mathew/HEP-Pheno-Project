@@ -74,50 +74,50 @@ void ImpactofMults() {
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////	
 
 	TH1F *hist_nHadChg_912_Zq = (TH1F*)input_912->Get("hist_nHadChg_Zq");
-	hist_nHadChg_912_Zq->SetLineColor(kBlue+2); hist_nHadChg_912_Zq->SetMarkerColor(kBlue+2); hist_nHadChg_912_Zq->SetMarkerStyle(26); hist_nHadChg_912_Zq->SetLineWidth(2); hist_nHadChg_912_Zq->SetMarkerSize(2);
+	hist_nHadChg_912_Zq->SetLineColor(kBlue+2); hist_nHadChg_912_Zq->SetMarkerColor(kBlue+2); hist_nHadChg_912_Zq->SetMarkerStyle(26); hist_nHadChg_912_Zq->SetLineWidth(1); hist_nHadChg_912_Zq->SetMarkerSize(2);
 	TH1F *hist_nHadChg_160_Zq = (TH1F*)input_160->Get("hist_nHadChg_Zq");
-	hist_nHadChg_160_Zq->SetLineColor(kYellow+2); hist_nHadChg_160_Zq->SetMarkerColor(kYellow+2); hist_nHadChg_160_Zq->SetMarkerStyle(26); hist_nHadChg_160_Zq->SetLineWidth(2); hist_nHadChg_160_Zq->SetMarkerSize(2);
+	hist_nHadChg_160_Zq->SetLineColor(kYellow+2); hist_nHadChg_160_Zq->SetMarkerColor(kYellow+2); hist_nHadChg_160_Zq->SetMarkerStyle(26); hist_nHadChg_160_Zq->SetLineWidth(1); hist_nHadChg_160_Zq->SetMarkerSize(2);
 	TH1F *hist_nHadChg_240_Zq = (TH1F*)input_240->Get("hist_nHadChg_Zq");
-	hist_nHadChg_240_Zq->SetLineColor(kGreen+2); hist_nHadChg_240_Zq->SetMarkerColor(kGreen+2); hist_nHadChg_240_Zq->SetMarkerStyle(26); hist_nHadChg_240_Zq->SetLineWidth(2); hist_nHadChg_240_Zq->SetMarkerSize(2);
+	hist_nHadChg_240_Zq->SetLineColor(kGreen+2); hist_nHadChg_240_Zq->SetMarkerColor(kGreen+2); hist_nHadChg_240_Zq->SetMarkerStyle(26); hist_nHadChg_240_Zq->SetLineWidth(1); hist_nHadChg_240_Zq->SetMarkerSize(2);
 
 	TH1F* hist_nHadChg_365_al = (TH1F*)input_365->Get("hist_nHadChg");
-	hist_nHadChg_365_al->SetLineColor(kBlack); hist_nHadChg_365_al->SetMarkerColor(kBlack); hist_nHadChg_365_al->SetMarkerStyle(21); hist_nHadChg_365_al->SetLineWidth(2); hist_nHadChg_365_al->SetMarkerSize(1);
+	hist_nHadChg_365_al->SetLineColor(kBlack); hist_nHadChg_365_al->SetMarkerColor(kBlack); hist_nHadChg_365_al->SetMarkerStyle(21); hist_nHadChg_365_al->SetLineWidth(1); hist_nHadChg_365_al->SetMarkerSize(1);
 	TH1F* hist_nHadChg_365_Zq = (TH1F*)input_365->Get("hist_nHadChg_Zq");
-	hist_nHadChg_365_Zq->SetLineColor(kRed+2); hist_nHadChg_365_Zq->SetMarkerColor(kRed+1); hist_nHadChg_365_Zq->SetMarkerStyle(21); hist_nHadChg_365_Zq->SetLineWidth(2); hist_nHadChg_365_Zq->SetMarkerSize(1);
+	hist_nHadChg_365_Zq->SetLineColor(kRed+2); hist_nHadChg_365_Zq->SetMarkerColor(kRed+1); hist_nHadChg_365_Zq->SetMarkerStyle(21); hist_nHadChg_365_Zq->SetLineWidth(1); hist_nHadChg_365_Zq->SetMarkerSize(1);
 	TH1F* hist_nHadChg_365_WW = (TH1F*)input_365->Get("hist_nHadChg_WW");
-	hist_nHadChg_365_WW->SetLineColor(kGreen+2); hist_nHadChg_365_WW->SetMarkerColor(kGreen+1); hist_nHadChg_365_WW->SetMarkerStyle(21); hist_nHadChg_365_WW->SetLineWidth(2); hist_nHadChg_365_WW->SetMarkerSize(1);
+	hist_nHadChg_365_WW->SetLineColor(kGreen+2); hist_nHadChg_365_WW->SetMarkerColor(kGreen+1); hist_nHadChg_365_WW->SetMarkerStyle(21); hist_nHadChg_365_WW->SetLineWidth(1); hist_nHadChg_365_WW->SetMarkerSize(1);
 	TH1F* hist_nHadChg_365_ZZ = (TH1F*)input_365->Get("hist_nHadChg_ZZ");
-	hist_nHadChg_365_ZZ->SetLineColor(kBlue+2); hist_nHadChg_365_ZZ->SetMarkerColor(kBlue+1); hist_nHadChg_365_ZZ->SetMarkerStyle(21); hist_nHadChg_365_ZZ->SetLineWidth(2); hist_nHadChg_365_ZZ->SetMarkerSize(1);
+	hist_nHadChg_365_ZZ->SetLineColor(kBlue+2); hist_nHadChg_365_ZZ->SetMarkerColor(kBlue+1); hist_nHadChg_365_ZZ->SetMarkerStyle(21); hist_nHadChg_365_ZZ->SetLineWidth(1); hist_nHadChg_365_ZZ->SetMarkerSize(1);
 	TH1F* hist_nHadChg_365_tt = (TH1F*)input_365->Get("hist_nHadChg_tt");
-	hist_nHadChg_365_tt->SetLineColor(kYellow+2); hist_nHadChg_365_tt->SetMarkerColor(kYellow+1); hist_nHadChg_365_tt->SetMarkerStyle(21); hist_nHadChg_365_tt->SetLineWidth(2); hist_nHadChg_365_tt->SetMarkerSize(1);
+	hist_nHadChg_365_tt->SetLineColor(kYellow+2); hist_nHadChg_365_tt->SetMarkerColor(kYellow+1); hist_nHadChg_365_tt->SetMarkerStyle(21); hist_nHadChg_365_tt->SetLineWidth(1); hist_nHadChg_365_tt->SetMarkerSize(1);
 	TH1F* hist_nHadChg_365_HZ = (TH1F*)input_365->Get("hist_nHadChg_HZ");
-	hist_nHadChg_365_HZ->SetLineColor(kMagenta+2); hist_nHadChg_365_HZ->SetMarkerColor(kMagenta+1); hist_nHadChg_365_HZ->SetMarkerStyle(21); hist_nHadChg_365_HZ->SetLineWidth(2); hist_nHadChg_365_HZ->SetMarkerSize(1);
+	hist_nHadChg_365_HZ->SetLineColor(kMagenta+2); hist_nHadChg_365_HZ->SetMarkerColor(kMagenta+1); hist_nHadChg_365_HZ->SetMarkerStyle(21); hist_nHadChg_365_HZ->SetLineWidth(1); hist_nHadChg_365_HZ->SetMarkerSize(1);
 	TH1F* hist_nHadChg_365_HW = (TH1F*)input_365->Get("hist_nHadChg_HW");
-	hist_nHadChg_365_HW->SetLineColor(kCyan+2); hist_nHadChg_365_HW->SetMarkerColor(kCyan+1); hist_nHadChg_365_HW->SetMarkerStyle(21); hist_nHadChg_365_HW->SetLineWidth(2); hist_nHadChg_365_HW->SetMarkerSize(1);
+	hist_nHadChg_365_HW->SetLineColor(kCyan+2); hist_nHadChg_365_HW->SetMarkerColor(kCyan+1); hist_nHadChg_365_HW->SetMarkerStyle(21); hist_nHadChg_365_HW->SetLineWidth(1); hist_nHadChg_365_HW->SetMarkerSize(1);
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 	TH1F *hist_nHadAll_912_Zq = (TH1F*)input_912->Get("hist_nHadAll_Zq");
-	hist_nHadAll_912_Zq->SetLineColor(kBlue+2); hist_nHadAll_912_Zq->SetMarkerColor(kBlue+2); hist_nHadAll_912_Zq->SetMarkerStyle(26); hist_nHadAll_912_Zq->SetLineWidth(2); hist_nHadAll_912_Zq->SetMarkerSize(2);
+	hist_nHadAll_912_Zq->SetLineColor(kBlue+2); hist_nHadAll_912_Zq->SetMarkerColor(kBlue+2); hist_nHadAll_912_Zq->SetMarkerStyle(26); hist_nHadAll_912_Zq->SetLineWidth(1); hist_nHadAll_912_Zq->SetMarkerSize(2);
 	TH1F *hist_nHadAll_160_Zq = (TH1F*)input_160->Get("hist_nHadAll_Zq");
-	hist_nHadAll_160_Zq->SetLineColor(kYellow+2); hist_nHadAll_160_Zq->SetMarkerColor(kYellow+2); hist_nHadAll_160_Zq->SetMarkerStyle(26); hist_nHadAll_160_Zq->SetLineWidth(2); hist_nHadAll_160_Zq->SetMarkerSize(2);
+	hist_nHadAll_160_Zq->SetLineColor(kYellow+2); hist_nHadAll_160_Zq->SetMarkerColor(kYellow+2); hist_nHadAll_160_Zq->SetMarkerStyle(26); hist_nHadAll_160_Zq->SetLineWidth(1); hist_nHadAll_160_Zq->SetMarkerSize(2);
 	TH1F *hist_nHadAll_240_Zq = (TH1F*)input_240->Get("hist_nHadAll_Zq");
-	hist_nHadAll_240_Zq->SetLineColor(kGreen+2); hist_nHadAll_240_Zq->SetMarkerColor(kGreen+2); hist_nHadAll_240_Zq->SetMarkerStyle(26); hist_nHadAll_240_Zq->SetLineWidth(2); hist_nHadAll_240_Zq->SetMarkerSize(2);
+	hist_nHadAll_240_Zq->SetLineColor(kGreen+2); hist_nHadAll_240_Zq->SetMarkerColor(kGreen+2); hist_nHadAll_240_Zq->SetMarkerStyle(26); hist_nHadAll_240_Zq->SetLineWidth(1); hist_nHadAll_240_Zq->SetMarkerSize(2);
 
 	TH1F* hist_nHadAll_365_al = (TH1F*)input_365->Get("hist_nHadAll");
-	hist_nHadAll_365_al->SetLineColor(kBlack); hist_nHadAll_365_al->SetMarkerColor(kBlack); hist_nHadAll_365_al->SetMarkerStyle(21); hist_nHadAll_365_al->SetLineWidth(2); hist_nHadAll_365_al->SetMarkerSize(1);
+	hist_nHadAll_365_al->SetLineColor(kBlack); hist_nHadAll_365_al->SetMarkerColor(kBlack); hist_nHadAll_365_al->SetMarkerStyle(21); hist_nHadAll_365_al->SetLineWidth(1); hist_nHadAll_365_al->SetMarkerSize(1);
 	TH1F* hist_nHadAll_365_Zq = (TH1F*)input_365->Get("hist_nHadAll_Zq");
-	hist_nHadAll_365_Zq->SetLineColor(kRed+2); hist_nHadAll_365_Zq->SetMarkerColor(kRed+1); hist_nHadAll_365_Zq->SetMarkerStyle(21); hist_nHadAll_365_Zq->SetLineWidth(2); hist_nHadAll_365_Zq->SetMarkerSize(1);
+	hist_nHadAll_365_Zq->SetLineColor(kRed+2); hist_nHadAll_365_Zq->SetMarkerColor(kRed+1); hist_nHadAll_365_Zq->SetMarkerStyle(21); hist_nHadAll_365_Zq->SetLineWidth(1); hist_nHadAll_365_Zq->SetMarkerSize(1);
 	TH1F* hist_nHadAll_365_WW = (TH1F*)input_365->Get("hist_nHadAll_WW");
-	hist_nHadAll_365_WW->SetLineColor(kGreen+2); hist_nHadAll_365_WW->SetMarkerColor(kGreen+1); hist_nHadAll_365_WW->SetMarkerStyle(21); hist_nHadAll_365_WW->SetLineWidth(2); hist_nHadAll_365_WW->SetMarkerSize(1);
+	hist_nHadAll_365_WW->SetLineColor(kGreen+2); hist_nHadAll_365_WW->SetMarkerColor(kGreen+1); hist_nHadAll_365_WW->SetMarkerStyle(21); hist_nHadAll_365_WW->SetLineWidth(1); hist_nHadAll_365_WW->SetMarkerSize(1);
 	TH1F* hist_nHadAll_365_ZZ = (TH1F*)input_365->Get("hist_nHadAll_ZZ");
-	hist_nHadAll_365_ZZ->SetLineColor(kBlue+2); hist_nHadAll_365_ZZ->SetMarkerColor(kBlue+1); hist_nHadAll_365_ZZ->SetMarkerStyle(21); hist_nHadAll_365_ZZ->SetLineWidth(2); hist_nHadAll_365_ZZ->SetMarkerSize(1);
+	hist_nHadAll_365_ZZ->SetLineColor(kBlue+2); hist_nHadAll_365_ZZ->SetMarkerColor(kBlue+1); hist_nHadAll_365_ZZ->SetMarkerStyle(21); hist_nHadAll_365_ZZ->SetLineWidth(1); hist_nHadAll_365_ZZ->SetMarkerSize(1);
 	TH1F* hist_nHadAll_365_tt = (TH1F*)input_365->Get("hist_nHadAll_tt");
-	hist_nHadAll_365_tt->SetLineColor(kYellow+2); hist_nHadAll_365_tt->SetMarkerColor(kYellow+1); hist_nHadAll_365_tt->SetMarkerStyle(21); hist_nHadAll_365_tt->SetLineWidth(2); hist_nHadAll_365_tt->SetMarkerSize(1);
+	hist_nHadAll_365_tt->SetLineColor(kYellow+2); hist_nHadAll_365_tt->SetMarkerColor(kYellow+1); hist_nHadAll_365_tt->SetMarkerStyle(21); hist_nHadAll_365_tt->SetLineWidth(1); hist_nHadAll_365_tt->SetMarkerSize(1);
 	TH1F* hist_nHadAll_365_HZ = (TH1F*)input_365->Get("hist_nHadAll_HZ");
-	hist_nHadAll_365_HZ->SetLineColor(kMagenta+2); hist_nHadAll_365_HZ->SetMarkerColor(kMagenta+1); hist_nHadAll_365_HZ->SetMarkerStyle(21); hist_nHadAll_365_HZ->SetLineWidth(2); hist_nHadAll_365_HZ->SetMarkerSize(1);
+	hist_nHadAll_365_HZ->SetLineColor(kMagenta+2); hist_nHadAll_365_HZ->SetMarkerColor(kMagenta+1); hist_nHadAll_365_HZ->SetMarkerStyle(21); hist_nHadAll_365_HZ->SetLineWidth(1); hist_nHadAll_365_HZ->SetMarkerSize(1);
 	TH1F* hist_nHadAll_365_HW = (TH1F*)input_365->Get("hist_nHadAll_HW");
-	hist_nHadAll_365_HW->SetLineColor(kCyan+2); hist_nHadAll_365_HW->SetMarkerColor(kCyan+1); hist_nHadAll_365_HW->SetMarkerStyle(21); hist_nHadAll_365_HW->SetLineWidth(2); hist_nHadAll_365_HW->SetMarkerSize(1);
+	hist_nHadAll_365_HW->SetLineColor(kCyan+2); hist_nHadAll_365_HW->SetMarkerColor(kCyan+1); hist_nHadAll_365_HW->SetMarkerStyle(21); hist_nHadAll_365_HW->SetLineWidth(1); hist_nHadAll_365_HW->SetMarkerSize(1);
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////
 // Disable histogram stats
@@ -287,7 +287,7 @@ void ImpactofMults() {
 	TCanvas* cv4 = new TCanvas("cv4", "FCC-ee ISR Studies", 800, 850);
 
 	// Add legend
-	TLegend *lg4 = new TLegend(0.72, 0.15, 0.90, 0.40);
+	TLegend *lg4 = new TLegend(0.72, 0.15, 0.90, 0.43);
 	lg4->AddEntry(grph_nHadAvg_Pythi, "PYTHIA", "P");
 	lg4->AddEntry(grph_nHadAvg_ExALP, "ALEPH", "P");
 	lg4->AddEntry(grph_nHadAvg_ExLL3, "L3", "P");

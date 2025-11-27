@@ -164,22 +164,22 @@ void applyCuts( const std::string& inputFileName, const std::string& outputFileN
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 	TH1F *hist_CprPyth_000 = new TH1F("hist_CprPyth_000", "C-parameter", 200, 0, 1.0);
-	hist_CprPyth_000->GetXaxis()->SetTitle("(C)"); hist_CprPyth_000->GetYaxis()->SetTitle("1/#sigma_{had} d#sigma/d(C)");
+	hist_CprPyth_000->GetXaxis()->SetTitle("C"); hist_CprPyth_000->GetYaxis()->SetTitle("1/#sigma_{had} d#sigma/d(C)");
 
 	TH1F *hist_CprPyth_085 = new TH1F("hist_CprPyth_085", "C-parameter", 200, 0, 1.0);
-	hist_CprPyth_085->GetXaxis()->SetTitle("(C)"); hist_CprPyth_085->GetYaxis()->SetTitle("1/#sigma_{had} d#sigma/d(C)");
+	hist_CprPyth_085->GetXaxis()->SetTitle("C"); hist_CprPyth_085->GetYaxis()->SetTitle("1/#sigma_{had} d#sigma/d(C)");
 
 	TH1F *hist_CprPyth_090 = new TH1F("hist_CprPyth_090", "Inverse Thrust", 200, 0, 0.45);
-	hist_CprPyth_090->GetXaxis()->SetTitle("(1-T)"); hist_CprPyth_090->GetYaxis()->SetTitle("1/#sigma_{had} d#sigma/d(1-T)");
+	hist_CprPyth_090->GetXaxis()->SetTitle("C"); hist_CprPyth_090->GetYaxis()->SetTitle("1/#sigma_{had} d#sigma/d(1-T)");
 
 	TH1F *hist_CprPyth_095 = new TH1F("hist_CprPyth_095", "Inverse Thrust", 200, 0, 0.45);
-	hist_CprPyth_095->GetXaxis()->SetTitle("(1-T)"); hist_CprPyth_095->GetYaxis()->SetTitle("1/#sigma_{had} d#sigma/d(1-T)");
+	hist_CprPyth_095->GetXaxis()->SetTitle("C"); hist_CprPyth_095->GetYaxis()->SetTitle("1/#sigma_{had} d#sigma/d(1-T)");
 
 	TH1F *hist_CprPyth_100 = new TH1F("hist_CprPyth_100", "C-parameter", 200, 0, 1.0);
-	hist_CprPyth_100->GetXaxis()->SetTitle("(C)"); hist_CprPyth_100->GetYaxis()->SetTitle("1/#sigma_{had} d#sigma/d(C)");
+	hist_CprPyth_100->GetXaxis()->SetTitle("C"); hist_CprPyth_100->GetYaxis()->SetTitle("1/#sigma_{had} d#sigma/d(C)");
 
 	TH1F *hist_CprPyth_ISR = new TH1F("hist_CprPyth_ISR", "C-parameter", 200, 0, 1.0);
-	hist_CprPyth_ISR->GetXaxis()->SetTitle("(C)"); hist_CprPyth_ISR->GetYaxis()->SetTitle("1/#sigma_{had} d#sigma/d(C)");
+	hist_CprPyth_ISR->GetXaxis()->SetTitle("C"); hist_CprPyth_ISR->GetYaxis()->SetTitle("1/#sigma_{had} d#sigma/d(C)");
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////
 

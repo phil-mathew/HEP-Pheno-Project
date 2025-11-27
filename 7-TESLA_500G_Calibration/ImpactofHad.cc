@@ -45,49 +45,49 @@ void ImpactofHad() {
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////	
 
 	TH1F* hist_ThrPyth_al = (TH1F*)input->Get("hist_ThrPyth");
-	hist_ThrPyth_al->SetLineColor(kBlack); hist_ThrPyth_al->SetMarkerColor(kBlack); hist_ThrPyth_al->SetMarkerStyle(21); hist_ThrPyth_al->SetLineWidth(3); hist_ThrPyth_al->SetMarkerSize(1);
+	hist_ThrPyth_al->SetLineColor(kBlack); hist_ThrPyth_al->SetMarkerColor(kBlack); hist_ThrPyth_al->SetMarkerStyle(21); hist_ThrPyth_al->SetLineWidth(1); hist_ThrPyth_al->SetMarkerSize(1);
 	TH1F* hist_ThrPyth_Zq = (TH1F*)input->Get("hist_ThrPyth_Zq");
-	hist_ThrPyth_Zq->SetLineColor(kRed+2); hist_ThrPyth_Zq->SetMarkerColor(kRed+1); hist_ThrPyth_Zq->SetMarkerStyle(21); hist_ThrPyth_Zq->SetLineWidth(3); hist_ThrPyth_Zq->SetMarkerSize(1);
+	hist_ThrPyth_Zq->SetLineColor(kRed+2); hist_ThrPyth_Zq->SetMarkerColor(kRed+1); hist_ThrPyth_Zq->SetMarkerStyle(21); hist_ThrPyth_Zq->SetLineWidth(1); hist_ThrPyth_Zq->SetMarkerSize(1);
 	TH1F* hist_ThrPyth_WW = (TH1F*)input->Get("hist_ThrPyth_WW");
-	hist_ThrPyth_WW->SetLineColor(kGreen+2); hist_ThrPyth_WW->SetMarkerColor(kGreen+1); hist_ThrPyth_WW->SetMarkerStyle(21); hist_ThrPyth_WW->SetLineWidth(3); hist_ThrPyth_WW->SetMarkerSize(1);
+	hist_ThrPyth_WW->SetLineColor(kGreen+2); hist_ThrPyth_WW->SetMarkerColor(kGreen+1); hist_ThrPyth_WW->SetMarkerStyle(21); hist_ThrPyth_WW->SetLineWidth(1); hist_ThrPyth_WW->SetMarkerSize(1);
 	TH1F* hist_ThrPyth_ZZ = (TH1F*)input->Get("hist_ThrPyth_ZZ");
-	hist_ThrPyth_ZZ->SetLineColor(kBlue+2); hist_ThrPyth_ZZ->SetMarkerColor(kBlue+1); hist_ThrPyth_ZZ->SetMarkerStyle(21); hist_ThrPyth_ZZ->SetLineWidth(3); hist_ThrPyth_ZZ->SetMarkerSize(1);
+	hist_ThrPyth_ZZ->SetLineColor(kBlue+2); hist_ThrPyth_ZZ->SetMarkerColor(kBlue+1); hist_ThrPyth_ZZ->SetMarkerStyle(21); hist_ThrPyth_ZZ->SetLineWidth(1); hist_ThrPyth_ZZ->SetMarkerSize(1);
 	TH1F* hist_ThrPyth_tt = (TH1F*)input->Get("hist_ThrPyth_tt");
-	hist_ThrPyth_tt->SetLineColor(kYellow+2); hist_ThrPyth_tt->SetMarkerColor(kYellow+1); hist_ThrPyth_tt->SetMarkerStyle(21); hist_ThrPyth_tt->SetLineWidth(3); hist_ThrPyth_tt->SetMarkerSize(1);
+	hist_ThrPyth_tt->SetLineColor(kYellow+2); hist_ThrPyth_tt->SetMarkerColor(kYellow+1); hist_ThrPyth_tt->SetMarkerStyle(21); hist_ThrPyth_tt->SetLineWidth(1); hist_ThrPyth_tt->SetMarkerSize(1);
 	TH1F* hist_ThrPyth_HZ = (TH1F*)input->Get("hist_ThrPyth_HZ");
-	hist_ThrPyth_HZ->SetLineColor(kMagenta+2); hist_ThrPyth_HZ->SetMarkerColor(kMagenta+1); hist_ThrPyth_HZ->SetMarkerStyle(21); hist_ThrPyth_HZ->SetLineWidth(3); hist_ThrPyth_HZ->SetMarkerSize(1);
+	hist_ThrPyth_HZ->SetLineColor(kMagenta+2); hist_ThrPyth_HZ->SetMarkerColor(kMagenta+1); hist_ThrPyth_HZ->SetMarkerStyle(21); hist_ThrPyth_HZ->SetLineWidth(1); hist_ThrPyth_HZ->SetMarkerSize(1);
 	TH1F* hist_ThrPyth_HW = (TH1F*)input->Get("hist_ThrPyth_HW");
-	hist_ThrPyth_HW->SetLineColor(kCyan+2); hist_ThrPyth_HW->SetMarkerColor(kCyan+1); hist_ThrPyth_HW->SetMarkerStyle(21); hist_ThrPyth_HW->SetLineWidth(3); hist_ThrPyth_HW->SetMarkerSize(1);
+	hist_ThrPyth_HW->SetLineColor(kCyan+2); hist_ThrPyth_HW->SetMarkerColor(kCyan+1); hist_ThrPyth_HW->SetMarkerStyle(21); hist_ThrPyth_HW->SetLineWidth(1); hist_ThrPyth_HW->SetMarkerSize(1);
 
 	TH1F* hist_CprPyth_al = (TH1F*)input->Get("hist_CprPyth");
-	hist_CprPyth_al->SetLineColor(kBlack); hist_CprPyth_al->SetMarkerColor(kBlack); hist_CprPyth_al->SetMarkerStyle(21); hist_CprPyth_al->SetLineWidth(3); hist_CprPyth_al->SetMarkerSize(1);
+	hist_CprPyth_al->SetLineColor(kBlack); hist_CprPyth_al->SetMarkerColor(kBlack); hist_CprPyth_al->SetMarkerStyle(21); hist_CprPyth_al->SetLineWidth(1); hist_CprPyth_al->SetMarkerSize(1);
 	TH1F* hist_CprPyth_Zq = (TH1F*)input->Get("hist_CprPyth_Zq");
-	hist_CprPyth_Zq->SetLineColor(kRed+2); hist_CprPyth_Zq->SetMarkerColor(kRed+1); hist_CprPyth_Zq->SetMarkerStyle(21); hist_CprPyth_Zq->SetLineWidth(3); hist_CprPyth_Zq->SetMarkerSize(1);
+	hist_CprPyth_Zq->SetLineColor(kRed+2); hist_CprPyth_Zq->SetMarkerColor(kRed+1); hist_CprPyth_Zq->SetMarkerStyle(21); hist_CprPyth_Zq->SetLineWidth(1); hist_CprPyth_Zq->SetMarkerSize(1);
 	TH1F* hist_CprPyth_WW = (TH1F*)input->Get("hist_CprPyth_WW");
-	hist_CprPyth_WW->SetLineColor(kGreen+2); hist_CprPyth_WW->SetMarkerColor(kGreen+1); hist_CprPyth_WW->SetMarkerStyle(21); hist_CprPyth_WW->SetLineWidth(3); hist_CprPyth_WW->SetMarkerSize(1);
+	hist_CprPyth_WW->SetLineColor(kGreen+2); hist_CprPyth_WW->SetMarkerColor(kGreen+1); hist_CprPyth_WW->SetMarkerStyle(21); hist_CprPyth_WW->SetLineWidth(1); hist_CprPyth_WW->SetMarkerSize(1);
 	TH1F* hist_CprPyth_ZZ = (TH1F*)input->Get("hist_CprPyth_ZZ");
-	hist_CprPyth_ZZ->SetLineColor(kBlue+2); hist_CprPyth_ZZ->SetMarkerColor(kBlue+1); hist_CprPyth_ZZ->SetMarkerStyle(21); hist_CprPyth_ZZ->SetLineWidth(3); hist_CprPyth_ZZ->SetMarkerSize(1);
+	hist_CprPyth_ZZ->SetLineColor(kBlue+2); hist_CprPyth_ZZ->SetMarkerColor(kBlue+1); hist_CprPyth_ZZ->SetMarkerStyle(21); hist_CprPyth_ZZ->SetLineWidth(1); hist_CprPyth_ZZ->SetMarkerSize(1);
 	TH1F* hist_CprPyth_tt = (TH1F*)input->Get("hist_CprPyth_tt");
-	hist_CprPyth_tt->SetLineColor(kYellow+2); hist_CprPyth_tt->SetMarkerColor(kYellow+1); hist_CprPyth_tt->SetMarkerStyle(21); hist_CprPyth_tt->SetLineWidth(3); hist_CprPyth_tt->SetMarkerSize(1);
+	hist_CprPyth_tt->SetLineColor(kYellow+2); hist_CprPyth_tt->SetMarkerColor(kYellow+1); hist_CprPyth_tt->SetMarkerStyle(21); hist_CprPyth_tt->SetLineWidth(1); hist_CprPyth_tt->SetMarkerSize(1);
 	TH1F* hist_CprPyth_HZ = (TH1F*)input->Get("hist_CprPyth_HZ");
-	hist_CprPyth_HZ->SetLineColor(kMagenta+2); hist_CprPyth_HZ->SetMarkerColor(kMagenta+1); hist_CprPyth_HZ->SetMarkerStyle(21); hist_CprPyth_HZ->SetLineWidth(3); hist_CprPyth_HZ->SetMarkerSize(1);
+	hist_CprPyth_HZ->SetLineColor(kMagenta+2); hist_CprPyth_HZ->SetMarkerColor(kMagenta+1); hist_CprPyth_HZ->SetMarkerStyle(21); hist_CprPyth_HZ->SetLineWidth(1); hist_CprPyth_HZ->SetMarkerSize(1);
 	TH1F* hist_CprPyth_HW = (TH1F*)input->Get("hist_CprPyth_HW");
-	hist_CprPyth_HW->SetLineColor(kCyan+2); hist_CprPyth_HW->SetMarkerColor(kCyan+1); hist_CprPyth_HW->SetMarkerStyle(21); hist_CprPyth_HW->SetLineWidth(3); hist_CprPyth_HW->SetMarkerSize(1);
+	hist_CprPyth_HW->SetLineColor(kCyan+2); hist_CprPyth_HW->SetMarkerColor(kCyan+1); hist_CprPyth_HW->SetMarkerStyle(21); hist_CprPyth_HW->SetLineWidth(1); hist_CprPyth_HW->SetMarkerSize(1);
 
 	TH1F* hist_nHadChg_al = (TH1F*)input->Get("hist_nHadChg");
-	hist_nHadChg_al->SetLineColor(kBlack); hist_nHadChg_al->SetMarkerColor(kBlack); hist_nHadChg_al->SetMarkerStyle(21); hist_nHadChg_al->SetLineWidth(3); hist_nHadChg_al->SetMarkerSize(1);
+	hist_nHadChg_al->SetLineColor(kBlack); hist_nHadChg_al->SetMarkerColor(kBlack); hist_nHadChg_al->SetMarkerStyle(21); hist_nHadChg_al->SetLineWidth(1); hist_nHadChg_al->SetMarkerSize(1);
 	TH1F* hist_nHadChg_Zq = (TH1F*)input->Get("hist_nHadChg_Zq");
-	hist_nHadChg_Zq->SetLineColor(kRed+2); hist_nHadChg_Zq->SetMarkerColor(kRed+1); hist_nHadChg_Zq->SetMarkerStyle(21); hist_nHadChg_Zq->SetLineWidth(3); hist_nHadChg_Zq->SetMarkerSize(1);
+	hist_nHadChg_Zq->SetLineColor(kRed+2); hist_nHadChg_Zq->SetMarkerColor(kRed+1); hist_nHadChg_Zq->SetMarkerStyle(21); hist_nHadChg_Zq->SetLineWidth(1); hist_nHadChg_Zq->SetMarkerSize(1);
 	TH1F* hist_nHadChg_WW = (TH1F*)input->Get("hist_nHadChg_WW");
-	hist_nHadChg_WW->SetLineColor(kGreen+2); hist_nHadChg_WW->SetMarkerColor(kGreen+1); hist_nHadChg_WW->SetMarkerStyle(21); hist_nHadChg_WW->SetLineWidth(3); hist_nHadChg_WW->SetMarkerSize(1);
+	hist_nHadChg_WW->SetLineColor(kGreen+2); hist_nHadChg_WW->SetMarkerColor(kGreen+1); hist_nHadChg_WW->SetMarkerStyle(21); hist_nHadChg_WW->SetLineWidth(1); hist_nHadChg_WW->SetMarkerSize(1);
 	TH1F* hist_nHadChg_ZZ = (TH1F*)input->Get("hist_nHadChg_ZZ");
-	hist_nHadChg_ZZ->SetLineColor(kBlue+2); hist_nHadChg_ZZ->SetMarkerColor(kBlue+1); hist_nHadChg_ZZ->SetMarkerStyle(21); hist_nHadChg_ZZ->SetLineWidth(3); hist_nHadChg_ZZ->SetMarkerSize(1);
+	hist_nHadChg_ZZ->SetLineColor(kBlue+2); hist_nHadChg_ZZ->SetMarkerColor(kBlue+1); hist_nHadChg_ZZ->SetMarkerStyle(21); hist_nHadChg_ZZ->SetLineWidth(1); hist_nHadChg_ZZ->SetMarkerSize(1);
 	TH1F* hist_nHadChg_tt = (TH1F*)input->Get("hist_nHadChg_tt");
-	hist_nHadChg_tt->SetLineColor(kYellow+2); hist_nHadChg_tt->SetMarkerColor(kYellow+1); hist_nHadChg_tt->SetMarkerStyle(21); hist_nHadChg_tt->SetLineWidth(3); hist_nHadChg_tt->SetMarkerSize(1);
+	hist_nHadChg_tt->SetLineColor(kYellow+2); hist_nHadChg_tt->SetMarkerColor(kYellow+1); hist_nHadChg_tt->SetMarkerStyle(21); hist_nHadChg_tt->SetLineWidth(1); hist_nHadChg_tt->SetMarkerSize(1);
 	TH1F* hist_nHadChg_HZ = (TH1F*)input->Get("hist_nHadChg_HZ");
-	hist_nHadChg_HZ->SetLineColor(kMagenta+2); hist_nHadChg_HZ->SetMarkerColor(kMagenta+1); hist_nHadChg_HZ->SetMarkerStyle(21); hist_nHadChg_HZ->SetLineWidth(3); hist_nHadChg_HZ->SetMarkerSize(1);
+	hist_nHadChg_HZ->SetLineColor(kMagenta+2); hist_nHadChg_HZ->SetMarkerColor(kMagenta+1); hist_nHadChg_HZ->SetMarkerStyle(21); hist_nHadChg_HZ->SetLineWidth(1); hist_nHadChg_HZ->SetMarkerSize(1);
 	TH1F* hist_nHadChg_HW = (TH1F*)input->Get("hist_nHadChg_HW");
-	hist_nHadChg_HW->SetLineColor(kCyan+2); hist_nHadChg_HW->SetMarkerColor(kCyan+1); hist_nHadChg_HW->SetMarkerStyle(21); hist_nHadChg_HW->SetLineWidth(3); hist_nHadChg_HW->SetMarkerSize(1);
+	hist_nHadChg_HW->SetLineColor(kCyan+2); hist_nHadChg_HW->SetMarkerColor(kCyan+1); hist_nHadChg_HW->SetMarkerStyle(21); hist_nHadChg_HW->SetLineWidth(1); hist_nHadChg_HW->SetMarkerSize(1);
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////
 // Disable histogram stats
@@ -143,7 +143,7 @@ void ImpactofHad() {
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 	// Create canvas
-	TCanvas* cv2 = new TCanvas("cv2", "FCC-ee ISR Studies", 800, 2100);
+	TCanvas* cv2 = new TCanvas("cv2", "FCC-ee ISR Studies", 800, 2090);
 
 	// Beautify
 	gStyle->SetErrorX(0.000000001);
@@ -171,30 +171,6 @@ void ImpactofHad() {
 	hist_CprPyth_al->GetYaxis()->SetTitle("N_{events}");
 	hist_nHadChg_al->GetYaxis()->SetTitle("N_{events}");
 
-	hist_ThrPyth_al->SetFillStyle(3001); hist_ThrPyth_al->SetFillColor(kBlack); 
-	hist_ThrPyth_Zq->SetFillStyle(3001); hist_ThrPyth_Zq->SetFillColor(kRed); 
-	hist_ThrPyth_WW->SetFillStyle(3001); hist_ThrPyth_WW->SetFillColor(kGreen); 
-	hist_ThrPyth_ZZ->SetFillStyle(3001); hist_ThrPyth_ZZ->SetFillColor(kBlue); 
-	hist_ThrPyth_tt->SetFillStyle(3001); hist_ThrPyth_tt->SetFillColor(kYellow); 
-	hist_ThrPyth_HZ->SetFillStyle(3001); hist_ThrPyth_HZ->SetFillColor(kMagenta+1); 
-	hist_ThrPyth_HW->SetFillStyle(3001); hist_ThrPyth_HW->SetFillColor(kCyan+1); 
-
-	hist_CprPyth_al->SetFillStyle(3001); hist_CprPyth_al->SetFillColor(kBlack); 
-	hist_CprPyth_Zq->SetFillStyle(3001); hist_CprPyth_Zq->SetFillColor(kRed); 
-	hist_CprPyth_WW->SetFillStyle(3001); hist_CprPyth_WW->SetFillColor(kGreen); 
-	hist_CprPyth_ZZ->SetFillStyle(3001); hist_CprPyth_ZZ->SetFillColor(kBlue); 
-	hist_CprPyth_tt->SetFillStyle(3001); hist_CprPyth_tt->SetFillColor(kYellow); 
-	hist_CprPyth_HZ->SetFillStyle(3001); hist_CprPyth_HZ->SetFillColor(kMagenta+1); 
-	hist_CprPyth_HW->SetFillStyle(3001); hist_CprPyth_HW->SetFillColor(kCyan+1);
-
-	hist_nHadChg_al->SetFillStyle(3001); hist_nHadChg_al->SetFillColor(kBlack); 
-	hist_nHadChg_Zq->SetFillStyle(3001); hist_nHadChg_Zq->SetFillColor(kRed); 
-	hist_nHadChg_WW->SetFillStyle(3001); hist_nHadChg_WW->SetFillColor(kGreen); 
-	hist_nHadChg_ZZ->SetFillStyle(3001); hist_nHadChg_ZZ->SetFillColor(kBlue); 
-	hist_nHadChg_tt->SetFillStyle(3001); hist_nHadChg_tt->SetFillColor(kYellow); 
-	hist_nHadChg_HZ->SetFillStyle(3001); hist_nHadChg_HZ->SetFillColor(kMagenta+1); 
-	hist_nHadChg_HW->SetFillStyle(3001); hist_nHadChg_HW->SetFillColor(kCyan+1); 
-
 	hist_ThrPyth_al->Rebin(2);
 	hist_ThrPyth_Zq->Rebin(2);
 	hist_ThrPyth_WW->Rebin(2);
@@ -213,8 +189,6 @@ void ImpactofHad() {
 
 	// Draw
 	cv2->cd(1);
-	hist_ThrPyth_al->SetFillColor(10);
-	hist_ThrPyth_al->SetFillStyle(1001);
 	hist_ThrPyth_al->Draw("HIST");
 	auto h1 = (TH1F*)hist_ThrPyth_al->Clone("h1");
 	h1->SetFillColor(kWhite);
@@ -269,6 +243,8 @@ void ImpactofHad() {
 	h7->SetFillStyle(3409);
 	h7->Draw("HIST SAME");
 
+	hist_ThrPyth_al->Draw("HIST SAME");
+
 	// Add legend
 	TLegend* lg2 = new TLegend(0.80, 0.70, 0.93, 0.95);
 	lg2->AddEntry(h1, "ee#rightarrowq#bar{q}", "F");
@@ -283,8 +259,6 @@ void ImpactofHad() {
 	gPad->RedrawAxis();
 
 	cv2->cd(2);
-	hist_CprPyth_al->SetFillColor(10);
-	hist_CprPyth_al->SetFillStyle(1001);
 	hist_CprPyth_al->Draw("HIST");
 	auto h11 = (TH1F*)hist_CprPyth_al->Clone("h11");
 	h11->SetFillColor(kWhite);
@@ -339,12 +313,12 @@ void ImpactofHad() {
 	h71->SetFillStyle(3409);
 	h71->Draw("HIST SAME");
 
+	hist_CprPyth_al->Draw("HIST SAME");
+
 	lg2->Draw("SAME");
 	gPad->RedrawAxis();
 
 	cv2->cd(3);
-	hist_nHadChg_al->SetFillColor(10);
-	hist_nHadChg_al->SetFillStyle(1001);
 	hist_nHadChg_al->Draw("HIST");
 	auto h12 = (TH1F*)hist_nHadChg_al->Clone("h12");
 	h12->SetFillColor(kWhite);
@@ -398,6 +372,8 @@ void ImpactofHad() {
 	h72->SetFillColor(kCyan+2);
 	h72->SetFillStyle(3409);
 	h72->Draw("HIST SAME");
+
+	hist_nHadChg_al->Draw("HIST SAME");
 
 	lg2->Draw("SAME");
 	gPad->RedrawAxis();
