@@ -190,7 +190,7 @@ void ImpactofHadron()
 	lg1->SetTextSize(0.03);
 
 	// Create canvas
-	TCanvas* cv = new TCanvas("cv", "FCC-ee Studies", 800, 1200);
+	TCanvas* cv = new TCanvas("cv", "FCC-ee Studies", 800, 1500);
 
 	// Beautify
 	gStyle->SetErrorX(0.000000001);

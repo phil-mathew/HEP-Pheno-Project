@@ -318,7 +318,7 @@ void ImpactofXi() {
 	TCanvas* cv5 = new TCanvas("cv5", "FCC-ee ISR Studies", 800, 850);
 
 	// Add legend
-	TLegend *lg4 = new TLegend(0.72, 0.16, 0.90, 0.35);
+	TLegend *lg4 = new TLegend(0.70, 0.15, 0.90, 0.43);
 	lg4->AddEntry(grph_ZetaAvg_Pythi, "PYTHIA", "P");
 	lg4->AddEntry(grph_ZetaAvg_ExALP, "ALEPH", "P");
 	lg4->AddEntry(grph_ZetaAvg_ExLL3, "L3", "P");

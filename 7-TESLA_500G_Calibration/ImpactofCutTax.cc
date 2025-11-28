@@ -206,6 +206,7 @@ void ImpactofCutTax()
 
 	TLatex latex4;
 	latex4.SetTextSize(0.06);
+	latex4.SetTextFont(62);
 	latex4.SetTextAlign(31);
 	latex4.DrawLatexNDC(0.35, 0.87, "91.2 GeV");
 
@@ -226,6 +227,7 @@ void ImpactofCutTax()
 
 	TLatex latex3;
 	latex3.SetTextSize(0.06);
+	latex3.SetTextFont(62);
 	latex3.SetTextAlign(31);
 	latex3.DrawLatexNDC(0.35, 0.87, "160 GeV");
 	
@@ -250,6 +252,7 @@ void ImpactofCutTax()
 
 	TLatex latex2;
 	latex2.SetTextSize(0.06);
+	latex2.SetTextFont(62);
 	latex2.SetTextAlign(31);
 	latex2.DrawLatexNDC(0.35, 0.87, "240 GeV");
 
@@ -279,6 +282,7 @@ void ImpactofCutTax()
 
 	TLatex latex1;
 	latex1.SetTextSize(0.06);
+	latex1.SetTextFont(62);
 	latex1.SetTextAlign(31);
 	latex1.DrawLatexNDC(0.35, 0.87, "365 GeV");
 

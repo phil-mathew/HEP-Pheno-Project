@@ -287,7 +287,7 @@ void ImpactofMults() {
 	TCanvas* cv4 = new TCanvas("cv4", "FCC-ee ISR Studies", 800, 850);
 
 	// Add legend
-	TLegend *lg4 = new TLegend(0.72, 0.15, 0.90, 0.43);
+	TLegend *lg4 = new TLegend(0.70, 0.15, 0.90, 0.43);
 	lg4->AddEntry(grph_nHadAvg_Pythi, "PYTHIA", "P");
 	lg4->AddEntry(grph_nHadAvg_ExALP, "ALEPH", "P");
 	lg4->AddEntry(grph_nHadAvg_ExLL3, "L3", "P");
