@@ -1,5 +1,5 @@
 # QCD @ FCC-ee
-This repo tracks my research project on QCD physics in electron-positron annihilations at the FCCee using Pythia 8.313, ROOT 6.32.04, and FastJet 3.4.3.
+This repo tracks my research project on QCD physics in electron-positron annihilations at the FCCee using Pythia 8.313, ROOT 6.32.04, and FastJet 3.4.3. For future reference, a guide on installation of necessary software has been compiled.
 
 # Installation
 
