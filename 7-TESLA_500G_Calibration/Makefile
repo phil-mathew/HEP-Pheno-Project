@@ -16,10 +16,9 @@ gen%: gen%.cc
 	g++ -O $@.cc -o $@ \
 	-I/home/pmathew/software/pythia8313/include `root-config --cflags` \
 	-lpythia8 -L/home/pmathew/software/pythia8313/lib `root-config --glibs` \
-
-# 	-I/home/pmathew/software/fjcore-3.4.3/ \
-# 	`/home/pmathew/software/fastjet-install/bin/fastjet-config --cxxflags --libs --plugins` \
-# 	-lLHAPDF -L/home/pmathew/software/lhapdf-install-6.5.0/lib
+	-I/home/pmathew/software/fjcore-3.4.3/ \
+	`/home/pmathew/software/fastjet-install/bin/fastjet-config --cxxflags --libs --plugins` \
+	-lLHAPDF -L/home/pmathew/software/lhapdf-install-6.5.0/lib
 #	execute script
 	./$@
 #	delete exe file
@@ -30,10 +29,9 @@ cut%: cut%.cc
 	g++ -O $@.cc -o $@ \
 	-I/home/pmathew/software/pythia8313/include `root-config --cflags` \
 	-lpythia8 -L/home/pmathew/software/pythia8313/lib `root-config --glibs` \
-
-# 	-I/home/pmathew/software/fjcore-3.4.3/ \
-# 	`/home/pmathew/software/fastjet-install/bin/fastjet-config --cxxflags --libs --plugins` \
-# 	-lLHAPDF -L/home/pmathew/software/lhapdf-install-6.5.0/lib
+	-I/home/pmathew/software/fjcore-3.4.3/ \
+	`/home/pmathew/software/fastjet-install/bin/fastjet-config --cxxflags --libs --plugins` \
+	-lLHAPDF -L/home/pmathew/software/lhapdf-install-6.5.0/lib
 #	execute script
 	./$@
 #	delete exe file

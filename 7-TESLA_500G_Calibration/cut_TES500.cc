@@ -730,10 +730,10 @@ int main() {
 
 	// ISR
 	// applyCuts("4-GenData/gen_FCC500_ISR.root", "5-CutData/cut_FCC500_ISR.root", 500.0);
-	applyCuts("4-GenData/gen_FCC365_ISR.root", "5-CutData/cut_FCC365_ISR.root", 365.0);
-	applyCuts("4-GenData/gen_FCC240_ISR.root", "5-CutData/cut_FCC240_ISR.root", 240.0);
-	applyCuts("4-GenData/gen_FCC160_ISR.root", "5-CutData/cut_FCC160_ISR.root", 160.0);
-	applyCuts("4-GenData/gen_FCC912_ISR.root", "5-CutData/cut_FCC912_ISR.root", 91.20);
+	// applyCuts("4-GenData/gen_FCC365_ISR.root", "5-CutData/cut_FCC365_ISR.root", 365.0);
+	// applyCuts("4-GenData/gen_FCC240_ISR.root", "5-CutData/cut_FCC240_ISR.root", 240.0);
+	// applyCuts("4-GenData/gen_FCC160_ISR.root", "5-CutData/cut_FCC160_ISR.root", 160.0);
+	// applyCuts("4-GenData/gen_FCC912_ISR.root", "5-CutData/cut_FCC912_ISR.root", 91.20);
 
 	// Calibration
 	// applyCuts("4-GenData/gen_FCC200.root", "5-CutData/cut_FCC200.root", 200.0);
