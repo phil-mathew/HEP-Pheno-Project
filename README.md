@@ -5,9 +5,10 @@ This repo tracks the progress of my research project studying QCD physics in ele
 
 ## ROOT
 
-Install dependencies:
+Install dependencies
 
-`sudo apt install binutils cmake dpkg-dev g++ gcc libssl-dev git libx11-dev \
+```
+sudo apt install binutils cmake dpkg-dev g++ gcc libssl-dev git libx11-dev \
 libxext-dev libxft-dev libxpm-dev python3 libtbb-dev libvdt-dev libgif-dev \
 gfortran libpcre3-dev \
 libglu1-mesa-dev libglew-dev libftgl-dev \
@@ -16,7 +17,8 @@ libavahi-compat-libdnssd-dev libldap2-dev \
  python3-dev python3-numpy libxml2-dev libkrb5-dev \
 libgsl-dev qtwebengine5-dev nlohmann-json3-dev libmysqlclient-dev \
 libgl2ps-dev \
-liblzma-dev libxxhash-dev liblz4-dev libzstd-dev`
+liblzma-dev libxxhash-dev liblz4-dev libzstd-dev
+```
 
 // Install
 wget https://root.cern/download/root_v6.32.04.source.tar.gz
