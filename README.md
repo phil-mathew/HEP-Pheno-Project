@@ -5,7 +5,8 @@ This repo tracks the progress of my research project studying QCD physics in ele
 
 ## ROOT
 
-Install dependencies
+Install dependencies:
+
 `sudo apt install binutils cmake dpkg-dev g++ gcc libssl-dev git libx11-dev \
 libxext-dev libxft-dev libxpm-dev python3 libtbb-dev libvdt-dev libgif-dev \
 gfortran libpcre3-dev \
