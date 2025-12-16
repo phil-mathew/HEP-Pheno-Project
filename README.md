@@ -1,5 +1,5 @@
 # QCD @ FCC-ee
-This repo tracks progress of my research project on QCD physics through event shapes and inclusive hadron spectra in electron-positron annihilations at the FCCee. The analysis uses Pythia 8.313, ROOT 6.32.04, and FastJet 3.4.3. For future reference, a guide on installation of necessary software has been compiled.
+This repo tracks progress of my research project on QCD physics through event shapes and inclusive hadron spectra in electron-positron annihilations at the FCCee. The analysis uses Pythia 8.313, ROOT 6.32.04, and FastJet 3.4.3. An installation guide is compiled below for future reference.
 
 # Installation
 
