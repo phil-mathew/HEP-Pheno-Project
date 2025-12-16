@@ -3,9 +3,9 @@ This repo tracks the progress of my research project studying QCD physics in ele
 
 # Installation
 
-## ROOT
+## ROOT 6.32.04
 
-Dependencies
+### Dependencies
 ```
 sudo apt install binutils cmake dpkg-dev g++ gcc libssl-dev git libx11-dev \
 libxext-dev libxft-dev libxpm-dev python3 libtbb-dev libvdt-dev libgif-dev \
@@ -19,7 +19,7 @@ libgl2ps-dev \
 liblzma-dev libxxhash-dev liblz4-dev libzstd-dev
 ```
 
-Install
+### Install
 ```
 wget https://root.cern/download/root_v6.32.04.source.tar.gz
 tar xzvf root_v6.32.04.source.tar.gz
@@ -31,10 +31,9 @@ cmake -DCMAKE_INSTALL_PREFIX=~/0-software/root/root-6.32.04-install .
 make -j4
 make install
 ```
-
-Add to bashrc
+Add these lines to bashrc
 ```
 . /home/pmathew/0-software/root/root-6.32.04-install/bin/thisroot.sh
 ```
 
-Check by running this command in a new terminal: `root`
+Verify installation by running `root` in a new terminal.
