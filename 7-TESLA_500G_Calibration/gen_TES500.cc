@@ -401,7 +401,7 @@ int main() {
 	// genEvents("4-GenData/gen_FCC200.root", 200.0, 1E6);
 
 	// Test
-	// genEvents("4-GenData/gen_FCCtest.root", 500, 100);
+	genEvents("4-GenData/gen_FCCtest.root", 500, 1E3);
 
 	// Terminate
     return 0;
