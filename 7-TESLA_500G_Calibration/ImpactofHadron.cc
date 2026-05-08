@@ -182,7 +182,7 @@ void ImpactofHadron()
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 	// Add legend
-	TLegend *lg1 = new TLegend(0.42, 0.78, 0.66, 0.95);
+	TLegend *lg1 = new TLegend(0.47, 0.78, 0.62, 0.95);
 	lg1->AddEntry(hist_ThrCorr_912, "#sqrt{s} = 91.2 GeV", "L");
 	lg1->AddEntry(hist_ThrCorr_160, "#sqrt{s} = 160 GeV", "L");
 	lg1->AddEntry(hist_ThrCorr_240, "#sqrt{s} = 240 GeV", "L");
@@ -190,7 +190,7 @@ void ImpactofHadron()
 	lg1->SetTextSize(0.03);
 
 	// Create canvas
-	TCanvas* cv = new TCanvas("cv", "FCC-ee Studies", 800, 1500);
+	TCanvas* cv = new TCanvas("cv", "FCC-ee Studies", 800, 1000);
 
 	// Beautify
 	gStyle->SetErrorX(0.000000001);
